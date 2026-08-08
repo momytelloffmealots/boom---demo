@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.LowLevelPhysics2D.PhysicsShape;
 
 public class SimpleCannon : MonoBehaviour
 {

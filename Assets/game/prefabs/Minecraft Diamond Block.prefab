@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 53b84a0ff0e5a4944b94fa66dd35828d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 53b84a0ff0e5a4944b94fa66dd35828d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 53b84a0ff0e5a4944b94fa66dd35828d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 53b84a0ff0e5a4944b94fa66dd35828d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -107,6 +107,7 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
+  id: kc
 --- !u!65 &2333619573128203629
 BoxCollider:
   m_ObjectHideFlags: 0

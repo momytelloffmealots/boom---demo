@@ -10,6 +10,7 @@ public class Block : MonoBehaviour
 
     private bool isScheduledToDestroy = false;
 
+    [SerializeField] private string id;
     private void OnCollisionEnter(Collision collision)
     {
         if (isScheduledToDestroy) return;
