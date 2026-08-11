@@ -142,7 +142,8 @@ public class LevelEditorWindow : EditorWindow
     {
         Place,
         Erase,
-        Rotate
+        Rotate,
+        RotateVertical 
     }
 
     [SerializeField]
@@ -168,7 +169,11 @@ public class LevelEditorWindow : EditorWindow
         GUILayout.Label("LEVEL EDITOR", EditorStyles.boldLabel);
         GUILayout.Space(10);
 
-        currentMode = (EditMode)GUILayout.Toolbar((int)currentMode, new string[] { "Place (Thêm)", "Erase (Xóa)", "Rotate (Xoay)" });
+        currentMode = (EditMode)GUILayout.Toolbar((int)currentMode, new string[] {
+            "Place (Thêm)",
+            "Erase (Xóa)",
+            "Rotate (Xoay)",
+            "Rotate Vertical (Xoay Ngang)"});
 
         GUILayout.Space(10);
 
@@ -220,12 +225,22 @@ public class LevelEditorWindow : EditorWindow
                     : $"Selected : {selectedPrefab.name}",
                 MessageType.None);
         }
-        else
+        else if (currentMode == EditMode.Erase)
         {
             EditorGUILayout.HelpBox(
-                currentMode == EditMode.Erase
-                    ? "Erase Mode: Click any block in the Scene View to delete it."
-                    : "Rotate Mode: Click any block in the Scene View to rotate it 90 degrees around Y axis.",
+                "Erase Mode: Click any block in the Scene View to delete it.",
+                MessageType.Info);
+        }
+        else if (currentMode == EditMode.Rotate)
+        {
+            EditorGUILayout.HelpBox(
+                "Rotate Mode: Click any block in the Scene View to rotate it 90 degrees around Y axis.",
+                MessageType.Info);
+        }
+        else if (currentMode == EditMode.RotateVertical)
+        {
+            EditorGUILayout.HelpBox(
+                "Rotate Vertical Mode: Click any block in the Scene View to rotate it 90 degrees around X axis.",
                 MessageType.Info);
         }
 

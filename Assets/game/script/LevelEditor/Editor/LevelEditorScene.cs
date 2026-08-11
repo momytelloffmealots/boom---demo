@@ -93,6 +93,11 @@ public static class LevelEditorScene
             Handles.color = Color.cyan;
             Handles.DrawWireCube(pos, Vector3.one * 1.05f);
         }
+        else if (mode == LevelEditorWindow.EditMode.RotateVertical)
+        {
+            Handles.color = Color.yellow;
+            Handles.DrawWireCube(pos, Vector3.one * 1.05f);
+        }
 
         // Repaint scene view when mouse moves to update preview position without infinite loop
         if (e.type == EventType.MouseMove || e.type == EventType.MouseDrag)
@@ -120,9 +125,13 @@ public static class LevelEditorScene
             else if (mode == LevelEditorWindow.EditMode.Rotate && hitObject != null)
             {
                 Undo.RecordObject(hitObject.transform, "Rotate Block");
-                hitObject.transform.Rotate(0, 90, 0);
+                hitObject.transform.root.Rotate(0, 45, 0);
             }
-
+            else if (mode == LevelEditorWindow.EditMode.RotateVertical && hitObject != null)
+            {
+                Undo.RecordObject(hitObject.transform, "Rotate Block Vertically");
+                hitObject.transform.root.Rotate(45, 0, 0);
+            }
             e.Use();
         }
     }
