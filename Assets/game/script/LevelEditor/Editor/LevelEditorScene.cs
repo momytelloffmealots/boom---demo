@@ -71,9 +71,10 @@ public static class LevelEditorScene
 
         if (mode == LevelEditorWindow.EditMode.Place)
         {
-            pos.x = Mathf.Round(pos.x);
-            pos.y = Mathf.Round(pos.y);
-            pos.z = Mathf.Round(pos.z);
+            float snapSize = 1f;
+            pos.x = Mathf.Round(pos.x) * snapSize;
+            pos.y = Mathf.Round(pos.y) * snapSize;
+            pos.z = Mathf.Round(pos.z) * snapSize;
         }
 
         // Draw preview wire cube based on active mode
