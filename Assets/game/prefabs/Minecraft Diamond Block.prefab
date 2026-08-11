@@ -72,6 +72,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Minecraft Diamond Block
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 53b84a0ff0e5a4944b94fa66dd35828d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 53b84a0ff0e5a4944b94fa66dd35828d, type: 3}
+      propertyPath: m_TagString
+      value: block
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -137,7 +145,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8400706692109857277}
   serializedVersion: 5
-  m_Mass: 11
+  m_Mass: 20
   m_LinearDamping: 1
   m_AngularDamping: 0.5
   m_CenterOfMass: {x: 0, y: 0, z: 0}

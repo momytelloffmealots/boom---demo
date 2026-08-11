@@ -8,14 +8,17 @@ public class BulletImpact : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (explosionVFXPrefab != null)
+        bool check = true;
+        if (explosionVFXPrefab != null && collision.gameObject.CompareTag("block") && check == true)
         {
             // 1. Lấy điểm va chạm đầu tiên
             ContactPoint contact = collision.contacts[0];
 
             // 2. Tạo hiệu ứng nổ tại điểm va chạm, xoay hướng văng ra ngoài mặt tường
-            Instantiate(explosionVFXPrefab, contact.point, Quaternion.LookRotation(contact.normal));
+            GameObject vfx = Instantiate(explosionVFXPrefab, contact.point, Quaternion.LookRotation(contact.normal));
             //CFX_SpawnSystem.GetNextObject(explosionVFXPrefab);
+            Destroy(vfx,1f);
+            check = false;
         }
     }
 }

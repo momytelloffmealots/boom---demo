@@ -6,6 +6,8 @@ TagManager:
   tags:
   - ground
   - FxTemporaire
+  - Undefined
+  - block
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - UI
   - ground
   - bullet
-  - 
+  - block
   - 
   - 
   - 
