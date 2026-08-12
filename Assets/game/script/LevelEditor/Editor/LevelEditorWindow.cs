@@ -294,6 +294,9 @@ public class LevelEditorWindow : EditorWindow
         GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
         foreach (GameObject obj in allObjects)
         {
+            // ✅ CHỈ LẤY OBJECT GỐC NGLẠI CÙNG (Nếu obj là con bên trong thì bỏ qua)
+            GameObject rootInstance = PrefabUtility.GetOutermostPrefabInstanceRoot(obj);
+            if (rootInstance != obj) continue;
             // Kiểm tra xem Object có phải là Instance của Prefab trong Palette không
             GameObject prefabParent = PrefabUtility.GetCorrespondingObjectFromSource(obj);
             if (prefabParent != null && validPrefabNames.Contains(prefabParent.name))
