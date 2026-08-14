@@ -150,9 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a900bb9e6f147bd4498edb3011bff39c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  lifeTime: 4
+  lifeTime: 3
   timeBeforeGravity: 2
-  timeAfterCollision: 2
+  timeAfterCollision: 1
 --- !u!114 &-9134738285385443494
 MonoBehaviour:
   m_ObjectHideFlags: 0
