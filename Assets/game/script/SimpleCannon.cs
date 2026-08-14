@@ -76,10 +76,14 @@ public class SimpleCannon : MonoBehaviour
 
         if (bullet != null)
         {
-            //bullet.transform.SetParent(null);
-
             // Đặt đạn đúng tại FirePoint và xoay theo hướng từ FirePoint -> TargetPoint
             bullet.transform.SetPositionAndRotation(firePoint.position, Quaternion.LookRotation(shootDirection));
+
+            // Đăng ký sự kiện hoàn trả lại Pool
+            if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
+            {
+                bulletScript.OnRelease = (go) => SimpleBulletPool.Instance.ReturnBullet(go);
+            }
 
             if (bullet.TryGetComponent<Rigidbody>(out Rigidbody rb))
             {
@@ -91,13 +95,10 @@ public class SimpleCannon : MonoBehaviour
                 rb.linearVelocity = shootDirection * bulletSpeed;
             }
 
-            // VFX Tạo hiệu ứng lửa nòng súng ngay tại đầu nòng (firePoint)
+            // VFX Tạo hiệu ứng lửa nòng súng ngay tại đầu nòng (firePoint) bằng Instantiate bình thường
             if (muzzleVFXPrefab != null && firePoint != null)
             {
                 Instantiate(muzzleVFXPrefab, firePoint.position, firePoint.rotation);
-
-                //CFX_SpawnSystem.GetNextObject(muzzleVFXPrefab,true);
-                // Do War FX có sẵn script tự hủy nên không cần gọi Destroy
             }
         }
 

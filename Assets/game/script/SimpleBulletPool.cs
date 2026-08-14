@@ -13,12 +13,14 @@ public class SimpleBulletPool : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log($"[SimpleBulletPool] Awake called on '{gameObject.name}'. Current Instance: {(Instance != null ? Instance.gameObject.name : "null")}", this);
         if (Instance == null)
         {
             Instance = this;
         }
         else
         {
+            Debug.LogWarning($"[SimpleBulletPool] Duplicate instance found on '{gameObject.name}' (current active instance is '{Instance.gameObject.name}'). Destroying duplicate GameObject.", this);
             Destroy(gameObject);
             return;
         }
@@ -46,14 +48,38 @@ public class SimpleBulletPool : MonoBehaviour
 
     public GameObject GetBullet()
     {
-        GameObject bullet = bulletPool.Count > 0 ? bulletPool.Dequeue() : CreateNewBullet();
+        GameObject bullet = null;
+        // Lấy đạn ra cho đến khi tìm thấy đạn hợp lệ (tránh lỗi null nếu đạn bị hủy bên ngoài)
+        while (bulletPool.Count > 0)
+        {
+            bullet = bulletPool.Dequeue();
+            if (bullet != null)
+            {
+                bullet.transform.SetParent(null); // Đưa ra world space để tránh bị ảnh hưởng scale của Pool
+                break;
+            }
+        }
+
+        // Nếu hết đạn trong pool, tự động tạo mới
+        if (bullet == null)
+        {
+            bullet = Instantiate(bulletPrefab);
+        }
+
         bullet.SetActive(true);
         return bullet;
     }
 
     public void ReturnBullet(GameObject bullet)
     {
+        if (bullet == null) return;
+
         bullet.SetActive(false);
-        bulletPool.Enqueue(bullet);
+        bullet.transform.SetParent(transform); // Đưa lại làm con của Pool để phân cấp gọn gàng
+
+        if (!bulletPool.Contains(bullet))
+        {
+            bulletPool.Enqueue(bullet);
+        }
     }
 }

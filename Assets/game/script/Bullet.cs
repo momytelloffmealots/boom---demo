@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float timeAfterCollision = 1f;
     private Rigidbody rb;
 
+    public System.Action<GameObject> OnRelease;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -47,9 +49,9 @@ public class Bullet : MonoBehaviour
 
     private void ReturnToPool()
     {
-        if (SimpleBulletPool.Instance != null)
+        if (OnRelease != null)
         {
-            SimpleBulletPool.Instance.ReturnBullet(gameObject);
+            OnRelease(gameObject);
         }
         else
         {
