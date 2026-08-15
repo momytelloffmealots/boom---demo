@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockPalette
   m_EditorClassIdentifier: Assembly-CSharp::BlockPalette
   prefabs:
-  - {fileID: 8400706692109857277, guid: 0651652b74cbbbe44902fba0a6ce8d08, type: 3}
-  - {fileID: 5886136628144733659, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
-  - {fileID: 1652569468831483223, guid: 23b9eb15da55cb843b07e53ee5acd1ee, type: 3}
   - {fileID: 2274177957866512583, guid: ec543be229864a14784ad6c4b846012c, type: 3}
+  - {fileID: 5886136628144733659, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
+  - {fileID: 8400706692109857277, guid: 0651652b74cbbbe44902fba0a6ce8d08, type: 3}
+  - {fileID: 6234875405366997427, guid: 069aab8d4db093d4f95ecd6e93a48b0d, type: 3}

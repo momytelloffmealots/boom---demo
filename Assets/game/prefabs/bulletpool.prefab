@@ -44,5 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276138049151c5d438c4632c5986cfb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleBulletPool
-  bulletPrefab: {fileID: 3484708339894919313, guid: cbb219a1b4d5b284bbb4bf12f250241c, type: 3}
-  initialPoolSize: 10
+  prewarmItems:
+  - name: woww
+    prefab: {fileID: 2883797502249945402, guid: 1e54877675f6e4a46ad7ca7c4d7a5bf6, type: 3}
+    initialSize: 10
+  defaultBulletPrefab: {fileID: 2321178568921507295, guid: cbb219a1b4d5b284bbb4bf12f250241c, type: 3}
