@@ -10,6 +10,7 @@ public class PlayPanelController : MonoBehaviour
     [Header("Game Systems")]
     public GameObject gameplayRoot; // Kéo cụm 3D Gameplay_Root vào đây
     public GameObject canvasUI;     // Kéo Canvas tổng vào đây
+    public GameObject canvasInGame;  // Kéo Canvas_InGame vào đây
 
     private void Awake()
     {
@@ -48,5 +49,9 @@ public class PlayPanelController : MonoBehaviour
 
         // 3. Bật môi trường 3D lên để chơi
         if (gameplayRoot != null) gameplayRoot.SetActive(true);
+
+        if (canvasInGame != null) canvasInGame.SetActive(true);
     }
+
+
 }
