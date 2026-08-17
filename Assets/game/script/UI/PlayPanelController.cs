@@ -4,54 +4,56 @@ using UnityEngine.UI;
 public class PlayPanelController : MonoBehaviour
 {
     [Header("UI Buttons")]
-    public Button btnClose;    // Kéo btn_x vào đây
-    public Button btnPlayGame; // Kéo btn_play vào đây
+    public Button btnClose;
+    public Button btnPlayGame;
 
-    [Header("Game Systems")]
-    public GameObject gameplayRoot; // Kéo cụm 3D Gameplay_Root vào đây
-    public GameObject canvasUI;     // Kéo Canvas tổng vào đây
-    public GameObject canvasInGame;  // Kéo Canvas_InGame vào đây
+    [Header("Liên kết Views & Hệ thống")]
+    public LoadingView loadingView;      // Kéo Panel_Loading_Gameplay vào đây
+    public GameObject gameplayRoot;
+    public GameObject canvasUI;
+    public GameObject canvasInGame;
+
+    [Header("Cài đặt Loading")]
+    public float loadingTime = 2.0f;
 
     private void Awake()
     {
-        // Đăng ký sự kiện bằng code (Chuẩn MVC)
-        if (btnClose != null)
-        {
-            btnClose.onClick.AddListener(ClosePopup);
-        }
+        if (btnClose != null) btnClose.onClick.AddListener(ClosePopup);
+        if (btnPlayGame != null) btnPlayGame.onClick.AddListener(StartGameplay);
 
-        if (btnPlayGame != null)
-        {
-            btnPlayGame.onClick.AddListener(StartGameplay);
-        }
+        if (loadingView != null) loadingView.HideLoading();
     }
 
-    // Hàm dùng để mở Popup
     public void OpenPopup()
     {
         gameObject.SetActive(true);
     }
 
-    // Hàm dùng để đóng Popup
     public void ClosePopup()
     {
         gameObject.SetActive(false);
     }
 
-    // Hàm xử lý khi bấm nút Play màu xanh
     public void StartGameplay()
     {
-        // 1. Tắt chính cái popup này
+        // 1. Ra lệnh cho LoadingView bật lên và đếm giờ.
+        // Dặn nó: "Khi nào đếm xong thì hãy gọi hàm SetupGame() nhé!"
+        if (loadingView != null)
+        {
+            loadingView.ShowLoading(loadingTime, SetupGame);
+        }
+
+        // 2. Bây giờ có thể yên tâm tắt bảng Play đi mà không sợ chết Coroutine
         gameObject.SetActive(false);
-
-        // 2. Tắt toàn bộ giao diện Menu (Canvas)
-        if (canvasUI != null) canvasUI.SetActive(false);
-
-        // 3. Bật môi trường 3D lên để chơi
-        if (gameplayRoot != null) gameplayRoot.SetActive(true);
-
-        if (canvasInGame != null) canvasInGame.SetActive(true);
     }
 
+    // Hàm này chỉ được chạy SAU KHI màn hình Loading đếm ngược xong
+    private void SetupGame()
+    {
+        if (canvasUI != null) canvasUI.SetActive(false);
+        if (gameplayRoot != null) gameplayRoot.SetActive(true);
+        if (canvasInGame != null) canvasInGame.SetActive(true);
 
+        // if (LevelManager.Instance != null) LevelManager.Instance.GenerateCurrentMap();
+    }
 }
