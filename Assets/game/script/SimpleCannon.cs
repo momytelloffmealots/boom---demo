@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems; // THÊM DÒNG NÀY 1: Gọi thư viện quản lý UI
 
 public class SimpleCannon : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class SimpleCannon : MonoBehaviour
     [Header("Muzzle VFX (War FX)")]
     [Tooltip("Kéo Prefab hiệu ứng lửa/khói nòng súng từ thư mục _Effects vào đây")]
     [SerializeField] private GameObject muzzleVFXPrefab;
+
     void Update()
     {
         // 1. Kiểm tra bấm chuột/cảm ứng
@@ -22,7 +24,6 @@ public class SimpleCannon : MonoBehaviour
             isPressed = true;
             screenPosition = Mouse.current.position.ReadValue();
         }
-
         else if (Input.GetMouseButtonDown(0))
         {
             isPressed = true;
@@ -31,6 +32,13 @@ public class SimpleCannon : MonoBehaviour
 
         if (isPressed)
         {
+            // THÊM DÒNG NÀY 2: Kiểm tra xem vị trí click có đang đè lên giao diện UI không
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            {
+                // Nếu đang bấm vào UI (nút Setting, Quit...) thì thoát luôn, không gọi hàm Shoot()
+                return;
+            }
+
             Shoot(screenPosition);
         }
     }
@@ -52,7 +60,8 @@ public class SimpleCannon : MonoBehaviour
         }
         else
         {
-            targetPoint = ray.GetPoint(raycastDistance); // Điểm click trên không gian (nếu không trúng vật thể nào) 
+            // Điểm click trên không gian (nếu không trúng vật thể nào) 
+            targetPoint = ray.GetPoint(raycastDistance);
         }
 
         // 2. Hướng bắn của ĐẠN (kết nối từ FirePoint tới TargetPoint)
@@ -70,16 +79,21 @@ public class SimpleCannon : MonoBehaviour
             // Pháo chỉ quay trái/phải, giữ nguyên góc ngẩng X và Z
             transform.rotation = Quaternion.LookRotation(cannonLookDirection);
         }
+
         // 3. Lấy đạn từ Pool
         if (SimpleBulletPool.Instance == null) return;
         GameObject bullet = SimpleBulletPool.Instance.GetBullet();
 
         if (bullet != null)
         {
-            //bullet.transform.SetParent(null);
-
             // Đặt đạn đúng tại FirePoint và xoay theo hướng từ FirePoint -> TargetPoint
             bullet.transform.SetPositionAndRotation(firePoint.position, Quaternion.LookRotation(shootDirection));
+
+            // Đăng ký sự kiện hoàn trả lại Pool
+            if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
+            {
+                bulletScript.OnRelease = (go) => SimpleBulletPool.Instance.ReturnBullet(go);
+            }
 
             if (bullet.TryGetComponent<Rigidbody>(out Rigidbody rb))
             {
@@ -91,15 +105,11 @@ public class SimpleCannon : MonoBehaviour
                 rb.linearVelocity = shootDirection * bulletSpeed;
             }
 
-            // VFX Tạo hiệu ứng lửa nòng súng ngay tại đầu nòng (firePoint)
+            // VFX Tạo hiệu ứng lửa nòng súng ngay tại đầu nòng (firePoint) bằng Instantiate bình thường
             if (muzzleVFXPrefab != null && firePoint != null)
             {
                 Instantiate(muzzleVFXPrefab, firePoint.position, firePoint.rotation);
-
-                //CFX_SpawnSystem.GetNextObject(muzzleVFXPrefab,true);
-                // Do War FX có sẵn script tự hủy nên không cần gọi Destroy
             }
         }
-
     }
 }
