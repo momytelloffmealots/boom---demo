@@ -11,9 +11,7 @@ public class ItemDetailPopup : MonoBehaviour
 
     private void Awake()
     {
-        // Tự động ẩn Popup ngay khi scene bắt đầu
-        gameObject.SetActive(false);
-
+        // Gán nút bấm nền mờ để đóng
         if (btnOverlayBackground == null)
         {
             btnOverlayBackground = GetComponent<Button>();
@@ -33,11 +31,13 @@ public class ItemDetailPopup : MonoBehaviour
             imgLargeIcon.sprite = data.icon;
         }
 
+        // Bật popup khi bấm vào item
         gameObject.SetActive(true);
     }
 
     public void ClosePopup()
     {
+        // Tắt popup khi bấm ra ngoài
         gameObject.SetActive(false);
     }
 }
