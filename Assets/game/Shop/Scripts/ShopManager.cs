@@ -8,13 +8,15 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI txtCoins;
     [SerializeField] private Transform contentParent;
     [SerializeField] private SimpleShopItemUI itemPrefab;
+    [SerializeField] private ItemDetailPopup detailPopup; // Kéo Popup vào đây
+
+    public ItemDetailPopup DetailPopup => detailPopup;
 
     [Header("Data Settings")]
     [SerializeField] private List<ItemSO> shopItemList;
 
     private void OnEnable()
     {
-        // Kích hoạt lắng nghe sự kiện đổi coin ĐỂ CẬP NHẬT TEXT (Không sinh lại UI)
         if (CurrencyManager.Instance != null)
         {
             CurrencyManager.Instance.OnCoinChanged += UpdateCoinUI;
@@ -24,7 +26,6 @@ public class ShopManager : MonoBehaviour
 
     private void OnDisable()
     {
-        // Hủy đăng ký sự kiện khi ẩn GameObject
         if (CurrencyManager.Instance != null)
         {
             CurrencyManager.Instance.OnCoinChanged -= UpdateCoinUI;
@@ -34,10 +35,9 @@ public class ShopManager : MonoBehaviour
     private void Start()
     {
         UpdateCoinUI();
-        GenerateShop(); // Chỉ khởi tạo UI các món đồ đúng 1 lần khi bắt đầu
+        GenerateShop();
     }
 
-    // Cập nhật giao diện tiền mặt
     public void UpdateCoinUI()
     {
         if (CurrencyManager.Instance != null && txtCoins != null)
@@ -54,20 +54,19 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    // Hàm tạo danh sách item trong shop
     public void GenerateShop()
     {
         if (contentParent == null || itemPrefab == null) return;
 
-        // Xóa sạch các item UI cũ trước khi tạo lại
-        foreach (Transform child in contentParent)
+        for (int i = contentParent.childCount - 1; i >= 0; i--)
         {
+            Transform child = contentParent.GetChild(i);
+            child.SetParent(null);
             Destroy(child.gameObject);
         }
 
         if (shopItemList == null) return;
 
-        // Sinh ra các ô item tương ứng với danh sách Data
         foreach (var itemData in shopItemList)
         {
             if (itemData == null) continue;
@@ -77,21 +76,17 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    // Hàm xử lý logic khi bấm nút Mua
     public bool TryBuyItem(ItemSO item)
     {
         if (item == null || CurrencyManager.Instance == null) return false;
 
-        // Thử trừ coin
         if (CurrencyManager.Instance.TrySpendCoins(item.price))
         {
-            // 1. Gửi item vào Inventory (nếu đã tạo InventoryManager)
             if (InventoryManager.Instance != null)
             {
                 InventoryManager.Instance.AddItem(item);
             }
 
-            // 2. Xóa item khỏi danh sách dữ liệu để khi mở lại shop không bị xuất hiện lại
             if (shopItemList.Contains(item))
             {
                 shopItemList.Remove(item);

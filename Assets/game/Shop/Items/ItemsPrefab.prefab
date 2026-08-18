@@ -304,8 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SimpleShopItemUI
   imgItem: {fileID: 6281941956920001616}
   txtButtonLabel: {fileID: 6170977751203940205}
-  coinIcon: {fileID: 3592211154071276612}
-  btnAction: {fileID: 1779741238642685861}
+  btnBuy: {fileID: 1779741238642685861}
 --- !u!1 &3592211154071276612
 GameObject:
   m_ObjectHideFlags: 0
