@@ -82,9 +82,14 @@ public class ShopManager : MonoBehaviour
 
         if (CurrencyManager.Instance.TrySpendCoins(item.price))
         {
+            // Kiểm tra xem InventoryManager có tồn tại không
             if (InventoryManager.Instance != null)
             {
                 InventoryManager.Instance.AddItem(item);
+            }
+            else
+            {
+                Debug.LogError("Không tìm thấy InventoryManager.Instance!");
             }
 
             if (shopItemList.Contains(item))
