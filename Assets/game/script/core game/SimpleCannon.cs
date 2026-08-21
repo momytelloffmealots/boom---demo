@@ -8,6 +8,7 @@ public class SimpleCannon : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private float bulletSpeed = 50f;
     [SerializeField] private float raycastDistance = 50f;
+    [SerializeField] private int maxBullets = 30;
 
     [Header("Muzzle VFX (War FX)")]
     [Tooltip("Kéo Prefab hiệu ứng lửa/khói nòng súng từ thư mục _Effects vào đây")]
@@ -39,7 +40,11 @@ public class SimpleCannon : MonoBehaviour
                 return;
             }
 
-            Shoot(screenPosition);
+            if (maxBullets > 0) // Kiểm tra còn đạn không
+            {
+                Shoot(screenPosition);
+                maxBullets--;
+            }
         }
     }
 
