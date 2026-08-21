@@ -10515,6 +10515,7 @@ MonoBehaviour:
   firePoint: {fileID: 1890649027}
   bulletSpeed: 40
   raycastDistance: 20
+  maxBullets: 30
   muzzleVFXPrefab: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
 --- !u!4 &1650203633
 Transform:
@@ -13244,7 +13245,7 @@ PrefabInstance:
       objectReference: {fileID: 8635548836417056137, guid: 4df356ce22e54fe4a94ee398c029ef9f, type: 3}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.data[1].initialSize
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.data[0].autoReturnDelay
@@ -13252,7 +13253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.data[1].autoReturnDelay
-      value: 1
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6824615391337300743, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: m_LocalPosition.x

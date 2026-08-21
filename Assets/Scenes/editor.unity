@@ -886,6 +886,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2779546678600882774, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
+      propertyPath: maxBullets
+      value: 36
+      objectReference: {fileID: 0}
     - target: {fileID: 5886136628144733659, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
       propertyPath: m_Name
       value: cannon
