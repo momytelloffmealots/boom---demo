@@ -46,7 +46,7 @@ public static class LevelEditorScene
             if (mode == LevelEditorWindow.EditMode.Place)
             {
                 // Offset by half a unit along the normal so block snaps to the outside of the hit face
-                pos = hit.point + hit.normal * 0.5f;
+                pos = hit.point + hit.normal * 0.55f;
             }
             else
             {
@@ -71,10 +71,10 @@ public static class LevelEditorScene
 
         if (mode == LevelEditorWindow.EditMode.Place)
         {
-            float snapSize = 1f;
-            pos.x = Mathf.Round(pos.x) * snapSize;
-            pos.y = Mathf.Round(pos.y) * snapSize;
-            pos.z = Mathf.Round(pos.z) * snapSize;
+            float snapSize = 0.5f;
+            pos.x = Mathf.Round(pos.x / snapSize) * snapSize;
+            pos.y = Mathf.Round(pos.y / snapSize) * snapSize;
+            pos.z = Mathf.Round(pos.z / snapSize) * snapSize;
         }
 
         // Draw preview wire cube based on active mode
