@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7814cc825d0b6ca449508d7691db9d15, type: 3}
+  m_Name: Data_InfiniteAmmo
+  m_EditorClassIdentifier: Assembly-CSharp::BoosterSO
+  boosterID: InfiniteAmmo
+  boosterName: "V\xF4 h\u1EA1n \u0111\u1EA1n"
+  type: 0
+  icon: {fileID: 0}
+  price: 0
+  duration: 5
+  scaleMultiplier: 1

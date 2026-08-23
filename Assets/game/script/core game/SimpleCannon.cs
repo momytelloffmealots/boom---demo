@@ -1,128 +1,8 @@
-//using UnityEngine;
-//using UnityEngine.InputSystem;
-//using UnityEngine.EventSystems; // THÊM DÒNG NÀY 1: Gọi thư viện quản lý UI
-
-//public class SimpleCannon : MonoBehaviour
-//{
-//    [Header("Cannon Settings")]
-//    [SerializeField] private Transform firePoint;
-//    [SerializeField] private float bulletSpeed = 50f;
-//    [SerializeField] private float raycastDistance = 50f;
-//    [SerializeField] public int maxBullets = 30;
-
-//    [Header("Muzzle VFX (War FX)")]
-//    [Tooltip("Kéo Prefab hiệu ứng lửa/khói nòng súng từ thư mục _Effects vào đây")]
-//    [SerializeField] private GameObject muzzleVFXPrefab;
-
-//    void Update()
-//    {
-//        // 1. Kiểm tra bấm chuột/cảm ứng
-//        bool isPressed = false;
-//        Vector2 screenPosition = Vector2.zero;
-
-//        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
-//        {
-//            isPressed = true;
-//            screenPosition = Mouse.current.position.ReadValue();
-//        }
-//        else if (Input.GetMouseButtonDown(0))
-//        {
-//            isPressed = true;
-//            screenPosition = Input.mousePosition;
-//        }
-
-//        if (isPressed)
-//        {
-//            // THÊM DÒNG NÀY 2: Kiểm tra xem vị trí click có đang đè lên giao diện UI không
-//            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-//            {
-//                // Nếu đang bấm vào UI (nút Setting, Quit...) thì thoát luôn, không gọi hàm Shoot()
-//                return;
-//            }
-
-//            if (maxBullets > 0) // Kiểm tra còn đạn không
-//            {
-//                Shoot(screenPosition);
-//                maxBullets--;
-//            }
-//        }
-//    }
-
-//    private void Shoot(Vector2 clickPos)
-//    {
-//        Camera mainCam = Camera.main;
-//        if (mainCam == null || firePoint == null) return;
-
-//        // 1. Chiếu Ray từ Camera để lấy điểm target 3D tại nơi click
-//        Ray ray = mainCam.ScreenPointToRay(clickPos);
-//        Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.red, 2.0f);
-
-//        Vector3 targetPoint;
-//        // warning : giới hạn độ chiếu xa của raycast tùy theo setting hiện tại  raycastDistance 
-//        if (Physics.Raycast(ray, out RaycastHit hitInfo, raycastDistance))
-//        {
-//            targetPoint = hitInfo.point; // Điểm click trên Block/Mặt đất
-//        }
-//        else
-//        {
-//            // Điểm click trên không gian (nếu không trúng vật thể nào) 
-//            targetPoint = ray.GetPoint(raycastDistance);
-//        }
-
-//        // 2. Hướng bắn của ĐẠN (kết nối từ FirePoint tới TargetPoint)
-//        Vector3 shootDirection = (targetPoint - firePoint.position).normalized;
-
-//        // 3. XỬ LÝ PHÁO CHỈ XOAY TRỤC Y:
-//        // Triệt tiêu chênh lệch độ cao (Y) giữa Target và Pháo
-//        Vector3 lookTarget = targetPoint;
-//        lookTarget.y = transform.position.y;
-
-//        Vector3 cannonLookDirection = (lookTarget - transform.position).normalized;
-
-//        if (cannonLookDirection != Vector3.zero)
-//        {
-//            // Pháo chỉ quay trái/phải, giữ nguyên góc ngẩng X và Z
-//            transform.rotation = Quaternion.LookRotation(cannonLookDirection);
-//        }
-
-//        // 3. Lấy đạn từ Pool
-//        if (SimpleBulletPool.Instance == null) return;
-//        GameObject bullet = SimpleBulletPool.Instance.GetBullet();
-
-//        if (bullet != null)
-//        {
-//            // Đặt đạn đúng tại FirePoint và xoay theo hướng từ FirePoint -> TargetPoint
-//            bullet.transform.SetPositionAndRotation(firePoint.position, Quaternion.LookRotation(shootDirection));
-
-//            // Đăng ký sự kiện hoàn trả lại Pool
-//            if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
-//            {
-//                bulletScript.OnRelease = (go) => SimpleBulletPool.Instance.ReturnBullet(go);
-//            }
-
-//            if (bullet.TryGetComponent<Rigidbody>(out Rigidbody rb))
-//            {
-//                // Reset vận tốc cũ trước khi gán mới
-//                rb.linearVelocity = Vector3.zero;
-//                rb.angularVelocity = Vector3.zero;
-
-//                // Gán vận tốc đạn bay từ FirePoint tới TargetPoint
-//                rb.linearVelocity = shootDirection * bulletSpeed;
-//            }
-
-//            // VFX Tạo hiệu ứng lửa nòng súng ngay tại đầu nòng (firePoint) bằng Instantiate bình thường
-//            if (muzzleVFXPrefab != null && firePoint != null)
-//            {
-//                Instantiate(muzzleVFXPrefab, firePoint.position, firePoint.rotation);
-//            }
-//        }
-//    }
-//}
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using System;
+using System.Collections;
 
 public class SimpleCannon : MonoBehaviour
 {
@@ -132,52 +12,82 @@ public class SimpleCannon : MonoBehaviour
     [SerializeField] private float raycastDistance = 50f;
 
     [Header("Ammo Settings")]
-    [SerializeField] public int maxBullets = 30; // Số đạn tối đa cấu hình cho Level
-    [SerializeField] private int currentBullets; // Số đạn thực tế hiện có để bắn
+    [SerializeField] public int maxBullets = 30;
+    [SerializeField] private int currentBullets;
+
+    [Header("Bullet Scale Settings")]
+    [Tooltip("Tỷ lệ đạn thường (Mặc định 0.65f để đạn nhỏ gọn giống trong video)")]
+    [SerializeField] private float normalBulletScaleMultiplier = 0.65f;
+    [Tooltip("Tỷ lệ phóng to của Đạn Khổng Lồ so với đạn thường")]
+    [SerializeField] private float bigBulletScaleMultiplier = 2.5f;
 
     [Header("Muzzle VFX (War FX)")]
-    [Tooltip("Kéo Prefab hiệu ứng lửa/khói nòng súng từ thư mục _Effects vào đây")]
     [SerializeField] private GameObject muzzleVFXPrefab;
+
+    [Header("Booster States")]
+    private bool isBigBulletActive = false;
+    private bool isInfiniteAmmoActive = false;
+    private Coroutine infiniteAmmoCoroutine;
+
+    // Lưu lại kích thước chuẩn từ Prefab gốc để đạn không bị phồng to
+    private Vector3 originalBulletScale = Vector3.one;
+    private bool isScaleSaved = false;
 
     // Sự kiện phát thanh mỗi khi đạn thay đổi
     public event Action<int> OnAmmoChanged;
 
     private void Awake()
     {
-        // Khởi tạo số đạn khi vào game
         ResetAmmo();
     }
 
     private void OnValidate()
     {
-        // Tự động cập nhật currentBullets khi bạn chỉnh maxBullets trên Inspector ở Edit Mode
         if (!Application.isPlaying)
         {
             currentBullets = maxBullets;
         }
     }
 
-    // Hàm gọi từ Editor Tool (LevelEditorWindow) khi Import JSON
     public void SetMaxBullets(int amount)
     {
         maxBullets = amount;
         ResetAmmo();
     }
 
-    // Hàm hỗ trợ Reset đạn khi chơi lại game
     public void ResetAmmo()
     {
         currentBullets = maxBullets;
-        // Báo cáo số đạn mới nhất
+        isBigBulletActive = false;
+        isInfiniteAmmoActive = false;
+        if (infiniteAmmoCoroutine != null) StopCoroutine(infiniteAmmoCoroutine);
+
         OnAmmoChanged?.Invoke(currentBullets);
     }
 
-    // Getter lấy số đạn hiện tại (dùng để hiển thị lên UI nếu cần)
     public int GetCurrentBullets() => currentBullets;
+
+    public void ActivateBigBullet(float scale = 2.5f)
+    {
+        isBigBulletActive = true;
+        bigBulletScaleMultiplier = scale;
+    }
+
+    public void ActivateInfiniteAmmo(float duration)
+    {
+        if (infiniteAmmoCoroutine != null) StopCoroutine(infiniteAmmoCoroutine);
+        infiniteAmmoCoroutine = StartCoroutine(InfiniteAmmoRoutine(duration));
+    }
+
+    private IEnumerator InfiniteAmmoRoutine(float duration)
+    {
+        isInfiniteAmmoActive = true;
+        yield return new WaitForSeconds(duration);
+        isInfiniteAmmoActive = false;
+    }
 
     void Update()
     {
-        // 1. Kiểm tra bấm chuột/cảm ứng
         bool isPressed = false;
         Vector2 screenPosition = Vector2.zero;
 
@@ -194,27 +104,30 @@ public class SimpleCannon : MonoBehaviour
 
         if (isPressed)
         {
-            // 2. Kiểm tra xem vị trí click có đang đè lên giao diện UI không
             if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             {
                 return;
             }
 
-            // 3. Kiểm tra số đạn thực tế hiện tại
-            if (currentBullets > 0)
+            // Cho phép bắn nếu còn đạn HOẶC đang vô hạn đạn HOẶC đang bật đạn khổng lồ
+            if (currentBullets > 0 || isInfiniteAmmoActive || isBigBulletActive)
             {
+                bool wasBigBullet = isBigBulletActive;
+
                 Shoot(screenPosition);
-                currentBullets--; // Trừ đạn thực tế
 
-                // --- BƯỚC 2: Báo trọng tài "Vừa bắn 1 viên bay lên không trung!" ---
+                // CHỈ trừ đạn khi KHÔNG vô hạn đạn VÀ KHÔNG phải bắn đạn khổng lồ
+                if (!isInfiniteAmmoActive && !wasBigBullet)
+                {
+                    currentBullets--;
+                }
 
-                // Báo cáo tao vừa bắn, số đạn còn lại là...
                 OnAmmoChanged?.Invoke(currentBullets);
+
                 if (GameRuleController.Instance != null)
                 {
                     GameRuleController.Instance.RegisterBulletFired();
                 }
-                // -------------------------------------------------------------------
             }
         }
     }
@@ -224,7 +137,6 @@ public class SimpleCannon : MonoBehaviour
         Camera mainCam = Camera.main;
         if (mainCam == null || firePoint == null) return;
 
-        // 1. Chiếu Ray từ Camera để lấy điểm target 3D tại nơi click
         Ray ray = mainCam.ScreenPointToRay(clickPos);
         Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.red, 2.0f);
 
@@ -238,10 +150,8 @@ public class SimpleCannon : MonoBehaviour
             targetPoint = ray.GetPoint(raycastDistance);
         }
 
-        // 2. Hướng bắn của ĐẠN
         Vector3 shootDirection = (targetPoint - firePoint.position).normalized;
 
-        // 3. Pháo chỉ xoay quanh trục Y
         Vector3 lookTarget = targetPoint;
         lookTarget.y = transform.position.y;
 
@@ -252,7 +162,6 @@ public class SimpleCannon : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(cannonLookDirection);
         }
 
-        // 4. Lấy đạn từ Pool và bắn
         if (SimpleBulletPool.Instance == null) return;
         GameObject bullet = SimpleBulletPool.Instance.GetBullet();
 
@@ -260,20 +169,37 @@ public class SimpleCannon : MonoBehaviour
         {
             bullet.transform.SetPositionAndRotation(firePoint.position, Quaternion.LookRotation(shootDirection));
 
+            if (!isScaleSaved)
+            {
+                originalBulletScale = bullet.transform.localScale;
+                isScaleSaved = true;
+            }
+
+            // Kích thước chuẩn đạn thường
+            Vector3 baseNormalScale = originalBulletScale * normalBulletScaleMultiplier;
+
+            if (isBigBulletActive)
+            {
+                bullet.transform.localScale = baseNormalScale * bigBulletScaleMultiplier;
+                isBigBulletActive = false; // Bắn xong 1 viên tự khôi phục
+            }
+            else
+            {
+                bullet.transform.localScale = baseNormalScale; // Đạn thường
+            }
+
             if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
             {
-                // --- BƯỚC 2: SỬA LẠI SỰ KIỆN TRẢ ĐẠN ---
                 bulletScript.OnRelease = (go) =>
                 {
+                    go.transform.localScale = originalBulletScale;
                     SimpleBulletPool.Instance.ReturnBullet(go);
 
-                    // Báo trọng tài: "Viên đạn đã nổ / thu hồi, hãy kiểm tra xem thua chưa!"
                     if (GameRuleController.Instance != null)
                     {
                         GameRuleController.Instance.RegisterBulletReturned();
                     }
                 };
-                // ----------------------------------------
             }
 
             if (bullet.TryGetComponent<Rigidbody>(out Rigidbody rb))
@@ -290,5 +216,3 @@ public class SimpleCannon : MonoBehaviour
         }
     }
 }
-
-
