@@ -122,6 +122,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using System;
 
 public class SimpleCannon : MonoBehaviour
 {
@@ -137,6 +138,9 @@ public class SimpleCannon : MonoBehaviour
     [Header("Muzzle VFX (War FX)")]
     [Tooltip("Kéo Prefab hiệu ứng lửa/khói nòng súng từ thư mục _Effects vào đây")]
     [SerializeField] private GameObject muzzleVFXPrefab;
+
+    // Sự kiện phát thanh mỗi khi đạn thay đổi
+    public event Action<int> OnAmmoChanged;
 
     private void Awake()
     {
@@ -157,13 +161,15 @@ public class SimpleCannon : MonoBehaviour
     public void SetMaxBullets(int amount)
     {
         maxBullets = amount;
-        currentBullets = amount;
+        ResetAmmo();
     }
 
     // Hàm hỗ trợ Reset đạn khi chơi lại game
     public void ResetAmmo()
     {
         currentBullets = maxBullets;
+        // Báo cáo số đạn mới nhất
+        OnAmmoChanged?.Invoke(currentBullets);
     }
 
     // Getter lấy số đạn hiện tại (dùng để hiển thị lên UI nếu cần)
@@ -199,6 +205,16 @@ public class SimpleCannon : MonoBehaviour
             {
                 Shoot(screenPosition);
                 currentBullets--; // Trừ đạn thực tế
+
+                // --- BƯỚC 2: Báo trọng tài "Vừa bắn 1 viên bay lên không trung!" ---
+
+                // Báo cáo tao vừa bắn, số đạn còn lại là...
+                OnAmmoChanged?.Invoke(currentBullets);
+                if (GameRuleController.Instance != null)
+                {
+                    GameRuleController.Instance.RegisterBulletFired();
+                }
+                // -------------------------------------------------------------------
             }
         }
     }
@@ -246,7 +262,18 @@ public class SimpleCannon : MonoBehaviour
 
             if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
             {
-                bulletScript.OnRelease = (go) => SimpleBulletPool.Instance.ReturnBullet(go);
+                // --- BƯỚC 2: SỬA LẠI SỰ KIỆN TRẢ ĐẠN ---
+                bulletScript.OnRelease = (go) =>
+                {
+                    SimpleBulletPool.Instance.ReturnBullet(go);
+
+                    // Báo trọng tài: "Viên đạn đã nổ / thu hồi, hãy kiểm tra xem thua chưa!"
+                    if (GameRuleController.Instance != null)
+                    {
+                        GameRuleController.Instance.RegisterBulletReturned();
+                    }
+                };
+                // ----------------------------------------
             }
 
             if (bullet.TryGetComponent<Rigidbody>(out Rigidbody rb))
@@ -263,3 +290,5 @@ public class SimpleCannon : MonoBehaviour
         }
     }
 }
+
+

@@ -20,6 +20,16 @@ public class Block : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    // --- BƯỚC 2: THÊM HÀM START ĐỂ BÁO DANH VỚI TRỌNG TÀI ---
+    private void Start()
+    {
+        if (GameRuleController.Instance != null)
+        {
+            GameRuleController.Instance.RegisterBlock(this);
+        }
+    }
+    // --------------------------------------------------------
+
     private void OnEnable()
     {
         // Cập nhật lại Mass từ SO mỗi khi Block active
@@ -59,3 +69,4 @@ public class Block : MonoBehaviour
         CancelInvoke();
     }
 }
+
