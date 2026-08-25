@@ -4,7 +4,7 @@ using UnityEngine;
 public class LevelLoader : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private BlockLevel blockLevelDatabase; // Đã đổi sang kiểu BlockLevel
+    [SerializeField] private BlockLevel blockLevelDatabase;
     [SerializeField] private SimpleCannon cannon;
     [SerializeField] private Transform levelParent;
 
@@ -37,20 +37,36 @@ public class LevelLoader : MonoBehaviour
         // 1. Dọn dẹp Level cũ
         ClearCurrentLevel();
 
-        // 2. Đồng bộ đạn cho SimpleCannon
+        // 2. Đồng bộ đạn cho SimpleCannon (Ép súng gốc nhận số đạn từ JSON)
         if (cannon != null)
         {
             cannon.SetMaxBullets(data.MaxBullets);
         }
 
-        // 3. Sinh ra các Block Prefab từ BlockLevel
+        // 3. Sinh ra các Block Prefab từ Database
         foreach (BlockData bData in data.blocks)
         {
             GameObject prefab = blockLevelDatabase != null ? blockLevelDatabase.GetPrefabByName(bData.prefabName) : null;
             if (prefab != null)
             {
+                // 🔥 CHỐT CHẶN BẢO VỆ: Quét xem "cục gạch" này có phải là súng không?
+                if (prefab.GetComponent<SimpleCannon>() != null)
+                {
+                    Debug.LogWarning("🚨 Phát hiện JSON chứa Súng! Đã chặn đứng hành vi đẻ thêm súng Clone!");
+                    continue; // Bỏ qua ngay lập tức, không cho Instantiate!
+                }
+
                 GameObject obj = Instantiate(prefab, bData.position, Quaternion.Euler(bData.rotation), levelParent);
                 _spawnedBlocks.Add(obj);
+
+                // Báo cáo cục gạch vừa đẻ cho Trọng Tài để hệ thống đếm số lượng gạch
+                if (obj.TryGetComponent<Block>(out Block blockScript))
+                {
+                    if (GameRuleController.Instance != null)
+                    {
+                        GameRuleController.Instance.RegisterBlock(blockScript);
+                    }
+                }
             }
             else
             {
@@ -70,3 +86,4 @@ public class LevelLoader : MonoBehaviour
         _spawnedBlocks.Clear();
     }
 }
+

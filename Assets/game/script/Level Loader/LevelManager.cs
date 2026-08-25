@@ -42,3 +42,4 @@ public class LevelManager : MonoBehaviour
         LoadCurrentLevel();
     }
 }
+

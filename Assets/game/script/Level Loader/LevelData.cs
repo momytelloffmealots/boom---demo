@@ -24,3 +24,4 @@ public class LevelData
     public int MaxBullets = 10;
     public List<BlockData> blocks = new List<BlockData>();
 }
+

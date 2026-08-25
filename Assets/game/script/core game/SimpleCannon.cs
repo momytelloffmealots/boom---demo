@@ -6,53 +6,69 @@ using System.Collections;
 
 public class SimpleCannon : MonoBehaviour
 {
+    // 🔥 VŨ KHÍ BÍ MẬT: Đánh dấu khẩu pháo xịn duy nhất (Độc tôn)
+    public static SimpleCannon Instance;
+
     [Header("Cannon Settings")]
     [SerializeField] private Transform firePoint;
     [SerializeField] private float bulletSpeed = 50f;
     [SerializeField] private float raycastDistance = 50f;
 
     [Header("Ammo Settings")]
-    [SerializeField] public int maxBullets = 30;
-    [SerializeField] private int currentBullets;
+    public int maxBullets = 30;
+    private int currentBullets;
 
     [Header("Bullet Scale Settings")]
-    [Tooltip("Tỷ lệ đạn thường (Mặc định 0.65f để đạn nhỏ gọn giống trong video)")]
     [SerializeField] private float normalBulletScaleMultiplier = 0.65f;
-    [Tooltip("Tỷ lệ phóng to của Đạn Khổng Lồ so với đạn thường")]
     [SerializeField] private float bigBulletScaleMultiplier = 2.5f;
 
     [Header("Muzzle VFX (War FX)")]
     [SerializeField] private GameObject muzzleVFXPrefab;
 
-    [Header("Booster States")]
     private bool isBigBulletActive = false;
     private bool isInfiniteAmmoActive = false;
     private Coroutine infiniteAmmoCoroutine;
 
-    // Lưu lại kích thước chuẩn từ Prefab gốc để đạn không bị phồng to
     private Vector3 originalBulletScale = Vector3.one;
     private bool isScaleSaved = false;
 
-    // Sự kiện phát thanh mỗi khi đạn thay đổi
     public event Action<int> OnAmmoChanged;
 
     private void Awake()
     {
-        ResetAmmo();
-    }
-
-    private void OnValidate()
-    {
-        if (!Application.isPlaying)
+        // ================= TẤT SÁT BÓNG MA (GHOST KILLER) =================
+        if (Instance == null)
         {
-            currentBullets = maxBullets;
+            Instance = this; // Tôi là khẩu pháo xịn đầu tiên!
         }
+        else if (Instance != this)
+        {
+            // Bắt được kẻ mạo danh! Tự động kiểm tra và tiêu diệt:
+            if (this.gameObject == Instance.gameObject)
+            {
+                Debug.LogError($"🚨 BÓNG MA TRÊN CÙNG OBJECT! Đang gắn 2 Script trên {gameObject.name}. Đã tự động xóa Script thừa!");
+                Destroy(this); // Tiêu diệt Script thừa
+            }
+            else
+            {
+                Debug.LogError($"🚨 BÓNG MA CLONE! Phát hiện súng fake {gameObject.name} lén lút sinh ra. Đã xóa sổ hoàn toàn!");
+                Destroy(this.gameObject); // Xóa sổ cả GameObject mạo danh
+            }
+            return; // Dừng chạy code bên dưới ngay lập tức
+        }
+        // ===================================================================
+
+        ResetAmmo();
     }
 
     public void SetMaxBullets(int amount)
     {
         maxBullets = amount;
-        ResetAmmo();
+        currentBullets = amount;
+        isBigBulletActive = false;
+        isInfiniteAmmoActive = false;
+        if (infiniteAmmoCoroutine != null) StopCoroutine(infiniteAmmoCoroutine);
+        OnAmmoChanged?.Invoke(currentBullets);
     }
 
     public void ResetAmmo()
@@ -61,7 +77,6 @@ public class SimpleCannon : MonoBehaviour
         isBigBulletActive = false;
         isInfiniteAmmoActive = false;
         if (infiniteAmmoCoroutine != null) StopCoroutine(infiniteAmmoCoroutine);
-
         OnAmmoChanged?.Invoke(currentBullets);
     }
 
@@ -104,19 +119,15 @@ public class SimpleCannon : MonoBehaviour
 
         if (isPressed)
         {
-            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-            {
-                return;
-            }
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
 
-            // Cho phép bắn nếu còn đạn HOẶC đang vô hạn đạn HOẶC đang bật đạn khổng lồ
+            // CHỐT CHẶN BẢO VỆ: Đạn phải > 0 mới được bắn
             if (currentBullets > 0 || isInfiniteAmmoActive || isBigBulletActive)
             {
                 bool wasBigBullet = isBigBulletActive;
 
                 Shoot(screenPosition);
 
-                // CHỈ trừ đạn khi KHÔNG vô hạn đạn VÀ KHÔNG phải bắn đạn khổng lồ
                 if (!isInfiniteAmmoActive && !wasBigBullet)
                 {
                     currentBullets--;
@@ -138,23 +149,14 @@ public class SimpleCannon : MonoBehaviour
         if (mainCam == null || firePoint == null) return;
 
         Ray ray = mainCam.ScreenPointToRay(clickPos);
-        Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.red, 2.0f);
-
         Vector3 targetPoint;
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, raycastDistance))
-        {
-            targetPoint = hitInfo.point;
-        }
-        else
-        {
-            targetPoint = ray.GetPoint(raycastDistance);
-        }
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, raycastDistance)) targetPoint = hitInfo.point;
+        else targetPoint = ray.GetPoint(raycastDistance);
 
         Vector3 shootDirection = (targetPoint - firePoint.position).normalized;
-
         Vector3 lookTarget = targetPoint;
         lookTarget.y = transform.position.y;
-
         Vector3 cannonLookDirection = (lookTarget - transform.position).normalized;
 
         if (cannonLookDirection != Vector3.zero)
@@ -175,17 +177,16 @@ public class SimpleCannon : MonoBehaviour
                 isScaleSaved = true;
             }
 
-            // Kích thước chuẩn đạn thường
             Vector3 baseNormalScale = originalBulletScale * normalBulletScaleMultiplier;
 
             if (isBigBulletActive)
             {
                 bullet.transform.localScale = baseNormalScale * bigBulletScaleMultiplier;
-                isBigBulletActive = false; // Bắn xong 1 viên tự khôi phục
+                isBigBulletActive = false;
             }
             else
             {
-                bullet.transform.localScale = baseNormalScale; // Đạn thường
+                bullet.transform.localScale = baseNormalScale;
             }
 
             if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
@@ -213,6 +214,15 @@ public class SimpleCannon : MonoBehaviour
             {
                 Instantiate(muzzleVFXPrefab, firePoint.position, firePoint.rotation);
             }
+        }
+    }
+
+    // Dọn dẹp ngai vàng khi Load lại Scene
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
         }
     }
 }
