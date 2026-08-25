@@ -8,12 +8,9 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI txtCoins;
     [SerializeField] private Transform contentParent;
     [SerializeField] private SimpleShopItemUI itemPrefab;
-    [SerializeField] private ItemDetailPopup detailPopup; // Kéo Popup vào đây
-
-    public ItemDetailPopup DetailPopup => detailPopup;
 
     [Header("Data Settings")]
-    [SerializeField] private List<ItemSO> shopItemList;
+    [SerializeField] private List<BoosterSO> shopBoosterList;
 
     private void OnEnable()
     {
@@ -61,45 +58,39 @@ public class ShopManager : MonoBehaviour
         for (int i = contentParent.childCount - 1; i >= 0; i--)
         {
             Transform child = contentParent.GetChild(i);
-            child.SetParent(null);
             Destroy(child.gameObject);
         }
 
-        if (shopItemList == null) return;
+        if (shopBoosterList == null) return;
 
-        foreach (var itemData in shopItemList)
+        foreach (var boosterData in shopBoosterList)
         {
-            if (itemData == null) continue;
+            if (boosterData == null) continue;
 
             SimpleShopItemUI itemUI = Instantiate(itemPrefab, contentParent);
-            itemUI.Setup(itemData, this);
+            itemUI.Setup(boosterData, this);
         }
     }
 
-    public bool TryBuyItem(ItemSO item)
+    public bool TryBuyBooster(BoosterSO booster)
     {
-        if (item == null || CurrencyManager.Instance == null) return false;
+        if (booster == null || CurrencyManager.Instance == null) return false;
 
-        if (CurrencyManager.Instance.TrySpendCoins(item.price))
+        // Đã sửa: booster.price
+        if (CurrencyManager.Instance.TrySpendCoins(booster.price))
         {
-            // Kiểm tra xem InventoryManager có tồn tại không
-            if (InventoryManager.Instance != null)
-            {
-                InventoryManager.Instance.AddItem(item);
-            }
-            else
-            {
-                Debug.LogError("Không tìm thấy InventoryManager.Instance!");
-            }
+            // Đã sửa: booster.boosterID
+            int currentCount = PlayerPrefs.GetInt($"BOOSTER_{booster.boosterID}", 0);
+            PlayerPrefs.SetInt($"BOOSTER_{booster.boosterID}", currentCount + 1);
+            PlayerPrefs.Save();
 
-            if (shopItemList.Contains(item))
-            {
-                shopItemList.Remove(item);
-            }
+            // Đã sửa: booster.boosterName
+            Debug.Log($"<color=green>Mua thành công: {booster.boosterName}! Số lượng hiện tại: {currentCount + 1}</color>");
 
             return true;
         }
 
+        Debug.LogWarning("Không đủ coin!");
         return false;
     }
 }

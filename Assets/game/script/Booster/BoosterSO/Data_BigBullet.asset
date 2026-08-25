@@ -15,7 +15,7 @@ MonoBehaviour:
   boosterID: BigBullet
   boosterName: "\u0110\u1EA1n Kh\u1ED5ng L\u1ED3"
   type: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: ebe2ba0ea0bd9ce409145e50fd88baa7, type: 3}
   price: 0
   duration: 10
   scaleMultiplier: 2.5

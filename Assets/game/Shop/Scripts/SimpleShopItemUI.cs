@@ -6,38 +6,27 @@ public class SimpleShopItemUI : MonoBehaviour
 {
     [SerializeField] private Image imgItem;
     [SerializeField] private TextMeshProUGUI txtButtonLabel;
-    [SerializeField] private Button btnBuy; // Khai báo rõ nút Mua ở đây
+    [SerializeField] private Button btnBuy;
 
-    private ItemSO itemData;
+    private BoosterSO boosterData;
     private ShopManager shopManager;
 
-    public void Setup(ItemSO data, ShopManager manager)
+    public void Setup(BoosterSO data, ShopManager manager)
     {
-        itemData = data;
+        boosterData = data;
         shopManager = manager;
 
-        // 1. Cài đặt hiển thị ảnh & sự kiện mở Popup khi bấm vào ảnh
-        if (imgItem != null && data.icon != null)
+        if (imgItem != null && boosterData != null && boosterData.icon != null)
         {
-            imgItem.sprite = data.icon;
-
-            Button imgBtn = imgItem.GetComponent<Button>();
-            if (imgBtn == null)
-            {
-                imgBtn = imgItem.gameObject.AddComponent<Button>();
-            }
-
-            imgBtn.onClick.RemoveAllListeners();
-            imgBtn.onClick.AddListener(OnImageClicked);
+            imgItem.sprite = boosterData.icon;
         }
 
-        // 2. Cài đặt giá tiền
-        if (txtButtonLabel != null && itemData != null)
+        // ĐÃ SỬA: boosterData.price (chữ p viết thường)
+        if (txtButtonLabel != null && boosterData != null)
         {
-            txtButtonLabel.text = itemData.price.ToString();
+            txtButtonLabel.text = boosterData.price.ToString();
         }
 
-        // 3. Cài đặt sự kiện Mua cho nút btnBuy
         if (btnBuy != null)
         {
             btnBuy.onClick.RemoveAllListeners();
@@ -45,33 +34,11 @@ public class SimpleShopItemUI : MonoBehaviour
         }
     }
 
-    private void OnImageClicked()
-    {
-        if (shopManager != null && shopManager.DetailPopup != null)
-        {
-            shopManager.DetailPopup.ShowPopup(itemData);
-        }
-    }
-
     private void OnBuyClicked()
     {
-        if (shopManager != null && itemData != null)
+        if (shopManager != null && boosterData != null)
         {
-            if (shopManager.TryBuyItem(itemData))
-            {
-                Debug.Log($"Mua thành công: {itemData.itemName}");
-                RemoveUI();
-            }
-            else
-            {
-                Debug.Log("Không đủ coin!");
-            }
+            shopManager.TryBuyBooster(boosterData);
         }
-    }
-
-    public void RemoveUI()
-    {
-        transform.SetParent(null);
-        Destroy(gameObject);
     }
 }
