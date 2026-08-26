@@ -20,7 +20,6 @@ public class BoosterUIController : MonoBehaviour
 
     private void OnEnable()
     {
-        // Tự động làm mới số lượng mỗi khi quay lại màn chơi
         UpdateUI();
     }
 
@@ -39,11 +38,9 @@ public class BoosterUIController : MonoBehaviour
     {
         if (bigBulletSO == null || infiniteAmmoSO == null) return;
 
-        // ĐÃ SỬA: Đổi Key thành "BOOSTER_" để khớp hoàn toàn với ShopManager
         int bigBulletCount = PlayerPrefs.GetInt("BOOSTER_" + bigBulletSO.boosterID, 0);
         int infiniteCount = PlayerPrefs.GetInt("BOOSTER_" + infiniteAmmoSO.boosterID, 0);
 
-        // --- Cập nhật nút Big Bullet ---
         if (txtBigBulletCount != null) txtBigBulletCount.text = bigBulletCount.ToString();
         
         if (bigBulletCount > 0)
@@ -56,7 +53,6 @@ public class BoosterUIController : MonoBehaviour
             if (addIconBigBullet != null) addIconBigBullet.SetActive(true);
         }
 
-        // --- Cập nhật nút Infinite Ammo ---
         if (txtInfiniteAmmoCount != null) txtInfiniteAmmoCount.text = infiniteCount.ToString();
         
         if (infiniteCount > 0)
@@ -76,15 +72,20 @@ public class BoosterUIController : MonoBehaviour
         
         if (count > 0)
         {
-            PlayerPrefs.SetInt("BOOSTER_" + bigBulletSO.boosterID, count - 1);
-            PlayerPrefs.Save();
-
             if (GameRuleController.Instance != null && GameRuleController.Instance.playerCannon != null)
             {
-                GameRuleController.Instance.playerCannon.ActivateBigBullet(bigBulletSO.scaleMultiplier);
+                // KIỂM TRA: Nếu súng báo true (bật thành công) thì mới trừ số lượng
+                if (GameRuleController.Instance.playerCannon.ActivateBigBullet(bigBulletSO.scaleMultiplier))
+                {
+                    PlayerPrefs.SetInt("BOOSTER_" + bigBulletSO.boosterID, count - 1);
+                    PlayerPrefs.Save();
+                    UpdateUI(); 
+                }
+                else
+                {
+                    Debug.Log("Booster Đạn Khổng Lồ đang sẵn sàng! Hãy bắn đi đã.");
+                }
             }
-
-            UpdateUI(); 
         }
         else
         {
@@ -98,15 +99,20 @@ public class BoosterUIController : MonoBehaviour
         
         if (count > 0)
         {
-            PlayerPrefs.SetInt("BOOSTER_" + infiniteAmmoSO.boosterID, count - 1);
-            PlayerPrefs.Save();
-
             if (GameRuleController.Instance != null && GameRuleController.Instance.playerCannon != null)
             {
-                GameRuleController.Instance.playerCannon.ActivateInfiniteAmmo(infiniteAmmoSO.duration);
+                // KIỂM TRA: Nếu súng báo true (bật thành công) thì mới trừ số lượng
+                if (GameRuleController.Instance.playerCannon.ActivateInfiniteAmmo(infiniteAmmoSO.duration))
+                {
+                    PlayerPrefs.SetInt("BOOSTER_" + infiniteAmmoSO.boosterID, count - 1);
+                    PlayerPrefs.Save();
+                    UpdateUI();
+                }
+                else
+                {
+                    Debug.Log("Booster Vô Hạn Đạn đang hoạt động! Chờ hết thời gian.");
+                }
             }
-
-            UpdateUI();
         }
         else
         {

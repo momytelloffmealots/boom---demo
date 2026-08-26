@@ -6,7 +6,6 @@ using System.Collections;
 
 public class SimpleCannon : MonoBehaviour
 {
-    // 🔥 VŨ KHÍ BÍ MẬT: Đánh dấu khẩu pháo xịn duy nhất (Độc tôn)
     public static SimpleCannon Instance;
 
     [Header("Cannon Settings")]
@@ -19,7 +18,7 @@ public class SimpleCannon : MonoBehaviour
     private int currentBullets;
 
     [Header("Bullet Scale Settings")]
-    [SerializeField] private float normalBulletScaleMultiplier = 0.65f;
+    [SerializeField] private float normalBulletScaleMultiplier = 0.8f; // Đã sửa lên 0.8
     [SerializeField] private float bigBulletScaleMultiplier = 2.5f;
 
     [Header("Muzzle VFX (War FX)")]
@@ -36,27 +35,22 @@ public class SimpleCannon : MonoBehaviour
 
     private void Awake()
     {
-        // ================= TẤT SÁT BÓNG MA (GHOST KILLER) =================
         if (Instance == null)
         {
-            Instance = this; // Tôi là khẩu pháo xịn đầu tiên!
+            Instance = this; 
         }
         else if (Instance != this)
         {
-            // Bắt được kẻ mạo danh! Tự động kiểm tra và tiêu diệt:
             if (this.gameObject == Instance.gameObject)
             {
-                Debug.LogError($"🚨 BÓNG MA TRÊN CÙNG OBJECT! Đang gắn 2 Script trên {gameObject.name}. Đã tự động xóa Script thừa!");
-                Destroy(this); // Tiêu diệt Script thừa
+                Destroy(this); 
             }
             else
             {
-                Debug.LogError($"🚨 BÓNG MA CLONE! Phát hiện súng fake {gameObject.name} lén lút sinh ra. Đã xóa sổ hoàn toàn!");
-                Destroy(this.gameObject); // Xóa sổ cả GameObject mạo danh
+                Destroy(this.gameObject); 
             }
-            return; // Dừng chạy code bên dưới ngay lập tức
+            return; 
         }
-        // ===================================================================
 
         ResetAmmo();
     }
@@ -82,23 +76,31 @@ public class SimpleCannon : MonoBehaviour
 
     public int GetCurrentBullets() => currentBullets;
 
-    public void ActivateBigBullet(float scale = 2.5f)
+    // Sửa thành kiểu bool: Trả về true nếu kích hoạt thành công, false nếu đang bị trùng
+    public bool ActivateBigBullet(float scale = 2.5f)
     {
+        if (isBigBulletActive) return false; // Khóa: Đang chờ bắn đạn to thì không cho bấm nữa
+
         isBigBulletActive = true;
         bigBulletScaleMultiplier = scale;
+        return true;
     }
 
-    public void ActivateInfiniteAmmo(float duration)
+    // Sửa thành kiểu bool
+    public bool ActivateInfiniteAmmo(float duration)
     {
+        if (isInfiniteAmmoActive) return false; // Khóa: Đang trong thời gian vô hạn thì không cho cộng dồn
+
         if (infiniteAmmoCoroutine != null) StopCoroutine(infiniteAmmoCoroutine);
         infiniteAmmoCoroutine = StartCoroutine(InfiniteAmmoRoutine(duration));
+        return true;
     }
 
     private IEnumerator InfiniteAmmoRoutine(float duration)
     {
         isInfiniteAmmoActive = true;
         yield return new WaitForSeconds(duration);
-        isInfiniteAmmoActive = false;
+        isInfiniteAmmoActive = false; // Tự động mở khóa khi hết thời gian
     }
 
     void Update()
@@ -121,7 +123,6 @@ public class SimpleCannon : MonoBehaviour
         {
             if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
 
-            // CHỐT CHẶN BẢO VỆ: Đạn phải > 0 mới được bắn
             if (currentBullets > 0 || isInfiniteAmmoActive || isBigBulletActive)
             {
                 bool wasBigBullet = isBigBulletActive;
@@ -182,7 +183,7 @@ public class SimpleCannon : MonoBehaviour
             if (isBigBulletActive)
             {
                 bullet.transform.localScale = baseNormalScale * bigBulletScaleMultiplier;
-                isBigBulletActive = false;
+                isBigBulletActive = false; // Đã bắn xong đạn to -> tự động mở khóa cho lần bấm tiếp theo
             }
             else
             {
@@ -217,7 +218,6 @@ public class SimpleCannon : MonoBehaviour
         }
     }
 
-    // Dọn dẹp ngai vàng khi Load lại Scene
     private void OnDestroy()
     {
         if (Instance == this)
