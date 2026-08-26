@@ -254,10 +254,11 @@ public class GameRuleController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
 
-        int currentLevel = PlayerPrefs.GetInt("PlayerCurrentLevel", 1);
-        PlayerPrefs.SetInt("PlayerCurrentLevel", currentLevel + 1);
+        // ĐIỂM SỬA QUAN TRỌNG: Dùng chung 1 Key "CURRENT_LEVEL_INDEX" với LevelManager
+        int currentLevel = PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1);
+        PlayerPrefs.SetInt("CURRENT_LEVEL_INDEX", currentLevel + 1);
 
-        PlayerPrefs.SetInt("AutoStartGame", 0);
+        PlayerPrefs.SetInt("AutoStartGame", 0); // Về Home
         PlayerPrefs.Save();
 
         // Load thẳng về Home ngay lập tức

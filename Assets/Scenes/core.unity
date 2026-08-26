@@ -1242,6 +1242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelButtonTrigger
   playController: {fileID: 868459805}
+  levelTextUI: {fileID: 1252327694}
 --- !u!1 &271367490
 GameObject:
   m_ObjectHideFlags: 0
@@ -1902,6 +1903,7 @@ GameObject:
   - component: {fileID: 362459820}
   - component: {fileID: 362459822}
   - component: {fileID: 362459821}
+  - component: {fileID: 362459823}
   m_Layer: 5
   m_Name: txt
   m_TagString: Untagged
@@ -2028,6 +2030,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362459819}
   m_CullTransparentMesh: 1
+--- !u!114 &362459823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362459819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a75d1fb169bb7d44b6bb266f8be999c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutoLevelText
+  prefix: 'LEVEL '
 --- !u!1 &401374501
 GameObject:
   m_ObjectHideFlags: 0
@@ -6448,6 +6463,7 @@ GameObject:
   - component: {fileID: 1069176816}
   - component: {fileID: 1069176819}
   - component: {fileID: 1069176818}
+  - component: {fileID: 1069176820}
   m_Layer: 5
   m_Name: txt
   m_TagString: Untagged
@@ -6574,6 +6590,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069176815}
   m_CullTransparentMesh: 1
+--- !u!114 &1069176820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069176815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a75d1fb169bb7d44b6bb266f8be999c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutoLevelText
+  prefix: 'LEVEL '
 --- !u!1 &1079964346
 GameObject:
   m_ObjectHideFlags: 0
@@ -8023,7 +8052,7 @@ GameObject:
   - component: {fileID: 1252327695}
   - component: {fileID: 1252327694}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

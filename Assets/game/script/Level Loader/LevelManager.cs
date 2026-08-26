@@ -25,7 +25,17 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"[LevelManager] Không tìm thấy file Levels/Level_{currentLevelIndex} trong Resources!");
+            // BẢO VỆ: Nếu không tìm thấy Level (ví dụ chơi hết màn 4 mà chưa làm màn 5)
+            // Tự động quay về Level 1 cho người chơi cày lại từ đầu
+            Debug.LogWarning($"[LevelManager] Hết level rồi! Quay lại Level 1.");
+
+            currentLevelIndex = 1;
+            PlayerPrefs.SetInt(LEVEL_KEY, 1);
+            PlayerPrefs.Save();
+
+            // Load lại file Level_1
+            TextAsset firstLevelAsset = Resources.Load<TextAsset>("Levels/Level_1");
+            if (firstLevelAsset != null) levelLoader.LoadLevelFromJSON(firstLevelAsset.text);
         }
     }
 
