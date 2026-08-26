@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7814cc825d0b6ca449508d7691db9d15, type: 3}
+  m_Script: {fileID: 11500000, guid: 3389cae9026596945be41d29556c577a, type: 3}
   m_Name: Data_InfiniteAmmo
-  m_EditorClassIdentifier: Assembly-CSharp::BoosterSO
+  m_EditorClassIdentifier: Assembly-CSharp::InfiniteAmmoSO
   boosterID: InfiniteAmmo
-  boosterName: "V\xF4 h\u1EA1n \u0111\u1EA1n"
-  type: 1
+  boosterName: "\u0110\u1EA1n V\xF4 H\u1EA1n"
   icon: {fileID: 21300000, guid: 016e5ea6d2653f448aa28154cfd0fbcd, type: 3}
-  price: 0
+  price: 200
   duration: 5
-  scaleMultiplier: 1

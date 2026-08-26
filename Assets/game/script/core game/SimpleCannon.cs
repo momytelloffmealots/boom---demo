@@ -18,10 +18,10 @@ public class SimpleCannon : MonoBehaviour
     private int currentBullets;
 
     [Header("Bullet Scale Settings")]
-    [SerializeField] private float normalBulletScaleMultiplier = 0.8f; // Đã sửa lên 0.8
-    [SerializeField] private float bigBulletScaleMultiplier = 2.5f;
+    [SerializeField] private float normalBulletScaleMultiplier = 1f; // Đã sửa về 1f
+    private float bigBulletScaleMultiplier = 2.5f;
 
-    [Header("Muzzle VFX (War FX)")]
+    [Header("Muzzle VFX")]
     [SerializeField] private GameObject muzzleVFXPrefab;
 
     private bool isBigBulletActive = false;
@@ -35,22 +35,8 @@ public class SimpleCannon : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this; 
-        }
-        else if (Instance != this)
-        {
-            if (this.gameObject == Instance.gameObject)
-            {
-                Destroy(this); 
-            }
-            else
-            {
-                Destroy(this.gameObject); 
-            }
-            return; 
-        }
+        if (Instance == null) Instance = this;
+        else if (Instance != this) { Destroy(gameObject); return; }
 
         ResetAmmo();
     }
@@ -58,11 +44,7 @@ public class SimpleCannon : MonoBehaviour
     public void SetMaxBullets(int amount)
     {
         maxBullets = amount;
-        currentBullets = amount;
-        isBigBulletActive = false;
-        isInfiniteAmmoActive = false;
-        if (infiniteAmmoCoroutine != null) StopCoroutine(infiniteAmmoCoroutine);
-        OnAmmoChanged?.Invoke(currentBullets);
+        ResetAmmo();
     }
 
     public void ResetAmmo()
@@ -76,21 +58,17 @@ public class SimpleCannon : MonoBehaviour
 
     public int GetCurrentBullets() => currentBullets;
 
-    // Sửa thành kiểu bool: Trả về true nếu kích hoạt thành công, false nếu đang bị trùng
-    public bool ActivateBigBullet(float scale = 2.5f)
+    public bool ActivateBigBullet(float scale)
     {
-        if (isBigBulletActive) return false; // Khóa: Đang chờ bắn đạn to thì không cho bấm nữa
-
+        if (isBigBulletActive) return false;
         isBigBulletActive = true;
         bigBulletScaleMultiplier = scale;
         return true;
     }
 
-    // Sửa thành kiểu bool
     public bool ActivateInfiniteAmmo(float duration)
     {
-        if (isInfiniteAmmoActive) return false; // Khóa: Đang trong thời gian vô hạn thì không cho cộng dồn
-
+        if (isInfiniteAmmoActive) return false;
         if (infiniteAmmoCoroutine != null) StopCoroutine(infiniteAmmoCoroutine);
         infiniteAmmoCoroutine = StartCoroutine(InfiniteAmmoRoutine(duration));
         return true;
@@ -100,10 +78,10 @@ public class SimpleCannon : MonoBehaviour
     {
         isInfiniteAmmoActive = true;
         yield return new WaitForSeconds(duration);
-        isInfiniteAmmoActive = false; // Tự động mở khóa khi hết thời gian
+        isInfiniteAmmoActive = false;
     }
 
-    void Update()
+    private void Update()
     {
         bool isPressed = false;
         Vector2 screenPosition = Vector2.zero;
@@ -150,10 +128,9 @@ public class SimpleCannon : MonoBehaviour
         if (mainCam == null || firePoint == null) return;
 
         Ray ray = mainCam.ScreenPointToRay(clickPos);
-        Vector3 targetPoint;
-
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, raycastDistance)) targetPoint = hitInfo.point;
-        else targetPoint = ray.GetPoint(raycastDistance);
+        Vector3 targetPoint = Physics.Raycast(ray, out RaycastHit hitInfo, raycastDistance) 
+            ? hitInfo.point 
+            : ray.GetPoint(raycastDistance);
 
         Vector3 shootDirection = (targetPoint - firePoint.position).normalized;
         Vector3 lookTarget = targetPoint;
@@ -183,7 +160,7 @@ public class SimpleCannon : MonoBehaviour
             if (isBigBulletActive)
             {
                 bullet.transform.localScale = baseNormalScale * bigBulletScaleMultiplier;
-                isBigBulletActive = false; // Đã bắn xong đạn to -> tự động mở khóa cho lần bấm tiếp theo
+                isBigBulletActive = false;
             }
             else
             {
@@ -220,9 +197,6 @@ public class SimpleCannon : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (Instance == this)
-        {
-            Instance = null;
-        }
+        if (Instance == this) Instance = null;
     }
 }
