@@ -13040,6 +13040,10 @@ PrefabInstance:
       value: bulletpool
       objectReference: {fileID: 0}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
+      propertyPath: defaultBulletPrefab
+      value: 
+      objectReference: {fileID: 4003409139519953408, guid: 341e8860f412d8a4aacc46afb941393a, type: 3}
+    - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.size
       value: 2
       objectReference: {fileID: 0}
