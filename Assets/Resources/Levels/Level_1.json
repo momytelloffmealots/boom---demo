@@ -1,6 +1,6 @@
 {
     "levelName": "CustomLevel",
-    "MaxBullets": 10,
+    "MaxBullets": 100,
     "blocks": [
         {
             "prefabName": "Minecraft Diamond Block",
