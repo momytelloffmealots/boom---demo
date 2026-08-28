@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a5313b4a2e557449a211b27bbbfbbb4, type: 3}
   m_Name: can
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
-  blockName: 
+  blockName: can
   mass: 1
   vfxPrefab: {fileID: 0}
