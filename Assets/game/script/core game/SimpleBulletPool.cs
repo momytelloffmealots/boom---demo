@@ -22,7 +22,19 @@ public class SimpleBulletPool : MonoBehaviour
     [SerializeField] private GameObject defaultBulletPrefab;
 
     private readonly Dictionary<GameObject, Queue<GameObject>> poolDictionary = new Dictionary<GameObject, Queue<GameObject>>();
+    private readonly Dictionary<GameObject, HashSet<GameObject>> poolHashSet = new Dictionary<GameObject, HashSet<GameObject>>();
     private readonly Dictionary<GameObject, float> autoReturnTimes = new Dictionary<GameObject, float>();
+    private readonly Dictionary<float, WaitForSeconds> waitCache = new Dictionary<float, WaitForSeconds>();
+
+    private WaitForSeconds GetWait(float delay)
+    {
+        if (!waitCache.TryGetValue(delay, out var wait))
+        {
+            wait = new WaitForSeconds(delay);
+            waitCache[delay] = wait;
+        }
+        return wait;
+    }
 
     private void Awake()
     {
@@ -74,9 +86,16 @@ public class SimpleBulletPool : MonoBehaviour
             poolDictionary[prefab] = queue;
         }
 
+        if (!poolHashSet.TryGetValue(prefab, out HashSet<GameObject> hashSet))
+        {
+            hashSet = new HashSet<GameObject>();
+            poolHashSet[prefab] = hashSet;
+        }
+
         GameObject obj = Instantiate(prefab, transform);
         obj.SetActive(false);
         queue.Enqueue(obj);
+        hashSet.Add(obj);
         return obj;
     }
 
@@ -94,17 +113,27 @@ public class SimpleBulletPool : MonoBehaviour
             poolDictionary[prefab] = queue;
         }
 
+        if (!poolHashSet.TryGetValue(prefab, out HashSet<GameObject> hashSet))
+        {
+            hashSet = new HashSet<GameObject>();
+            poolHashSet[prefab] = hashSet;
+        }
+
         GameObject obj = null;
         while (queue.Count > 0)
         {
             obj = queue.Dequeue();
-            if (obj != null) break;
+            if (obj != null)
+            {
+                hashSet.Remove(obj);
+                break;
+            }
         }
 
-        if (obj == null)
-        {
-            obj = Instantiate(prefab);
-        }
+        //if (obj == null)
+        //{
+        //    obj = Instantiate(prefab);
+        //}
 
         obj.transform.SetPositionAndRotation(position, rotation);
         obj.transform.SetParent(null);
@@ -127,7 +156,7 @@ public class SimpleBulletPool : MonoBehaviour
 
     private IEnumerator AutoReturnRoutine(GameObject prefab, GameObject instance, float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return GetWait(delay);
 
         if (instance != null && instance.activeSelf)
         {
@@ -148,7 +177,14 @@ public class SimpleBulletPool : MonoBehaviour
             poolDictionary[prefab] = queue;
         }
 
-        if (!queue.Contains(instance))
+        if (!poolHashSet.TryGetValue(prefab, out HashSet<GameObject> hashSet))
+        {
+            hashSet = new HashSet<GameObject>();
+            poolHashSet[prefab] = hashSet;
+        }
+
+        // Dùng HashSet.Add trả về true nếu chưa có trong set → thêm vào Queue cực nhanh O(1)
+        if (hashSet.Add(instance))
         {
             queue.Enqueue(instance);
         }
