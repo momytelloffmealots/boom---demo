@@ -99,10 +99,9 @@ public class SimpleBulletPool : MonoBehaviour
         return obj;
     }
 
-    /// <summary>
     /// Spawn Object.
     /// - Nếu không truyền autoReturnDelay, Pool sẽ tự lấy thời gian cấu hình ở Inspector.
-    /// </summary>
+
     public GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation, float overrideDelay = -1f)
     {
         if (prefab == null) return null;
@@ -154,7 +153,7 @@ public class SimpleBulletPool : MonoBehaviour
         return obj;
     }
 
-    private IEnumerator AutoReturnRoutine(GameObject prefab, GameObject instance, float delay)
+    public IEnumerator AutoReturnRoutine(GameObject prefab, GameObject instance, float delay)
     {
         yield return GetWait(delay);
 
