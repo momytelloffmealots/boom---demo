@@ -154,26 +154,26 @@ public class GameRuleController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    //private IEnumerator ReturnHomeSmoothlyRoutine()
-    //{
-    //    // 1. Kéo rèm đen mờ dần che kín màn hình
-    //    if (playPanelController != null && playPanelController.loadingView != null)
-    //    {
-    //        playPanelController.loadingView.gameObject.SetActive(true);
-    //        CanvasGroup cg = playPanelController.loadingView.GetComponent<CanvasGroup>();
-    //        if (cg != null)
-    //        {
-    //            cg.alpha = 0f;
-    //            cg.DOFade(1f, 0.3f); // Mờ dần lên đục 100% trong 0.3 giây
-    //        }
-    //    }
+    private IEnumerator ReturnHomeSmoothlyRoutine()
+    {
+        // 1. Kéo rèm đen mờ dần che kín màn hình
+        if (playPanelController != null && playPanelController.loadingView != null)
+        {
+            playPanelController.loadingView.gameObject.SetActive(true);
+            CanvasGroup cg = playPanelController.loadingView.GetComponent<CanvasGroup>();
+            if (cg != null)
+            {
+                cg.alpha = 0f;
+                cg.DOFade(1f, 0.3f); // Mờ dần lên đục 100% trong 0.3 giây
+            }
+        }
 
-    //    // 2. Đợi rèm đóng kín hẳn
-    //    yield return new WaitForSeconds(0.3f);
+        // 2. Đợi rèm đóng kín hẳn
+        yield return new WaitForSeconds(0.3f);
 
-    //    // 3. Load lại Scene về Home an toàn
-    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    //}
+        // 3. Load lại Scene về Home an toàn
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
     private void UpdateBulletUI(int currentAmmo)
     {
