@@ -68,6 +68,13 @@ public class LivesManager : MonoBehaviour
 
     public int GetCurrentLives() => currentLives;
 
+    // 🔥 MỚI: Hàm nạp đầy 5 mạng lập tức
+    public void RefillAllLives()
+    {
+        currentLives = maxLives;
+        SaveLives(); // Hàm SaveLives đã có sẵn logic tự động xóa đếm ngược và báo UI hiển thị "Full"
+    }
+
     // Phát loa thông báo ngay lập tức (Dùng khi UI vừa bật lên)
     public void ForceUpdateUI()
     {

@@ -195,6 +195,13 @@ public class SimpleCannon : MonoBehaviour
         }
     }
 
+    // 🔥 MỚI: Hàm bơm thêm đạn tiếp viện
+    public void AddBullets(int amount)
+    {
+        currentBullets += amount;
+        OnAmmoChanged?.Invoke(currentBullets); // Báo cho UI tự nhảy số
+    }
+
     private void OnDestroy()
     {
         if (Instance == this) Instance = null;

@@ -7779,6 +7779,7 @@ MonoBehaviour:
   txtTime: {fileID: 72033403}
   myButton: {fileID: 941849672}
   panelToOpen: {fileID: 0}
+  btnRefill: {fileID: 715789250}
 --- !u!1 &974200585
 GameObject:
   m_ObjectHideFlags: 0
@@ -9684,6 +9685,7 @@ MonoBehaviour:
   txtTime: {fileID: 312888025}
   myButton: {fileID: 1181585514}
   panelToOpen: {fileID: 973537490}
+  btnRefill: {fileID: 0}
 --- !u!1 &1195417178
 GameObject:
   m_ObjectHideFlags: 0
@@ -13200,8 +13202,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EndGameView
   winPanel: {fileID: 817585724}
   losePanel: {fileID: 1285692652}
+  continuePanel: {fileID: 1053302759}
   btnTryAgain: {fileID: 1221958744}
   btnHome: {fileID: 777835369}
+  btnPlayOn: {fileID: 1128038540}
+  btnCloseContinue: {fileID: 436837314}
 --- !u!1 &1647394575
 GameObject:
   m_ObjectHideFlags: 0

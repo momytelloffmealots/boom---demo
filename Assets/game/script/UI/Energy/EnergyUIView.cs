@@ -15,6 +15,10 @@ public class EnergyUIView : MonoBehaviour
     [Tooltip("Nếu đây là nút Home: Kéo Panle_MoreLives vào để mở. Nếu đây là nút X: Bỏ trống!")]
     public GameObject panelToOpen;
 
+    [Header("Nút Nạp Mạng (Chỉ dùng cho bảng More Lives)")]
+    [Tooltip("Kéo nút Refill màu xanh lá vào đây")]
+    public Button btnRefill;
+
     private void Start()
     {
         // Lắng nghe lệnh từ Bộ Não (LivesManager)
@@ -24,10 +28,16 @@ public class EnergyUIView : MonoBehaviour
             LivesManager.Instance.ForceUpdateUI(); // Lấy số ngay lần đầu tiên
         }
 
-        // Gắn sự kiện cho nút bấm
+        // Gắn sự kiện cho nút bấm thông thường (Mở bảng / Đóng bảng)
         if (myButton != null)
         {
             myButton.onClick.AddListener(OnButtonClicked);
+        }
+
+        // 🔥 Gắn sự kiện cho nút Refill
+        if (btnRefill != null)
+        {
+            btnRefill.onClick.AddListener(OnRefillClicked);
         }
     }
 
@@ -47,20 +57,34 @@ public class EnergyUIView : MonoBehaviour
 
     private void OnButtonClicked()
     {
-        // 1. Trường hợp là Nút Energy ngoài Home
+        // Trường hợp là Nút Energy ngoài Home
         if (panelToOpen != null)
         {
-            // Chỉ mở bảng mua mạng nếu mạng ĐANG NHỎ HƠN 5 (Max)
             if (LivesManager.Instance.GetCurrentLives() < LivesManager.Instance.maxLives)
             {
                 panelToOpen.SetActive(true);
             }
         }
-        // 2. Trường hợp là nút X trong bảng MoreLives
+        // Trường hợp là nút X trong bảng MoreLives
         else
         {
-            // Tự đóng chính cái bảng đang chứa nó lại
-            gameObject.SetActive(false); // (Lưu ý: Gắn script này vào thẻ Panel gốc)
+            gameObject.SetActive(false);
+        }
+    }
+
+    // 🔥 Xử lý khi bấm nút REFILL
+    private void OnRefillClicked()
+    {
+        if (LivesManager.Instance != null)
+        {
+            // (Chỗ này sau này bạn viết code trừ tiền vàng nhé)
+            // ...
+
+            // Báo cho Model nạp đầy mạng
+            LivesManager.Instance.RefillAllLives();
+
+            // Nạp xong thì tự động đóng bảng mua mạng lại cho gọn màn hình
+            gameObject.SetActive(false);
         }
     }
 }
