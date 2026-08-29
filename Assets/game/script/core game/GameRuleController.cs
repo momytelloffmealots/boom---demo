@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
-using DG.Tweening; // THÊM THƯ VIỆN NÀY ĐỂ DÙNG HIỆU ỨNG FADE
+using DG.Tweening;
 
 public class GameRuleController : MonoBehaviour
 {
@@ -17,22 +17,41 @@ public class GameRuleController : MonoBehaviour
     public EndGameView endGameView;
     public BulletCountView bulletCountView;
 
+    public GameObject panelMoreLives;
+
     private int activeBlocks = 0;
     private int activeBulletsFlying = 0;
     private bool isGameOver = false;
+
+    // 🔥 VŨ KHÍ MỚI: Biến static để nhớ xem đã chiếu Splash Screen lần nào chưa
+    private static bool hasShownSplash = false;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
 
-        // ================= ĐIỂM SỬA LỖI TRIỆT ĐỂ =================
+        // ================= FIX LỖI SMASHFEST (MÀN HÌNH KHỞI ĐỘNG) =================
+        GameObject splashPanel = GameObject.Find("Panel_Splash_Startup");
+        if (!hasShownSplash)
+        {
+            // Lần đầu tiên mở App -> Cho phép Splash Screen hiện bình thường
+            hasShownSplash = true;
+        }
+        else
+        {
+            // Các lần Load lại (Try Again / Về Home) -> Tắt luôn để không bị lặp lại
+            if (splashPanel != null) splashPanel.SetActive(false);
+        }
+
+        // ================= FIX LỖI GIAO DIỆN LOADING THỪA THÃI =================
         if (playPanelController != null)
         {
             if (PlayerPrefs.GetInt("AutoStartGame", 0) == 1)
             {
-                // TRƯỜNG HỢP TRY AGAIN: Vào game ngay
+                // VÀO GAME (Try Again / Next Level)
                 if (playPanelController.canvasUI != null) playPanelController.canvasUI.SetActive(false);
 
+                // Kéo rèm Loading xuống để chuẩn bị Fade mượt
                 if (playPanelController.loadingView != null)
                 {
                     playPanelController.loadingView.gameObject.SetActive(true);
@@ -42,41 +61,30 @@ public class GameRuleController : MonoBehaviour
             }
             else
             {
-                // TRƯỜNG HỢP VỀ HOME: Tắt 3D, bật UI Home lên
+                // VỀ HOME
                 if (playPanelController.gameplayRoot != null) playPanelController.gameplayRoot.SetActive(false);
                 if (playPanelController.canvasInGame != null) playPanelController.canvasInGame.SetActive(false);
                 if (playPanelController.canvasUI != null) playPanelController.canvasUI.SetActive(true);
 
-                // Tắt màn hình Loading
+                // TUYỆT ĐỐI KHÔNG BẬT PANEL LOADING GAMEPLAY KHI ĐANG Ở HOME
                 if (playPanelController.loadingView != null)
                 {
                     playPanelController.loadingView.gameObject.SetActive(false);
                 }
-
-                // 🔥 THÊM ĐOẠN NÀY ĐỂ TẮT LUÔN LOGO "FLOW" (STARTUP SPLASH) KHI VỀ HOME:
-                GameObject splashPanel = GameObject.Find("Panel_Splash_Startup");
-                if (splashPanel != null)
-                {
-                    splashPanel.SetActive(false);
-                }
             }
         }
-        // ======================================================================
     }
 
     private void Start()
     {
-        // 1. Kiểm tra cờ AutoStart
+        // Chỉ mờ rèm đen khi thực sự vào Game
         if (PlayerPrefs.GetInt("AutoStartGame", 0) == 1)
         {
             PlayerPrefs.SetInt("AutoStartGame", 0);
             PlayerPrefs.Save();
-
-            // Dùng thuật toán Load riêng để không bị mờ Loading từ 0 lên (tránh lộ nền)
             StartCoroutine(DirectToGameRoutine());
         }
 
-        // 2. Lắng nghe UI và Súng
         if (playerCannon != null)
         {
             playerCannon.OnAmmoChanged += UpdateBulletUI;
@@ -86,29 +94,26 @@ public class GameRuleController : MonoBehaviour
         if (endGameView != null)
         {
             endGameView.OnTryAgainClicked += HandleTryAgain;
-            endGameView.OnHomeClicked += HandleReturnToHome; // LẮNG NGHE SỰ KIỆN NÚT X (VỀ HOME)
+            endGameView.OnHomeClicked += HandleReturnToHome;
         }
     }
 
-    // Luồng nhảy thẳng vào game siêu mượt (Chỉ dùng cho Try Again / Next Level)
     private IEnumerator DirectToGameRoutine()
     {
         if (playPanelController != null)
         {
-            // 1. Bật môi trường 3D lên (Lúc này Loading đục 100% đang che chắn)
             if (playPanelController.gameplayRoot != null) playPanelController.gameplayRoot.SetActive(true);
             if (playPanelController.canvasInGame != null) playPanelController.canvasInGame.SetActive(true);
 
-            // 2. Chờ 0.5s giả lập load game cho mượt
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f); // Giảm thời gian chờ để vào game nhanh hơn
 
-            // 3. Cho bức màn Loading mờ dần biến mất
+            // Fade mờ cái Loading Gameplay
             if (playPanelController.loadingView != null)
             {
                 CanvasGroup cg = playPanelController.loadingView.GetComponent<CanvasGroup>();
                 if (cg != null)
                 {
-                    float fadeDuration = 0.3f;
+                    float fadeDuration = 0.2f;
                     float elapsed = 0f;
                     while (elapsed < fadeDuration)
                     {
@@ -129,49 +134,37 @@ public class GameRuleController : MonoBehaviour
         if (endGameView != null)
         {
             endGameView.OnTryAgainClicked -= HandleTryAgain;
-            endGameView.OnHomeClicked -= HandleReturnToHome; // HỦY LẮNG NGHE ĐỂ TRÁNH MEMORY LEAK
+            endGameView.OnHomeClicked -= HandleReturnToHome;
         }
     }
 
     private void HandleTryAgain()
     {
-        if (endGameView != null) endGameView.HideAll();
+        // 1. KIỂM TRA MẠNG TRƯỚC TIÊN
+        if (LivesManager.Instance != null && LivesManager.Instance.GetCurrentLives() <= 0)
+        {
+            // Nếu hết mạng -> Bật bảng mua mạng lên và KHÔNG cho load lại game
+            if (panelMoreLives != null)
+            {
+                panelMoreLives.SetActive(true);
+            }
+            return; // Lệnh return này sẽ chặn đứng, không cho code chạy tiếp xuống dưới!
+        }
 
+        // 2. NẾU CÒN MẠNG -> CHO PHÉP CHƠI LẠI (Code cũ giữ nguyên)
+        if (endGameView != null) endGameView.HideAll();
         PlayerPrefs.SetInt("AutoStartGame", 1);
         PlayerPrefs.Save();
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    // XỬ LÝ KHI BẤM NÚT X TRÊN BẢNG LOSE (VỀ HOME MƯỢT MÀ BẰNG DOTWEEN)
     private void HandleReturnToHome()
     {
         if (endGameView != null) endGameView.HideAll();
-
         PlayerPrefs.SetInt("AutoStartGame", 0);
         PlayerPrefs.Save();
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    private IEnumerator ReturnHomeSmoothlyRoutine()
-    {
-        // 1. Kéo rèm đen mờ dần che kín màn hình
-        if (playPanelController != null && playPanelController.loadingView != null)
-        {
-            playPanelController.loadingView.gameObject.SetActive(true);
-            CanvasGroup cg = playPanelController.loadingView.GetComponent<CanvasGroup>();
-            if (cg != null)
-            {
-                cg.alpha = 0f;
-                cg.DOFade(1f, 0.3f); // Mờ dần lên đục 100% trong 0.3 giây
-            }
-        }
-
-        // 2. Đợi rèm đóng kín hẳn
-        yield return new WaitForSeconds(0.3f);
-
-        // 3. Load lại Scene về Home an toàn
+        // Load lại cảnh về Home ngay lập tức, không qua rèm đen nữa
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -196,9 +189,9 @@ public class GameRuleController : MonoBehaviour
 
     private void HandleBlockDestroyed(Block block)
     {
-        block.OnBlockDestroyed -= HandleBlockDestroyed;
         activeBlocks--;
-        CheckWinCondition();
+        if (block != null) block.OnBlockDestroyed -= HandleBlockDestroyed;
+        StartCoroutine(CheckWinLoseRoutine());
     }
 
     public void RegisterBulletFired()
@@ -209,59 +202,72 @@ public class GameRuleController : MonoBehaviour
     public void RegisterBulletReturned()
     {
         activeBulletsFlying--;
-        CheckLoseCondition();
+        StartCoroutine(CheckWinLoseRoutine());
     }
 
-    private void CheckWinCondition()
+    // ================= FIX LỖI THẮNG THUA QUÁ LÂU =================
+    private IEnumerator CheckWinLoseRoutine()
     {
-        if (isGameOver) return;
+        if (isGameOver) yield break;
+        yield return new WaitForSeconds(0.05f);
+        if (isGameOver) yield break;
+
+        // KIỂM TRA THẮNG
         if (activeBlocks <= 0)
         {
-            isGameOver = true;
-            StartCoroutine(ShowEndGameRoutine(true, 0.5f));
+            DeclareWin();
+            yield break;
+        }
+
+        // KIỂM TRA THUA (Hết đạn, không còn đạn trên trời bay)
+        if (playerCannon.GetCurrentBullets() <= 0 && activeBulletsFlying <= 0)
+        {
+            float waitTimer = 0f;
+
+            // Đã ÉP XUỐNG CÒN 1.0 GIÂY thay vì 2.5 giây. 
+            // 1 giây là quá đủ để những cục gạch rơi khỏi bàn cân!
+            while (waitTimer < 1.0f)
+            {
+                if (activeBlocks <= 0)
+                {
+                    DeclareWin();
+                    yield break;
+                }
+
+                waitTimer += Time.deltaTime;
+                yield return null;
+            }
+
+            if (activeBlocks > 0 && !isGameOver)
+            {
+                isGameOver = true;
+                Debug.Log("THUA RỒI!");
+                if (LivesManager.Instance != null) LivesManager.Instance.LoseLife();
+                if (endGameView != null) endGameView.ShowLose();
+            }
         }
     }
 
-    private void CheckLoseCondition()
+    private void DeclareWin()
     {
         if (isGameOver) return;
-        if (playerCannon.GetCurrentBullets() <= 0 && activeBulletsFlying <= 0 && activeBlocks > 0)
-        {
-            isGameOver = true;
-            StartCoroutine(ShowEndGameRoutine(false, 0.5f));
-        }
-    }
-
-    private IEnumerator ShowEndGameRoutine(bool isWin, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        if (endGameView != null)
-        {
-            if (isWin)
-            {
-                endGameView.ShowWin();
-                StartCoroutine(AutoReturnToHomeRoutine(2f));
-            }
-            else
-            {
-                endGameView.ShowLose();
-            }
-        }
+        isGameOver = true;
+        Debug.Log("THẮNG RỒI!");
+        if (endGameView != null) endGameView.ShowWin();
+        StartCoroutine(AutoReturnToHomeRoutine(1.5f)); // Giảm thời gian nằm ở bảng Win trước khi về Home
     }
 
     private IEnumerator AutoReturnToHomeRoutine(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
 
-        // ĐIỂM SỬA QUAN TRỌNG: Dùng chung 1 Key "CURRENT_LEVEL_INDEX" với LevelManager
         int currentLevel = PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1);
         PlayerPrefs.SetInt("CURRENT_LEVEL_INDEX", currentLevel + 1);
 
-        PlayerPrefs.SetInt("AutoStartGame", 0); // Về Home
+        PlayerPrefs.SetInt("AutoStartGame", 0);
         PlayerPrefs.Save();
 
-        // Load thẳng về Home ngay lập tức
+        // Không dùng màn hình Loading Gameplay khi về Home nữa, đổi cảnh sang Home ngay!
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
