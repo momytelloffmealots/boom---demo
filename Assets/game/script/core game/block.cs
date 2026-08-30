@@ -68,5 +68,19 @@ public class Block : MonoBehaviour
         // Dọn dẹp sạch sẽ các bộ đếm Invoke nếu có
         CancelInvoke();
     }
+    // Hàm này cho phép Bom Dính gọi để tiêu diệt Block
+    public void ForceDestroy()
+    {
+        if (data != null && data.vfxPrefab != null)
+        {
+            SimpleBulletPool.Instance.Spawn(data.vfxPrefab, transform.position, Quaternion.identity);
+            SimpleBulletPool.Instance.ReturnToPool(data.vfxPrefab, data.vfxPrefab);
+        }
+        
+        // Báo cho Trọng tài (GameRuleController) biết là block đã vỡ
+        OnBlockDestroyed?.Invoke(this);
+        
+        gameObject.SetActive(false);
+    }
 }
 
