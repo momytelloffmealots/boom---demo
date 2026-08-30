@@ -48,4 +48,5 @@ MonoBehaviour:
   - name: woww
     prefab: {fileID: 2883797502249945402, guid: 1e54877675f6e4a46ad7ca7c4d7a5bf6, type: 3}
     initialSize: 10
-  defaultBulletPrefab: {fileID: 2321178568921507295, guid: cbb219a1b4d5b284bbb4bf12f250241c, type: 3}
+    autoReturnDelay: 1.5
+  defaultBulletPrefab: {fileID: 2744483427082248492, guid: ca5b222a089f8f84aa0ad4d31925d298, type: 3}

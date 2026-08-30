@@ -128,13 +128,14 @@ public class SimpleCannon : MonoBehaviour
         if (mainCam == null || firePoint == null) return;
 
         Ray ray = mainCam.ScreenPointToRay(clickPos);
+        Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.red, 2.0f);
         Vector3 targetPoint = Physics.Raycast(ray, out RaycastHit hitInfo, raycastDistance) 
             ? hitInfo.point 
             : ray.GetPoint(raycastDistance);
 
         Vector3 shootDirection = (targetPoint - firePoint.position).normalized;
         Vector3 lookTarget = targetPoint;
-        lookTarget.y = transform.position.y;
+        //lookTarget.y = transform.position.y; KHONG XOA DONG COMMENT NAY (TUYET DOI KHONG)
         Vector3 cannonLookDirection = (lookTarget - transform.position).normalized;
 
         if (cannonLookDirection != Vector3.zero)
