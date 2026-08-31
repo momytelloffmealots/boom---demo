@@ -79,8 +79,8 @@ public class GameRuleController : MonoBehaviour
         {
             endGameView.OnTryAgainClicked += HandleTryAgain;
             endGameView.OnHomeClicked += HandleReturnToHome;
-            endGameView.OnPlayOnClicked += HandlePlayOn;               
-            endGameView.OnContinueCloseClicked += HandleContinueClose; 
+            endGameView.OnPlayOnClicked += HandlePlayOn;
+            endGameView.OnContinueCloseClicked += HandleContinueClose;
         }
     }
 
@@ -252,6 +252,29 @@ public class GameRuleController : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         int currentLevel = PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1);
         PlayerPrefs.SetInt("CURRENT_LEVEL_INDEX", currentLevel + 1);
+        PlayerPrefs.SetInt("AutoStartGame", 0);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    // ================= XỬ LÝ BỎ CUỘC (QUIT GAME) =================
+    public void QuitGameAndLoseLife()
+    {
+        // 1. Khóa Trọng tài lại, không cho phán xét thắng thua nữa
+        isGameOver = true;
+        isWaitingForContinue = false;
+
+        // 2. Giao tiếp với Model: Phạt trừ 1 mạng!
+        if (LivesManager.Instance != null)
+        {
+            LivesManager.Instance.LoseLife();
+            Debug.Log("Bỏ cuộc giữa chừng -> Đã trừ 1 mạng!");
+        }
+
+        // 3. Giao tiếp với View: Giấu hết các bảng đi
+        if (endGameView != null) endGameView.HideAll();
+
+        // 4. Load lại cảnh để ra Home
         PlayerPrefs.SetInt("AutoStartGame", 0);
         PlayerPrefs.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
