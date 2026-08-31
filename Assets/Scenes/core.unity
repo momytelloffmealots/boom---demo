@@ -16364,7 +16364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.data[1].name
@@ -16375,6 +16375,10 @@ PrefabInstance:
       value: vfx_icecube premeum
       objectReference: {fileID: 0}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
+      propertyPath: prewarmItems.Array.data[3].name
+      value: tincan
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.data[1].prefab
       value: 
       objectReference: {fileID: 3932390020510352518, guid: 20fcfe8cfdebbdd499d3e4ac2a766832, type: 3}
@@ -16383,11 +16387,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8635548836417056137, guid: 4df356ce22e54fe4a94ee398c029ef9f, type: 3}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
+      propertyPath: prewarmItems.Array.data[3].prefab
+      value: 
+      objectReference: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+    - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.data[1].initialSize
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.data[2].initialSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
+      propertyPath: prewarmItems.Array.data[3].initialSize
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
@@ -16400,6 +16412,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.data[2].autoReturnDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
+      propertyPath: prewarmItems.Array.data[3].autoReturnDelay
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6824615391337300743, guid: ec543be229864a14784ad6c4b846012c, type: 3}
