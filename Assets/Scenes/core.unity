@@ -9935,7 +9935,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779546678600882774, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
       propertyPath: bulletSpeed
-      value: 60
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3002608359992948321, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
       propertyPath: m_LocalPosition.z
