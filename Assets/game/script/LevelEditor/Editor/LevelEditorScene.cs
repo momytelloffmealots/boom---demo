@@ -46,7 +46,7 @@ public static class LevelEditorScene
             if (mode == LevelEditorWindow.EditMode.Place)
             {
                 // Offset by half a unit along the normal so block snaps to the outside of the hit face
-                pos = hit.point + hit.normal * 0.55f;
+                pos = hit.point + hit.normal * 0.25f;
             }
             else
             {
@@ -66,12 +66,13 @@ public static class LevelEditorScene
             }
         }
 
-        if (!hasHit)
-            return;
+        if (!hasHit) return;
+
+        float snapSize = 0.5f; // setup size for block placement and snapping
 
         if (mode == LevelEditorWindow.EditMode.Place)
         {
-            float snapSize = 0.5f;
+            
             pos.x = Mathf.Round(pos.x / snapSize) * snapSize;
             pos.y = Mathf.Round(pos.y / snapSize) * snapSize;
             pos.z = Mathf.Round(pos.z / snapSize) * snapSize;
@@ -81,22 +82,22 @@ public static class LevelEditorScene
         if (mode == LevelEditorWindow.EditMode.Place)
         {
             Handles.color = Color.green;
-            Handles.DrawWireCube(pos, Vector3.one);
+            Handles.DrawWireCube(pos, Vector3.one * snapSize);
         }
         else if (mode == LevelEditorWindow.EditMode.Erase)
         {
             Handles.color = Color.red;
-            Handles.DrawWireCube(pos, Vector3.one * 1.05f);
+            Handles.DrawWireCube(pos, Vector3.one * snapSize);
         }
         else if (mode == LevelEditorWindow.EditMode.Rotate)
         {
             Handles.color = Color.cyan;
-            Handles.DrawWireCube(pos, Vector3.one * 1.05f);
+            Handles.DrawWireCube(pos, Vector3.one * snapSize);
         }
         else if (mode == LevelEditorWindow.EditMode.RotateVertical)
         {
             Handles.color = Color.yellow;
-            Handles.DrawWireCube(pos, Vector3.one * 1.05f);
+            Handles.DrawWireCube(pos, Vector3.one * snapSize);
         }
 
         // Repaint scene view when mouse moves to update preview position without infinite loop
