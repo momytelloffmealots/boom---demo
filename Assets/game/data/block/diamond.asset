@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BlockData
   blockName: diamond
   mass: 10
-  vfxPrefab: {fileID: 8635548836417056137, guid: 4df356ce22e54fe4a94ee398c029ef9f, type: 3}
+  vfxPrefab: {fileID: 1542304094815288595, guid: e324c783d8d79f84eb0d60c945c81784, type: 3}
