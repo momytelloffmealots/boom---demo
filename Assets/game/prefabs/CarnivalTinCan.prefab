@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -64,14 +64,38 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5568371526223589888, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -3756473180518285571, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
       propertyPath: m_Name
       value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      propertyPath: m_TagString
+      value: block
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233112405309087440, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7071182760956848314, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 25940b09ef3e02946811b4cfbf6fd1b5, type: 2}
+    - target: {fileID: 8513859187771203891, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -82,6 +106,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5016400337698926094}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6271208422021816056}
     - targetCorrespondingSourceObject: {fileID: 8513859187771203891, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8748854980989862554}
@@ -98,7 +125,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3441909776628589103}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8022e45bf9274b14da51feb9ae4f23f7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -161,3 +188,24 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
+--- !u!65 &-6271208422021816056
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6134530204349333069}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CubeCan
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
   blockName: Cube Can
-  mass: 1
+  mass: 5
   vfxPrefab: {fileID: 0}
