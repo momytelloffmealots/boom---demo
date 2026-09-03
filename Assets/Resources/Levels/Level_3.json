@@ -1,0 +1,565 @@
+{
+    "levelName": "CustomLevel",
+    "MaxBullets": 30,
+    "blocks": [
+        {
+            "prefabName": "cannon",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -5.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": -0.5,
+                "y": 2.0,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": 0.0,
+                "y": 1.5,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": 0.0,
+                "y": 1.0,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": -1.0,
+                "y": 2.0,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": -1.0,
+                "y": 1.0,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": -0.5,
+                "y": 1.0,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": 0.0,
+                "y": 2.0,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": 1.0,
+                "y": 1.5,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "bulletpool",
+            "position": {
+                "x": 11.0,
+                "y": 0.0,
+                "z": 5.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": 1.0,
+                "y": 2.0,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": 0.0,
+                "y": 1.0,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Pedestal",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": -4.885332156173705e-12,
+                "y": 90.00000762939453,
+                "z": 0.00003046868550882209
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": 1.0,
+                "y": 1.5,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": 0.5,
+                "y": 1.0,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": 0.0,
+                "y": 1.5,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": -1.0,
+                "y": 2.5,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": 0.5,
+                "y": 1.5,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": 0.5,
+                "y": 1.5,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": 0.0,
+                "y": 2.0,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": 1.0,
+                "y": 2.5,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": -0.5,
+                "y": 1.5,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": 0.5,
+                "y": 1.0,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": -0.5,
+                "y": 2.5,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": -0.5,
+                "y": 2.0,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": 0.5,
+                "y": 2.0,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": 0.5,
+                "y": 2.5,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": -1.0,
+                "y": 2.5,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": 1.0,
+                "y": 2.0,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": -0.5,
+                "y": 1.5,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": -0.5,
+                "y": 1.0,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": 0.0,
+                "y": 2.5,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": 0.5,
+                "y": 2.5,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": -0.5,
+                "y": 2.5,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": -1.0,
+                "y": 1.5,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": -1.0,
+                "y": 1.0,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": 0.0,
+                "y": 2.5,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": 0.5,
+                "y": 2.0,
+                "z": 0.26999998092651369
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": -1.0,
+                "y": 2.0,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": 1.0,
+                "y": 2.5,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": -1.0,
+                "y": 1.5,
+                "z": -0.23000000417232514
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    ]
+}

@@ -188,6 +188,7 @@ public class SimpleBulletPool : MonoBehaviour
 
     [Header("2. Đạn mặc định (Dành cho SimpleCannon.cs)")]
     [SerializeField] private GameObject defaultBulletPrefab;
+    [SerializeField] private int bulletSize = 30;
 
     private readonly Dictionary<GameObject, Queue<GameObject>> poolDictionary = new Dictionary<GameObject, Queue<GameObject>>();
     private readonly Dictionary<GameObject, HashSet<GameObject>> poolHashSet = new Dictionary<GameObject, HashSet<GameObject>>();
@@ -239,7 +240,7 @@ public class SimpleBulletPool : MonoBehaviour
 
         if (defaultBulletPrefab != null && !poolDictionary.ContainsKey(defaultBulletPrefab))
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < bulletSize; i++)
             {
                 CreateNewInstance(defaultBulletPrefab);
             }
