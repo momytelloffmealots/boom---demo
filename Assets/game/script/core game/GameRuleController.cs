@@ -258,7 +258,7 @@ public class GameRuleController : MonoBehaviour
         if (isGameOver) return;
         isGameOver = true;
         if (endGameView != null) endGameView.ShowWin();
-        StartCoroutine(AutoReturnToHomeRoutine(1.5f));
+        StartCoroutine(AutoReturnToHomeRoutine(2f));
     }
 
     private IEnumerator AutoReturnToHomeRoutine(float waitTime)
