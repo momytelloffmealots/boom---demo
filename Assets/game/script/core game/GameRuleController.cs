@@ -17,6 +17,8 @@ public class GameRuleController : MonoBehaviour
     public EndGameView endGameView;
     public BulletCountView bulletCountView;
     public GameObject panelMoreLives;
+    public GameObject PopupShop;        // Mở shop khi thiếu tiền mua đạn
+    public int continuePrice = 900;     // Giá mua thêm lượt (Play On)
 
     private int activeBlocks = 0;
     private int activeBulletsFlying = 0;
@@ -132,9 +134,21 @@ public class GameRuleController : MonoBehaviour
 
     private void HandlePlayOn()
     {
-        isWaitingForContinue = false;
-        if (endGameView != null) endGameView.HideAll();
-        if (playerCannon != null) playerCannon.AddBullets(5);
+        // Yêu cầu Thủ quỹ kiểm tra và trừ tiền
+        if (CurrencyManager.Instance != null && CurrencyManager.Instance.TrySpendCoins(continuePrice))
+        {
+            // Trừ thành công -> Tắt bảng Continue và cho bắn tiếp
+            isWaitingForContinue = false;
+            if (endGameView != null) endGameView.HideAll();
+            if (playerCannon != null) playerCannon.AddBullets(5);
+            Debug.Log("<color=green>Mua lượt thành công! Được cộng 5 viên đạn.</color>");
+        }
+        else
+        {
+            // Trừ thất bại (Không đủ vàng) -> Mở bảng Shop
+            Debug.LogWarning("Không đủ Vàng! Đang mở bảng Shop...");
+            if (PopupShop != null) PopupShop.SetActive(true);
+        }
     }
 
     private void HandleContinueClose()

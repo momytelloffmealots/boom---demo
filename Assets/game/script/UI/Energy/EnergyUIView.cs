@@ -9,36 +9,24 @@ public class EnergyUIView : MonoBehaviour
     public TextMeshProUGUI txtTime;
 
     [Header("Chức năng của Nút (Tùy chọn)")]
-    [Tooltip("Kéo nút bấm vào đây (VD: Nút Energy ngoài Home hoặc Nút X đóng bảng)")]
     public Button myButton;
-
-    [Tooltip("Nếu đây là nút Home: Kéo Panle_MoreLives vào để mở. Nếu đây là nút X: Bỏ trống!")]
     public GameObject panelToOpen;
 
-    [Header("Nút Nạp Mạng (Chỉ dùng cho bảng More Lives)")]
-    [Tooltip("Kéo nút Refill màu xanh lá vào đây")]
+    [Header("Chức năng Nạp Mạng (Dành cho bảng MoreLives)")]
     public Button btnRefill;
+    public int refillPrice = 900; // 🔥 Giá mua mạng (Có thể chỉnh ngoài Editor)
+    public GameObject PopupShop;  // 🔥 Kéo Panel_Shop vào đây để hiện lên khi thiếu tiền
 
     private void Start()
     {
-        // Lắng nghe lệnh từ Bộ Não (LivesManager)
         if (LivesManager.Instance != null)
         {
             LivesManager.Instance.OnLivesUpdated += UpdateUI;
-            LivesManager.Instance.ForceUpdateUI(); // Lấy số ngay lần đầu tiên
+            LivesManager.Instance.ForceUpdateUI();
         }
 
-        // Gắn sự kiện cho nút bấm thông thường (Mở bảng / Đóng bảng)
-        if (myButton != null)
-        {
-            myButton.onClick.AddListener(OnButtonClicked);
-        }
-
-        // 🔥 Gắn sự kiện cho nút Refill
-        if (btnRefill != null)
-        {
-            btnRefill.onClick.AddListener(OnRefillClicked);
-        }
+        if (myButton != null) myButton.onClick.AddListener(OnButtonClicked);
+        if (btnRefill != null) btnRefill.onClick.AddListener(OnRefillClicked);
     }
 
     private void OnDestroy()
@@ -57,7 +45,6 @@ public class EnergyUIView : MonoBehaviour
 
     private void OnButtonClicked()
     {
-        // Trường hợp là Nút Energy ngoài Home
         if (panelToOpen != null)
         {
             if (LivesManager.Instance.GetCurrentLives() < LivesManager.Instance.maxLives)
@@ -65,26 +52,30 @@ public class EnergyUIView : MonoBehaviour
                 panelToOpen.SetActive(true);
             }
         }
-        // Trường hợp là nút X trong bảng MoreLives
         else
         {
             gameObject.SetActive(false);
         }
     }
 
-    // 🔥 Xử lý khi bấm nút REFILL
+    // ================= XỬ LÝ KHI BẤM NÚT REFILL =================
     private void OnRefillClicked()
     {
-        if (LivesManager.Instance != null)
+        // Yêu cầu Thủ quỹ (CurrencyManager) kiểm tra và trừ tiền
+        if (CurrencyManager.Instance != null && CurrencyManager.Instance.TrySpendCoins(refillPrice))
         {
-            // (Chỗ này sau này bạn viết code trừ tiền vàng nhé)
-            // ...
+            // Trừ tiền thành công -> Báo Model bơm đầy mạng
+            if (LivesManager.Instance != null) LivesManager.Instance.RefillAllLives();
 
-            // Báo cho Model nạp đầy mạng
-            LivesManager.Instance.RefillAllLives();
-
-            // Nạp xong thì tự động đóng bảng mua mạng lại cho gọn màn hình
+            // Đóng bảng mua mạng lại
             gameObject.SetActive(false);
+            Debug.Log("<color=green>Nạp mạng thành công!</color>");
+        }
+        else
+        {
+            // Trừ tiền thất bại (Không đủ vàng) -> Mở bảng Shop
+            Debug.LogWarning("Không đủ Vàng! Đang mở bảng Shop...");
+            if (PopupShop != null) PopupShop.SetActive(true);
         }
     }
 }
