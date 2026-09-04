@@ -76,15 +76,12 @@ public class ShopManager : MonoBehaviour
     {
         if (booster == null || CurrencyManager.Instance == null) return false;
 
-        // Đã sửa: booster.price
         if (CurrencyManager.Instance.TrySpendCoins(booster.price))
         {
-            // Đã sửa: booster.boosterID
             int currentCount = PlayerPrefs.GetInt($"BOOSTER_{booster.boosterID}", 0);
             PlayerPrefs.SetInt($"BOOSTER_{booster.boosterID}", currentCount + 1);
             PlayerPrefs.Save();
 
-            // Đã sửa: booster.boosterName
             Debug.Log($"<color=green>Mua thành công: {booster.boosterName}! Số lượng hiện tại: {currentCount + 1}</color>");
 
             return true;

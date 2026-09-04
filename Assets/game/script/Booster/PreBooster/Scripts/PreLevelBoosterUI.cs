@@ -12,12 +12,15 @@ public class PreLevelBoosterUI : MonoBehaviour
     public TextMeshProUGUI txtCount; 
     public GameObject highlightObj;  
     
-    private Image buttonImage; // Dùng để đổi màu nút
+    [Header("Display Objects")]
+    public GameObject btnCircleObj; // Kéo btn_circle vào đây (hiển thị số)
+    public GameObject btnPlusObj;   // Kéo btn_plus vào đây (hiển thị dấu cộng)
+
+    private Image buttonImage; 
     private bool isSelected = false;
 
     private void Awake()
     {
-        // Lấy hình ảnh của nút bấm để lát nữa đổi màu
         if (btnBooster != null)
         {
             buttonImage = btnBooster.GetComponent<Image>();
@@ -40,9 +43,19 @@ public class PreLevelBoosterUI : MonoBehaviour
 
         int count = PlayerPrefs.GetInt($"BOOSTER_{boosterData.boosterID}", 0);
         
+        // 1. Cập nhật số lượng lên text
         if (txtCount != null) 
         {
-            txtCount.text = count > 0 ? count.ToString() : "+";
+            txtCount.text = count.ToString();
+        }
+
+        // 2. Logic chuyển đổi giữa btn_circle và btn_plus
+        if (btnCircleObj != null) btnCircleObj.SetActive(count > 0);
+        if (btnPlusObj != null) btnPlusObj.SetActive(count <= 0);
+
+        if (count <= 0)
+        {
+            isSelected = false; 
         }
 
         if (highlightObj != null) 
@@ -50,18 +63,14 @@ public class PreLevelBoosterUI : MonoBehaviour
             highlightObj.SetActive(isSelected);
         }
 
-        // 🔥 TÍNH NĂNG MỚI: ĐỔI MÀU NÚT BẤM KHI CHỌN 🔥
         if (buttonImage != null)
         {
-            // Nếu được chọn thì đổi thành màu Xanh Lục, không thì màu Trắng bình thường
             buttonImage.color = isSelected ? Color.green : Color.white;
         }
     }
 
     public void OnBoosterClicked()
     {
-        Debug.Log("======== ĐÃ BẤM VÀO NÚT BOM ========");
-
         if (boosterData == null) return;
 
         int count = PlayerPrefs.GetInt($"BOOSTER_{boosterData.boosterID}", 0);
@@ -73,13 +82,11 @@ public class PreLevelBoosterUI : MonoBehaviour
             PlayerPrefs.SetInt($"PRE_SELECTED_{boosterData.boosterID}", isSelected ? 1 : 0);
             PlayerPrefs.Save();
             
-            Debug.Log("Trạng thái Bom: " + (isSelected ? "ĐANG CHỌN" : "ĐÃ HỦY CHỌN"));
-            
             UpdateUI();
         }
         else
         {
-            Debug.Log("Bạn đã hết bom dính!");
+            Debug.Log("Đã hết Booster!");
         }
     }
 }

@@ -10,6 +10,7 @@ public class SimpleCannon : MonoBehaviour
 
     [Header("Cannon Settings")]
     [SerializeField] private Transform firePoint;
+    [SerializeField] private Transform cannonBasePoint; // 🔥 MỚI: Thêm một điểm để xác định vị trí "chân pháo"
     [SerializeField] private float bulletSpeed = 50f;
     [SerializeField] private float raycastDistance = 50f;
 
@@ -18,11 +19,17 @@ public class SimpleCannon : MonoBehaviour
     private int currentBullets;
 
     [Header("Bullet Scale Settings")]
-    [SerializeField] private float normalBulletScaleMultiplier = 1f; // Đã sửa về 1f
+    [SerializeField] private float normalBulletScaleMultiplier = 1f; 
     private float bigBulletScaleMultiplier = 2.5f;
 
     [Header("Muzzle VFX")]
     [SerializeField] private GameObject muzzleVFXPrefab;
+    
+    [SerializeField] private GameObject bigBulletChargeVFXPrefab;
+    private GameObject currentChargeVFX;
+
+    [SerializeField] private GameObject infiniteAmmoVFXPrefab;
+    private GameObject currentInfiniteAmmoVFX;
 
     private bool isBigBulletActive = false;
     private bool isInfiniteAmmoActive = false;
@@ -53,6 +60,19 @@ public class SimpleCannon : MonoBehaviour
         isBigBulletActive = false;
         isInfiniteAmmoActive = false;
         if (infiniteAmmoCoroutine != null) StopCoroutine(infiniteAmmoCoroutine);
+        
+        if (currentChargeVFX != null)
+        {
+            Destroy(currentChargeVFX);
+            currentChargeVFX = null;
+        }
+
+        if (currentInfiniteAmmoVFX != null)
+        {
+            Destroy(currentInfiniteAmmoVFX);
+            currentInfiniteAmmoVFX = null;
+        }
+        
         OnAmmoChanged?.Invoke(currentBullets);
     }
 
@@ -63,6 +83,13 @@ public class SimpleCannon : MonoBehaviour
         if (isBigBulletActive) return false;
         isBigBulletActive = true;
         bigBulletScaleMultiplier = scale;
+        
+        if (bigBulletChargeVFXPrefab != null && firePoint != null)
+        {
+            if (currentChargeVFX != null) Destroy(currentChargeVFX);
+            currentChargeVFX = Instantiate(bigBulletChargeVFXPrefab, firePoint.position, firePoint.rotation, firePoint);
+        }
+
         return true;
     }
 
@@ -77,8 +104,28 @@ public class SimpleCannon : MonoBehaviour
     private IEnumerator InfiniteAmmoRoutine(float duration)
     {
         isInfiniteAmmoActive = true;
+
+        if (infiniteAmmoVFXPrefab != null)
+        {
+            if (currentInfiniteAmmoVFX != null) Destroy(currentInfiniteAmmoVFX);
+            
+            Transform basePos = cannonBasePoint != null ? cannonBasePoint : transform;
+            
+            // 🔥 SỬA LỖI TẠI ĐÂY:
+            // 1. Dùng infiniteAmmoVFXPrefab.transform.rotation để giữ lại góc xoay gốc (-90 độ) của Prefab
+            // 2. Xóa chữ 'basePos' ở cuối (không nhận pháo làm cha nữa) để khi nòng pháo quay, vòng sáng vẫn nằm im phẳng lì
+            currentInfiniteAmmoVFX = Instantiate(infiniteAmmoVFXPrefab, basePos.position, infiniteAmmoVFXPrefab.transform.rotation);
+        }
+
         yield return new WaitForSeconds(duration);
+        
         isInfiniteAmmoActive = false;
+
+        if (currentInfiniteAmmoVFX != null)
+        {
+            Destroy(currentInfiniteAmmoVFX);
+            currentInfiniteAmmoVFX = null;
+        }
     }
 
     private void Update()
@@ -162,6 +209,12 @@ public class SimpleCannon : MonoBehaviour
             {
                 bullet.transform.localScale = baseNormalScale * bigBulletScaleMultiplier;
                 isBigBulletActive = false;
+                
+                if (currentChargeVFX != null)
+                {
+                    Destroy(currentChargeVFX);
+                    currentChargeVFX = null;
+                }
             }
             else
             {
@@ -191,16 +244,16 @@ public class SimpleCannon : MonoBehaviour
 
             if (muzzleVFXPrefab != null)
             {
-                Instantiate(muzzleVFXPrefab, firePoint.position, firePoint.rotation);
+                GameObject flash = Instantiate(muzzleVFXPrefab, firePoint.position, firePoint.rotation);
+                Destroy(flash, 0.5f); 
             }
         }
     }
 
-    // 🔥 MỚI: Hàm bơm thêm đạn tiếp viện
     public void AddBullets(int amount)
     {
         currentBullets += amount;
-        OnAmmoChanged?.Invoke(currentBullets); // Báo cho UI tự nhảy số
+        OnAmmoChanged?.Invoke(currentBullets); 
     }
 
     private void OnDestroy()
