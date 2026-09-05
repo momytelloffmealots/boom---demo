@@ -14871,7 +14871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   musicSource: {fileID: 1983209870}
   soundSource: {fileID: 1696577396}
-  buttonClickClip: {fileID: 8300000, guid: afd0640ae51117a4dad72fdbe5d66f90, type: 3}
+  buttonClickClip: {fileID: 8300000, guid: 0221a827b16ae8742b15232decade0fb, type: 3}
 --- !u!1 &1510749682
 GameObject:
   m_ObjectHideFlags: 0
@@ -16616,7 +16616,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: afd0640ae51117a4dad72fdbe5d66f90, type: 3}
+  m_Resource: {fileID: 8300000, guid: 0221a827b16ae8742b15232decade0fb, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
