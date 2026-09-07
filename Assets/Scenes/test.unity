@@ -119,6 +119,120 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &30450017
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_Name
+      value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+--- !u!1001 &61547529
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_Name
+      value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
 --- !u!1001 &87848036
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -386,6 +500,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce2db075267b02f409dc3b0a30770d36, type: 3}
+--- !u!1001 &250828986
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_Name
+      value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
 --- !u!1001 &318736588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -463,6 +634,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20fcfe8cfdebbdd499d3e4ac2a766832, type: 3}
+--- !u!1001 &368184813
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_Name
+      value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
 --- !u!1001 &442581949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -528,6 +756,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
+--- !u!1001 &464660993
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_Name
+      value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
 --- !u!1001 &496943140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -596,6 +881,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClownBox
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb82010281b10f74e91abd4911e37b5f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -607,6 +896,177 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 936746653}
   m_SourcePrefab: {fileID: 100100000, guid: cb82010281b10f74e91abd4911e37b5f, type: 3}
+--- !u!1001 &669587982
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_Name
+      value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+--- !u!1001 &703494608
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_Name
+      value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+--- !u!1001 &763485904
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_Name
+      value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
 --- !u!1 &936746648 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cb82010281b10f74e91abd4911e37b5f, type: 3}
@@ -660,6 +1120,120 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1001 &989809452
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_Name
+      value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+--- !u!1001 &1114714042
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_Name
+      value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
 --- !u!1 &1144994340
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,6 +1347,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1215094337
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_Name
+      value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
 --- !u!1001 &1545730776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -845,6 +1476,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CrystalRock(fixed)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0be1f404ce53ec248bada4bd0469f42c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -856,6 +1491,63 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 153199462}
   m_SourcePrefab: {fileID: 100100000, guid: 0be1f404ce53ec248bada4bd0469f42c, type: 3}
+--- !u!1001 &1638210048
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_Name
+      value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
 --- !u!1 &1737503090 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0be1f404ce53ec248bada4bd0469f42c, type: 3}
@@ -1010,6 +1702,120 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 069aab8d4db093d4f95ecd6e93a48b0d, type: 3}
+--- !u!1001 &1773519837
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_Name
+      value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+--- !u!1001 &1835484775
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_Name
+      value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
 --- !u!1 &1838860041
 GameObject:
   m_ObjectHideFlags: 0
@@ -1152,6 +1958,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9209236331962855395, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
   m_PrefabInstance: {fileID: 442581949}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2098453637
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6134530204349333069, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_Name
+      value: CarnivalTinCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803226115492357367, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 914beaa54bec9f549b79fca72fa52fba, type: 3}
 --- !u!1001 &2106891525
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1353,3 +2216,18 @@ SceneRoots:
   - {fileID: 2106891525}
   - {fileID: 188839052}
   - {fileID: 496943140}
+  - {fileID: 61547529}
+  - {fileID: 1215094337}
+  - {fileID: 30450017}
+  - {fileID: 368184813}
+  - {fileID: 1114714042}
+  - {fileID: 1638210048}
+  - {fileID: 250828986}
+  - {fileID: 1835484775}
+  - {fileID: 763485904}
+  - {fileID: 669587982}
+  - {fileID: 2098453637}
+  - {fileID: 989809452}
+  - {fileID: 464660993}
+  - {fileID: 703494608}
+  - {fileID: 1773519837}
