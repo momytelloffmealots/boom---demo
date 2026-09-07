@@ -1605,7 +1605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7418b91378811418a802c74a5197b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameRuleController
-  playerCannon: {fileID: 763336911}
+  playerCannon: {fileID: 1143968777}
   playPanelController: {fileID: 868459805}
   endGameView: {fileID: 1642619089}
   bulletCountView: {fileID: 102735156}
@@ -1653,7 +1653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f47e77ff77638b4384a07899c85cda4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PreBoosterManager
-  playerCannon: {fileID: 763336911}
+  playerCannon: {fileID: 1143968777}
   bombBoosterSO: {fileID: 11400000, guid: a639442e034cbe64bb3e86af1bff8620, type: 2}
 --- !u!1 &190256468
 GameObject:
@@ -3552,6 +3552,7 @@ Transform:
   - {fileID: 1632951304}
   - {fileID: 2015578613}
   - {fileID: 763336910}
+  - {fileID: 1143968776}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
@@ -5415,6 +5416,79 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 569737136}
   m_CullTransparentMesh: 1
+--- !u!1001 &592347206
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1143968776}
+    m_Modifications:
+    - target: {fileID: 6208437396137788775, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208437396137788775, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208437396137788775, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208437396137788775, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208437396137788775, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208437396137788775, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208437396137788775, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208437396137788775, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208437396137788775, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208437396137788775, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208437396137788775, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208437396137788775, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208437396137788775, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208437396137788775, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6729253362136195037, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+      propertyPath: m_Name
+      value: CarnivalCannon
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
 --- !u!1 &616274449
 GameObject:
   m_ObjectHideFlags: 0
@@ -7329,17 +7403,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5969361778260445843, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
   m_PrefabInstance: {fileID: 1197229247}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &763336911 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2779546678600882774, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
-  m_PrefabInstance: {fileID: 1197229247}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d547f6a7b21e52149a694a3020330e49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SimpleCannon
 --- !u!1 &777835366
 GameObject:
   m_ObjectHideFlags: 0
@@ -11925,6 +11988,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1139422863}
   m_CullTransparentMesh: 1
+--- !u!1 &1143968775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1143968776}
+  - component: {fileID: 1143968777}
+  m_Layer: 0
+  m_Name: main_cannon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1143968776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143968775}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: -7.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1369267417}
+  - {fileID: 1331257231}
+  m_Father: {fileID: 401374502}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1143968777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143968775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d547f6a7b21e52149a694a3020330e49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleCannon
+  firePoint: {fileID: 1369267417}
+  cannonBasePoint: {fileID: 1732224717}
+  bulletSpeed: 36
+  raycastDistance: 20
+  maxBullets: 30
+  normalBulletScaleMultiplier: 1
+  muzzleVFXPrefab: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
+  bigBulletChargeVFXPrefab: {fileID: 147226, guid: 4d496338295339f4ab150256f9d9f4b7, type: 3}
+  infiniteAmmoVFXPrefab: {fileID: 108178, guid: e053c479a3add9649af9d847a748547d, type: 3}
 --- !u!1 &1143986671
 GameObject:
   m_ObjectHideFlags: 0
@@ -12414,6 +12532,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cannon
       objectReference: {fileID: 0}
+    - target: {fileID: 5886136628144733659, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5969361778260445843, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -12444,15 +12566,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5969361778260445843, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5969361778260445843, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5969361778260445843, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5969361778260445843, guid: 8d11018cb25b3f441ad1744d5f203e6a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -13649,6 +13771,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328412275}
   m_CullTransparentMesh: 1
+--- !u!4 &1331257231 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6208437396137788775, guid: 062fe3fd5e2669141b4565d3b83a38d2, type: 3}
+  m_PrefabInstance: {fileID: 592347206}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1347229051
 GameObject:
   m_ObjectHideFlags: 0
@@ -13724,6 +13851,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347229051}
   m_CullTransparentMesh: 1
+--- !u!1 &1369267416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1369267417}
+  m_Layer: 0
+  m_Name: Fire_Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1369267417
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1369267416}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0.4000001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1143968776}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1392251506
 GameObject:
   m_ObjectHideFlags: 0
@@ -16781,7 +16939,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dac567c790e21814aae242f50f35ce19, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 45f0e7e04a738b941aa46a6d776fea44, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -17483,7 +17641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelLoader
   blockLevelDatabase: {fileID: 11400000, guid: a1becd9177687a742b160a1ba1339e3c, type: 2}
-  cannon: {fileID: 763336911}
+  cannon: {fileID: 1143968777}
   levelParent: {fileID: 1632951304}
 --- !u!4 &1863054654
 Transform:

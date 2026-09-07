@@ -1463,11 +1463,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleCannon
   firePoint: {fileID: 9209236331962855395}
+  cannonBasePoint: {fileID: 0}
   bulletSpeed: 40
   raycastDistance: 20
   maxBullets: 30
   normalBulletScaleMultiplier: 1
   muzzleVFXPrefab: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
+  bigBulletChargeVFXPrefab: {fileID: 0}
+  infiniteAmmoVFXPrefab: {fileID: 0}
 --- !u!1 &6329487440656008625
 GameObject:
   m_ObjectHideFlags: 0
