@@ -1,4 +1,4 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 [InitializeOnLoad]
@@ -72,10 +72,22 @@ public static class LevelEditorScene
 
         if (mode == LevelEditorWindow.EditMode.Place)
         {
-            
-            pos.x = Mathf.Round(pos.x / snapSize) * snapSize;
-            pos.y = Mathf.Round(pos.y / snapSize) * snapSize;
-            pos.z = Mathf.Round(pos.z / snapSize) * snapSize;
+            float stepXZ = snapSize / 2f; // Nấc snap cho X, Z = 0.25f
+
+            // 1. Tính vị trí tâm của block mới từ ĐIỂM VA CHẠM BỀ MẶT (hit.point)
+            // Nẩy nhẹ ra ngoài bề mặt theo hướng hit.normal một khoảng bằng nửa bước snap
+            Vector3 rawPos = hit.point + new Vector3(
+                hit.normal.x * (stepXZ / 2f),
+                hit.normal.y * (snapSize / 2f),
+                hit.normal.z * (stepXZ / 2f)
+            );
+
+            // 2. Snap X và Z theo nấc 0.25f (0, 0.25, 0.5, 0.75, 1.0...)
+            pos.x = Mathf.Round(rawPos.x / stepXZ) * stepXZ;
+            pos.z = Mathf.Round(rawPos.z / stepXZ) * stepXZ;
+
+            // 3. Snap Y theo nấc 0.5f (0, 0.5, 1.0, 1.5...)
+            pos.y = Mathf.Round(rawPos.y / snapSize) * snapSize;
         }
 
         // Draw preview wire cube based on active mode
