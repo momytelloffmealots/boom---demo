@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a5313b4a2e557449a211b27bbbfbbb4, type: 3}
-  m_Name: diamond
-  m_EditorClassIdentifier: Assembly-CSharp::BlockData
-  blockName: diamond
+  m_Name: ice
+  m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
+  blockName: ice
   mass: 7
   vfxPrefab: {fileID: 1542304094815288595, guid: e324c783d8d79f84eb0d60c945c81784, type: 3}

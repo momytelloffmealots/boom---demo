@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a5313b4a2e557449a211b27bbbfbbb4, type: 3}
-  m_Name: diamond
-  m_EditorClassIdentifier: Assembly-CSharp::BlockData
-  blockName: diamond
-  mass: 7
-  vfxPrefab: {fileID: 1542304094815288595, guid: e324c783d8d79f84eb0d60c945c81784, type: 3}
+  m_Name: rock
+  m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
+  blockName: rock
+  mass: 8
+  vfxPrefab: {fileID: 266552125470661832, guid: 5c7944c6677862f4595ba657671e3ade, type: 3}
