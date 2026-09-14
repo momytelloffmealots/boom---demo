@@ -28,12 +28,12 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: 9d2f59ba-dc04-4687-9118-69573a43a3a6
-    second: {fileID: 2800000, guid: e987c1150bfb363459e5791c37cadb8b, type: 3}
+    second: {fileID: 2800000, guid: f5654a1a31b03e44398d09b0964dc9d4, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: ColorPallete
-    second: {fileID: 2800000, guid: 4bd302c83f7eb264ba9f70eb3e90bc41, type: 3}
+    second: {fileID: 2800000, guid: bc54730b918126c44b97a3d36f53f767, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
