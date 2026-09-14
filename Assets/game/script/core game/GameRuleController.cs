@@ -61,6 +61,17 @@ public class GameRuleController : MonoBehaviour
                 if (playPanelController.canvasInGame != null) playPanelController.canvasInGame.SetActive(false);
                 if (playPanelController.canvasUI != null) playPanelController.canvasUI.SetActive(true);
                 if (playPanelController.loadingView != null) playPanelController.loadingView.gameObject.SetActive(false);
+
+                // 🔥 THÊM ĐOẠN CODE NÀY: Lắng nghe tín hiệu mở bảng từ ván trước
+                if (PlayerPrefs.GetInt("AutoOpenPlayPanel", 0) == 1)
+                {
+                    // Tẩy xóa cờ đi ngay lập tức để lần sau mở app không bị tự động bật
+                    PlayerPrefs.SetInt("AutoOpenPlayPanel", 0);
+                    PlayerPrefs.Save();
+
+                    // Gọi sang PlayPanelController để bật Panel_Play lên
+                    playPanelController.OpenPopup();
+                }
             }
         }
     }
@@ -287,7 +298,12 @@ public class GameRuleController : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         int currentLevel = PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1);
         PlayerPrefs.SetInt("CURRENT_LEVEL_INDEX", currentLevel + 1);
+
         PlayerPrefs.SetInt("AutoStartGame", 0);
+
+        // 🔥 THÊM DÒNG NÀY: Ghi nhớ việc phải mở bảng Play khi về Home
+        PlayerPrefs.SetInt("AutoOpenPlayPanel", 1);
+
         PlayerPrefs.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
