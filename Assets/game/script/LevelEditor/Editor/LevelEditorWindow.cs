@@ -299,6 +299,12 @@ using UnityEngine;
 //}
 //#endregion
 
+using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+
 public class LevelEditorWindow : EditorWindow
 {
     public enum EditMode
@@ -315,6 +321,7 @@ public class LevelEditorWindow : EditorWindow
 
     [SerializeField] private EditMode currentMode = EditMode.Place;
     [SerializeField] private int levelMaxBullets = 10;
+    [SerializeField] private LevelDifficulty levelDifficulty = LevelDifficulty.Normal; // Biến lưu độ khó trên Editor
 
     public EditMode CurrentMode => currentMode;
 
@@ -388,8 +395,12 @@ public class LevelEditorWindow : EditorWindow
         // --- LEVEL SETTINGS ---
         GUILayout.Space(10);
         EditorGUILayout.LabelField("LEVEL SETTINGS", EditorStyles.boldLabel);
+
         levelMaxBullets = EditorGUILayout.IntField("Max Ammo (Số đạn)", levelMaxBullets);
         if (levelMaxBullets < 1) levelMaxBullets = 1;
+
+        // Bổ sung Popup chọn độ khó Level
+        levelDifficulty = (LevelDifficulty)EditorGUILayout.EnumPopup("Difficulty (Độ khó)", levelDifficulty);
 
         // --- SAVE / LOAD SYSTEM ---
         GUILayout.Space(15);
@@ -421,11 +432,12 @@ public class LevelEditorWindow : EditorWindow
     #region JSON Export / Import Logic
     private void ExportLevelToJSON()
     {
-        // SỬA LỖI 1: Tool là nguồn sự thật duy nhất cho số đạn khi Export.
-        // KHÔNG đọc lại từ Cannon vào levelMaxBullets vì sẽ ghi đè giá trị người dùng vừa nhập trên Tool.
-        // levelMaxBullets đã được người dùng cấu hình sẵn trên giao diện Tool.
-
-        LevelData levelData = new LevelData { MaxBullets = levelMaxBullets };
+        // Khởi tạo LevelData bao gồm cả MaxBullets và Difficulty
+        LevelData levelData = new LevelData
+        {
+            MaxBullets = levelMaxBullets,
+            Difficulty = levelDifficulty
+        };
 
         if (palette == null || palette.prefabs == null || palette.prefabs.Count == 0)
         {
@@ -469,7 +481,7 @@ public class LevelEditorWindow : EditorWindow
             string json = JsonUtility.ToJson(levelData, true);
             File.WriteAllText(path, json);
             AssetDatabase.Refresh();
-            EditorUtility.DisplayDialog("Thành công", $"Đã xuất Level với {levelData.MaxBullets} đạn và {levelData.blocks.Count} blocks ra file JSON!", "OK");
+            EditorUtility.DisplayDialog("Thành công", $"Đã xuất Level [{levelData.Difficulty}] với {levelData.MaxBullets} đạn và {levelData.blocks.Count} blocks ra file JSON!", "OK");
         }
     }
 
@@ -493,8 +505,9 @@ public class LevelEditorWindow : EditorWindow
             return;
         }
 
-        // 1. Cập nhật số đạn hiển thị trên Tool
+        // 1. Cập nhật số đạn và độ khó hiển thị trên Tool
         levelMaxBullets = levelData.MaxBullets;
+        levelDifficulty = levelData.Difficulty;
 
         // Tạo Dictionary để tra cứu Prefab nhanh hơn
         Dictionary<string, GameObject> prefabMap = new Dictionary<string, GameObject>();
@@ -504,7 +517,7 @@ public class LevelEditorWindow : EditorWindow
                 prefabMap.Add(p.name, p);
         }
 
-        // 2. Thu thập danh sách Block cũ cần xóa vào List TRƯỚC để tránh InvalidOperationException
+        // 2. Thu thập danh sách Block cũ cần xóa
         List<GameObject> objectsToDestroy = new List<GameObject>();
         GameObject[] existingObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
         foreach (GameObject obj in existingObjects)
@@ -515,7 +528,7 @@ public class LevelEditorWindow : EditorWindow
                 objectsToDestroy.Add(obj);
             }
         }
-        // Thực hiện xóa sau khi đã thu thập xong
+
         foreach (GameObject obj in objectsToDestroy)
         {
             Undo.DestroyObjectImmediate(obj);
@@ -538,12 +551,11 @@ public class LevelEditorWindow : EditorWindow
             }
         }
 
-        // 4. Cập nhật số đạn cho SimpleCannon trong Scene & lưu thay đổi (Chạy SAU KHI đã sinh toàn bộ Object từ JSON)
+        // 4. Cập nhật số đạn cho SimpleCannon trong Scene
         SimpleCannon cannon = null;
         SimpleCannon[] cannons = Resources.FindObjectsOfTypeAll<SimpleCannon>();
         foreach (var c in cannons)
         {
-            // Đảm bảo đối tượng thuộc Scene đang mở (không phải Prefab Asset trong project)
             if (c != null && !EditorUtility.IsPersistent(c.gameObject))
             {
                 cannon = c;
@@ -554,11 +566,8 @@ public class LevelEditorWindow : EditorWindow
         if (cannon != null)
         {
             Undo.RecordObject(cannon, "Update Cannon Ammo");
-
-            // Gọi hàm gán đạn đã chuẩn hóa bên SimpleCannon
             cannon.SetMaxBullets(levelData.MaxBullets);
 
-            // Ghi nhận thay đổi đối với Prefab Instance trên Scene để tránh bị reset khi lưu/tải lại
             PrefabUtility.RecordPrefabInstancePropertyModifications(cannon);
             EditorUtility.SetDirty(cannon);
             EditorSceneManager.MarkSceneDirty(cannon.gameObject.scene);
@@ -568,7 +577,7 @@ public class LevelEditorWindow : EditorWindow
             Debug.LogWarning("[LevelEditor] Không tìm thấy SimpleCannon nào trong Scene hiện tại để cập nhật số đạn!");
         }
 
-        EditorUtility.DisplayDialog("Thành công", $"Đã Import thành công Level ({levelData.MaxBullets} đạn) và {spawnedCount} blocks!", "OK");
+        EditorUtility.DisplayDialog("Thành công", $"Đã Import thành công Level [{levelData.Difficulty}] ({levelData.MaxBullets} đạn) và {spawnedCount} blocks!", "OK");
     }
     #endregion
 }

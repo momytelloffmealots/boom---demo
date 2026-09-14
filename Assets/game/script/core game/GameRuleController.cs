@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
-using System;
-using UnityEngine.SceneManagement;
+﻿using System;
+using System.Collections;
 using DG.Tweening;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameRuleController : MonoBehaviour
 {
@@ -17,8 +17,11 @@ public class GameRuleController : MonoBehaviour
     public EndGameView endGameView;
     public BulletCountView bulletCountView;
     public GameObject panelMoreLives;
-    public GameObject PopupShop;        // Mở shop khi thiếu tiền mua đạn
-    public int continuePrice = 900;     // Giá mua thêm lượt (Play On)
+    public GameObject PopupShop;         // Mở shop khi thiếu tiền mua đạn
+    public int continuePrice = 900;      // Giá mua thêm lượt (Play On)
+
+    [Header("Level State")]
+    public LevelDifficulty currentDifficulty = LevelDifficulty.Normal; // Độ khó của Level hiện tại
 
     private int activeBlocks = 0;
     private int activeBulletsFlying = 0;
@@ -94,7 +97,7 @@ public class GameRuleController : MonoBehaviour
             if (playPanelController.canvasInGame != null) playPanelController.canvasInGame.SetActive(true);
             yield return new WaitForSeconds(0.1f);
 
-            // 🔥 GỌI PRE-BOOSTER MANAGER TỪ ĐÂY 🔥
+            // GỌI PRE-BOOSTER MANAGER
             if (PreBoosterManager.Instance != null)
             {
                 PreBoosterManager.Instance.ApplyPreBoosters();
@@ -132,12 +135,31 @@ public class GameRuleController : MonoBehaviour
         }
     }
 
+    // ================= XỬ LÝ ĐỘ KHÓ LEVEL =================
+    public void SetLevelDifficulty(LevelDifficulty difficulty)
+    {
+        currentDifficulty = difficulty;
+        Debug.Log($"[GameRuleController] Đã cập nhật độ khó: {currentDifficulty}");
+
+        // Tại đây bạn có thể mở rộng logic tùy chỉnh theo độ khó sau này (vd: đổi màu UI, thay đổi giá tiếp tục,...)
+        switch (currentDifficulty)
+        {
+            case LevelDifficulty.Normal:
+                // Normal Config
+                break;
+            case LevelDifficulty.Hard:
+                // Hard Config
+                break;
+            case LevelDifficulty.SuperHard:
+                // SuperHard Config
+                break;
+        }
+    }
+
     private void HandlePlayOn()
     {
-        // Yêu cầu Thủ quỹ kiểm tra và trừ tiền
         if (CurrencyManager.Instance != null && CurrencyManager.Instance.TrySpendCoins(continuePrice))
         {
-            // Trừ thành công -> Tắt bảng Continue và cho bắn tiếp
             isWaitingForContinue = false;
             if (endGameView != null) endGameView.HideAll();
             if (playerCannon != null) playerCannon.AddBullets(5);
@@ -145,7 +167,6 @@ public class GameRuleController : MonoBehaviour
         }
         else
         {
-            // Trừ thất bại (Không đủ vàng) -> Mở bảng Shop
             Debug.LogWarning("Không đủ Vàng! Đang mở bảng Shop...");
             if (PopupShop != null) PopupShop.SetActive(true);
         }
@@ -274,21 +295,17 @@ public class GameRuleController : MonoBehaviour
     // ================= XỬ LÝ BỎ CUỘC (QUIT GAME) =================
     public void QuitGameAndLoseLife()
     {
-        // 1. Khóa Trọng tài lại, không cho phán xét thắng thua nữa
         isGameOver = true;
         isWaitingForContinue = false;
 
-        // 2. Giao tiếp với Model: Phạt trừ 1 mạng!
         if (LivesManager.Instance != null)
         {
             LivesManager.Instance.LoseLife();
             Debug.Log("Bỏ cuộc giữa chừng -> Đã trừ 1 mạng!");
         }
 
-        // 3. Giao tiếp với View: Giấu hết các bảng đi
         if (endGameView != null) endGameView.HideAll();
 
-        // 4. Load lại cảnh để ra Home
         PlayerPrefs.SetInt("AutoStartGame", 0);
         PlayerPrefs.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

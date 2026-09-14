@@ -10,6 +10,9 @@ public class LevelLoader : MonoBehaviour
 
     private readonly List<GameObject> _spawnedBlocks = new List<GameObject>();
 
+    // Property lưu độ khó của Level hiện tại
+    public LevelDifficulty CurrentDifficulty { get; private set; } = LevelDifficulty.Normal;
+
     private void Awake()
     {
         if (blockLevelDatabase != null) blockLevelDatabase.Init();
@@ -37,13 +40,22 @@ public class LevelLoader : MonoBehaviour
         // 1. Dọn dẹp Level cũ
         ClearCurrentLevel();
 
-        // 2. Đồng bộ đạn cho SimpleCannon (Ép súng gốc nhận số đạn từ JSON)
+        // 2. Đọc độ khó từ JSON
+        CurrentDifficulty = data.Difficulty;
+
+        // 3. Đồng bộ đạn cho SimpleCannon (Ép súng gốc nhận số đạn từ JSON)
         if (cannon != null)
         {
             cannon.SetMaxBullets(data.MaxBullets);
         }
 
-        // 3. Sinh ra các Block Prefab từ Database
+        // 4. Báo cáo độ khó cho GameRuleController để tùy chỉnh Gameplay/UI sau này
+        if (GameRuleController.Instance != null)
+        {
+            GameRuleController.Instance.SetLevelDifficulty(data.Difficulty);
+        }
+
+        // 5. Sinh ra các Block Prefab từ Database
         foreach (BlockData bData in data.blocks)
         {
             GameObject prefab = blockLevelDatabase != null ? blockLevelDatabase.GetPrefabByName(bData.prefabName) : null;
@@ -74,7 +86,7 @@ public class LevelLoader : MonoBehaviour
             }
         }
 
-        Debug.Log($"[LevelLoader] Load thành công Level {data.levelName} ({data.MaxBullets} đạn, {data.blocks.Count} blocks)");
+        Debug.Log($"[LevelLoader] Load thành công Level {data.levelName} - Độ khó: [{CurrentDifficulty}] ({data.MaxBullets} đạn, {data.blocks.Count} blocks)");
     }
 
     public void ClearCurrentLevel()
@@ -86,4 +98,3 @@ public class LevelLoader : MonoBehaviour
         _spawnedBlocks.Clear();
     }
 }
-
