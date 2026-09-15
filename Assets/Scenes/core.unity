@@ -5994,7 +5994,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -1112.8026}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &588008077
 MonoBehaviour:
@@ -6539,9 +6539,9 @@ RectTransform:
   - {fileID: 1199251586}
   m_Father: {fileID: 433844199}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 235, y: -246.44568}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 290, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &661553795
@@ -9288,9 +9288,9 @@ RectTransform:
   - {fileID: 1030556304}
   m_Father: {fileID: 433844199}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 845, y: -261.44568}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 290, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &846568997
@@ -11139,9 +11139,9 @@ RectTransform:
   - {fileID: 2132292217}
   m_Father: {fileID: 433844199}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 540, y: -261.44568}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 290, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &976475192
@@ -18321,7 +18321,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1642619085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21381,7 +21381,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2009018395
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21458,6 +21458,10 @@ MonoBehaviour:
   btnWeekly: {fileID: 661553797}
   btnMonthly: {fileID: 976475194}
   btnTotal: {fileID: 843019293}
+  tabActive: {fileID: 21300000, guid: 7e11f333dc3e3814ead3ccb92276e7cc, type: 3}
+  tabInactive: {fileID: 21300000, guid: ddee34cbdcfbe31478fc74efd2ad5a9e, type: 3}
+  activeHeight: 160
+  normalHeight: 130
 --- !u!1 &2015578612
 GameObject:
   m_ObjectHideFlags: 0
