@@ -28,7 +28,7 @@ namespace CartoonFX
 	public partial class CFXR_Effect : MonoBehaviour
 	{
 		// Change this value to easily tune the camera shake strength for all effects
-		const float GLOBAL_CAMERA_SHAKE_MULTIPLIER = 1.0f;
+		const float GLOBAL_CAMERA_SHAKE_MULTIPLIER = 0.3f;
 
 		static readonly int _GameObjectWorldPosition = Shader.PropertyToID("_GameObjectWorldPosition");
 
