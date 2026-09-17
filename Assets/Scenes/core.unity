@@ -22881,6 +22881,10 @@ PrefabInstance:
       propertyPath: bulletSpeed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7277084125168351724, guid: 65ac825b2415c4b49b23e9c41b42dde8, type: 3}
+      propertyPath: raycastDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7652651799423892332, guid: 65ac825b2415c4b49b23e9c41b42dde8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
