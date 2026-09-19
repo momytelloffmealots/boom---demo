@@ -10,6 +10,12 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float timeAfterCollision = 1.5f;
     [SerializeField] private float gravityDelay = 0.5f; // Thời gian delay trước khi bật gravity khi mới bắn
 
+    [Header("Explosion Impulse Settings")]
+    [SerializeField] private float explosionForce = 500f;
+    [SerializeField] private float explosionRadius = 3f;
+    [SerializeField] private float upliftModifier = 0.5f;
+    [SerializeField] private ForceMode forceMode = ForceMode.Impulse;
+
     private Rigidbody rb;
     private Coroutine returnCoroutine;
     private Coroutine gravityCoroutine;
@@ -59,8 +65,24 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-            if (hasCollided) return;
+        if (hasCollided) return;
         hasCollided = true;
+
+        // Xử lý xung lực va chạm với Block bằng AddExplosionForce
+        if (collision.gameObject.CompareTag("block"))
+        {
+            Vector3 explosionPos = collision.contacts.Length > 0 ? collision.contacts[0].point : transform.position;
+
+            // Quét các collider xung quanh vị trí va chạm
+            Collider[] colliders = Physics.OverlapSphere(explosionPos, explosionRadius);
+            foreach (Collider hit in colliders)
+            {
+                if (hit.CompareTag("block") && hit.attachedRigidbody != null)
+                {
+                    hit.attachedRigidbody.AddExplosionForce(explosionForce, explosionPos, explosionRadius, upliftModifier, forceMode);
+                }
+            }
+        }
 
         // Bật Gravity ngay lập tức khi va chạm (hủy luôn đếm giờ gravity cũ)
         if (gravityCoroutine != null) StopCoroutine(gravityCoroutine);

@@ -146,6 +146,10 @@ MonoBehaviour:
   lifeTime: 4
   timeAfterCollision: 2
   gravityDelay: 1
+  explosionForce: 10
+  explosionRadius: 1
+  upliftModifier: 0.5
+  forceMode: 1
 --- !u!135 &766893701474722553
 SphereCollider:
   m_ObjectHideFlags: 0

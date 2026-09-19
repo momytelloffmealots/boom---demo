@@ -398,15 +398,10 @@ public class SimpleCannon : MonoBehaviour
         bool isPressed = false;
         Vector2 screenPosition = Vector2.zero;
 
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
         {
             isPressed = true;
-            screenPosition = Mouse.current.position.ReadValue();
-        }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            isPressed = true;
-            screenPosition = Input.mousePosition;
+            screenPosition = Pointer.current.position.ReadValue();
         }
 
         if (isPressed)
