@@ -1,6 +1,7 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections;
-using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -22,6 +23,14 @@ public class GameRuleController : MonoBehaviour
 
     [Header("Level State")]
     public LevelDifficulty currentDifficulty = LevelDifficulty.Normal; // Độ khó của Level hiện tại
+
+    [Header("Cấu hình Màu sắc Độ khó")]
+    public Color colorNormal = new Color(0.2f, 0.6f, 1f); // Xanh dương
+    public Color colorHard = new Color(0.7f, 0.2f, 1f);   // Tím
+    public Color colorSuperHard = new Color(1f, 0.2f, 0.2f); // Đỏ
+
+    [Header("Danh sách UI cần đổi màu")]
+    public List<UnityEngine.UI.Image> difficultyUIElements = new List<UnityEngine.UI.Image>();
 
     private int activeBlocks = 0;
     private int activeBulletsFlying = 0;
@@ -152,18 +161,28 @@ public class GameRuleController : MonoBehaviour
         currentDifficulty = difficulty;
         Debug.Log($"[GameRuleController] Đã cập nhật độ khó: {currentDifficulty}");
 
-        // Tại đây bạn có thể mở rộng logic tùy chỉnh theo độ khó sau này (vd: đổi màu UI, thay đổi giá tiếp tục,...)
+        // 1. Xác định màu sắc mục tiêu dựa vào độ khó
+        Color targetColor = Color.white;
         switch (currentDifficulty)
         {
             case LevelDifficulty.Normal:
-                // Normal Config
+                targetColor = colorNormal;
                 break;
             case LevelDifficulty.Hard:
-                // Hard Config
+                targetColor = colorHard;
                 break;
             case LevelDifficulty.SuperHard:
-                // SuperHard Config
+                targetColor = colorSuperHard;
                 break;
+        }
+
+        // 2. Quét qua toàn bộ danh sách UI và đổi màu
+        foreach (UnityEngine.UI.Image img in difficultyUIElements)
+        {
+            if (img != null)
+            {
+                img.color = targetColor;
+            }
         }
     }
 
@@ -326,4 +345,6 @@ public class GameRuleController : MonoBehaviour
         PlayerPrefs.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+
 }

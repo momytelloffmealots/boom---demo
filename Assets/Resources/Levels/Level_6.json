@@ -1,27 +1,27 @@
 {
     "levelName": "CustomLevel",
     "MaxBullets": 20,
-    "Difficulty": 0,
+    "Difficulty": 2,
     "blocks": [
         {
-            "prefabName": "starbox",
+            "prefabName": "CrystalRock(fixed) (1)",
             "position": {
-                "x": 0.0,
+                "x": -0.25,
                 "y": 1.0,
-                "z": -1.25
+                "z": -1.5
             },
             "rotation": {
                 "x": 0.0,
-                "y": 0.0,
+                "y": 180.0,
                 "z": 0.0
             }
         },
         {
-            "prefabName": "starbox",
+            "prefabName": "CarnivalTinCan",
             "position": {
-                "x": 0.5,
+                "x": -0.5,
                 "y": 1.5,
-                "z": -1.25
+                "z": -1.5
             },
             "rotation": {
                 "x": 0.0,
@@ -30,11 +30,11 @@
             }
         },
         {
-            "prefabName": "starbox",
+            "prefabName": "CarnivalTinCan",
             "position": {
-                "x": 0.0,
-                "y": 1.5,
-                "z": -1.25
+                "x": 0.75,
+                "y": 1.0,
+                "z": -1.5
             },
             "rotation": {
                 "x": 0.0,
@@ -43,11 +43,11 @@
             }
         },
         {
-            "prefabName": "starbox",
+            "prefabName": "CarnivalTinCan",
             "position": {
-                "x": -1.0,
+                "x": -0.25,
                 "y": 2.0,
-                "z": -1.25
+                "z": -1.5
             },
             "rotation": {
                 "x": 0.0,
@@ -56,11 +56,37 @@
             }
         },
         {
-            "prefabName": "starbox",
+            "prefabName": "CrystalRock(fixed) (1)",
             "position": {
                 "x": 1.0,
+                "y": 1.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.75,
+                "y": 2.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": 0.25,
                 "y": 3.0,
-                "z": -1.25
+                "z": -1.5
             },
             "rotation": {
                 "x": 0.0,
@@ -69,37 +95,11 @@
             }
         },
         {
-            "prefabName": "starbox",
-            "position": {
-                "x": 1.0,
-                "y": 1.0,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": 0.0,
-                "y": 2.0,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "Pedestal 1x5 Variant",
+            "prefabName": "Pedestal 1x6 Variant",
             "position": {
                 "x": 0.0,
                 "y": 0.0,
-                "z": -1.25
+                "z": -1.5
             },
             "rotation": {
                 "x": -4.885332156173705e-12,
@@ -108,115 +108,11 @@
             }
         },
         {
-            "prefabName": "starbox",
+            "prefabName": "Minecraft Diamond Block",
             "position": {
-                "x": -1.0,
-                "y": 1.5,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": -0.5,
-                "y": 1.5,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": 0.5,
-                "y": 2.0,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": -0.5,
-                "y": 3.0,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": -0.5,
-                "y": 2.0,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": 0.0,
-                "y": 3.0,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": 1.0,
-                "y": 1.5,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": -1.0,
-                "y": 2.5,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": -1.0,
+                "x": -1.25,
                 "y": 1.0,
-                "z": -1.25
+                "z": -1.5
             },
             "rotation": {
                 "x": 0.0,
@@ -225,11 +121,89 @@
             }
         },
         {
-            "prefabName": "starbox",
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": 0.0,
+                "y": 1.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": 0.25,
+                "y": 2.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": -0.25,
+                "y": 3.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinCan",
+            "position": {
+                "x": -0.75,
+                "y": 1.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.25,
+                "y": 1.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
             "position": {
                 "x": -1.0,
-                "y": 3.0,
-                "z": -1.25
+                "y": 1.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "Minecraft Diamond Block",
+            "position": {
+                "x": 1.25,
+                "y": 1.0,
+                "z": -1.5
             },
             "rotation": {
                 "x": 0.0,
@@ -238,15 +212,15 @@
             }
         },
         {
-            "prefabName": "starbox",
+            "prefabName": "CrystalRock(fixed) (1)",
             "position": {
-                "x": 0.5,
-                "y": 1.0,
-                "z": -1.25
+                "x": -0.75,
+                "y": 2.0,
+                "z": -1.5
             },
             "rotation": {
                 "x": 0.0,
-                "y": 0.0,
+                "y": 180.0,
                 "z": 0.0
             }
         },
@@ -264,102 +238,11 @@
             }
         },
         {
-            "prefabName": "starbox",
-            "position": {
-                "x": -0.5,
-                "y": 1.0,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": 1.0,
-                "y": 2.0,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "main_cannon",
-            "position": {
-                "x": 0.0,
-                "y": 1.0,
-                "z": -7.599999904632568
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": 0.0,
-                "y": 2.5,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
+            "prefabName": "CarnivalTinCan",
             "position": {
                 "x": 0.5,
-                "y": 2.5,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": 0.5,
-                "y": 3.0,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": -0.5,
-                "y": 2.5,
-                "z": -1.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": 1.0,
-                "y": 2.5,
-                "z": -1.25
+                "y": 1.5,
+                "z": -1.5
             },
             "rotation": {
                 "x": 0.0,
