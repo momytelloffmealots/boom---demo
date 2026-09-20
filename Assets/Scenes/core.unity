@@ -1627,8 +1627,8 @@ MonoBehaviour:
   PopupShop: {fileID: 92656847}
   continuePrice: 900
   currentDifficulty: 0
-  colorNormal: {r: 0.2, g: 0.6, b: 1, a: 1}
-  colorHard: {r: 0.7, g: 0.2, b: 1, a: 1}
+  colorNormal: {r: 0.9681531, g: 1, b: 0, a: 1}
+  colorHard: {r: 1, g: 1, b: 1, a: 1}
   colorSuperHard: {r: 1, g: 0.2, b: 0.2, a: 1}
   difficultyUIElements:
   - {fileID: 226224119}
@@ -19949,7 +19949,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   levelLoader: {fileID: 1863054653}
-  currentLevelIndex: 6
+  currentLevelIndex: 1
 --- !u!1 &1864690290
 GameObject:
   m_ObjectHideFlags: 0
