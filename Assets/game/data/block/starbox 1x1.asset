@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: starbox 1x1
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
   blockName: starbox
-  mass: 6
+  mass: 7
   vfxPrefab: {fileID: 0}
