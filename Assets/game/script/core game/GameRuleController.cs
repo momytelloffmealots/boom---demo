@@ -1,36 +1,18 @@
-﻿using DG.Tweening;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameRuleController : MonoBehaviour
 {
     public static GameRuleController Instance;
 
-    [Header("Liên kết Hệ thống")]
+    [Header("Liên kết View & Hệ thống")]
+    public GameRuleView view; // Tham chiếu đến kịch bản UI
     public SimpleCannon playerCannon;
-    public PlayPanelController playPanelController;
 
-    [Header("Giao diện UI (Views)")]
-    public EndGameView endGameView;
-    public BulletCountView bulletCountView;
-    public GameObject panelMoreLives;
-    public GameObject PopupShop;         // Mở shop khi thiếu tiền mua đạn
-    public int continuePrice = 900;      // Giá mua thêm lượt (Play On)
-
-    [Header("Level State")]
-    public LevelDifficulty currentDifficulty = LevelDifficulty.Normal; // Độ khó của Level hiện tại
-
-    [Header("Cấu hình Màu sắc Độ khó")]
-    public Color colorNormal = new Color(0.2f, 0.6f, 1f); // Xanh dương
-    public Color colorHard = new Color(0.7f, 0.2f, 1f);   // Tím
-    public Color colorSuperHard = new Color(1f, 0.2f, 0.2f); // Đỏ
-
-    [Header("Danh sách UI cần đổi màu")]
-    public List<UnityEngine.UI.Image> difficultyUIElements = new List<UnityEngine.UI.Image>();
+    [Header("Cấu hình Logic")]
+    public int continuePrice = 900;
+    public LevelDifficulty currentDifficulty = LevelDifficulty.Normal;
 
     private int activeBlocks = 0;
     private int activeBulletsFlying = 0;
@@ -42,45 +24,21 @@ public class GameRuleController : MonoBehaviour
     {
         if (Instance == null) Instance = this;
 
-        GameObject splashPanel = GameObject.Find("Panel_Splash_Startup");
-        if (!hasShownSplash)
+        if (view != null)
         {
-            hasShownSplash = true;
-        }
-        else
-        {
-            if (splashPanel != null) splashPanel.SetActive(false);
-        }
+            // Xử lý Splash Screen thông qua View
+            view.HandleSplashScreen(hasShownSplash);
+            if (!hasShownSplash) hasShownSplash = true;
 
-        if (playPanelController != null)
-        {
-            if (PlayerPrefs.GetInt("AutoStartGame", 0) == 1)
+            // Xử lý luồng UI ban đầu
+            bool isAutoStart = PlayerPrefs.GetInt("AutoStartGame", 0) == 1;
+            view.SetupInitialUI(isAutoStart);
+
+            if (!isAutoStart && PlayerPrefs.GetInt("AutoOpenPlayPanel", 0) == 1)
             {
-                if (playPanelController.canvasUI != null) playPanelController.canvasUI.SetActive(false);
-                if (playPanelController.loadingView != null)
-                {
-                    playPanelController.loadingView.gameObject.SetActive(true);
-                    CanvasGroup cg = playPanelController.loadingView.GetComponent<CanvasGroup>();
-                    if (cg != null) cg.alpha = 1f;
-                }
-            }
-            else
-            {
-                if (playPanelController.gameplayRoot != null) playPanelController.gameplayRoot.SetActive(false);
-                if (playPanelController.canvasInGame != null) playPanelController.canvasInGame.SetActive(false);
-                if (playPanelController.canvasUI != null) playPanelController.canvasUI.SetActive(true);
-                if (playPanelController.loadingView != null) playPanelController.loadingView.gameObject.SetActive(false);
-
-                // 🔥 THÊM ĐOẠN CODE NÀY: Lắng nghe tín hiệu mở bảng từ ván trước
-                if (PlayerPrefs.GetInt("AutoOpenPlayPanel", 0) == 1)
-                {
-                    // Tẩy xóa cờ đi ngay lập tức để lần sau mở app không bị tự động bật
-                    PlayerPrefs.SetInt("AutoOpenPlayPanel", 0);
-                    PlayerPrefs.Save();
-
-                    // Gọi sang PlayPanelController để bật Panel_Play lên
-                    playPanelController.OpenPopup();
-                }
+                PlayerPrefs.SetInt("AutoOpenPlayPanel", 0);
+                PlayerPrefs.Save();
+                if (view.playPanelController != null) view.playPanelController.OpenPopup();
             }
         }
     }
@@ -96,94 +54,62 @@ public class GameRuleController : MonoBehaviour
 
         if (playerCannon != null)
         {
-            playerCannon.OnAmmoChanged += UpdateBulletUI;
-            UpdateBulletUI(playerCannon.GetCurrentBullets());
+            playerCannon.OnAmmoChanged += HandleAmmoChanged;
+            HandleAmmoChanged(playerCannon.GetCurrentBullets());
         }
 
-        if (endGameView != null)
+        if (view != null && view.endGameView != null)
         {
-            endGameView.OnTryAgainClicked += HandleTryAgain;
-            endGameView.OnHomeClicked += HandleReturnToHome;
-            endGameView.OnPlayOnClicked += HandlePlayOn;
-            endGameView.OnContinueCloseClicked += HandleContinueClose;
+            view.endGameView.OnTryAgainClicked += HandleTryAgain;
+            view.endGameView.OnHomeClicked += HandleReturnToHome;
+            view.endGameView.OnPlayOnClicked += HandlePlayOn;
+            view.endGameView.OnContinueCloseClicked += HandleContinueClose;
         }
     }
 
     private IEnumerator DirectToGameRoutine()
     {
-        if (playPanelController != null)
+        if (view != null && view.playPanelController != null)
         {
-            if (playPanelController.gameplayRoot != null) playPanelController.gameplayRoot.SetActive(true);
-            if (playPanelController.canvasInGame != null) playPanelController.canvasInGame.SetActive(true);
+            if (view.playPanelController.gameplayRoot != null) view.playPanelController.gameplayRoot.SetActive(true);
+            if (view.playPanelController.canvasInGame != null) view.playPanelController.canvasInGame.SetActive(true);
+
             yield return new WaitForSeconds(0.1f);
 
-            // GỌI PRE-BOOSTER MANAGER
             if (PreBoosterManager.Instance != null)
             {
                 PreBoosterManager.Instance.ApplyPreBoosters();
             }
 
-            if (playPanelController.loadingView != null)
-            {
-                CanvasGroup cg = playPanelController.loadingView.GetComponent<CanvasGroup>();
-                if (cg != null)
-                {
-                    float fadeDuration = 0.2f;
-                    float elapsed = 0f;
-                    while (elapsed < fadeDuration)
-                    {
-                        elapsed += Time.deltaTime;
-                        cg.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
-                        yield return null;
-                    }
-                    cg.alpha = 0f;
-                }
-                playPanelController.loadingView.gameObject.SetActive(false);
-            }
+            // Gọi View để chạy hiệu ứng mờ Loading
+            yield return StartCoroutine(view.FadeOutLoadingRoutine());
         }
     }
 
     private void OnDestroy()
     {
-        if (playerCannon != null) playerCannon.OnAmmoChanged -= UpdateBulletUI;
-        if (endGameView != null)
+        if (playerCannon != null) playerCannon.OnAmmoChanged -= HandleAmmoChanged;
+        if (view != null && view.endGameView != null)
         {
-            endGameView.OnTryAgainClicked -= HandleTryAgain;
-            endGameView.OnHomeClicked -= HandleReturnToHome;
-            endGameView.OnPlayOnClicked -= HandlePlayOn;
-            endGameView.OnContinueCloseClicked -= HandleContinueClose;
+            view.endGameView.OnTryAgainClicked -= HandleTryAgain;
+            view.endGameView.OnHomeClicked -= HandleReturnToHome;
+            view.endGameView.OnPlayOnClicked -= HandlePlayOn;
+            view.endGameView.OnContinueCloseClicked -= HandleContinueClose;
         }
     }
 
-    // ================= XỬ LÝ ĐỘ KHÓ LEVEL =================
     public void SetLevelDifficulty(LevelDifficulty difficulty)
     {
         currentDifficulty = difficulty;
         Debug.Log($"[GameRuleController] Đã cập nhật độ khó: {currentDifficulty}");
 
-        // 1. Xác định màu sắc mục tiêu dựa vào độ khó
-        Color targetColor = Color.white;
-        switch (currentDifficulty)
-        {
-            case LevelDifficulty.Normal:
-                targetColor = colorNormal;
-                break;
-            case LevelDifficulty.Hard:
-                targetColor = colorHard;
-                break;
-            case LevelDifficulty.SuperHard:
-                targetColor = colorSuperHard;
-                break;
-        }
+        // Ra lệnh cho View đổi màu
+        if (view != null) view.UpdateDifficultyTheme(currentDifficulty);
+    }
 
-        // 2. Quét qua toàn bộ danh sách UI và đổi màu
-        foreach (UnityEngine.UI.Image img in difficultyUIElements)
-        {
-            if (img != null)
-            {
-                img.color = targetColor;
-            }
-        }
+    private void HandleAmmoChanged(int currentAmmo)
+    {
+        if (view != null) view.UpdateAmmoText(currentAmmo);
     }
 
     private void HandlePlayOn()
@@ -191,14 +117,14 @@ public class GameRuleController : MonoBehaviour
         if (CurrencyManager.Instance != null && CurrencyManager.Instance.TrySpendCoins(continuePrice))
         {
             isWaitingForContinue = false;
-            if (endGameView != null) endGameView.HideAll();
+            if (view != null && view.endGameView != null) view.endGameView.HideAll();
             if (playerCannon != null) playerCannon.AddBullets(5);
             Debug.Log("<color=green>Mua lượt thành công! Được cộng 5 viên đạn.</color>");
         }
         else
         {
             Debug.LogWarning("Không đủ Vàng! Đang mở bảng Shop...");
-            if (PopupShop != null) PopupShop.SetActive(true);
+            if (view != null && view.popupShop != null) view.popupShop.SetActive(true);
         }
     }
 
@@ -207,18 +133,18 @@ public class GameRuleController : MonoBehaviour
         isWaitingForContinue = false;
         isGameOver = true;
         if (LivesManager.Instance != null) LivesManager.Instance.LoseLife();
-        if (endGameView != null) endGameView.ShowLose();
+        if (view != null && view.endGameView != null) view.endGameView.ShowLose();
     }
 
     private void HandleTryAgain()
     {
         if (LivesManager.Instance != null && LivesManager.Instance.GetCurrentLives() <= 0)
         {
-            if (panelMoreLives != null) panelMoreLives.SetActive(true);
+            if (view != null && view.panelMoreLives != null) view.panelMoreLives.SetActive(true);
             return;
         }
 
-        if (endGameView != null) endGameView.HideAll();
+        if (view != null && view.endGameView != null) view.endGameView.HideAll();
         PlayerPrefs.SetInt("AutoStartGame", 1);
         PlayerPrefs.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -226,15 +152,10 @@ public class GameRuleController : MonoBehaviour
 
     private void HandleReturnToHome()
     {
-        if (endGameView != null) endGameView.HideAll();
+        if (view != null && view.endGameView != null) view.endGameView.HideAll();
         PlayerPrefs.SetInt("AutoStartGame", 0);
         PlayerPrefs.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    private void UpdateBulletUI(int currentAmmo)
-    {
-        if (bulletCountView != null) bulletCountView.UpdateAmmoText(currentAmmo);
     }
 
     public void ResetRules()
@@ -243,7 +164,7 @@ public class GameRuleController : MonoBehaviour
         activeBulletsFlying = 0;
         isGameOver = false;
         isWaitingForContinue = false;
-        if (endGameView != null) endGameView.HideAll();
+        if (view != null && view.endGameView != null) view.endGameView.HideAll();
     }
 
     public void RegisterBlock(Block block)
@@ -299,7 +220,7 @@ public class GameRuleController : MonoBehaviour
             if (activeBlocks > 0 && !isGameOver)
             {
                 isWaitingForContinue = true;
-                if (endGameView != null) endGameView.ShowContinue();
+                if (view != null && view.endGameView != null) view.endGameView.ShowContinue();
             }
         }
     }
@@ -308,7 +229,7 @@ public class GameRuleController : MonoBehaviour
     {
         if (isGameOver) return;
         isGameOver = true;
-        if (endGameView != null) endGameView.ShowWin();
+        if (view != null && view.endGameView != null) view.endGameView.ShowWin();
         StartCoroutine(AutoReturnToHomeRoutine(2f));
     }
 
@@ -317,17 +238,12 @@ public class GameRuleController : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         int currentLevel = PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1);
         PlayerPrefs.SetInt("CURRENT_LEVEL_INDEX", currentLevel + 1);
-
         PlayerPrefs.SetInt("AutoStartGame", 0);
-
-        // 🔥 THÊM DÒNG NÀY: Ghi nhớ việc phải mở bảng Play khi về Home
         PlayerPrefs.SetInt("AutoOpenPlayPanel", 1);
-
         PlayerPrefs.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    // ================= XỬ LÝ BỎ CUỘC (QUIT GAME) =================
     public void QuitGameAndLoseLife()
     {
         isGameOver = true;
@@ -339,12 +255,11 @@ public class GameRuleController : MonoBehaviour
             Debug.Log("Bỏ cuộc giữa chừng -> Đã trừ 1 mạng!");
         }
 
-        if (endGameView != null) endGameView.HideAll();
+        if (view != null && view.endGameView != null) view.endGameView.HideAll();
 
         PlayerPrefs.SetInt("AutoStartGame", 0);
         PlayerPrefs.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
-
 }
+
