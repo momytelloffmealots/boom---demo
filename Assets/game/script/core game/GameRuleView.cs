@@ -3,6 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 🔥 MỚI: Tạo một cấu trúc để lưu trữ 3 bức ảnh khác nhau cho từng UI Element
+[System.Serializable]
+public class DifficultySpriteSwap
+{
+    public Image targetImage;      // Vị trí cần đổi ảnh (VD: Background của Panel_Play)
+    public Sprite spriteNormal;    // Hình ảnh lúc Normal
+    public Sprite spriteHard;      // Hình ảnh lúc Hard
+    public Sprite spriteSuperHard; // Hình ảnh lúc Super Hard
+}
+
 public class GameRuleView : MonoBehaviour
 {
     [Header("Liên kết Giao diện (UI)")]
@@ -14,17 +24,12 @@ public class GameRuleView : MonoBehaviour
 
     [Header("Liên kết SubButtons")]
     public GameObject panelSubButtons;
-    public Button btnCloseSubButtonsBg; // 🔥 MỚI: Biến lưu trữ nút nền mờ
+    public Button btnCloseSubButtonsBg;
 
-    [Header("Cấu hình Màu sắc Độ khó")]
-    public Color colorNormal = new Color(0.2f, 0.6f, 1f);
-    public Color colorHard = new Color(0.7f, 0.2f, 1f);
-    public Color colorSuperHard = new Color(1f, 0.2f, 0.2f);
+    // 🔥 MỚI: Danh sách UI cần đổi Art theo độ khó (Thay cho biến Color cũ)
+    [Header("Danh sách UI cần đổi Art")]
+    public List<DifficultySpriteSwap> difficultyArtElements = new List<DifficultySpriteSwap>();
 
-    [Header("Danh sách UI cần đổi màu")]
-    public List<Image> difficultyUIElements = new List<Image>();
-
-    // 🔥 MỚI: Tự động móc nối sự kiện nút bấm bằng Code khi game bắt đầu
     private void Start()
     {
         if (btnCloseSubButtonsBg != null)
@@ -33,7 +38,6 @@ public class GameRuleView : MonoBehaviour
         }
     }
 
-    // Bọn mình dùng AddListener thì nên có RemoveListener khi object bị hủy để giải phóng bộ nhớ
     private void OnDestroy()
     {
         if (btnCloseSubButtonsBg != null)
@@ -95,19 +99,32 @@ public class GameRuleView : MonoBehaviour
         }
     }
 
+    // 🔥 CẬP NHẬT: Logic đổi Sprite thay vì đổi Color
     public void UpdateDifficultyTheme(LevelDifficulty difficulty)
     {
-        Color targetColor = Color.white;
-        switch (difficulty)
+        foreach (DifficultySpriteSwap item in difficultyArtElements)
         {
-            case LevelDifficulty.Normal: targetColor = colorNormal; break;
-            case LevelDifficulty.Hard: targetColor = colorHard; break;
-            case LevelDifficulty.SuperHard: targetColor = colorSuperHard; break;
-        }
+            if (item.targetImage != null)
+            {
+                Sprite targetSprite = null;
 
-        foreach (Image img in difficultyUIElements)
-        {
-            if (img != null) img.color = targetColor;
+                // Xác định ảnh cần dùng dựa vào độ khó
+                switch (difficulty)
+                {
+                    case LevelDifficulty.Normal: targetSprite = item.spriteNormal; break;
+                    case LevelDifficulty.Hard: targetSprite = item.spriteHard; break;
+                    case LevelDifficulty.SuperHard: targetSprite = item.spriteSuperHard; break;
+                }
+
+                // Tiến hành thay ảnh
+                if (targetSprite != null)
+                {
+                    item.targetImage.sprite = targetSprite;
+
+                    // MẸO: Trả màu Tint về Trắng tinh (Tránh việc ảnh mới bị ám màu cũ)
+                    item.targetImage.color = Color.white;
+                }
+            }
         }
     }
 
@@ -124,4 +141,3 @@ public class GameRuleView : MonoBehaviour
         }
     }
 }
-

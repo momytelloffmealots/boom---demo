@@ -1706,10 +1706,11 @@ MonoBehaviour:
   popupShop: {fileID: 92656847}
   panelSubButtons: {fileID: 1631395480}
   btnCloseSubButtonsBg: {fileID: 203135706}
-  colorNormal: {r: 0.2, g: 0.6, b: 1, a: 1}
-  colorHard: {r: 0.7, g: 0.2, b: 1, a: 1}
-  colorSuperHard: {r: 1, g: 0.2, b: 0.2, a: 1}
-  difficultyUIElements: []
+  difficultyArtElements:
+  - targetImage: {fileID: 226224119}
+    spriteNormal: {fileID: 21300000, guid: 1dec096e61267204daa6dde266ef956f, type: 3}
+    spriteHard: {fileID: 21300000, guid: 790c8e3a63e3167489fcadccee055820, type: 3}
+    spriteSuperHard: {fileID: 21300000, guid: c006f0714f8d76444bf6f7eabd1ebc95, type: 3}
 --- !u!1 &190256468
 GameObject:
   m_ObjectHideFlags: 0

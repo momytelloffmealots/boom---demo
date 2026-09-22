@@ -1,181 +1,12 @@
 {
     "levelName": "CustomLevel",
     "MaxBullets": 20,
-    "Difficulty": 2,
+    "Difficulty": 1,
     "blocks": [
         {
             "prefabName": "starbox",
             "position": {
-                "x": -0.75,
-                "y": 2.5,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CrystalRock(fixed) (1)",
-            "position": {
-                "x": -0.75,
-                "y": 3.5,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 180.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CrystalRock(fixed) (1)",
-            "position": {
-                "x": -1.25,
-                "y": 3.5,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 180.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "bulletpool",
-            "position": {
-                "x": 11.0,
-                "y": 0.0,
-                "z": 5.0
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CrystalRock(fixed) (1)",
-            "position": {
-                "x": -1.25,
-                "y": 2.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 180.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": 0.75,
-                "y": 2.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CrystalRock(fixed) (1)",
-            "position": {
-                "x": -0.75,
-                "y": 3.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 180.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": -0.75,
-                "y": 2.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CrystalRock(fixed) (1)",
-            "position": {
-                "x": 1.25,
-                "y": 1.5,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 180.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": -0.25,
-                "y": 2.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CrystalRock(fixed) (1)",
-            "position": {
-                "x": 1.25,
-                "y": 1.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 180.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
                 "x": 0.25,
-                "y": 3.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": -0.25,
-                "y": 2.5,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": 0.75,
                 "y": 2.5,
                 "z": -1.5
             },
@@ -189,58 +20,6 @@
             "prefabName": "CrystalRock(fixed) (1)",
             "position": {
                 "x": 1.25,
-                "y": 2.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 180.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CrystalRock(fixed) (1)",
-            "position": {
-                "x": -0.75,
-                "y": 1.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 180.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CrystalRock(fixed) (1)",
-            "position": {
-                "x": 0.75,
-                "y": 3.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 180.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CrystalRock(fixed) (1)",
-            "position": {
-                "x": 0.75,
-                "y": 1.5,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 180.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CrystalRock(fixed) (1)",
-            "position": {
-                "x": 0.25,
                 "y": 3.5,
                 "z": -1.5
             },
@@ -251,10 +30,23 @@
             }
         },
         {
+            "prefabName": "starbox",
+            "position": {
+                "x": 0.75,
+                "y": 2.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
             "prefabName": "CrystalRock(fixed) (1)",
             "position": {
                 "x": -1.25,
-                "y": 3.0,
+                "y": 1.5,
                 "z": -1.5
             },
             "rotation": {
@@ -277,35 +69,22 @@
             }
         },
         {
-            "prefabName": "CrystalRock(fixed) (1)",
+            "prefabName": "starbox",
             "position": {
-                "x": -1.25,
-                "y": 1.5,
+                "x": -0.25,
+                "y": 2.5,
                 "z": -1.5
             },
             "rotation": {
                 "x": 0.0,
-                "y": 180.0,
+                "y": 0.0,
                 "z": 0.0
             }
         },
         {
             "prefabName": "CrystalRock(fixed) (1)",
             "position": {
-                "x": 0.75,
-                "y": 1.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 180.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CrystalRock(fixed) (1)",
-            "position": {
-                "x": 0.75,
+                "x": 0.25,
                 "y": 3.5,
                 "z": -1.5
             },
@@ -318,7 +97,7 @@
         {
             "prefabName": "CrystalRock(fixed) (1)",
             "position": {
-                "x": -1.25,
+                "x": 1.25,
                 "y": 2.5,
                 "z": -1.5
             },
@@ -331,46 +110,7 @@
         {
             "prefabName": "starbox",
             "position": {
-                "x": 0.25,
-                "y": 1.5,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CrystalRock(fixed) (1)",
-            "position": {
-                "x": 1.25,
-                "y": 3.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 180.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": -0.25,
-                "y": 3.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "starbox",
-            "position": {
-                "x": 0.25,
+                "x": -0.75,
                 "y": 2.0,
                 "z": -1.5
             },
@@ -383,34 +123,8 @@
         {
             "prefabName": "CrystalRock(fixed) (1)",
             "position": {
-                "x": -0.25,
-                "y": 3.5,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 180.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CrystalRock(fixed) (1)",
-            "position": {
-                "x": 0.25,
+                "x": 0.75,
                 "y": 1.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 180.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CrystalRock(fixed) (1)",
-            "position": {
-                "x": 1.25,
-                "y": 2.5,
                 "z": -1.5
             },
             "rotation": {
@@ -433,11 +147,11 @@
             }
         },
         {
-            "prefabName": "starbox",
+            "prefabName": "bulletpool",
             "position": {
-                "x": 0.25,
-                "y": 2.5,
-                "z": -1.5
+                "x": 11.0,
+                "y": 0.0,
+                "z": 5.0
             },
             "rotation": {
                 "x": 0.0,
@@ -449,7 +163,7 @@
             "prefabName": "CrystalRock(fixed) (1)",
             "position": {
                 "x": -0.25,
-                "y": 1.0,
+                "y": 3.5,
                 "z": -1.5
             },
             "rotation": {
@@ -462,7 +176,59 @@
             "prefabName": "CrystalRock(fixed) (1)",
             "position": {
                 "x": 1.25,
+                "y": 2.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "starbox",
+            "position": {
+                "x": -0.25,
+                "y": 2.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.75,
                 "y": 3.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -1.25,
+                "y": 3.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -1.25,
+                "y": 2.5,
                 "z": -1.5
             },
             "rotation": {
@@ -485,6 +251,32 @@
             }
         },
         {
+            "prefabName": "starbox",
+            "position": {
+                "x": 0.25,
+                "y": 1.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -1.25,
+                "y": 3.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
             "prefabName": "CrystalRock(fixed) (1)",
             "position": {
                 "x": -1.25,
@@ -494,6 +286,214 @@
             "rotation": {
                 "x": 0.0,
                 "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 1.25,
+                "y": 1.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -0.75,
+                "y": 3.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 1.25,
+                "y": 3.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.75,
+                "y": 1.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -0.75,
+                "y": 3.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.25,
+                "y": 1.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "starbox",
+            "position": {
+                "x": 0.25,
+                "y": 3.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -0.75,
+                "y": 1.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 1.25,
+                "y": 1.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "starbox",
+            "position": {
+                "x": 0.25,
+                "y": 2.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -1.25,
+                "y": 2.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "starbox",
+            "position": {
+                "x": -0.25,
+                "y": 3.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "starbox",
+            "position": {
+                "x": -0.75,
+                "y": 2.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.75,
+                "y": 3.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -0.25,
+                "y": 1.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "starbox",
+            "position": {
+                "x": 0.75,
+                "y": 2.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
                 "z": 0.0
             }
         }
