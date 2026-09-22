@@ -9,8 +9,10 @@ public class AudioManager : MonoBehaviour
     public AudioSource musicSource;   // Nhạc nền
     public AudioSource soundSource;   // Sound Effect
 
+
     [Header("Sound")]
     public AudioClip buttonClickClip; // Tiếng click button
+    public AudioClip cannonShotClip;
 
     private void Awake()
     {
@@ -121,5 +123,10 @@ public class AudioManager : MonoBehaviour
         {
             soundSource.PlayOneShot(clip);
         }
+    }
+
+    public void PlayCannonShot()
+    {
+        PlaySound(cannonShotClip);
     }
 }

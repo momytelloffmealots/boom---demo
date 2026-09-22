@@ -17326,6 +17326,7 @@ MonoBehaviour:
   musicSource: {fileID: 1983209870}
   soundSource: {fileID: 1696577396}
   buttonClickClip: {fileID: 8300000, guid: 0221a827b16ae8742b15232decade0fb, type: 3}
+  cannonShotClip: {fileID: 8300000, guid: ef3b2bdaa2fe22145a992a696e457f15, type: 3}
 --- !u!1 &1510749682
 GameObject:
   m_ObjectHideFlags: 0

@@ -802,6 +802,13 @@ public class SimpleCannon : MonoBehaviour
                 rb.AddForce(shootDirection * bulletSpeed * rb.mass, ForceMode.VelocityChange);
             }
 
+
+            // 🔥 MỚI: Phát âm thanh ngay khi đạn bay ra
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayCannonShot();
+            }
+
             if (muzzleVFXPrefab != null)
             {
                 GameObject flash = Instantiate(muzzleVFXPrefab, firePoint.position, firePoint.rotation);
