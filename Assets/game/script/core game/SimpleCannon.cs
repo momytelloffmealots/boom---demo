@@ -577,6 +577,8 @@ public class SimpleCannon : MonoBehaviour
 
     public event Action<int> OnAmmoChanged;
 
+    public static event Action<float> OnInfiniteAmmoStarted;
+    public static event Action OnInfiniteAmmoEnded;
     public Transform FirePoint => firePoint;
     public Transform CannonBasePoint => cannonBasePoint != null ? cannonBasePoint : transform;
 
@@ -632,12 +634,17 @@ public class SimpleCannon : MonoBehaviour
     private IEnumerator InfiniteAmmoRoutine(float duration)
     {
         isInfiniteAmmoActive = true;
+        
+        // PHÁT TÍN HIỆU BẬT UI
+        OnInfiniteAmmoStarted?.Invoke(duration); 
 
-        // ĐÃ XÓA: Code Instantiate hiệu ứng vòng sáng vô hạn (Đã chuyển sang InfiniteAmmoSO)
-
+        // Đợi hết thời gian
         yield return new WaitForSeconds(duration);
 
         isInfiniteAmmoActive = false;
+        
+        // PHÁT TÍN HIỆU TẮT UI
+        OnInfiniteAmmoEnded?.Invoke(); 
     }
 
     private void Update()
