@@ -6,10 +6,10 @@ using System.Collections;
 public class InfiniteAmmoUI : MonoBehaviour
 {
     [Header("UI References")]
-    public GameObject infinitePanel;       
+    public GameObject infinitePanel;
     public TextMeshProUGUI txtTitle1; // Tiêu đề trên (Ví dụ: Infinite Ball)
     public TextMeshProUGUI txtTitle2; // Tiêu đề dưới để đếm giây
-    public Slider fillBar;            // Đã fix chuẩn kiểu Slider
+    public Slider fillBar;            // Thanh trượt thời gian
 
     private Coroutine countdownCoroutine;
 
@@ -65,10 +65,10 @@ public class InfiniteAmmoUI : MonoBehaviour
             {
                 int secondsLeft = Mathf.CeilToInt(timer);
                 // Giữ nguyên câu tiếng Anh của bạn và nối thêm số giây
-                txtTitle2.text = $"Unlimited ball-handling time: {secondsLeft}s"; 
+                txtTitle2.text = $"Unlimited ball-handling time: {secondsLeft}s";
             }
 
-            yield return null; 
+            yield return null;
         }
     }
 }

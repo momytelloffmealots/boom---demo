@@ -340,6 +340,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3038954530393604947, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
+      propertyPath: ShapeModule.type
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038954530393604947, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
       propertyPath: TrailModule.mode
       value: 1
       objectReference: {fileID: 0}
@@ -394,6 +398,10 @@ PrefabInstance:
     - target: {fileID: 3038954530393604947, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
       propertyPath: EmissionModule.m_BurstCount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038954530393604947, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3038954530393604947, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
       propertyPath: TrailModule.lifetime.scalar

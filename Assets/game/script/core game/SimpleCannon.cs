@@ -18,13 +18,22 @@ public class SimpleCannon : MonoBehaviour
     public int maxBullets = 30;
     private int currentBullets;
 
-    [Header("Bullet Scale Settings")]
+    [Header("Bullet Scale & Force")]
     [SerializeField] private float normalBulletScaleMultiplier = 1f;
     private float bigBulletScaleMultiplier = 2.5f;
-    private float currentForceMultiplier = 1f; 
+    private float currentForceMultiplier = 1f;
 
     [Header("Muzzle VFX")]
-    [SerializeField] private GameObject muzzleVFXPrefab; 
+    [SerializeField] private GameObject muzzleVFXPrefab;
+
+    [SerializeField] private GameObject bigBulletChargeVFXPrefab;
+    private GameObject currentChargeVFX;
+
+    [SerializeField] private GameObject infiniteAmmoVFXPrefab;
+    private GameObject currentInfiniteAmmoVFX;
+
+    [Header("Animation")]
+    [SerializeField] private Animator cannonAnimator;
 
     private bool isBigBulletActive = false;
     private bool isInfiniteAmmoActive = false;
@@ -34,8 +43,8 @@ public class SimpleCannon : MonoBehaviour
     private bool isScaleSaved = false;
 
     private bool isAiming = false;
-    private GameObject currentChargeVFX;
 
+    // 🔥 CÁC SỰ KIỆN LẮNG NGHE CHO UI
     public event Action<int> OnAmmoChanged;
     public static event Action<float> OnInfiniteAmmoStarted;
     public static event Action OnInfiniteAmmoEnded;
@@ -68,8 +77,8 @@ public class SimpleCannon : MonoBehaviour
         currentBullets = maxBullets;
         isBigBulletActive = false;
         isInfiniteAmmoActive = false;
-        isAiming = false; 
-        currentForceMultiplier = 1f; // Reset lực bắn về mặc định
+        isAiming = false;
+        currentForceMultiplier = 1f;
 
         if (infiniteAmmoCoroutine != null) StopCoroutine(infiniteAmmoCoroutine);
 
@@ -79,19 +88,31 @@ public class SimpleCannon : MonoBehaviour
             currentChargeVFX = null;
         }
 
+        if (currentInfiniteAmmoVFX != null)
+        {
+            Destroy(currentInfiniteAmmoVFX);
+            currentInfiniteAmmoVFX = null;
+        }
+
         OnAmmoChanged?.Invoke(currentBullets);
     }
 
     public int GetCurrentBullets() => currentBullets;
 
-    public bool ActivateBigBullet(float scaleMult, float forceMult) 
+    public bool ActivateBigBullet(float scaleMult, float forceMult)
     {
         if (isBigBulletActive) return false;
-        
+
         isBigBulletActive = true;
         bigBulletScaleMultiplier = scaleMult;
-        currentForceMultiplier = forceMult; 
-        
+        currentForceMultiplier = forceMult;
+
+        if (bigBulletChargeVFXPrefab != null && firePoint != null)
+        {
+            if (currentChargeVFX != null) Destroy(currentChargeVFX);
+            currentChargeVFX = Instantiate(bigBulletChargeVFXPrefab, firePoint.position, firePoint.rotation, firePoint);
+        }
+
         return true;
     }
 
@@ -106,12 +127,25 @@ public class SimpleCannon : MonoBehaviour
     private IEnumerator InfiniteAmmoRoutine(float duration)
     {
         isInfiniteAmmoActive = true;
-        OnInfiniteAmmoStarted?.Invoke(duration); 
+        OnInfiniteAmmoStarted?.Invoke(duration); // Gọi UI đếm ngược bật lên
+
+        if (infiniteAmmoVFXPrefab != null)
+        {
+            if (currentInfiniteAmmoVFX != null) Destroy(currentInfiniteAmmoVFX);
+            Transform basePos = cannonBasePoint != null ? cannonBasePoint : transform;
+            currentInfiniteAmmoVFX = Instantiate(infiniteAmmoVFXPrefab, basePos.position, infiniteAmmoVFXPrefab.transform.rotation);
+        }
 
         yield return new WaitForSeconds(duration);
 
         isInfiniteAmmoActive = false;
-        OnInfiniteAmmoEnded?.Invoke(); 
+        OnInfiniteAmmoEnded?.Invoke(); // Báo UI đếm ngược tắt đi
+
+        if (currentInfiniteAmmoVFX != null)
+        {
+            Destroy(currentInfiniteAmmoVFX);
+            currentInfiniteAmmoVFX = null;
+        }
     }
 
     private void Update()
@@ -125,6 +159,7 @@ public class SimpleCannon : MonoBehaviour
 
         if (isPointerDown)
         {
+            // Bấm vào UI thì chặn không cho ngắm bắn
             if (IsPointerOverUI())
             {
                 isAiming = false;
@@ -133,18 +168,20 @@ public class SimpleCannon : MonoBehaviour
 
             if (currentBullets > 0 || isInfiniteAmmoActive || isBigBulletActive)
             {
-                isAiming = true; 
+                isAiming = true;
             }
         }
 
+        // Đang giữ tay -> Ngắm
         if (isAiming && isPointerHeld)
         {
             Aim(screenPosition);
         }
 
+        // Nhả tay -> Bắn
         if (isAiming && isPointerUp)
         {
-            isAiming = false; 
+            isAiming = false;
             bool wasBigBullet = isBigBulletActive;
 
             Shoot(screenPosition);
@@ -213,19 +250,15 @@ public class SimpleCannon : MonoBehaviour
             }
 
             Vector3 baseNormalScale = originalBulletScale * normalBulletScaleMultiplier;
-            
-            // Lấy ra hệ số nổ hiện tại trước khi reset
             float activeExplosionMultiplier = currentForceMultiplier;
 
             if (isBigBulletActive)
             {
                 bullet.transform.localScale = baseNormalScale * bigBulletScaleMultiplier;
                 isBigBulletActive = false;
-                
-                // Trả lại lực nổ 1x cho các viên đạn bắn ra sau đó
-                currentForceMultiplier = 1f;
-                
-                if (currentChargeVFX != null) 
+                currentForceMultiplier = 1f; // Trả lại lực bình thường cho đạn sau
+
+                if (currentChargeVFX != null)
                 {
                     Destroy(currentChargeVFX);
                     currentChargeVFX = null;
@@ -238,7 +271,6 @@ public class SimpleCannon : MonoBehaviour
 
             if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
             {
-                // 🔥 TRUYỀN HỆ SỐ NỔ VÀO SCRIPT VIÊN ĐẠN
                 bulletScript.SetExplosionMultiplier(activeExplosionMultiplier);
 
                 bulletScript.OnRelease = (go) =>
@@ -257,11 +289,10 @@ public class SimpleCannon : MonoBehaviour
             {
                 rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
-                
-                // 🔥 SỬA LẠI: Lực bay (bulletSpeed) giữ nguyên, không nhân nữa
                 rb.AddForce(shootDirection * bulletSpeed * rb.mass, ForceMode.VelocityChange);
             }
 
+            // Gọi âm thanh tiếng súng
             if (AudioManager.Instance != null)
             {
                 AudioManager.Instance.PlayCannonShot();
@@ -271,6 +302,12 @@ public class SimpleCannon : MonoBehaviour
             {
                 GameObject flash = Instantiate(muzzleVFXPrefab, firePoint.position, firePoint.rotation);
                 Destroy(flash, 0.5f);
+            }
+
+            // Gọi hiệu ứng giật súng
+            if (cannonAnimator != null)
+            {
+                cannonAnimator.SetTrigger("Shoot");
             }
         }
     }

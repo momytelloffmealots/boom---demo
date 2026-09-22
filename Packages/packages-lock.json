@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.coffee.ui-particle": {
-      "version": "file:C:/Users/Chelsea/Downloads/ParticleEffectForUGUI-main/ParticleEffectForUGUI-main",
+      "version": "file:D:/ParticleEffectForUGUI-main (1)/ParticleEffectForUGUI-main",
       "depth": 0,
       "source": "local",
       "dependencies": {
