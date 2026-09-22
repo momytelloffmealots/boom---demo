@@ -3,18 +3,21 @@ using UnityEngine;
 public class StickyBomb : MonoBehaviour
 {
     [Header("Cài đặt bay")]
-    public float speed = 8f;            // Tốc độ bay mặc định là 8
-    public float defaultScale = 5f;     // Kích thước bọ là 5
-    public float explosionScale = 1.6f; // Kích thước nổ (bằng 1/3 của 5)
+    public float speed = 8f;            
+    public float defaultScale = 0.07f; 
+    public float explosionScale = 1.6f; 
     public GameObject explosionVFX;    
+
+    [Header("Lực nổ phụ (Vật lý)")]
+    public float explosionForce = 2000f;
+    public float explosionRadius = 3f;
+    public float upliftModifier = 0.5f;
 
     private Block targetBlock;
 
     private void Start()
     {
-        // Tự động chỉnh kích thước bọ bằng 5 khi vừa sinh ra
         transform.localScale = Vector3.one * defaultScale;
-        
         FindNewTarget();
     }
 
@@ -39,11 +42,16 @@ public class StickyBomb : MonoBehaviour
             return; 
         }
 
-        // Bay từ ngoài màn hình vào với tốc độ
+        Vector3 direction = (targetBlock.transform.position - transform.position).normalized;
+        if (direction != Vector3.zero)
+        {
+            transform.up = direction; 
+        }
+
         transform.position = Vector3.MoveTowards(transform.position, targetBlock.transform.position, speed * Time.deltaTime);
 
-        // Kiểm tra khoảng cách
-        if (Vector3.Distance(transform.position, targetBlock.transform.position) < 0.2f)
+        // 1. TĂNG KHOẢNG CÁCH NỔ LÊN 0.5f: Chạm vào rìa vỏ gạch là nổ luôn
+        if (Vector3.Distance(transform.position, targetBlock.transform.position) < 0.5f)
         {
             Explode();
         }
@@ -53,23 +61,41 @@ public class StickyBomb : MonoBehaviour
     {
         if (explosionVFX != null)
         {
-            // Kéo hiệu ứng nổ nhích về phía camera một chút để tuyệt đối không bị gạch che khuất
-            Vector3 vfxPosition = transform.position + new Vector3(0, 0, -1.5f);
-            
-            // Sinh ra hiệu ứng
+            // 2. ÉP TRỤC Z = -2f: Đảm bảo hiệu ứng khói luôn sinh ra nổi lên trên cùng, không bị gạch che
+            Vector3 vfxPosition = new Vector3(transform.position.x, transform.position.y, -2f);
             GameObject vfx = Instantiate(explosionVFX, vfxPosition, Quaternion.identity);
-
-            // 🔥 ÁP DỤNG KÍCH THƯỚC NỔ MỚI (Nhỏ đi 2/3)
             vfx.transform.localScale = Vector3.one * explosionScale;
         }
 
-        // Phá hủy cục gạch
-        if (targetBlock != null)
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        bool hitAnyBlock = false;
+
+        foreach (Collider hit in colliders)
         {
-            targetBlock.ForceDestroy();
+            // 3. DÙNG COMPONENT THAY VÌ TAG: Quét thẳng vào script Block, bỏ qua lỗi sai Tag ngoài Unity
+            Block block = hit.GetComponentInParent<Block>();
+            
+            if (block != null && hit.attachedRigidbody != null)
+            {
+                hitAnyBlock = true;
+                hit.attachedRigidbody.isKinematic = false;
+                hit.attachedRigidbody.WakeUp();
+                hit.attachedRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius, upliftModifier, ForceMode.Impulse);
+            }
         }
-        
-        // Tự hủy con bọ
+
+        // 4. BẢO HIỂM: Nếu quét OverlapSphere bị hụt, ép hất văng ít nhất là viên gạch mục tiêu
+        if (!hitAnyBlock && targetBlock != null)
+        {
+            Rigidbody rb = targetBlock.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = false;
+                rb.WakeUp();
+                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, upliftModifier, ForceMode.Impulse);
+            }
+        }
+
         Destroy(gameObject);
     }
 }
