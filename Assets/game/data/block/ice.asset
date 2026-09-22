@@ -13,5 +13,12 @@ MonoBehaviour:
   m_Name: ice
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
   blockName: ice
+  blockType: 0
   mass: 7
-  vfxPrefab: {fileID: 1542304094815288595, guid: e324c783d8d79f84eb0d60c945c81784, type: 3}
+  normalBehavior: 0
+  groundVfxPrefab: {fileID: 1542304094815288595, guid: e324c783d8d79f84eb0d60c945c81784, type: 3}
+  deformProgressProperty: _DeformAmount
+  breakImpactThreshold: 8
+  brokenGlassObjectPrefab: {fileID: 0}
+  glassParticleVFX: {fileID: 0}
+  glassBreakSound: {fileID: 0}

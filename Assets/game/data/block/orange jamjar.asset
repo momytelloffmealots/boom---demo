@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a5313b4a2e557449a211b27bbbfbbb4, type: 3}
-  m_Name: rock
+  m_Name: orange jamjar
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
-  blockName: rock
-  blockType: 0
-  mass: 10
+  blockName: orange jamjar
+  blockType: 1
+  mass: 2
   normalBehavior: 0
-  groundVfxPrefab: {fileID: 266552125470661832, guid: 5c7944c6677862f4595ba657671e3ade, type: 3}
+  groundVfxPrefab: {fileID: 0}
   deformProgressProperty: _DeformAmount
-  breakImpactThreshold: 8
-  brokenGlassObjectPrefab: {fileID: 0}
+  breakImpactThreshold: 3
+  brokenGlassObjectPrefab: {fileID: 149344, guid: 617378de28fbaa64c96485d5b0d9169b, type: 3}
   glassParticleVFX: {fileID: 0}
   glassBreakSound: {fileID: 0}
