@@ -17,3 +17,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: ebe2ba0ea0bd9ce409145e50fd88baa7, type: 3}
   price: 100
   scaleMultiplier: 2
+  activationVFX: {fileID: 147226, guid: 4d496338295339f4ab150256f9d9f4b7, type: 3}
