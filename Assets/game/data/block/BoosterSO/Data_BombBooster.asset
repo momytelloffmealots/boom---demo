@@ -16,5 +16,5 @@ MonoBehaviour:
   boosterName: StickyBomb
   icon: {fileID: 21300000, guid: c6870c23f8fcdb14ea3bcf1a5b5cd57f, type: 3}
   price: 100
-  stickyBombPrefab: {fileID: 872759275309924147, guid: 9b2548aea0a9f004eb77576ea20203a3, type: 3}
+  stickyBombPrefab: {fileID: 9041003515447854862, guid: e78dc2e2c213b9c4ba672c6ae3ff643c, type: 3}
   spawnCount: 5
