@@ -331,6 +331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CFXR3 Hit Light B (Air) Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3038954530393604946, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3038954530393604947, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
       propertyPath: lengthInSec
       value: 0.5
@@ -440,6 +444,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3038954530393604947, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
+      propertyPath: InitialModule.startRotation.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038954530393604947, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
       value: 2
       objectReference: {fileID: 0}
@@ -464,12 +472,24 @@ PrefabInstance:
       value: 34053
       objectReference: {fileID: 0}
     - target: {fileID: 3038954530393604947, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime1
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038954530393604947, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key0.a
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3038954530393604947, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038954530393604947, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[1].time
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038954530393604947, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.m_NumAlphaKeys
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3038954530393604947, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].cycleCount
@@ -533,7 +553,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3038954530436054933, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3038954530436054934, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
       propertyPath: m_Intensity
@@ -541,11 +561,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5289629228913247505, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6790059535439435489, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7507732854934498094, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7573800001591807186, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.50628924
+      objectReference: {fileID: 0}
+    - target: {fileID: 7573800001591807186, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.8765723
+      objectReference: {fileID: 0}
+    - target: {fileID: 7573800001591807186, guid: 52306c112e536af4886b92ac09fa8206, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
