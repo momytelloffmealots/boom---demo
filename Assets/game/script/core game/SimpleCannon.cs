@@ -555,13 +555,10 @@ public class SimpleCannon : MonoBehaviour
     private float bigBulletScaleMultiplier = 2.5f;
 
     [Header("Muzzle VFX")]
-    [SerializeField] private GameObject muzzleVFXPrefab;
+    [SerializeField] private GameObject muzzleVFXPrefab; // Chỉ giữ lại tia lửa đầu nòng khi bắn
 
-    [SerializeField] private GameObject bigBulletChargeVFXPrefab;
-    private GameObject currentChargeVFX;
-
-    [SerializeField] private GameObject infiniteAmmoVFXPrefab;
-    private GameObject currentInfiniteAmmoVFX;
+    // ĐÃ XÓA: Biến quản lý Prefab và Object của BigBullet VFX
+    // ĐÃ XÓA: Biến quản lý Prefab và Object của InfiniteAmmo VFX
 
     private bool isBigBulletActive = false;
     private bool isInfiniteAmmoActive = false;
@@ -570,10 +567,18 @@ public class SimpleCannon : MonoBehaviour
     private Vector3 originalBulletScale = Vector3.one;
     private bool isScaleSaved = false;
 
-    // 🔥 MỚI: Biến kiểm soát trạng thái ngắm bắn
     private bool isAiming = false;
+    private GameObject currentChargeVFX;
+    public void SetChargeVFX(GameObject vfx)
+    {
+        if (currentChargeVFX != null) Destroy(currentChargeVFX);
+        currentChargeVFX = vfx;
+    }
 
     public event Action<int> OnAmmoChanged;
+
+    public Transform FirePoint => firePoint;
+    public Transform CannonBasePoint => cannonBasePoint != null ? cannonBasePoint : transform;
 
     private void Awake()
     {
@@ -594,21 +599,11 @@ public class SimpleCannon : MonoBehaviour
         currentBullets = maxBullets;
         isBigBulletActive = false;
         isInfiniteAmmoActive = false;
-        isAiming = false; // Reset ngắm
+        isAiming = false; 
 
         if (infiniteAmmoCoroutine != null) StopCoroutine(infiniteAmmoCoroutine);
 
-        if (currentChargeVFX != null)
-        {
-            Destroy(currentChargeVFX);
-            currentChargeVFX = null;
-        }
-
-        if (currentInfiniteAmmoVFX != null)
-        {
-            Destroy(currentInfiniteAmmoVFX);
-            currentInfiniteAmmoVFX = null;
-        }
+        // ĐÃ XÓA: Code Destroy các hiệu ứng nạp đạn cũ (Vì giờ VFX do SO quản lý và tự hủy)
 
         OnAmmoChanged?.Invoke(currentBullets);
     }
@@ -621,11 +616,7 @@ public class SimpleCannon : MonoBehaviour
         isBigBulletActive = true;
         bigBulletScaleMultiplier = scale;
 
-        if (bigBulletChargeVFXPrefab != null && firePoint != null)
-        {
-            if (currentChargeVFX != null) Destroy(currentChargeVFX);
-            currentChargeVFX = Instantiate(bigBulletChargeVFXPrefab, firePoint.position, firePoint.rotation, firePoint);
-        }
+        // ĐÃ XÓA: Code Instantiate hiệu ứng gồng đạn bự (Đã chuyển sang BigBulletSO)
 
         return true;
     }
@@ -642,22 +633,11 @@ public class SimpleCannon : MonoBehaviour
     {
         isInfiniteAmmoActive = true;
 
-        if (infiniteAmmoVFXPrefab != null)
-        {
-            if (currentInfiniteAmmoVFX != null) Destroy(currentInfiniteAmmoVFX);
-            Transform basePos = cannonBasePoint != null ? cannonBasePoint : transform;
-            currentInfiniteAmmoVFX = Instantiate(infiniteAmmoVFXPrefab, basePos.position, infiniteAmmoVFXPrefab.transform.rotation);
-        }
+        // ĐÃ XÓA: Code Instantiate hiệu ứng vòng sáng vô hạn (Đã chuyển sang InfiniteAmmoSO)
 
         yield return new WaitForSeconds(duration);
 
         isInfiniteAmmoActive = false;
-
-        if (currentInfiniteAmmoVFX != null)
-        {
-            Destroy(currentInfiniteAmmoVFX);
-            currentInfiniteAmmoVFX = null;
-        }
     }
 
     private void Update()
@@ -669,10 +649,8 @@ public class SimpleCannon : MonoBehaviour
         bool isPointerUp = Pointer.current.press.wasReleasedThisFrame;
         Vector2 screenPosition = Pointer.current.position.ReadValue();
 
-        // 1. KHI VỪA CHẠM VÀO MÀN HÌNH
         if (isPointerDown)
         {
-            // Nếu vị trí chạm đầu tiên nằm trên UI (nút bấm, panel...) -> Không ngắm, không bắn!
             if (IsPointerOverUI())
             {
                 isAiming = false;
@@ -681,20 +659,18 @@ public class SimpleCannon : MonoBehaviour
 
             if (currentBullets > 0 || isInfiniteAmmoActive || isBigBulletActive)
             {
-                isAiming = true; // Bắt đầu chế độ ngắm
+                isAiming = true; 
             }
         }
 
-        // 2. KHI ĐANG GIỮ VÀ DI CHUỘT/TAY
         if (isAiming && isPointerHeld)
         {
             Aim(screenPosition);
         }
 
-        // 3. KHI NHẢ TAY RA -> BẮN
         if (isAiming && isPointerUp)
         {
-            isAiming = false; // Kết thúc ngắm
+            isAiming = false; 
             bool wasBigBullet = isBigBulletActive;
 
             Shoot(screenPosition);
@@ -713,7 +689,6 @@ public class SimpleCannon : MonoBehaviour
         }
     }
 
-    // 🔥 MỚI: Hàm xoay nòng pháo theo hướng tay
     private void Aim(Vector2 screenPos)
     {
         Camera mainCam = Camera.main;
@@ -765,12 +740,14 @@ public class SimpleCannon : MonoBehaviour
 
             Vector3 baseNormalScale = originalBulletScale * normalBulletScaleMultiplier;
 
+            // ---> VỊ TRÍ CỦA if(isBigBulletActive) ĐÂY NHÉ <---
             if (isBigBulletActive)
             {
                 bullet.transform.localScale = baseNormalScale * bigBulletScaleMultiplier;
                 isBigBulletActive = false;
-
-                if (currentChargeVFX != null)
+                
+                // TẮT HIỆU ỨNG GỒNG ĐẠN KHI ĐÃ BẮN RA
+                if (currentChargeVFX != null) 
                 {
                     Destroy(currentChargeVFX);
                     currentChargeVFX = null;
@@ -817,12 +794,10 @@ public class SimpleCannon : MonoBehaviour
         }
     }
 
-    // 🔥 MỚI: Hàm kiểm tra xem tay/chuột có đang đè lên UI không (hỗ trợ cả Mobile & PC)
     private bool IsPointerOverUI()
     {
         if (EventSystem.current == null) return false;
 
-        // Quét cảm ứng trên điện thoại
         if (Input.touchCount > 0)
         {
             for (int i = 0; i < Input.touchCount; i++)
@@ -832,10 +807,9 @@ public class SimpleCannon : MonoBehaviour
             }
         }
 
-        // Quét chuột trên máy tính
         return EventSystem.current.IsPointerOverGameObject();
     }
-    // 🔥 THÊM LẠI HÀM BỊ THIẾU VÀO ĐÂY
+
     public void AddBullets(int amount)
     {
         currentBullets += amount;
