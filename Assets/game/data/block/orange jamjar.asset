@@ -18,7 +18,7 @@ MonoBehaviour:
   normalBehavior: 0
   groundVfxPrefab: {fileID: 0}
   deformProgressProperty: _DeformAmount
-  breakImpactThreshold: 3
+  breakImpactThreshold: 5
   brokenGlassObjectPrefab: {fileID: 149344, guid: 617378de28fbaa64c96485d5b0d9169b, type: 3}
   glassParticleVFX: {fileID: 0}
   glassBreakSound: {fileID: 0}
