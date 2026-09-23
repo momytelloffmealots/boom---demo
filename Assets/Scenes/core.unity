@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: af58ffc8be8117748b2b925fd50b8926, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 97bdcd4b23bf159489b0b0648a0e1bd6, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -7972,7 +7972,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -127.99988}
+  m_AnchoredPosition: {x: 0, y: -127.999756}
   m_SizeDelta: {x: 0, y: -17}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &686770651
@@ -12223,15 +12223,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e30b12c22f137a145ad2469a13934a44, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e30b12c22f137a145ad2469a13934a44, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.2
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e30b12c22f137a145ad2469a13934a44, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.2
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e30b12c22f137a145ad2469a13934a44, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12239,11 +12239,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e30b12c22f137a145ad2469a13934a44, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.815
+      value: 0.85
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e30b12c22f137a145ad2469a13934a44, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.8
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e30b12c22f137a145ad2469a13934a44, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15436,7 +15436,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -127.99988}
+  m_AnchoredPosition: {x: 0, y: -127.999756}
   m_SizeDelta: {x: 0, y: -17}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1214207907
@@ -25002,6 +25002,10 @@ PrefabInstance:
     - target: {fileID: 1021921727774534476, guid: 65ac825b2415c4b49b23e9c41b42dde8, type: 3}
       propertyPath: m_Name
       value: main_cannon
+      objectReference: {fileID: 0}
+    - target: {fileID: 5829549153496095574, guid: 65ac825b2415c4b49b23e9c41b42dde8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7277084125168351724, guid: 65ac825b2415c4b49b23e9c41b42dde8, type: 3}
       propertyPath: cannonAnimator

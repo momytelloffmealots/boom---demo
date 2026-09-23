@@ -60,39 +60,41 @@ public class Block : MonoBehaviour
     {
         if (isDestroyed || data == null) return;
 
-        // LÁ CHẮN 1: Bỏ qua mọi va chạm trong 0.3s đầu khi vừa spawn ra Scene
+        // Bỏ qua mọi va chạm trong 0.3s đầu khi vừa spawn ra Scene để tránh tự nổ
         if (Time.time < enableTime + spawnImmunityTime) return;
 
-        // LÁ CHẮN 2: Dùng vận tốc tương đối (Relative Velocity) thay vì Impulse để tránh spike lực
-        float impactVelocity = collision.relativeVelocity.magnitude;
+        Vector3 hitPoint = collision.contacts.Length > 0 ? collision.contacts[0].point : transform.position;
+        bool isGroundHit = (groundLayers.value & (1 << collision.gameObject.layer)) != 0;
 
         // ================= 1. XỬ LÝ BLOCK GLASS (THỦY TINH) =================
         if (data.blockType == BlockType.Glass)
         {
-            // Kiểm tra xem vật va chạm có phải là viên Đạn không
             bool isHitByBullet = collision.gameObject.GetComponent<Bullet>() != null;
+            float impactVelocity = collision.relativeVelocity.magnitude;
 
             // 💡 QUY TẮC VỠ GLASS:
-            // - Nếu dính ĐẠN: Vỡ ngay lập tức!
-            // - Nếu va chạm vật khác (rơi xuống sàn/đập chai khác): Vận tốc va chạm phải >= breakImpactThreshold
-            if (isHitByBullet || impactVelocity >= data.breakImpactThreshold)
+            // 1. Chạm ĐẤT (Ground) -> VỠ LẬP TỨC!
+            // 2. Dính ĐẠN -> VỠ LẬP TỨC!
+            // 3. Va chạm khối khác với vận tốc đủ lớn (>= threshold) -> VỠ LẬP TỨC!
+            if (isGroundHit || isHitByBullet || impactVelocity >= data.breakImpactThreshold)
             {
-                BreakGlass(collision.contacts.Length > 0 ? collision.contacts[0].point : transform.position);
+                BreakGlass(hitPoint);
             }
             return;
         }
 
         // ================= 2. XỬ LÝ BLOCK NORMAL (THƯỜNG) =================
-        if ((groundLayers.value & (1 << collision.gameObject.layer)) != 0)
+        // Loại Normal chỉ vỡ/xử lý khi chạm LAYER ĐẤT (Ground)
+        if (isGroundHit)
         {
-            Vector3 hitPoint = collision.contacts.Length > 0 ? collision.contacts[0].point : transform.position;
-
             if (data.normalBehavior == NormalBlockBehavior.StandardVFX)
             {
+                // Loại Normal 1: Chạm đất ẩn ngay lập tức & hiện VFX
                 HandleNormalStandardVFX(hitPoint);
             }
             else if (data.normalBehavior == NormalBlockBehavior.DeformShader)
             {
+                // Loại Normal 2: DUY NHẤT loại này rơi xuống đất chờ 1s (chạy Shader méo) rồi mới ẩn
                 StartCoroutine(DeformAndDestroyRoutine());
             }
         }
