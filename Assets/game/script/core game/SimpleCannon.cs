@@ -29,19 +29,16 @@ public class SimpleCannon : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private Animator cannonAnimator;
 
-    // Trạng thái đạn
     private bool isBigBulletActive = false;
     private bool isInfiniteAmmoActive = false;
     private Coroutine infiniteAmmoCoroutine;
 
-    // Chỉ giữ lại biến này để tắt hiệu ứng "gồng đạn" khi bắn
     private GameObject currentChargeVFX;
 
     private Vector3 originalBulletScale = Vector3.one;
     private bool isScaleSaved = false;
     private bool isAiming = false;
 
-    // Sự kiện UI
     public event Action<int> OnAmmoChanged;
     public static event Action<float> OnInfiniteAmmoStarted;
     public static event Action OnInfiniteAmmoEnded;
@@ -49,7 +46,6 @@ public class SimpleCannon : MonoBehaviour
     public Transform FirePoint => firePoint;
     public Transform CannonBasePoint => cannonBasePoint != null ? cannonBasePoint : transform;
 
-    // Các file SO (Booster) sẽ dùng hàm này để gắn VFX gồng đạn vào nòng
     public void SetChargeVFX(GameObject vfx)
     {
         if (currentChargeVFX != null) Destroy(currentChargeVFX);
@@ -86,6 +82,12 @@ public class SimpleCannon : MonoBehaviour
             currentChargeVFX = null;
         }
 
+        // 🔥 GỌI ĐẾN CONTROLLER RIÊNG ĐỂ RESET CAMERA
+        if (CameraZoomController.Instance != null)
+        {
+            CameraZoomController.Instance.ResetZoomNormal();
+        }
+
         OnAmmoChanged?.Invoke(currentBullets);
     }
 
@@ -98,6 +100,12 @@ public class SimpleCannon : MonoBehaviour
         isBigBulletActive = true;
         bigBulletScaleMultiplier = scaleMult;
         currentForceMultiplier = forceMult;
+
+        // 🔥 GỌI ĐẾN CONTROLLER RIÊNG ĐỂ ZOOM LẠI GẦN
+        if (CameraZoomController.Instance != null)
+        {
+            CameraZoomController.Instance.ZoomInForBigBullet();
+        }
 
         return true;
     }
@@ -114,8 +122,6 @@ public class SimpleCannon : MonoBehaviour
     {
         isInfiniteAmmoActive = true;
         OnInfiniteAmmoStarted?.Invoke(duration);
-
-        // Việc sinh ra vòng sáng dưới chân pháo đã được chuyển sang file InfiniteAmmoSO
 
         yield return new WaitForSeconds(duration);
 
@@ -234,6 +240,12 @@ public class SimpleCannon : MonoBehaviour
                 {
                     Destroy(currentChargeVFX);
                     currentChargeVFX = null;
+                }
+
+                // 🔥 GỌI ĐẾN CONTROLLER RIÊNG ĐỂ GIẬT CAMERA RA XA
+                if (CameraZoomController.Instance != null)
+                {
+                    CameraZoomController.Instance.ResetZoomNormal();
                 }
             }
             else
