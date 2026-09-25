@@ -113,9 +113,17 @@ public class Block : MonoBehaviour
 
         if (data.glassParticleVFX != null)
         {
-            ParticleSystem particle = Instantiate(data.glassParticleVFX, spawnPoint, Quaternion.identity);
-            particle.Play();
-            Destroy(particle.gameObject, particle.main.duration + 0.5f);
+            GameObject particleObj = Instantiate(data.glassParticleVFX, spawnPoint, Quaternion.identity);
+            ParticleSystem ps = particleObj.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                ps.Play();
+                Destroy(particleObj, ps.main.duration + 0.5f);
+            }
+            else
+            {
+                Destroy(particleObj, 3.0f);
+            }
         }
 
         if (data.glassBreakSound != null)

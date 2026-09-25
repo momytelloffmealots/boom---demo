@@ -1,13 +1,78 @@
 {
     "levelName": "CustomLevel",
-    "MaxBullets": 10,
+    "MaxBullets": 20,
     "Difficulty": 0,
     "blocks": [
         {
             "prefabName": "orange jamjar",
             "position": {
-                "x": -0.25,
+                "x": 1.25,
+                "y": 1.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 0.25,
+                "y": 2.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -0.75,
+                "y": 1.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -0.75,
                 "y": 2.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 0.75,
+                "y": 2.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -0.25,
+                "y": 1.0,
                 "z": -1.5
             },
             "rotation": {
@@ -32,60 +97,8 @@
         {
             "prefabName": "orange jamjar",
             "position": {
-                "x": 0.25,
-                "y": 1.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "orange jamjar",
-            "position": {
-                "x": 1.25,
-                "y": 2.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "orange jamjar",
-            "position": {
-                "x": -0.75,
-                "y": 1.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "orange jamjar",
-            "position": {
-                "x": -1.25,
-                "y": 2.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "orange jamjar",
-            "position": {
-                "x": -0.75,
-                "y": 1.5,
+                "x": -0.25,
+                "y": 4.0,
                 "z": -1.5
             },
             "rotation": {
@@ -98,7 +111,7 @@
             "prefabName": "orange jamjar",
             "position": {
                 "x": -0.25,
-                "y": 1.5,
+                "y": 2.5,
                 "z": -1.5
             },
             "rotation": {
@@ -111,46 +124,7 @@
             "prefabName": "orange jamjar",
             "position": {
                 "x": 1.25,
-                "y": 1.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "orange jamjar",
-            "position": {
-                "x": -1.25,
-                "y": 1.5,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "orange jamjar",
-            "position": {
-                "x": 0.75,
-                "y": 2.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "orange jamjar",
-            "position": {
-                "x": -0.75,
-                "y": 2.0,
+                "y": 2.5,
                 "z": -1.5
             },
             "rotation": {
@@ -163,46 +137,7 @@
             "prefabName": "orange jamjar",
             "position": {
                 "x": 1.25,
-                "y": 1.5,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "orange jamjar",
-            "position": {
-                "x": -1.25,
-                "y": 1.0,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "orange jamjar",
-            "position": {
-                "x": 0.75,
-                "y": 1.5,
-                "z": -1.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "orange jamjar",
-            "position": {
-                "x": 0.75,
-                "y": 1.0,
+                "y": 4.0,
                 "z": -1.5
             },
             "rotation": {
@@ -227,8 +162,73 @@
         {
             "prefabName": "orange jamjar",
             "position": {
-                "x": -0.25,
-                "y": 1.0,
+                "x": -1.25,
+                "y": 2.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 0.25,
+                "y": 3.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -0.75,
+                "y": 3.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 0.75,
+                "y": 2.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 0.75,
+                "y": 3.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 0.75,
+                "y": 3.0,
                 "z": -1.5
             },
             "rotation": {
@@ -242,6 +242,318 @@
             "position": {
                 "x": 0.25,
                 "y": 1.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -1.25,
+                "y": 2.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -0.75,
+                "y": 2.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 1.25,
+                "y": 3.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 0.25,
+                "y": 4.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 0.75,
+                "y": 4.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 0.75,
+                "y": 1.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 0.25,
+                "y": 3.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 1.25,
+                "y": 2.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -0.25,
+                "y": 3.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 0.25,
+                "y": 1.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -0.25,
+                "y": 3.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -0.75,
+                "y": 4.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -1.25,
+                "y": 1.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 0.75,
+                "y": 1.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -1.25,
+                "y": 3.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -0.25,
+                "y": 1.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -0.25,
+                "y": 2.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -0.75,
+                "y": 3.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -1.25,
+                "y": 3.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -1.25,
+                "y": 4.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 1.25,
+                "y": 3.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -1.25,
+                "y": 1.5,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": -0.75,
+                "y": 1.0,
+                "z": -1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "orange jamjar",
+            "position": {
+                "x": 1.25,
+                "y": 1.0,
                 "z": -1.5
             },
             "rotation": {

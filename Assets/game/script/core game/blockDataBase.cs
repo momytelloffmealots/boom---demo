@@ -43,6 +43,6 @@ public class BlockDataBase : ScriptableObject
     [Tooltip("Ngưỡng lực va chạm tối thiểu để Glass vỡ (Tác động bởi đạn hoặc rơi đập bất kỳ vật nào)")]
     public float breakImpactThreshold = 8f;
     public GameObject brokenGlassObjectPrefab;    // Object mô hình các mảnh vỡ (3D Fractured Model)
-    public ParticleSystem glassParticleVFX;       // Particle vụn thủy tinh văng ra tại vị trí vỡ
+    public GameObject glassParticleVFX;       // Particle vụn thủy tinh văng ra tại vị trí vỡ (Đổi thành GameObject)
     public AudioClip glassBreakSound;             // Âm thanh vỡ
 }
