@@ -373,7 +373,7 @@ public class Block : MonoBehaviour
     public void ForceDestroy()
 
     {
-
+	
         if (isDestroyed) return;
 
 

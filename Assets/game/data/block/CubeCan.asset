@@ -13,5 +13,12 @@ MonoBehaviour:
   m_Name: CubeCan
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
   blockName: Cube Can
+  blockType: 0
   mass: 5
-  vfxPrefab: {fileID: 0}
+  normalBehavior: 1
+  groundVfxPrefab: {fileID: 0}
+  deformProgressProperty: _DeformAmount
+  breakImpactThreshold: 8
+  brokenGlassObjectPrefab: {fileID: 0}
+  glassParticleVFX: {fileID: 0}
+  glassBreakSound: {fileID: 0}

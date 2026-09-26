@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8021996927107150400}
   - component: {fileID: 4985095339603093332}
   - component: {fileID: 1460839291442980242}
+  - component: {fileID: 2976438067323752561}
   m_Layer: 0
   m_Name: orange jamjar
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8119514243004943388}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: -1.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -43,8 +44,8 @@ Rigidbody:
   m_GameObject: {fileID: 8119514243004943388}
   serializedVersion: 5
   m_Mass: 2
-  m_LinearDamping: 0.05
-  m_AngularDamping: 0.05
+  m_LinearDamping: 0.5
+  m_AngularDamping: 0.5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -74,9 +75,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Block
   data: {fileID: 11400000, guid: 78028848e2042cf4fa1eaebb887075d5, type: 2}
-  groundTag: Ground
-  bulletTag: Bullet
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 0
   spawnImmunityTime: 0.3
+--- !u!65 &2976438067323752561
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8119514243004943388}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3, y: 0.5, z: 0.3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2050066984511704091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -189,7 +212,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6014993042169181996, guid: 26e8f5ece52ad8b4ca7461b9dd086e78, type: 3}
 --- !u!4 &2015911082835504112 stripped

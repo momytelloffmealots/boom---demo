@@ -774,7 +774,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 09dcce46d47d09349817ae358a9357d4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.479
+      value: -4.17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 09dcce46d47d09349817ae358a9357d4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1282,8 +1282,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Block
   data: {fileID: 11400000, guid: 78028848e2042cf4fa1eaebb887075d5, type: 2}
-  groundTag: Ground
-  bulletTag: Bullet
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 0
   spawnImmunityTime: 0.3
 --- !u!1001 &1082233375
 PrefabInstance:
@@ -2139,15 +2140,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8021996927107150400, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.4853872
+      value: -0.37
       objectReference: {fileID: 0}
     - target: {fileID: 8021996927107150400, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.04
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 8021996927107150400, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.755262
+      value: -3.04
       objectReference: {fileID: 0}
     - target: {fileID: 8021996927107150400, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
       propertyPath: m_LocalRotation.w
