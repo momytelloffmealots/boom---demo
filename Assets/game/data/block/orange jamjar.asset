@@ -20,6 +20,5 @@ MonoBehaviour:
   deformProgressProperty: _DeformAmount
   breakImpactThreshold: 3
   brokenGlassObjectPrefab: {fileID: 5261421370949774146, guid: 574130518c438ef4fb22b738c20de6ff, type: 3}
-  waterSplashPrefab: {fileID: 149344, guid: 617378de28fbaa64c96485d5b0d9169b, type: 3}
-  glassParticleVFX: {fileID: 0}
+  glassParticleVFX: {fileID: 149344, guid: 617378de28fbaa64c96485d5b0d9169b, type: 3}
   glassBreakSound: {fileID: 0}
