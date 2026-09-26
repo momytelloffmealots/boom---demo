@@ -1,29 +1,15 @@
-//using UnityEngine;
-
-//[CreateAssetMenu(fileName = "NewBlockDataBase", menuName = "Game/Block Data Base")]
-//public class BlockDataBase : ScriptableObject
-//{
-//    [Header("Block Info")]
-//    public string blockName;
-//    public float mass = 1f; // Đổi int -> float cho khớp với Rigidbody
-
-//    [Header("Visual & Effects")]
-//    //public GameObject prefab; // Prefab 3D của Block
-//    public GameObject vfxPrefab; // Hiệu ứng nổ khi chạm đất
-//}
-
 using UnityEngine;
 
 public enum BlockType
 {
-    Normal, // Loại thường (Cần rơi xuống đất mới biến mất)
-    Glass   // Thủy tinh (Chỉ cần đủ lực va chạm là vỡ lập tức)
+    Normal, 
+    Glass   
 }
 
 public enum NormalBlockBehavior
 {
-    StandardVFX,    // Va chạm đất -> Ẩn ngay & Hiện vfxPrefab từ Pool
-    DeformShader    // Va chạm đất -> Giữ nguyên, chạy ShaderGraph làm méo vật thể rồi biến mất sau 1s
+    StandardVFX,    
+    DeformShader    
 }
 
 [CreateAssetMenu(fileName = "NewBlockDataBase", menuName = "Game/Block Data Base")]
@@ -36,13 +22,16 @@ public class BlockDataBase : ScriptableObject
 
     [Header("Normal Block Options (Chỉ dùng khi BlockType = Normal)")]
     public NormalBlockBehavior normalBehavior = NormalBlockBehavior.StandardVFX;
-    public GameObject groundVfxPrefab;             // VFX xuất hiện khi chạm đất (Cho loại StandardVFX)
-    public string deformProgressProperty = "_DeformAmount"; // Tên biến float trong ShaderGraph làm méo (Cho loại DeformShader)
+    public GameObject groundVfxPrefab;             
+    public string deformProgressProperty = "_DeformAmount"; 
 
     [Header("Glass Block Options (Chỉ dùng khi BlockType = Glass)")]
-    [Tooltip("Ngưỡng lực va chạm tối thiểu để Glass vỡ (Tác động bởi đạn hoặc rơi đập bất kỳ vật nào)")]
+    [Tooltip("Ngưỡng vận tốc va chạm tối thiểu để Glass vỡ khi đập vào vật KHÔNG PHẢI ĐẤT")]
     public float breakImpactThreshold = 8f;
-    public GameObject brokenGlassObjectPrefab;    // Object mô hình các mảnh vỡ (3D Fractured Model)
-    public GameObject glassParticleVFX;       // Particle vụn thủy tinh văng ra tại vị trí vỡ (Đổi thành GameObject)
+    
+    [Header("Glass Spawn Objects (Khi vỡ ra 2 GameObject)")]
+    public GameObject brokenGlassObjectPrefab;    // GameObject 1: Mô hình mảnh vỡ 3D
+    public GameObject waterSplashPrefab;         // GameObject 2: Hiệu ứng nước/bắn nước
+    public GameObject glassParticleVFX;          // Particle vụn kính (nếu muốn dùng thêm)
     public AudioClip glassBreakSound;             // Âm thanh vỡ
 }
