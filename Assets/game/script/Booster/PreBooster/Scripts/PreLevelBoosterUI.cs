@@ -5,88 +5,86 @@ using TMPro;
 public class PreLevelBoosterUI : MonoBehaviour
 {
     [Header("Booster Data")]
-    public BoosterSO boosterData; 
+    public BoosterSO boosterData;
 
     [Header("UI References")]
-    public Button btnBooster;        
-    public TextMeshProUGUI txtCount; 
-    public GameObject highlightObj;  
-    
-    [Header("Display Objects")]
-    public GameObject btnCircleObj; // Kéo btn_circle vào đây (hiển thị số)
-    public GameObject btnPlusObj;   // Kéo btn_plus vào đây (hiển thị dấu cộng)
+    public Button btnBooster;
+    public TextMeshProUGUI txtCount;
+    public GameObject highlightObj;
 
-    private Image buttonImage; 
+    [Header("Display Objects")]
+    public GameObject btnCircleObj;
+    public GameObject btnPlusObj;
+
+    [Header("Shop Settings")]
+    public GameObject popupShop;
+
+    private Image buttonImage;
     private bool isSelected = false;
+    private int lastCount = -1; // Biến kiểm tra
 
     private void Awake()
     {
-        if (btnBooster != null)
-        {
-            buttonImage = btnBooster.GetComponent<Image>();
-        }
+        if (btnBooster != null) buttonImage = btnBooster.GetComponent<Image>();
+    }
+
+    private void Start()
+    {
+        if (btnPlusObj != null && btnPlusObj.TryGetComponent(out Button b)) b.onClick.AddListener(OpenShop);
     }
 
     private void OnEnable()
     {
         isSelected = false;
-        if (boosterData != null)
-        {
-            PlayerPrefs.SetInt($"PRE_SELECTED_{boosterData.boosterID}", 0);
-        }
+        if (boosterData != null) PlayerPrefs.SetInt($"PRE_SELECTED_{boosterData.boosterID}", 0);
         UpdateUI();
+    }
+
+    // 🔥 MỚI: Quét liên tục để bắt khoảnh khắc người dùng nạp tiền mua thành công trong Shop
+    private void Update()
+    {
+        if (Time.frameCount % 10 == 0 && boosterData != null)
+        {
+            int c = PlayerPrefs.GetInt($"BOOSTER_{boosterData.boosterID}", 0);
+            if (c != lastCount)
+            {
+                lastCount = c;
+                UpdateUI();
+            }
+        }
     }
 
     private void UpdateUI()
     {
         if (boosterData == null) return;
 
-        int count = PlayerPrefs.GetInt($"BOOSTER_{boosterData.boosterID}", 0);
-        
-        // 1. Cập nhật số lượng lên text
-        if (txtCount != null) 
-        {
-            txtCount.text = count.ToString();
-        }
+        if (txtCount != null) txtCount.text = lastCount.ToString();
 
-        // 2. Logic chuyển đổi giữa btn_circle và btn_plus
-        if (btnCircleObj != null) btnCircleObj.SetActive(count > 0);
-        if (btnPlusObj != null) btnPlusObj.SetActive(count <= 0);
+        if (btnCircleObj != null) btnCircleObj.SetActive(lastCount > 0);
+        if (btnPlusObj != null) btnPlusObj.SetActive(lastCount <= 0);
 
-        if (count <= 0)
-        {
-            isSelected = false; 
-        }
+        if (lastCount <= 0) isSelected = false;
 
-        if (highlightObj != null) 
-        {
-            highlightObj.SetActive(isSelected);
-        }
+        if (highlightObj != null) highlightObj.SetActive(isSelected);
+        if (buttonImage != null) buttonImage.color = isSelected ? Color.green : Color.white;
+    }
 
-        if (buttonImage != null)
-        {
-            buttonImage.color = isSelected ? Color.green : Color.white;
-        }
+    private void OpenShop()
+    {
+        if (popupShop != null) popupShop.SetActive(true);
     }
 
     public void OnBoosterClicked()
     {
         if (boosterData == null) return;
 
-        int count = PlayerPrefs.GetInt($"BOOSTER_{boosterData.boosterID}", 0);
-
-        if (count > 0)
+        if (lastCount > 0)
         {
             isSelected = !isSelected;
-            
             PlayerPrefs.SetInt($"PRE_SELECTED_{boosterData.boosterID}", isSelected ? 1 : 0);
             PlayerPrefs.Save();
-            
             UpdateUI();
         }
-        else
-        {
-            Debug.Log("Đã hết Booster!");
-        }
+        else { OpenShop(); }
     }
 }

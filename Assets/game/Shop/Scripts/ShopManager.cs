@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System; // 🔥 THÊM THƯ VIỆN NÀY
 
 public class ShopManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class ShopManager : MonoBehaviour
 
     [Header("Data Settings")]
     [SerializeField] private List<BoosterSO> shopBoosterList;
+
+    // 🔥 MỚI: Sự kiện phát tín hiệu khi mua hàng thành công
+    public static event Action OnBoosterPurchased;
 
     private void OnEnable()
     {
@@ -83,6 +87,9 @@ public class ShopManager : MonoBehaviour
             PlayerPrefs.Save();
 
             Debug.Log($"<color=green>Mua thành công: {booster.boosterName}! Số lượng hiện tại: {currentCount + 1}</color>");
+
+            // 🔥 MỚI: Báo cho toàn bộ hệ thống UI biết để giấu nút Plus và hiện số lượng
+            OnBoosterPurchased?.Invoke();
 
             return true;
         }
