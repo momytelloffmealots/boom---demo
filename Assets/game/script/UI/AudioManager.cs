@@ -9,25 +9,38 @@ public class AudioManager : MonoBehaviour
     public AudioSource musicSource;   // Nhạc nền
     public AudioSource soundSource;   // Sound Effect
 
-
     [Header("Sound")]
     public AudioClip buttonClickClip; // Tiếng click button
     public AudioClip cannonShotClip;
 
     private void Awake()
     {
-        // Singleton
-        if (Instance == null)
+        // 🔥 FIX 2 LỖI NHẠC: Chặn đứng bản sao ngay lập tức
+        if (Instance != null && Instance != this)
         {
-            Instance = this;
-
-            // Giữ AudioManager khi chuyển Scene
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
+            // Tắt ngay Object sao chép để AudioSource không có cơ hội phát tiếng
+            gameObject.SetActive(false);
             Destroy(gameObject);
+            return; // Ép dừng chạy code bên dưới
         }
+
+        // Khởi tạo bản gốc
+        Instance = this;
+        transform.SetParent(null);
+        DontDestroyOnLoad(gameObject);
+
+        // Đồng bộ trạng thái nhạc ngay khi game vừa mở
+        SyncAudioSettings();
+    }
+
+    // Hàm tự động đọc cài đặt để Mute/Unmute
+    public void SyncAudioSettings()
+    {
+        bool musicOn = PlayerPrefs.GetInt("MusicOn", 1) == 1;
+        bool soundOn = PlayerPrefs.GetInt("SoundOn", 1) == 1;
+
+        SetMusic(musicOn);
+        SetSound(soundOn);
     }
 
     // =====================================================
@@ -38,12 +51,9 @@ public class AudioManager : MonoBehaviour
     {
         if (musicSource != null)
         {
-            // ON  -> mute = false
-            // OFF -> mute = true
             musicSource.mute = !isOn;
         }
     }
-
 
     // =====================================================
     // SOUND
@@ -57,33 +67,15 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-
     // Phát tiếng click của Button
     public void PlayButtonClick()
     {
-        // Đọc trạng thái Sound đã lưu
-        bool soundOn = PlayerPrefs.GetInt("SoundOn", 1) == 1;
-
-        // Sound OFF thì không phát
-        if (!soundOn)
-        {
-            return;
-        }
-
-        if (soundSource != null && buttonClickClip != null)
-        {
-            soundSource.PlayOneShot(buttonClickClip);
-        }
+        PlaySound(buttonClickClip);
     }
 
-
-    // =====================================================
-    // TỰ GẮN SOUND VÀO CÁC BUTTON
-    // =====================================================
-
+    // Tự gắn tiếng vào Button
     public void AddSoundToButtons(Button btnSound)
     {
-        // Tìm tất cả Button trong Scene
         Button[] buttons = FindObjectsByType<Button>(
             FindObjectsInactive.Include,
             FindObjectsSortMode.None
@@ -91,20 +83,15 @@ public class AudioManager : MonoBehaviour
 
         foreach (Button btn in buttons)
         {
-            // Btn_Sound xử lý riêng trong SettingController
             if (btn == btnSound)
             {
                 continue;
             }
 
-            // Tránh bị add nhiều lần
             btn.onClick.RemoveListener(PlayButtonClick);
-
-            // Tự thêm tiếng click
             btn.onClick.AddListener(PlayButtonClick);
         }
     }
-
 
     // =====================================================
     // PHÁT SOUND EFFECT KHÁC

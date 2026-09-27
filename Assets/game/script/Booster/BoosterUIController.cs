@@ -12,22 +12,20 @@ public class BoosterUIController : MonoBehaviour
     [SerializeField] private Button btnBigBullet;
     [SerializeField] private TextMeshProUGUI txtBigBulletCount;
     [SerializeField] private GameObject addIconBigBullet;
-    [SerializeField] private GameObject vfxPrefabBigBullet; // 🔥 MỚI: Kéo file PREFAB VFX vào đây
+    [SerializeField] private GameObject vfxPrefabBigBullet;
 
     [Header("UI - Infinite Ammo (Nút Phải)")]
     [SerializeField] private Button btnInfiniteAmmo;
     [SerializeField] private TextMeshProUGUI txtInfiniteAmmoCount;
     [SerializeField] private GameObject addIconInfiniteAmmo;
-    [SerializeField] private GameObject vfxPrefabInfiniteAmmo; // 🔥 MỚI: Kéo file PREFAB VFX vào đây
+    [SerializeField] private GameObject vfxPrefabInfiniteAmmo;
 
     [Header("Shop Settings")]
     [SerializeField] private GameObject popupShop;
 
-    // Biến lưu trữ VFX đã sinh ra
     private GameObject spawnedVfxBig;
     private GameObject spawnedVfxInf;
 
-    // Biến kiểm tra PlayerPrefs tự động
     private int lastBigCount = -1;
     private int lastInfCount = -1;
 
@@ -49,7 +47,6 @@ public class BoosterUIController : MonoBehaviour
         if (SimpleCannon.Instance != null) SimpleCannon.Instance.OnBoosterConsumed -= HandleBoosterConsumed;
     }
 
-    // 🔥 MỚI: Quét tự động mỗi 10 frame để cập nhật UI ngay lập tức khi PlayerPrefs thay đổi (mua xong ở Shop)
     private void Update()
     {
         if (Time.frameCount % 10 == 0 && bigBulletSO != null && infiniteAmmoSO != null)
@@ -98,8 +95,12 @@ public class BoosterUIController : MonoBehaviour
 
             if (bigBulletSO.ActivateBooster(SimpleCannon.Instance))
             {
-                // Instantiate Prefab VFX làm con của nút bấm
-                if (vfxPrefabBigBullet != null) spawnedVfxBig = Instantiate(vfxPrefabBigBullet, btnBigBullet.transform);
+                if (vfxPrefabBigBullet != null)
+                {
+                    spawnedVfxBig = Instantiate(vfxPrefabBigBullet, btnBigBullet.transform);
+                    // 🔥 MỚI: Ép VFX nằm dưới cùng, không đè lên hình icon của nút
+                    spawnedVfxBig.transform.SetAsFirstSibling();
+                }
                 if (spawnedVfxInf != null) Destroy(spawnedVfxInf);
             }
         }
@@ -122,8 +123,12 @@ public class BoosterUIController : MonoBehaviour
 
             if (infiniteAmmoSO.ActivateBooster(SimpleCannon.Instance))
             {
-                // Instantiate Prefab VFX làm con của nút bấm
-                if (vfxPrefabInfiniteAmmo != null) spawnedVfxInf = Instantiate(vfxPrefabInfiniteAmmo, btnInfiniteAmmo.transform);
+                if (vfxPrefabInfiniteAmmo != null)
+                {
+                    spawnedVfxInf = Instantiate(vfxPrefabInfiniteAmmo, btnInfiniteAmmo.transform);
+                    // 🔥 MỚI: Ép VFX nằm dưới cùng, không đè lên hình icon của nút
+                    spawnedVfxInf.transform.SetAsFirstSibling();
+                }
                 if (spawnedVfxBig != null) Destroy(spawnedVfxBig);
             }
         }
@@ -136,13 +141,13 @@ public class BoosterUIController : MonoBehaviour
         {
             int count = PlayerPrefs.GetInt("BOOSTER_" + bigBulletSO.boosterID, 0);
             PlayerPrefs.SetInt("BOOSTER_" + bigBulletSO.boosterID, count - 1);
-            if (spawnedVfxBig != null) Destroy(spawnedVfxBig); // Bắn xong là phá hủy VFX của nút
+            if (spawnedVfxBig != null) Destroy(spawnedVfxBig);
         }
         else if (type == 2 && infiniteAmmoSO != null)
         {
             int count = PlayerPrefs.GetInt("BOOSTER_" + infiniteAmmoSO.boosterID, 0);
             PlayerPrefs.SetInt("BOOSTER_" + infiniteAmmoSO.boosterID, count - 1);
-            if (spawnedVfxInf != null) Destroy(spawnedVfxInf); // Bắn xong là phá hủy VFX của nút
+            if (spawnedVfxInf != null) Destroy(spawnedVfxInf);
         }
 
         PlayerPrefs.Save();
