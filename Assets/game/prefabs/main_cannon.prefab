@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SimpleCannon
   firePoint: {fileID: 9140652989374975256}
   cannonBasePoint: {fileID: 6259156854322657025}
-  bulletSpeed: 10
+  bulletSpeed: 7
   raycastDistance: 10
   maxBullets: 30
   normalBulletScaleMultiplier: 1
