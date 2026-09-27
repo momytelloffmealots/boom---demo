@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InfiniteAmmoSO
   boosterID: InfiniteAmmo
   boosterName: "\u0110\u1EA1n V\xF4 H\u1EA1n"
-  icon: {fileID: 21300000, guid: 016e5ea6d2653f448aa28154cfd0fbcd, type: 3}
+  icon: {fileID: 21300000, guid: 76d62047fa24cc74d9e76a98b378e843, type: 3}
   price: 200
   duration: 3
   activationVFX: {fileID: 108178, guid: e053c479a3add9649af9d847a748547d, type: 3}
