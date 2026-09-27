@@ -35,29 +35,19 @@ public class Block : MonoBehaviour
 
 
     private Rigidbody rb;
-
-    private MeshRenderer meshRenderer;
-
+    private MeshRenderer[] meshRenderers;
     private MaterialPropertyBlock propBlock;
-
     private bool isDestroyed = false;
-
-
+    private Vector3 originalScale;
 
     public event Action<Block> OnBlockDestroyed;
 
-
-
     private void Awake()
-
     {
-
         rb = GetComponent<Rigidbody>();
-
-        meshRenderer = GetComponent<MeshRenderer>();
-
+        meshRenderers = GetComponentsInChildren<MeshRenderer>();
         propBlock = new MaterialPropertyBlock();
-
+        originalScale = transform.localScale;
     }
 
 
@@ -79,12 +69,10 @@ public class Block : MonoBehaviour
 
 
     private void OnEnable()
-
     {
-
         isDestroyed = false;
-
         enableTime = Time.time; // Lấy thời điểm vừa bật Block
+        transform.localScale = originalScale; // Khôi phục scale gốc vì có thể bị shrink về 0 ở lần trước
 
 
 
@@ -98,16 +86,14 @@ public class Block : MonoBehaviour
 
 
 
-        if (meshRenderer != null && data != null && data.normalBehavior == NormalBlockBehavior.DeformShader)
-
+        if (meshRenderers != null && data != null && data.normalBehavior == NormalBlockBehavior.DeformShader)
         {
-
-            meshRenderer.GetPropertyBlock(propBlock);
-
-            propBlock.SetFloat(data.deformProgressProperty, 0f);
-
-            meshRenderer.SetPropertyBlock(propBlock);
-
+            foreach (var mr in meshRenderers)
+            {
+                mr.GetPropertyBlock(propBlock);
+                propBlock.SetFloat(data.deformProgressProperty, 0f);
+                mr.SetPropertyBlock(propBlock);
+            }
         }
 
     }
@@ -187,13 +173,9 @@ public class Block : MonoBehaviour
             }
 
             else if (data.normalBehavior == NormalBlockBehavior.DeformShader)
-
             {
-
                 // Loại Normal 2: DUY NHẤT loại này rơi xuống đất chờ 1s (chạy Shader méo) rồi mới ẩn
-
-                StartCoroutine(DeformAndDestroyRoutine());
-
+                StartCoroutine(DeformAndDestroyRoutine(hitPoint));
             }
 
         }
@@ -288,61 +270,65 @@ public class Block : MonoBehaviour
 
 
 
-    private IEnumerator DeformAndDestroyRoutine()
-
+    private IEnumerator DeformAndDestroyRoutine(Vector3 hitPoint)
     {
-
         if (isDestroyed) yield break;
-
         isDestroyed = true;
-
-
 
         OnBlockDestroyed?.Invoke(this);
 
-
-
         if (rb != null) rb.isKinematic = true;
 
+        // Lấy 2 mốc thời gian từ data
+        float tDeform = data != null ? data.timeDeform : 0.2f;
+        float tShrink = data != null ? data.timeShrink : 0.15f;
 
+        int propID = Shader.PropertyToID(data != null ? data.deformProgressProperty : "_DeformAmount");
+        int hitPropID = Shader.PropertyToID("_HitPosition");
 
-        float duration = 1.0f;
-
+        // --- GIAI ĐOẠN 1: Bóp méo (Shader Anim) ---
         float elapsed = 0f;
-
-        int propID = Shader.PropertyToID(data.deformProgressProperty);
-
-
-
-        while (elapsed < duration)
-
+        while (elapsed < tDeform)
         {
-
             elapsed += Time.deltaTime;
+            float progress = tDeform > 0f ? Mathf.Clamp01(elapsed / tDeform) : 1f;
 
-            float progress = Mathf.Clamp01(elapsed / duration);
-
-
-
-            if (meshRenderer != null)
-
+            if (meshRenderers != null)
             {
-
-                meshRenderer.GetPropertyBlock(propBlock);
-
-                propBlock.SetFloat(propID, progress);
-
-                meshRenderer.SetPropertyBlock(propBlock);
-
+                foreach (var mr in meshRenderers)
+                {
+                    mr.GetPropertyBlock(propBlock);
+                    propBlock.SetFloat(propID, progress);
+                    propBlock.SetVector(hitPropID, hitPoint);
+                    mr.SetPropertyBlock(propBlock);
+                }
             }
-
-
-
             yield return null;
-
         }
 
+        // Chốt giá trị ở mức 1 (Xẹp tối đa)
+        if (meshRenderers != null)
+        {
+            foreach (var mr in meshRenderers)
+            {
+                mr.GetPropertyBlock(propBlock);
+                propBlock.SetFloat(propID, 1f);
+                mr.SetPropertyBlock(propBlock);
+            }
+        }
 
+        // --- GIAI ĐOẠN 2: Thu nhỏ dần về 0 (Scale) ---
+        Vector3 startScale = transform.localScale;
+        elapsed = 0f;
+        while (elapsed < tShrink)
+        {
+            elapsed += Time.deltaTime;
+            float progress = tShrink > 0f ? Mathf.Clamp01(elapsed / tShrink) : 1f;
+            transform.localScale = Vector3.Lerp(startScale, Vector3.zero, progress);
+            yield return null;
+        }
+        
+        transform.localScale = Vector3.zero; // Chốt hạ Scale = 0
 
         gameObject.SetActive(false);
 

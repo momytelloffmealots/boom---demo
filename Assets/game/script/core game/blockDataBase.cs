@@ -49,8 +49,10 @@ public class BlockDataBase : ScriptableObject
     public GameObject groundVfxPrefab;             // VFX xuất hiện khi chạm đất (Cho loại StandardVFX)
 
     public string deformProgressProperty = "_DeformAmount"; // Tên biến float trong ShaderGraph làm méo (Cho loại DeformShader)
-
-
+    
+    [Header("Deform & Shrink Timings")]
+    public float timeDeform = 0.2f;        // 1. Thời gian chạy animation bóp méo (Shader)
+    public float timeShrink = 0.15f;       // 2. Thời gian thu nhỏ Scale về 0 trước khi biến mất
 
     [Header("Glass Block Options (Chỉ dùng khi BlockType = Glass)")]
 

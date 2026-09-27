@@ -68,10 +68,26 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: -5568371526223589888, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -3756473180518285571, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: -3756473180518285571, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1823322365421230674, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1823322365421230674, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 485efbd73eafc2b47bf020764636d944, type: 2}
     - target: {fileID: 919132149155446097, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
       propertyPath: m_Name
       value: CarnivalTinCan
@@ -88,13 +104,29 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5233112405309087440, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071182760956848314, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7071182760956848314, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 25940b09ef3e02946811b4cfbf6fd1b5, type: 2}
+      objectReference: {fileID: 2100000, guid: 485efbd73eafc2b47bf020764636d944, type: 2}
+    - target: {fileID: 7071182760956848314, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 485efbd73eafc2b47bf020764636d944, type: 2}
     - target: {fileID: 8513859187771203891, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8513859187771203891, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
