@@ -26,11 +26,9 @@ public class GameRuleController : MonoBehaviour
 
         if (view != null)
         {
-            // Xử lý Splash Screen thông qua View
             view.HandleSplashScreen(hasShownSplash);
             if (!hasShownSplash) hasShownSplash = true;
 
-            // Xử lý luồng UI ban đầu
             bool isAutoStart = PlayerPrefs.GetInt("AutoStartGame", 0) == 1;
             view.SetupInitialUI(isAutoStart);
 
@@ -39,7 +37,32 @@ public class GameRuleController : MonoBehaviour
                 PlayerPrefs.SetInt("AutoOpenPlayPanel", 0);
                 PlayerPrefs.Save();
                 if (view.playPanelController != null) view.playPanelController.OpenPopup();
+
+                // 🔥 KIỂM TRA PHẦN THƯỞNG: Nếu có tiền đang chờ thì gọi hiệu ứng
+                int pendingReward = PlayerPrefs.GetInt("PENDING_COIN_REWARD", 0);
+                if (pendingReward > 0)
+                {
+                    // Xóa bộ nhớ tạm để không bị nhận 2 lần
+                    PlayerPrefs.SetInt("PENDING_COIN_REWARD", 0);
+                    PlayerPrefs.Save();
+                    StartCoroutine(DelayedCoinFly(pendingReward));
+                }
             }
+        }
+    }
+
+    // Hàm đợi popup bung ra mượt mà rồi mới bắn tiền
+    private IEnumerator DelayedCoinFly(int amount)
+    {
+        yield return new WaitForSeconds(0.4f); 
+        
+        if (CoinFlyEffect.Instance != null)
+        {
+            CoinFlyEffect.Instance.SpawnCoins(amount);
+        }
+        else if (CurrencyManager.Instance != null)
+        {
+            CurrencyManager.Instance.AddCoins(amount); // Chống lỗi bảo hiểm
         }
     }
 
@@ -229,8 +252,23 @@ public class GameRuleController : MonoBehaviour
     {
         if (isGameOver) return;
         isGameOver = true;
+
+        int coinReward = 20; 
+        switch (currentDifficulty)
+        {
+            case LevelDifficulty.Normal: coinReward = 20; break;
+            case LevelDifficulty.Hard: coinReward = 25; break;
+            case LevelDifficulty.SuperHard: coinReward = 30; break;
+        }
+
+        // LƯU DATA: Nhớ số tiền thưởng để lát ra sảnh chính mới cộng
+        PlayerPrefs.SetInt("PENDING_COIN_REWARD", coinReward);
+        PlayerPrefs.Save();
+
         if (view != null && view.endGameView != null) view.endGameView.ShowWin();
-        StartCoroutine(AutoReturnToHomeRoutine(2f));
+        
+        // Đợi 2s ở màn hình Win rồi tự động Load về sảnh
+        StartCoroutine(AutoReturnToHomeRoutine(2f)); 
     }
 
     private IEnumerator AutoReturnToHomeRoutine(float waitTime)
