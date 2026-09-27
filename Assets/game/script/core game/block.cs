@@ -130,7 +130,7 @@ public class Block : MonoBehaviour
 
         Vector3 hitPoint = collision.contacts.Length > 0 ? collision.contacts[0].point : transform.position;
 
-        bool isGroundHit = (groundLayers.value & (1 << collision.gameObject.layer)) != 0;
+        bool isGroundHit = collision.gameObject.CompareTag("ground");
 
 
 
@@ -140,7 +140,7 @@ public class Block : MonoBehaviour
 
         {
 
-            bool isHitByBullet = collision.gameObject.GetComponent<Bullet>() != null;
+            //bool isHitByBullet = collision.gameObject.GetComponent<Bullet>() != null;
 
             float impactVelocity = collision.relativeVelocity.magnitude;
 
@@ -154,7 +154,7 @@ public class Block : MonoBehaviour
 
             // 3. Va chạm khối khác với vận tốc đủ lớn (>= threshold) -> VỠ LẬP TỨC!
 
-            if (isGroundHit || isHitByBullet || impactVelocity >= data.breakImpactThreshold)
+            if (isGroundHit  || impactVelocity >= data.breakImpactThreshold)
 
             {
 
@@ -229,26 +229,6 @@ public class Block : MonoBehaviour
         {
 
             GameObject particleObj = Instantiate(data.glassParticleVFX, spawnPoint, Quaternion.identity);
-
-            ParticleSystem ps = particleObj.GetComponent<ParticleSystem>();
-
-            if (ps != null)
-
-            {
-
-                ps.Play();
-
-                Destroy(particleObj, ps.main.duration + 0.5f);
-
-            }
-
-            else
-
-            {
-
-                Destroy(particleObj, 3.0f);
-
-            }
 
         }
 
