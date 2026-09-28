@@ -293,6 +293,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: orange jamjar (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8119514243004943388, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -357,6 +361,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2b4c8849c4d10914ab26b87cb50920f8, type: 3}
       propertyPath: m_Name
       value: JamJar(new7) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2b4c8849c4d10914ab26b87cb50920f8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -664,6 +672,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceCubeShards (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 32c39f8de38fda64f8f39a20e1416405, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -789,6 +801,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ce2db075267b02f409dc3b0a30770d36, type: 3}
       propertyPath: m_Name
       value: CrystalRock4Pieces (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ce2db075267b02f409dc3b0a30770d36, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -987,6 +1003,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: orange jamjar (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8119514243004943388, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1043,6 +1063,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bfe1576f9f2e7894fa81e5e2bf4af00a, type: 3}
       propertyPath: m_Name
       value: IceCube (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bfe1576f9f2e7894fa81e5e2bf4af00a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1350,6 +1374,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(2x1)(new)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 77465003e1f03e249a47c79904cc97cc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1651,6 +1679,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClownBox (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb82010281b10f74e91abd4911e37b5f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1910,68 +1942,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: orange jamjar (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8119514243004943388, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
---- !u!1001 &1214923748
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 89312c8ca02bb474eafbf6ac249651b7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 89312c8ca02bb474eafbf6ac249651b7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 89312c8ca02bb474eafbf6ac249651b7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -15.27
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 89312c8ca02bb474eafbf6ac249651b7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 89312c8ca02bb474eafbf6ac249651b7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.00000003774895
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 89312c8ca02bb474eafbf6ac249651b7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 89312c8ca02bb474eafbf6ac249651b7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 89312c8ca02bb474eafbf6ac249651b7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 89312c8ca02bb474eafbf6ac249651b7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 89312c8ca02bb474eafbf6ac249651b7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 89312c8ca02bb474eafbf6ac249651b7, type: 3}
-      propertyPath: m_Name
-      value: starbox ver 3 (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 89312c8ca02bb474eafbf6ac249651b7, type: 3}
 --- !u!1001 &1265304602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2023,6 +2002,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
       propertyPath: m_Name
       value: CarnivalTinCan (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7071182760956848314, guid: 4f557a050d266134f8865ecc8bc65de8, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -2084,6 +2067,10 @@ PrefabInstance:
     - target: {fileID: 5261421370949774146, guid: 574130518c438ef4fb22b738c20de6ff, type: 3}
       propertyPath: m_Name
       value: glass breaker (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261421370949774146, guid: 574130518c438ef4fb22b738c20de6ff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2292,6 +2279,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: JamJar
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 597dad13dd80f2c4f8d1940ca6ed69b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2495,6 +2486,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CrystalRock(fixed) (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0be1f404ce53ec248bada4bd0469f42c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2552,6 +2547,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: orange jamjar (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8119514243004943388, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2608,6 +2607,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c5c2fb036c981d942b192da479a65ed1, type: 3}
       propertyPath: m_Name
       value: IceCube3Pieces (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5c2fb036c981d942b192da479a65ed1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2798,6 +2801,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e88e1d266d3b164449a5a9f4c3a84b0f, type: 3}
       propertyPath: m_Name
       value: CarnivalBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e88e1d266d3b164449a5a9f4c3a84b0f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3120,6 +3127,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: glass breaker (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5261421370949774146, guid: 574130518c438ef4fb22b738c20de6ff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3250,6 +3261,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 039beedea71089b43a7640d98d699030, type: 3}
       propertyPath: m_Name
       value: Pedestal
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 039beedea71089b43a7640d98d699030, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1129496810705857465, guid: 039beedea71089b43a7640d98d699030, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -3401,6 +3416,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodStar(new)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 32c3819276d4dad4499d4a97c8abe266, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3458,6 +3477,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CurtainCarnivalBox
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3249b4e5f72aab745a48a8fd976e447f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3514,6 +3537,10 @@ PrefabInstance:
     - target: {fileID: 8119514243004943388, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
       propertyPath: m_Name
       value: orange jamjar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8119514243004943388, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3642,6 +3669,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb789bb9abeb2a7419df58ba8aee9fdc, type: 3}
+--- !u!1001 &2895522551640059347
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_Name
+      value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.795
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
 --- !u!1001 &5507734728853620702
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3836,6 +3920,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: glass breaker
       objectReference: {fileID: 0}
+    - target: {fileID: 5261421370949774146, guid: 574130518c438ef4fb22b738c20de6ff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3845,6 +3933,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1852505639}
   - {fileID: 1838860045}
   - {fileID: 1144994344}
   - {fileID: 318736588}
@@ -3874,7 +3963,6 @@ SceneRoots:
   - {fileID: 2057191418}
   - {fileID: 1583089314}
   - {fileID: 489713952}
-  - {fileID: 1214923748}
   - {fileID: 595655895}
   - {fileID: 1655976815}
   - {fileID: 392711405}
@@ -3885,7 +3973,6 @@ SceneRoots:
   - {fileID: 7531840691134298548}
   - {fileID: 303459976993096387}
   - {fileID: 1296282554}
-  - {fileID: 1852505639}
   - {fileID: 72907871}
   - {fileID: 1618115638}
   - {fileID: 1975093006}
@@ -3893,3 +3980,4 @@ SceneRoots:
   - {fileID: 1169475009}
   - {fileID: 181960114}
   - {fileID: 971495337}
+  - {fileID: 2895522551640059347}

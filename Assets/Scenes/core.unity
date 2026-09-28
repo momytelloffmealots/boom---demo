@@ -16745,7 +16745,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0d069257e5a421946a9e0e9bf0b7026b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1659e90c0a0af7a48a8b924613cf3c30, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -25775,7 +25775,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.data[1].name
@@ -25798,6 +25798,10 @@ PrefabInstance:
       value: rock vfx
       objectReference: {fileID: 0}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
+      propertyPath: prewarmItems.Array.data[6].name
+      value: starbox vfx
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.data[1].prefab
       value: 
       objectReference: {fileID: 3932390020510352518, guid: 20fcfe8cfdebbdd499d3e4ac2a766832, type: 3}
@@ -25817,6 +25821,10 @@ PrefabInstance:
       propertyPath: prewarmItems.Array.data[5].prefab
       value: 
       objectReference: {fileID: 266552125470661832, guid: 5c7944c6677862f4595ba657671e3ade, type: 3}
+    - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
+      propertyPath: prewarmItems.Array.data[6].prefab
+      value: 
+      objectReference: {fileID: 2835027304916888293, guid: adbc821d04c68544b87a5f6532e9c6d9, type: 3}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.data[0].initialSize
       value: 30
@@ -25842,6 +25850,10 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
+      propertyPath: prewarmItems.Array.data[6].initialSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.data[0].autoReturnDelay
       value: 1
       objectReference: {fileID: 0}
@@ -25863,6 +25875,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
       propertyPath: prewarmItems.Array.data[5].autoReturnDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501936547929069696, guid: ec543be229864a14784ad6c4b846012c, type: 3}
+      propertyPath: prewarmItems.Array.data[6].autoReturnDelay
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6824615391337300743, guid: ec543be229864a14784ad6c4b846012c, type: 3}
