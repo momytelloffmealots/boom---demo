@@ -198,7 +198,7 @@ public class Block : MonoBehaviour
 
         {
 
-            GameObject brokenObj = Instantiate(data.brokenGlassObjectPrefab, transform.position, transform.rotation);
+            GameObject brokenObj = Instantiate(data.brokenGlassObjectPrefab, transform.position + Vector3.up * 0.15f, transform.rotation);
 
             Destroy(brokenObj, 3.0f);
 
@@ -248,7 +248,7 @@ public class Block : MonoBehaviour
 
         {
 
-            GameObject vfx = SimpleBulletPool.Instance.Spawn(data.groundVfxPrefab, spawnPoint, Quaternion.identity);
+            GameObject vfx = SimpleBulletPool.Instance.Spawn(data.groundVfxPrefab, spawnPoint + Vector3.up*0.15f, Quaternion.identity);
 
             if (vfx != null)
 

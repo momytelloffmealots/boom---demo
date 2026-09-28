@@ -336,7 +336,7 @@ public class SimpleBulletPool : MonoBehaviour
         if (prefab == null || instance == null || !instance.activeSelf) return;
 
         instance.SetActive(false);
-        instance.transform.SetParent(transform);
+        //instance.transform.SetParent(transform);
 
         if (!poolDictionary.TryGetValue(prefab, out Queue<GameObject> queue))
         {
