@@ -13,5 +13,14 @@ MonoBehaviour:
   m_Name: starbox 1x1
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
   blockName: starbox
+  blockType: 0
   mass: 7
-  vfxPrefab: {fileID: 0}
+  normalBehavior: 0
+  groundVfxPrefab: {fileID: 2835027304916888293, guid: adbc821d04c68544b87a5f6532e9c6d9, type: 3}
+  deformProgressProperty: _DeformAmount
+  timeDeform: 0.2
+  timeShrink: 0.15
+  breakImpactThreshold: 8
+  brokenGlassObjectPrefab: {fileID: 0}
+  glassParticleVFX: {fileID: 0}
+  glassBreakSound: {fileID: 0}

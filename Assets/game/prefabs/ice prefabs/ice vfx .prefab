@@ -153,6 +153,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7177063145230502387}
     m_Modifications:
+    - target: {fileID: 3655418396853569108, guid: 20fcfe8cfdebbdd499d3e4ac2a766832, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3932390020510352518, guid: 20fcfe8cfdebbdd499d3e4ac2a766832, type: 3}
       propertyPath: m_Name
       value: IceCube3Pieces
@@ -211,6 +215,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4456724487588535868, guid: 20fcfe8cfdebbdd499d3e4ac2a766832, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251085497172065661, guid: 20fcfe8cfdebbdd499d3e4ac2a766832, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6802754652750434689, guid: 20fcfe8cfdebbdd499d3e4ac2a766832, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186591852846051148, guid: 20fcfe8cfdebbdd499d3e4ac2a766832, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7543986563106773280, guid: 20fcfe8cfdebbdd499d3e4ac2a766832, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8874139285728735827, guid: 20fcfe8cfdebbdd499d3e4ac2a766832, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
