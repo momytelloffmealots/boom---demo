@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections; // Bắt buộc phải có dòng này để chạy Coroutine
 
 public class PreBoosterManager : MonoBehaviour
 {
@@ -8,11 +9,10 @@ public class PreBoosterManager : MonoBehaviour
     public SimpleCannon playerCannon;
 
     [Header("Pre-Boosters Data")]
-    public BoosterSO bombBoosterSO; // Chỉ chứa Bom Dính
+    public BoosterSO bombBoosterSO; 
 
     private void Awake()
     {
-        // Singleton pattern để dễ dàng gọi từ nơi khác
         if (Instance == null) 
         {
             Instance = this;
@@ -24,26 +24,30 @@ public class PreBoosterManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Hàm này sẽ được GameRuleController gọi khi bắt đầu ván đấu
+    /// Thay vì kích hoạt ngay, hàm này sẽ gọi một luồng đếm ngược
     /// </summary>
     public void ApplyPreBoosters()
     {
-        if (playerCannon == null || bombBoosterSO == null) return;
+        StartCoroutine(DelayedApplyRoutine());
+    }
+
+    private IEnumerator DelayedApplyRoutine()
+    {
+        // 🔥 ĐỢI 1.5 GIÂY: Ép hệ thống phải chờ màn hình Loading rút đi hoàn toàn
+        yield return new WaitForSeconds(1f);
+
+        if (playerCannon == null || bombBoosterSO == null) yield break; // Dùng yield break thay cho return trong Coroutine
 
         string preSelectKey = $"PRE_SELECTED_{bombBoosterSO.boosterID}";
         string boosterKey = $"BOOSTER_{bombBoosterSO.boosterID}";
 
-        // Kiểm tra xem người chơi có tick chọn Bom Xanh không
         if (PlayerPrefs.GetInt(preSelectKey, 0) == 1)
         {
-            // Trừ số lượng trong kho
             int count = PlayerPrefs.GetInt(boosterKey, 0);
             PlayerPrefs.SetInt(boosterKey, count - 1);
             
-            // Kích hoạt nạp Bom Xanh vào súng
             bombBoosterSO.ActivateBooster(playerCannon);
             
-            // Xóa cờ đã dùng để không bị lặp lại ở level sau
             PlayerPrefs.SetInt(preSelectKey, 0);
             PlayerPrefs.Save();
             

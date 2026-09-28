@@ -99,12 +99,13 @@ public class GameRuleController : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
 
+            // 1. GỌI NGAY PREBOOSTER (Nó sẽ tự động đợi vài khoảnh khắc ở bên trong script của nó)
             if (PreBoosterManager.Instance != null)
             {
                 PreBoosterManager.Instance.ApplyPreBoosters();
             }
 
-            // Gọi View để chạy hiệu ứng mờ Loading
+            // 2. Màn hình Loading rút đi song song với lúc tên lửa chuẩn bị xuất hiện
             yield return StartCoroutine(view.FadeOutLoadingRoutine());
         }
     }

@@ -8562,7 +8562,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -127.999756}
+  m_AnchoredPosition: {x: 0, y: -127.99988}
   m_SizeDelta: {x: 0, y: -17}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &686770651
@@ -12251,6 +12251,8 @@ MonoBehaviour:
   scatterDuration: 0.4
   flyDuration: 0.6
   maxRandomDelay: 0.15
+  appearSFX: {fileID: 8300000, guid: fcac7f2033a10cb4faae699ba0f04c31, type: 3}
+  reachSFX: {fileID: 8300000, guid: 4f5e812e89efc2648989dc2153bbd406, type: 3}
 --- !u!1 &953731218
 GameObject:
   m_ObjectHideFlags: 0
@@ -16282,7 +16284,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -127.999756}
+  m_AnchoredPosition: {x: 0, y: -127.99988}
   m_SizeDelta: {x: 0, y: -17}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1214207907
