@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening; 
 
 public class GameRuleController : MonoBehaviour
 {
     public static GameRuleController Instance;
 
     [Header("Liên kết View & Hệ thống")]
-    public GameRuleView view; // Tham chiếu đến kịch bản UI
+    public GameRuleView view; 
     public SimpleCannon playerCannon;
 
     [Header("Cấu hình Logic")]
@@ -22,6 +23,9 @@ public class GameRuleController : MonoBehaviour
 
     private void Awake()
     {
+        // Luôn ép thời gian trôi bình thường mỗi khi màn chơi bắt đầu để chống lỗi kẹt/đứng hình
+        Time.timeScale = 1f;
+
         if (Instance == null) Instance = this;
 
         if (view != null)
@@ -38,11 +42,9 @@ public class GameRuleController : MonoBehaviour
                 PlayerPrefs.Save();
                 if (view.playPanelController != null) view.playPanelController.OpenPopup();
 
-                // 🔥 KIỂM TRA PHẦN THƯỞNG: Nếu có tiền đang chờ thì gọi hiệu ứng
                 int pendingReward = PlayerPrefs.GetInt("PENDING_COIN_REWARD", 0);
                 if (pendingReward > 0)
                 {
-                    // Xóa bộ nhớ tạm để không bị nhận 2 lần
                     PlayerPrefs.SetInt("PENDING_COIN_REWARD", 0);
                     PlayerPrefs.Save();
                     StartCoroutine(DelayedCoinFly(pendingReward));
@@ -51,7 +53,6 @@ public class GameRuleController : MonoBehaviour
         }
     }
 
-    // Hàm đợi popup bung ra mượt mà rồi mới bắn tiền
     private IEnumerator DelayedCoinFly(int amount)
     {
         yield return new WaitForSeconds(0.4f); 
@@ -62,7 +63,7 @@ public class GameRuleController : MonoBehaviour
         }
         else if (CurrencyManager.Instance != null)
         {
-            CurrencyManager.Instance.AddCoins(amount); // Chống lỗi bảo hiểm
+            CurrencyManager.Instance.AddCoins(amount); 
         }
     }
 
@@ -92,6 +93,11 @@ public class GameRuleController : MonoBehaviour
 
     private IEnumerator DirectToGameRoutine()
     {
+        if (CoinFlyEffect.Instance != null)
+        {
+            CoinFlyEffect.Instance.ForceComplete();
+        }
+
         if (view != null && view.playPanelController != null)
         {
             if (view.playPanelController.gameplayRoot != null) view.playPanelController.gameplayRoot.SetActive(true);
@@ -99,13 +105,11 @@ public class GameRuleController : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
 
-            // 1. GỌI NGAY PREBOOSTER (Nó sẽ tự động đợi vài khoảnh khắc ở bên trong script của nó)
             if (PreBoosterManager.Instance != null)
             {
                 PreBoosterManager.Instance.ApplyPreBoosters();
             }
 
-            // 2. Màn hình Loading rút đi song song với lúc tên lửa chuẩn bị xuất hiện
             yield return StartCoroutine(view.FadeOutLoadingRoutine());
         }
     }
@@ -125,9 +129,6 @@ public class GameRuleController : MonoBehaviour
     public void SetLevelDifficulty(LevelDifficulty difficulty)
     {
         currentDifficulty = difficulty;
-        Debug.Log($"[GameRuleController] Đã cập nhật độ khó: {currentDifficulty}");
-
-        // Ra lệnh cho View đổi màu
         if (view != null) view.UpdateDifficultyTheme(currentDifficulty);
     }
 
@@ -143,11 +144,9 @@ public class GameRuleController : MonoBehaviour
             isWaitingForContinue = false;
             if (view != null && view.endGameView != null) view.endGameView.HideAll();
             if (playerCannon != null) playerCannon.AddBullets(5);
-            Debug.Log("<color=green>Mua lượt thành công! Được cộng 5 viên đạn.</color>");
         }
         else
         {
-            Debug.LogWarning("Không đủ Vàng! Đang mở bảng Shop...");
             if (view != null && view.popupShop != null) view.popupShop.SetActive(true);
         }
     }
@@ -156,6 +155,13 @@ public class GameRuleController : MonoBehaviour
     {
         isWaitingForContinue = false;
         isGameOver = true;
+
+        // 🔥 GỌI ÂM THANH THUA CUỘC TỪ AUDIOMANAGER
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayLoseSound();
+        }
+
         if (LivesManager.Instance != null) LivesManager.Instance.LoseLife();
         if (view != null && view.endGameView != null) view.endGameView.ShowLose();
     }
@@ -254,6 +260,12 @@ public class GameRuleController : MonoBehaviour
         if (isGameOver) return;
         isGameOver = true;
 
+        // 🔥 GỌI ÂM THANH THẮNG TỪ AUDIOMANAGER
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayWinSound();
+        }
+
         int coinReward = 20; 
         switch (currentDifficulty)
         {
@@ -262,13 +274,11 @@ public class GameRuleController : MonoBehaviour
             case LevelDifficulty.SuperHard: coinReward = 30; break;
         }
 
-        // LƯU DATA: Nhớ số tiền thưởng để lát ra sảnh chính mới cộng
         PlayerPrefs.SetInt("PENDING_COIN_REWARD", coinReward);
         PlayerPrefs.Save();
 
         if (view != null && view.endGameView != null) view.endGameView.ShowWin();
         
-        // Đợi 2s ở màn hình Win rồi tự động Load về sảnh
         StartCoroutine(AutoReturnToHomeRoutine(2f)); 
     }
 
@@ -288,10 +298,14 @@ public class GameRuleController : MonoBehaviour
         isGameOver = true;
         isWaitingForContinue = false;
 
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayLoseSound();
+        }
+
         if (LivesManager.Instance != null)
         {
             LivesManager.Instance.LoseLife();
-            Debug.Log("Bỏ cuộc giữa chừng -> Đã trừ 1 mạng!");
         }
 
         if (view != null && view.endGameView != null) view.endGameView.HideAll();
@@ -301,4 +315,3 @@ public class GameRuleController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
-

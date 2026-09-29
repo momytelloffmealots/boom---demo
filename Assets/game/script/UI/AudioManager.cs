@@ -9,31 +9,38 @@ public class AudioManager : MonoBehaviour
     public AudioSource musicSource;   // Nhạc nền
     public AudioSource soundSource;   // Sound Effect
 
-    [Header("Sound")]
-    public AudioClip buttonClickClip; // Tiếng click button
+    [Header("UI & Vũ khí")]
+    public AudioClip buttonClickClip; 
     public AudioClip cannonShotClip;
+
+    [Header("Thắng / Thua")]
+    public AudioClip winSFX;
+    public AudioClip loseSFX;
+
+    [Header("Đồng xu")]
+    public AudioClip coinAppearSFX;
+    public AudioClip coinReachSFX;
+
+    [Header("Tên lửa (Prebooster)")]
+    public AudioClip rocketFlySFX;
+    public AudioClip rocketExplodeSFX;
 
     private void Awake()
     {
-        // 🔥 FIX 2 LỖI NHẠC: Chặn đứng bản sao ngay lập tức
         if (Instance != null && Instance != this)
         {
-            // Tắt ngay Object sao chép để AudioSource không có cơ hội phát tiếng
             gameObject.SetActive(false);
             Destroy(gameObject);
-            return; // Ép dừng chạy code bên dưới
+            return; 
         }
 
-        // Khởi tạo bản gốc
         Instance = this;
         transform.SetParent(null);
         DontDestroyOnLoad(gameObject);
 
-        // Đồng bộ trạng thái nhạc ngay khi game vừa mở
         SyncAudioSettings();
     }
 
-    // Hàm tự động đọc cài đặt để Mute/Unmute
     public void SyncAudioSettings()
     {
         bool musicOn = PlayerPrefs.GetInt("MusicOn", 1) == 1;
@@ -43,10 +50,6 @@ public class AudioManager : MonoBehaviour
         SetSound(soundOn);
     }
 
-    // =====================================================
-    // MUSIC
-    // =====================================================
-
     public void SetMusic(bool isOn)
     {
         if (musicSource != null)
@@ -54,10 +57,6 @@ public class AudioManager : MonoBehaviour
             musicSource.mute = !isOn;
         }
     }
-
-    // =====================================================
-    // SOUND
-    // =====================================================
 
     public void SetSound(bool isOn)
     {
@@ -67,13 +66,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // Phát tiếng click của Button
-    public void PlayButtonClick()
-    {
-        PlaySound(buttonClickClip);
-    }
-
-    // Tự gắn tiếng vào Button
     public void AddSoundToButtons(Button btnSound)
     {
         Button[] buttons = FindObjectsByType<Button>(
@@ -94,26 +86,33 @@ public class AudioManager : MonoBehaviour
     }
 
     // =====================================================
-    // PHÁT SOUND EFFECT KHÁC
+    // HÀM PHÁT ÂM THANH GỐC
     // =====================================================
-
     public void PlaySound(AudioClip clip)
     {
         bool soundOn = PlayerPrefs.GetInt("SoundOn", 1) == 1;
 
-        if (!soundOn)
+        if (!soundOn || clip == null || soundSource == null)
         {
             return;
         }
-
-        if (soundSource != null && clip != null)
-        {
-            soundSource.PlayOneShot(clip);
-        }
+        
+        soundSource.PlayOneShot(clip);
     }
 
-    public void PlayCannonShot()
-    {
-        PlaySound(cannonShotClip);
-    }
+    // =====================================================
+    // CÁC HÀM GỌI NHANH (DÙNG CHO CÁC SCRIPT KHÁC GỌI SANG)
+    // =====================================================
+    
+    public void PlayButtonClick() => PlaySound(buttonClickClip);
+    public void PlayCannonShot() => PlaySound(cannonShotClip);
+    
+    public void PlayWinSound() => PlaySound(winSFX);
+    public void PlayLoseSound() => PlaySound(loseSFX);
+    
+    public void PlayCoinAppear() => PlaySound(coinAppearSFX);
+    public void PlayCoinReach() => PlaySound(coinReachSFX);
+    
+    public void PlayRocketFly() => PlaySound(rocketFlySFX);
+    public void PlayRocketExplode() => PlaySound(rocketExplodeSFX);
 }

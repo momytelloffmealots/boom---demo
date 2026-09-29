@@ -17,21 +17,16 @@ public class CoinFlyEffect : MonoBehaviour
     public float flyDuration = 0.6f;
     public float maxRandomDelay = 0.15f;
 
-    [Header("Cài đặt Âm thanh")]
-    public AudioClip appearSFX; // Âm thanh lúc bung tiền (Tùy chọn)
-    public AudioClip reachSFX;  // Âm thanh Ting Ting lúc bay vào ví (Tùy chọn)
-    private AudioSource audioSource;
-
     private IObjectPool<GameObject> coinPool;
+    
+    // Bộ lọc thời gian chống rè âm thanh
+    private static float lastAppearSoundTime = -1f;
+    private static float lastReachSoundTime = -1f;
 
     private void Awake()
     {
         Instance = this;
         
-        // Tự động thêm AudioSource để phát nhạc UI
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.playOnAwake = false;
-
         coinPool = new ObjectPool<GameObject>(
             createFunc: () => Instantiate(coinPrefab, canvasTransform),
             actionOnGet: (obj) => obj.SetActive(true),
@@ -65,6 +60,9 @@ public class CoinFlyEffect : MonoBehaviour
         coinRect.rotation = Quaternion.identity;
 
         Sequence seq = DOTween.Sequence();
+        
+        // Gắn ID để dễ dàng quản lý
+        seq.SetId("CoinFly"); 
         seq.SetUpdate(true); 
         
         Vector2 randomOffset = Random.insideUnitCircle * scatterRadius;
@@ -73,13 +71,16 @@ public class CoinFlyEffect : MonoBehaviour
 
         seq.SetDelay(delay);
 
-        // Phát âm thanh lúc đồng xu bắt đầu bung ra
         seq.AppendCallback(() =>
         {
-            if (appearSFX != null) 
+            if (AudioManager.Instance != null) 
             {
-                // Dùng PlayOneShot để nhiều đồng xu kêu cùng lúc không bị ngắt tiếng nhau (volume 0.5f để không quá ồn)
-                audioSource.PlayOneShot(appearSFX, 0.5f); 
+                if (Time.unscaledTime - lastAppearSoundTime > 0.1f)
+                {
+                    // 🔥 GỌI TRỰC TIẾP TỪ AUDIOMANAGER
+                    AudioManager.Instance.PlayCoinAppear(); 
+                    lastAppearSoundTime = Time.unscaledTime;
+                }
             }
         });
 
@@ -95,10 +96,14 @@ public class CoinFlyEffect : MonoBehaviour
 
         seq.OnComplete(() =>
         {
-            // Phát âm thanh Ting Ting khi đồng xu chạm đích
-            if (reachSFX != null)
+            if (AudioManager.Instance != null)
             {
-                audioSource.PlayOneShot(reachSFX, 0.8f);
+                if (Time.unscaledTime - lastReachSoundTime > 0.1f)
+                {
+                    // 🔥 GỌI TRỰC TIẾP TỪ AUDIOMANAGER
+                    AudioManager.Instance.PlayCoinReach();
+                    lastReachSoundTime = Time.unscaledTime;
+                }
             }
 
             if (CurrencyManager.Instance != null)
@@ -107,5 +112,16 @@ public class CoinFlyEffect : MonoBehaviour
             }
             coinPool.Release(coinRect.gameObject);
         });
+    }
+
+    // Hàm ép toàn bộ tiền bay thẳng vào ví ngay lập tức (Tua nhanh)
+    public void ForceComplete()
+    {
+        DOTween.Complete("CoinFly");
+    }
+
+    private void OnDestroy()
+    {
+        DOTween.Complete("CoinFly");
     }
 }

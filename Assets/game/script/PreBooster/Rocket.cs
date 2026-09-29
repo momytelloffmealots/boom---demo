@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StickyBomb : MonoBehaviour
+public class Rocket : MonoBehaviour
 {
     [Header("Cài đặt bay")]
     public float speed = 8f;            
@@ -13,22 +13,26 @@ public class StickyBomb : MonoBehaviour
     public float explosionRadius = 3f;
     public float upliftModifier = 0.5f;
 
-    [Header("Âm thanh")]
-    public AudioClip flyingSFX;    // Tiếng rít khi bay
-    public AudioClip explosionSFX; // Tiếng va chạm nổ bùm
-
     private Block targetBlock;
+    
+    // 🔥 Bộ lọc thời gian chống rè âm thanh khi spawn/nổ nhiều tên lửa cùng lúc
+    private static float lastFlySoundTime = -1f;
+    private static float lastExplosionSoundTime = -1f;
 
     private void Start()
     {
         transform.localScale = Vector3.one * defaultScale;
         FindNewTarget();
 
-        // 1. PHÁT TIẾNG BAY: Gọi ngay khi tên lửa vừa sinh ra
-        if (flyingSFX != null)
+        // CHỐNG RÈ: Chỉ phát tiếng bay nếu khoảng cách với lần phát trước đó lớn hơn 0.1 giây
+        if (AudioManager.Instance != null)
         {
-            // Ép âm thanh phát tại vị trí của Camera để người chơi luôn nghe thấy rõ nhất với âm lượng 70% (0.7f)
-            AudioSource.PlayClipAtPoint(flyingSFX, Camera.main.transform.position, 0.7f);
+            if (Time.time - lastFlySoundTime > 0.1f)
+            {
+                // Gọi thẳng tiếng rít gió từ AudioManager trung tâm
+                AudioManager.Instance.PlayRocketFly();
+                lastFlySoundTime = Time.time;
+            }
         }
     }
 
@@ -69,11 +73,15 @@ public class StickyBomb : MonoBehaviour
 
     private void Explode()
     {
-        // 2. PHÁT TIẾNG NỔ: Gọi ngay trước khi xử lý logic hất văng và hủy tên lửa
-        if (explosionSFX != null)
+        // CHỐNG RÈ: Chỉ phát tiếng nổ nếu khoảng cách với lần phát trước đó lớn hơn 0.1 giây
+        if (AudioManager.Instance != null)
         {
-            // Phát tiếng nổ với âm lượng tối đa 100% (1f)
-            AudioSource.PlayClipAtPoint(explosionSFX, Camera.main.transform.position, 1f);
+            if (Time.time - lastExplosionSoundTime > 0.1f)
+            {
+                // Gọi thẳng tiếng nổ từ AudioManager trung tâm
+                AudioManager.Instance.PlayRocketExplode();
+                lastExplosionSoundTime = Time.time;
+            }
         }
 
         if (explosionVFX != null)

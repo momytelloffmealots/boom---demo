@@ -21,7 +21,7 @@ public class PreLevelBoosterUI : MonoBehaviour
 
     private Image buttonImage;
     private bool isSelected = false;
-    private int lastCount = -1; // Biến kiểm tra
+    private int lastCount = -1;
 
     private void Awake()
     {
@@ -36,11 +36,18 @@ public class PreLevelBoosterUI : MonoBehaviour
     private void OnEnable()
     {
         isSelected = false;
-        if (boosterData != null) PlayerPrefs.SetInt($"PRE_SELECTED_{boosterData.boosterID}", 0);
+        
+        if (boosterData != null) 
+        {
+            PlayerPrefs.SetInt($"PRE_SELECTED_{boosterData.boosterID}", 0);
+            
+            // 🔥 FIX LỖI CHỚP HÌNH: Đọc số lượng thực tế ngay lập tức trước khi gọi UpdateUI
+            lastCount = PlayerPrefs.GetInt($"BOOSTER_{boosterData.boosterID}", 0);
+        }
+        
         UpdateUI();
     }
 
-    // 🔥 MỚI: Quét liên tục để bắt khoảnh khắc người dùng nạp tiền mua thành công trong Shop
     private void Update()
     {
         if (Time.frameCount % 10 == 0 && boosterData != null)
