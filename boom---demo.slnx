@@ -28,6 +28,7 @@
   <Project Path="Unity.PlasticSCM.Editor.Assistant.csproj" />
   <Project Path="Unity.AI.Navigation.Editor.csproj" />
   <Project Path="CFXRDemo.csproj" />
+  <Project Path="Coffee.UIParticle.csproj" />
   <Project Path="CFXREditor.csproj" />
   <Project Path="Assembly-CSharp-firstpass.csproj" />
   <Project Path="Unity.AI.Navigation.csproj" />
@@ -40,6 +41,7 @@
   <Project Path="Unity.InputSystem.ForUI.Editor.csproj" />
   <Project Path="Unity.CollabProxy.Editor.csproj" />
   <Project Path="CFXR.WelcomeScreen.csproj" />
+  <Project Path="Coffee.UIParticle.Editor.csproj" />
   <Project Path="ToonyColorsPro.Demo.Editor.csproj" />
   <Project Path="Unity.InputSystem.DocCodeSamples.csproj" />
   <Project Path="Unity.VisualScripting.DocCodeExamples.csproj" />
