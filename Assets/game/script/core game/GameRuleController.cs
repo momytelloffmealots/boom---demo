@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using DG.Tweening; 
+using DG.Tweening;
 
 public class GameRuleController : MonoBehaviour
 {
     public static GameRuleController Instance;
 
     [Header("Liên kết View & Hệ thống")]
-    public GameRuleView view; 
+    public GameRuleView view;
     public SimpleCannon playerCannon;
 
     [Header("Cấu hình Logic")]
@@ -55,15 +55,15 @@ public class GameRuleController : MonoBehaviour
 
     private IEnumerator DelayedCoinFly(int amount)
     {
-        yield return new WaitForSeconds(0.4f); 
-        
+        yield return new WaitForSeconds(0.4f);
+
         if (CoinFlyEffect.Instance != null)
         {
             CoinFlyEffect.Instance.SpawnCoins(amount);
         }
         else if (CurrencyManager.Instance != null)
         {
-            CurrencyManager.Instance.AddCoins(amount); 
+            CurrencyManager.Instance.AddCoins(amount);
         }
     }
 
@@ -147,7 +147,29 @@ public class GameRuleController : MonoBehaviour
         }
         else
         {
-            if (view != null && view.popupShop != null) view.popupShop.SetActive(true);
+            if (view != null && view.popupShop != null)
+            {
+                view.popupShop.SetActive(true);
+                // 🔥 FIX LỖI: Bắt đầu theo dõi quá trình người chơi xem Shop
+                StartCoroutine(WaitAndRestoreContinuePanel());
+            }
+        }
+    }
+
+    // 🔥 HÀM MỚI: Đợi Shop tắt thì tự động bật lại bảng Continue
+    private IEnumerator WaitAndRestoreContinuePanel()
+    {
+        // Chờ chừng nào bảng Shop vẫn còn đang hiển thị (activeSelf == true)
+        while (view != null && view.popupShop != null && view.popupShop.activeSelf)
+        {
+            yield return null;
+        }
+
+        // Ngay khi bảng Shop đóng lại, nếu game vẫn đang chờ quyết định cứu trợ
+        if (isWaitingForContinue && view != null && view.endGameView != null)
+        {
+            // Bắt buộc bảng Continue phải hiện ra lại để người chơi bấm X hoặc mua
+            view.endGameView.ShowContinue();
         }
     }
 
@@ -156,10 +178,17 @@ public class GameRuleController : MonoBehaviour
         isWaitingForContinue = false;
         isGameOver = true;
 
-        // 🔥 GỌI ÂM THANH THUA CUỘC TỪ AUDIOMANAGER
-        if (AudioManager.Instance != null)
+        // 🔥 BỌC BẢO HIỂM: Tránh lỗi làm sập luồng nếu chưa có hàm PlayLoseSound
+        try
         {
-            AudioManager.Instance.PlayLoseSound();
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayLoseSound();
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning("Thiếu hàm PlayLoseSound trong AudioManager: " + e.Message);
         }
 
         if (LivesManager.Instance != null) LivesManager.Instance.LoseLife();
@@ -260,13 +289,7 @@ public class GameRuleController : MonoBehaviour
         if (isGameOver) return;
         isGameOver = true;
 
-        // 🔥 GỌI ÂM THANH THẮNG TỪ AUDIOMANAGER
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlayWinSound();
-        }
-
-        int coinReward = 20; 
+        int coinReward = 20;
         switch (currentDifficulty)
         {
             case LevelDifficulty.Normal: coinReward = 20; break;
@@ -278,8 +301,8 @@ public class GameRuleController : MonoBehaviour
         PlayerPrefs.Save();
 
         if (view != null && view.endGameView != null) view.endGameView.ShowWin();
-        
-        StartCoroutine(AutoReturnToHomeRoutine(2f)); 
+
+        StartCoroutine(AutoReturnToHomeRoutine(2f));
     }
 
     private IEnumerator AutoReturnToHomeRoutine(float waitTime)
@@ -297,11 +320,6 @@ public class GameRuleController : MonoBehaviour
     {
         isGameOver = true;
         isWaitingForContinue = false;
-
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlayLoseSound();
-        }
 
         if (LivesManager.Instance != null)
         {

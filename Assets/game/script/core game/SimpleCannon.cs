@@ -114,6 +114,9 @@ public class SimpleCannon : MonoBehaviour
 
     public bool ArmBigBullet(float scaleMult, float forceMult, GameObject vfxPrefab)
     {
+        // 🔥 KHÓA TẠI GỐC: Nếu súng đã cạn đạn, từ chối mọi lệnh nạp Booster
+        if (currentBullets <= 0) return false;
+
         ClearArmedBooster();
 
         isBigBulletArmed = true;
@@ -138,12 +141,14 @@ public class SimpleCannon : MonoBehaviour
 
     public bool ArmInfiniteAmmo(float duration, GameObject vfxPrefab)
     {
+        // 🔥 KHÓA TẠI GỐC: Nếu súng đã cạn đạn, từ chối mọi lệnh nạp Booster
+        if (currentBullets <= 0) return false;
+
         ClearArmedBooster();
 
         isInfiniteAmmoArmed = true;
         pendingInfiniteDuration = duration;
 
-        // 🔥 MỚI: Bật animation Booster_Click khi chọn Infinite Ammo
         if (cannonAnimator != null)
         {
             cannonAnimator.SetBool("BoosterActive", true);
@@ -160,7 +165,6 @@ public class SimpleCannon : MonoBehaviour
             );
         }
 
-        // 🔥 MỚI: Báo cho UI hiện thanh Slider lên ngay lập tức nhưng chưa chạy đếm ngược
         OnInfiniteAmmoArmed?.Invoke(duration);
 
         return true;
@@ -186,6 +190,12 @@ public class SimpleCannon : MonoBehaviour
     private void Update()
     {
         if (Pointer.current == null) return;
+
+        if (currentBullets <= 0 && !isInfiniteAmmoActive && !isInfiniteAmmoArmed)
+        {
+            isAiming = false;
+            return;
+        }
 
         bool isPointerDown = Pointer.current.press.wasPressedThisFrame;
         bool isPointerHeld = Pointer.current.press.isPressed;
@@ -338,7 +348,10 @@ public class SimpleCannon : MonoBehaviour
             }
 
             if (!isInfiniteAmmoActive && !consumeInf)
+            {
                 currentBullets--;
+                if (currentBullets < 0) currentBullets = 0;
+            }
 
             if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
             {

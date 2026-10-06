@@ -33,6 +33,8 @@ public class InfiniteAmmoUI : MonoBehaviour
     private void Start()
     {
         if (infinitePanel != null) infinitePanel.SetActive(false);
+
+        if (fillBar != null) fillBar.interactable = false;
     }
 
     // 🔥 MỚI: Hiện Slider đầy 100%, đứng im chờ bắn
