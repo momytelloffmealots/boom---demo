@@ -1,0 +1,22 @@
+{
+    "name": "GeckoArrow.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GeckoArrow.Runtime.AudioSystem",
+        "Flamework.Runtime",
+        "DOTween.Modules",
+        "UniTask",
+        "spine-unity",
+        "GeckoArrow.Runtime.CoreSystem",
+        "PTITGameSDK"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,18 @@
+{
+    "name": "GeckoArrow.Runtime.AudioSystem",
+    "rootNamespace": "",
+    "references": [
+        "UniTask",
+        "Flamework.Runtime",
+        "DOTween.Modules"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

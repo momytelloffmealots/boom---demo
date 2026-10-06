@@ -1,0 +1,23 @@
+{
+    "name": "GeckoArrow.LoadingSystem",
+    "rootNamespace": "",
+    "references": [
+        "UniTask",
+        "DOTween.Modules",
+        "Flamework.Runtime",
+        "GeckoArrow.Runtime.AudioSystem",
+        "Unity.TextMeshPro",
+        "spine-unity",
+        "GeckoArrow.Runtime.CoreSystem",
+        "PTITGameSDK"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

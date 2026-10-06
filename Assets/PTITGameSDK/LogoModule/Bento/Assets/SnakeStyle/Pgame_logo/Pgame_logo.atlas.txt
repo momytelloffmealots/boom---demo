@@ -1,0 +1,20 @@
+
+Pgame_Logo.png
+size: 417,390
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+P
+  rotate: true
+  xy: 79, 0
+  size: 390, 332
+  orig: 400, 202
+  offset: 0, -45
+  index: -1
+games
+  rotate: true
+  xy: 0, 10
+  size: 390, 77
+  orig: 500, 72
+  offset: 170, 0
+  index: -1

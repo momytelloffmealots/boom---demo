@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &302881141117202267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5705096252957516915}
+  - component: {fileID: 758846856995643214}
+  m_Layer: 0
+  m_Name: PTITAdManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5705096252957516915
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302881141117202267}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.2206, y: -1.02083, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &758846856995643214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302881141117202267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f14dabfc7bb84164ea4b188287db242d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PTITGameSDK::PTITGameSDK.Modules.Ads.PTITAdManager
+  activeMediation: 1
+  levelPlayAndroidAppKey: 
+  levelPlayIosAppKey: 
+  levelPlayBannerAdUnitId: 
+  levelPlayInterAdUnitId: 
+  levelPlayRewardAdUnitId: 
+  maxSdkKey: 
+  maxInterAdUnitIdAndroid: 
+  maxRewardAdUnitIdAndroid: 
+  maxBannerAdUnitIdAndroid: 
+  maxMrecAdUnitIdAndroid: 
+  maxInterAdUnitIdIOS: 
+  maxRewardAdUnitIdIOS: 
+  maxBannerAdUnitIdIOS: 
+  maxMrecAdUnitIdIOS: 
+  isDisableAds: 0
+  initializationTimeout: 8
+  delayTimer: -1

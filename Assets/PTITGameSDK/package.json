@@ -1,0 +1,7 @@
+{
+  "name": "com.cdit.ptitgamesdk",
+  "version": "1.0.0",
+  "displayName": "PTIT Game SDK",
+  "description": "A modular tracking SDK based on Builder pattern with Firebase support.",
+  "unity": "2021.3"
+}

@@ -1,0 +1,299 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7160447a9e69914abdce2d28a45e147, type: 3}
+  m_Name: PTITRemoteConfigCollection
+  m_EditorClassIdentifier: PTITGameSDK::PTITGameSDK.Modules.RemoteConfig.PTITRemoteConfigCollection
+  interCoolDown:
+    key: inter_cooldown
+    fetch: 1
+    defaultValue: 90
+    value: 90
+  interAdsConfig:
+    key: inter_ads_config
+    fetch: 1
+    defaultValue:
+      minWinLevel: 16
+      minLoseLevel: 16
+      minReplayLevel: 16
+    value:
+      minWinLevel: 16
+      minLoseLevel: 16
+      minReplayLevel: 16
+  noAdsShowLevel:
+    key: no_ads_show_level
+    fetch: 1
+    defaultValue: 16
+    value: 16
+  miniumLevelsForBanner:
+    key: banner_min_levelshow
+    fetch: 1
+    defaultValue: 16
+    value: 16
+  rateUsShowLevel:
+    key: rate_us_level
+    fetch: 1
+    defaultValue: 10
+    value: 5
+  rateUsLevelCooldown:
+    key: rate_us_level_cooldown
+    fetch: 1
+    defaultValue: 5
+    value: 5
+  handcraftedLevelActive:
+    key: handcrafted_level_active_18_11
+    fetch: 1
+    defaultValue: 0
+    value: 0
+  freeToPlayLevel:
+    key: free_to_play_level
+    fetch: 1
+    defaultValue: 16
+    value: 1
+  noReturnToMenuLevel:
+    key: no_return_menu_level
+    fetch: 1
+    defaultValue: 16
+    value: 16
+  challengeLevelShow:
+    key: challenge_levelshow
+    fetch: 1
+    defaultValue: 20
+    value: 20
+  setLevel:
+    key: adjust_level
+    fetch: 1
+    defaultValue: 0
+    value: 0
+  arrowType:
+    key: arrow_type
+    fetch: 1
+    defaultValue: 0
+    value: 0
+  userAttributionConfig:
+    key: user_attribution_config
+    fetch: 1
+    defaultValue:
+      blendedCampaign:
+        id: 0
+        campName: 
+        banner_lv: 0
+        inter_lv: 0
+        inter_retry_lv: 0
+        inter_cd: 0
+        reward_lives_lv: 0
+        reward_endgame_lv: 0
+        reward_booster_lv: 0
+        reward_revive_lv: 0
+        coin_endgame_reward: 0
+        reward_coin_lv: 0
+        reward_coin: 0
+        max_reward_lives_lv: 0
+        max_reward_endgame_lv: 0
+        max_reward_booster_lv: 0
+        max_reward_revive_lv: 0
+        max_reward_coin_lv: 0
+        day_blended_to_ads: 0
+        day_iap_to_ads: 0
+        booster_purchase_amount: 0
+        booster_price_rate: 0
+      adsCampaign:
+        id: 0
+        campName: 
+        banner_lv: 0
+        inter_lv: 0
+        inter_retry_lv: 0
+        inter_cd: 0
+        reward_lives_lv: 0
+        reward_endgame_lv: 0
+        reward_booster_lv: 0
+        reward_revive_lv: 0
+        coin_endgame_reward: 0
+        reward_coin_lv: 0
+        reward_coin: 0
+        max_reward_lives_lv: 0
+        max_reward_endgame_lv: 0
+        max_reward_booster_lv: 0
+        max_reward_revive_lv: 0
+        max_reward_coin_lv: 0
+        day_blended_to_ads: 0
+        day_iap_to_ads: 0
+        booster_purchase_amount: 0
+        booster_price_rate: 0
+      purchasedUsers:
+        id: 0
+        campName: 
+        banner_lv: 0
+        inter_lv: 0
+        inter_retry_lv: 0
+        inter_cd: 0
+        reward_lives_lv: 0
+        reward_endgame_lv: 0
+        reward_booster_lv: 0
+        reward_revive_lv: 0
+        coin_endgame_reward: 0
+        reward_coin_lv: 0
+        reward_coin: 0
+        max_reward_lives_lv: 0
+        max_reward_endgame_lv: 0
+        max_reward_booster_lv: 0
+        max_reward_revive_lv: 0
+        max_reward_coin_lv: 0
+        day_blended_to_ads: 0
+        day_iap_to_ads: 0
+        booster_purchase_amount: 0
+        booster_price_rate: 0
+      IAPUsers:
+        id: 0
+        campName: 
+        banner_lv: 0
+        inter_lv: 0
+        inter_retry_lv: 0
+        inter_cd: 0
+        reward_lives_lv: 0
+        reward_endgame_lv: 0
+        reward_booster_lv: 0
+        reward_revive_lv: 0
+        coin_endgame_reward: 0
+        reward_coin_lv: 0
+        reward_coin: 0
+        max_reward_lives_lv: 0
+        max_reward_endgame_lv: 0
+        max_reward_booster_lv: 0
+        max_reward_revive_lv: 0
+        max_reward_coin_lv: 0
+        day_blended_to_ads: 0
+        day_iap_to_ads: 0
+        booster_purchase_amount: 0
+        booster_price_rate: 0
+    value:
+      blendedCampaign:
+        id: 0
+        campName: 
+        banner_lv: 0
+        inter_lv: 0
+        inter_retry_lv: 0
+        inter_cd: 0
+        reward_lives_lv: 0
+        reward_endgame_lv: 0
+        reward_booster_lv: 0
+        reward_revive_lv: 0
+        coin_endgame_reward: 0
+        reward_coin_lv: 0
+        reward_coin: 0
+        max_reward_lives_lv: 0
+        max_reward_endgame_lv: 0
+        max_reward_booster_lv: 0
+        max_reward_revive_lv: 0
+        max_reward_coin_lv: 0
+        day_blended_to_ads: 0
+        day_iap_to_ads: 0
+        booster_purchase_amount: 0
+        booster_price_rate: 0
+      adsCampaign:
+        id: 0
+        campName: 
+        banner_lv: 0
+        inter_lv: 0
+        inter_retry_lv: 0
+        inter_cd: 0
+        reward_lives_lv: 0
+        reward_endgame_lv: 0
+        reward_booster_lv: 0
+        reward_revive_lv: 0
+        coin_endgame_reward: 0
+        reward_coin_lv: 0
+        reward_coin: 0
+        max_reward_lives_lv: 0
+        max_reward_endgame_lv: 0
+        max_reward_booster_lv: 0
+        max_reward_revive_lv: 0
+        max_reward_coin_lv: 0
+        day_blended_to_ads: 0
+        day_iap_to_ads: 0
+        booster_purchase_amount: 0
+        booster_price_rate: 0
+      purchasedUsers:
+        id: 0
+        campName: 
+        banner_lv: 0
+        inter_lv: 0
+        inter_retry_lv: 0
+        inter_cd: 0
+        reward_lives_lv: 0
+        reward_endgame_lv: 0
+        reward_booster_lv: 0
+        reward_revive_lv: 0
+        coin_endgame_reward: 0
+        reward_coin_lv: 0
+        reward_coin: 0
+        max_reward_lives_lv: 0
+        max_reward_endgame_lv: 0
+        max_reward_booster_lv: 0
+        max_reward_revive_lv: 0
+        max_reward_coin_lv: 0
+        day_blended_to_ads: 0
+        day_iap_to_ads: 0
+        booster_purchase_amount: 0
+        booster_price_rate: 0
+      IAPUsers:
+        id: 0
+        campName: 
+        banner_lv: 0
+        inter_lv: 0
+        inter_retry_lv: 0
+        inter_cd: 0
+        reward_lives_lv: 0
+        reward_endgame_lv: 0
+        reward_booster_lv: 0
+        reward_revive_lv: 0
+        coin_endgame_reward: 0
+        reward_coin_lv: 0
+        reward_coin: 0
+        max_reward_lives_lv: 0
+        max_reward_endgame_lv: 0
+        max_reward_booster_lv: 0
+        max_reward_revive_lv: 0
+        max_reward_coin_lv: 0
+        day_blended_to_ads: 0
+        day_iap_to_ads: 0
+        booster_purchase_amount: 0
+        booster_price_rate: 0
+  timerEnabled:
+    key: timer_enable
+    fetch: 1
+    defaultValue: 1
+    value: 0
+  monochromeImage:
+    key: mono_chrome
+    fetch: 1
+    defaultValue: 0
+    value: 0
+  bannerEnable:
+    key: banner_enable
+    fetch: 1
+    defaultValue: 1
+    value: 1
+  darkModeDefault:
+    key: init_dark_mode
+    fetch: 1
+    defaultValue: 0
+    value: 0
+  boosterLevelShow:
+    key: booster_levelshow
+    fetch: 1
+    defaultValue: '{"boosters":[{"boosterType":0,"levelUnlock":10},{"boosterType":1,"levelUnlock":15},{"boosterType":2,"levelUnlock":5}]}'
+    value: '{"boosters":[{"boosterType":0,"levelUnlock":10},{"boosterType":1,"levelUnlock":15},{"boosterType":2,"levelUnlock":5}]}'
+  tutorialConfigs:
+    key: tutorial_trigger_level
+    fetch: 1
+    defaultValue: 1,5
+    value: 1,5

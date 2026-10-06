@@ -1,0 +1,28 @@
+{
+    "name": "PTITGameSDK",
+    "rootNamespace": "PTITGameSDK",
+    "references": [
+        "Unity.LevelPlay",
+        "MaxSdk.Scripts",
+        "Unity.Purchasing",
+        "Unity.Purchasing.Stores",
+        "spine-unity",
+        "UniTask",
+        "UniTask.DOTween"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.purchasing",
+            "expression": "",
+            "define": "PTIT_USE_IAP"
+        }
+    ],
+    "noEngineReferences": false
+}
