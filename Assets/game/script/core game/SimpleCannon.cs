@@ -254,7 +254,6 @@ public class SimpleCannon : MonoBehaviour
     {
         bool consumeBig = isBigBulletArmed;
         bool consumeInf = isInfiniteAmmoArmed;
-
         Camera mainCam = Camera.main;
 
         if (mainCam == null || firePoint == null)
@@ -412,8 +411,8 @@ public class SimpleCannon : MonoBehaviour
 
     private bool IsPointerOverUI()
     {
-        if (EventSystem.current == null)
-            return false;
+      //  if (EventSystem.current == null)
+      //     return false;
 
         if (Input.touchCount > 0)
         {
