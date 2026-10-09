@@ -154,7 +154,7 @@ public class GameRuleController : MonoBehaviour
         if (CurrencyManager.Instance != null && CurrencyManager.Instance.TrySpendCoins(continuePrice))
         {
             isWaitingForContinue = false;
-            
+
             // 🔥 [GẮN TRACKING TIÊU TIỀN HỒI SINH]
             string levelId = "Lv_" + PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString("0000");
             SoftCurrencyEvent.Create("spend", "coin", continuePrice, "buy_continue", PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString(), levelId).Track();
@@ -200,7 +200,7 @@ public class GameRuleController : MonoBehaviour
             )
             .SetActionType("lose")
             .SetLoseReason("out_of_moves")
-            .SetResultJson("{\"score\": 0, \"coin_in\": 0, \"coin_out\": 0}") 
+            .SetResultJson("{\"score\": 0, \"coin_in\": 0, \"coin_out\": 0}")
             .Track();
 
         try
@@ -278,7 +278,8 @@ public class GameRuleController : MonoBehaviour
 
     public void RegisterBulletReturned()
     {
-        activeBulletsFlying--;
+        // Neu return callback bi goi du, khong de bo dem am lam sai lose condition.
+        activeBulletsFlying = Mathf.Max(0, activeBulletsFlying - 1);
         StartCoroutine(CheckWinLoseRoutine());
     }
 
@@ -297,7 +298,7 @@ public class GameRuleController : MonoBehaviour
         if (playerCannon.GetCurrentBullets() <= 0 && activeBulletsFlying <= 0)
         {
             float waitTimer = 0f;
-            while (waitTimer < 1.0f)
+            while (waitTimer < 0.1f)
             {
                 if (activeBlocks <= 0)
                 {
@@ -342,7 +343,7 @@ public class GameRuleController : MonoBehaviour
             )
             .SetActionType("win")
             .SetLoseReason("null")
-            .SetResultJson($"{{\"score\": 100, \"coin_in\": {coinReward}, \"coin_out\": 0}}") 
+            .SetResultJson($"{{\"score\": 100, \"coin_in\": {coinReward}, \"coin_out\": 0}}")
             .Track();
 
         // 🔥 [GẮN TRACKING NHẬN TIỀN THƯỞNG]

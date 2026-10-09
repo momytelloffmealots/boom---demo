@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class SimpleCannon : MonoBehaviour
 {
@@ -42,6 +44,8 @@ public class SimpleCannon : MonoBehaviour
     private Vector3 originalBulletScale = Vector3.one;
     private bool isScaleSaved = false;
     private bool isAiming = false;
+    private Pointer aimingPointer;
+    private readonly List<RaycastResult> uiRaycastResults = new List<RaycastResult>(16);
 
     // SỰ KIỆN GỬI ĐI
     public event Action<int> OnAmmoChanged;
@@ -76,10 +80,19 @@ public class SimpleCannon : MonoBehaviour
         ClearArmedBooster();
         isInfiniteAmmoActive = false;
         isAiming = false;
+        aimingPointer = null;
         currentForceMultiplier = 1f;
 
-        if (infiniteAmmoCoroutine != null) StopCoroutine(infiniteAmmoCoroutine);
-        if (currentInfiniteAmmoVFX != null) Destroy(currentInfiniteAmmoVFX);
+        if (infiniteAmmoCoroutine != null)
+        {
+            StopCoroutine(infiniteAmmoCoroutine);
+            infiniteAmmoCoroutine = null;
+        }
+        if (currentInfiniteAmmoVFX != null)
+        {
+            Destroy(currentInfiniteAmmoVFX);
+            currentInfiniteAmmoVFX = null;
+        }
 
         OnAmmoChanged?.Invoke(currentBullets);
     }
@@ -178,6 +191,7 @@ public class SimpleCannon : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         isInfiniteAmmoActive = false;
+        infiniteAmmoCoroutine = null;
         OnInfiniteAmmoEnded?.Invoke();
 
         if (currentInfiniteAmmoVFX != null)
@@ -189,41 +203,56 @@ public class SimpleCannon : MonoBehaviour
 
     private void Update()
     {
-        if (Pointer.current == null) return;
-
-        if (currentBullets <= 0 && !isInfiniteAmmoActive && !isInfiniteAmmoArmed)
+        // Luon bo trang thai ngam khi het dan, pause hoac bi mat Pointer.
+        if (Time.timeScale <= 0f ||
+            (currentBullets <= 0 && !isInfiniteAmmoActive && !isInfiniteAmmoArmed))
         {
-            isAiming = false;
+            CancelAim();
             return;
         }
 
-        bool isPointerDown = Pointer.current.press.wasPressedThisFrame;
-        bool isPointerHeld = Pointer.current.press.isPressed;
-        bool isPointerUp = Pointer.current.press.wasReleasedThisFrame;
-        Vector2 screenPosition = Pointer.current.position.ReadValue();
-
-        if (isPointerDown)
+        if (!isAiming)
         {
-            if (IsPointerOverUI())
-            {
-                isAiming = false;
+            Pointer pointer = Pointer.current;
+            if (pointer == null || !pointer.press.wasPressedThisFrame)
                 return;
-            }
 
-            if (currentBullets > 0 || isInfiniteAmmoActive || isBigBulletArmed || isInfiniteAmmoArmed)
-            {
-                isAiming = true;
-            }
+            Vector2 screenPos = pointer.position.ReadValue();
+            if (IsPointerOverUI(screenPos))
+                return;
+
+            aimingPointer = pointer;
+            isAiming = true;
+            Aim(screenPos);
+            return;
         }
 
-        if (isAiming && isPointerHeld)
-            Aim(screenPosition);
-
-        if (isAiming && isPointerUp)
+        // Giữ đúng Pointer bat dau ngắm, không phụ thuộc Pointer.current thay đổi.
+        if (aimingPointer == null)
         {
-            isAiming = false;
-            Shoot(screenPosition);
+            CancelAim();
+            return;
         }
+
+        Vector2 position = aimingPointer.position.ReadValue();
+        bool pointerReleased = aimingPointer.press.wasReleasedThisFrame;
+        bool pointerHeld = aimingPointer.press.isPressed;
+
+        // Khi bi mat su kien release do FPS thap, khong de isAiming bi ket.
+        if (pointerReleased || !pointerHeld)
+        {
+            CancelAim();
+            Shoot(position);
+            return;
+        }
+
+        Aim(position);
+    }
+
+    private void CancelAim()
+    {
+        isAiming = false;
+        aimingPointer = null;
     }
 
     private void Aim(Vector2 screenPos)
@@ -252,184 +281,186 @@ public class SimpleCannon : MonoBehaviour
 
     private void Shoot(Vector2 clickPos)
     {
-        bool consumeBig = isBigBulletArmed;
-        bool consumeInf = isInfiniteAmmoArmed;
-        Camera mainCam = Camera.main;
-
-        if (mainCam == null || firePoint == null)
+        if (Time.timeScale <= 0f ||
+            (currentBullets <= 0 && !isInfiniteAmmoActive && !isInfiniteAmmoArmed))
             return;
+
+        Camera mainCam = Camera.main;
+        SimpleBulletPool pool = SimpleBulletPool.Instance;
+        if (mainCam == null || firePoint == null || pool == null)
+        {
+            Debug.LogWarning("[Cannon] Missing MainCamera, FirePoint, or SimpleBulletPool.", this);
+            return;
+        }
 
         Ray ray = mainCam.ScreenPointToRay(clickPos);
+        Vector3 targetPoint = Physics.Raycast(ray, out RaycastHit hitInfo, raycastDistance)
+            ? hitInfo.point : ray.GetPoint(raycastDistance);
 
-        Vector3 targetPoint =
-            Physics.Raycast(ray, out RaycastHit hitInfo, raycastDistance)
-            ? hitInfo.point
-            : ray.GetPoint(raycastDistance);
+        Vector3 cannonDirection = (targetPoint - transform.position).normalized;
+        if (cannonDirection.sqrMagnitude > 0.0001f)
+            transform.rotation = Quaternion.LookRotation(cannonDirection);
 
-        Vector3 shootDirection =
-            (targetPoint - firePoint.position).normalized;
+        // Phai tinh huong sau khi xoay sung vi firePoint co the di chuyen theo sung.
+        Vector3 shootDirection = targetPoint - firePoint.position;
+        if (shootDirection.sqrMagnitude < 0.0001f)
+            shootDirection = firePoint.forward;
+        shootDirection.Normalize();
 
-        Vector3 cannonLookDirection =
-            (targetPoint - transform.position).normalized;
+        // Tao tai dung vi tri truoc khi OnEnable cua Bullet chay.
+        GameObject bullet = pool.GetBullet(
+            firePoint.position, Quaternion.LookRotation(shootDirection));
 
-        if (cannonLookDirection != Vector3.zero)
+        if (bullet == null)
         {
-            transform.rotation =
-                Quaternion.LookRotation(cannonLookDirection);
+            // Khong tru ammo, khong mat Booster neu Pool khong cap duoc dan.
+            Debug.LogWarning("[Cannon] Khong lay duoc dan tu Object Pool.", this);
+            return;
         }
 
-        if (SimpleBulletPool.Instance == null)
-            return;
-
-        GameObject bullet =
-            SimpleBulletPool.Instance.GetBullet();
-
-        if (bullet != null)
+        if (!bullet.TryGetComponent<Bullet>(out Bullet bulletScript) ||
+            !bullet.TryGetComponent<Rigidbody>(out Rigidbody rb))
         {
-            bullet.transform.SetPositionAndRotation(
-                firePoint.position,
-                Quaternion.LookRotation(shootDirection)
-            );
+            Debug.LogError("[Cannon] Bullet prefab phai co Bullet.cs va Rigidbody!", bullet);
+            pool.ReturnBullet(bullet);
+            return;
+        }
 
-            if (!isScaleSaved)
+        if (rb.isKinematic)
+        {
+            Debug.LogError("[Cannon] Rigidbody cua Bullet dang isKinematic; khong the ban.", bullet);
+            pool.ReturnBullet(bullet);
+            return;
+        }
+
+        bool consumeBig = isBigBulletArmed;
+        bool consumeInf = isInfiniteAmmoArmed;
+
+        if (!isScaleSaved)
+        {
+            originalBulletScale = bullet.transform.localScale;
+            isScaleSaved = true;
+        }
+
+        Vector3 normalScale = originalBulletScale * normalBulletScaleMultiplier;
+        bullet.transform.localScale = consumeBig
+            ? normalScale * bigBulletScaleMultiplier
+            : normalScale;
+
+        bulletScript.SetExplosionMultiplier(currentForceMultiplier);
+
+        // Callback moi duoc gan cho moi vien dan, bao ve khong goi 2 lan.
+        bool returned = false;
+        bulletScript.OnRelease = (go) =>
+        {
+            if (returned) return;
+            returned = true;
+
+            if (go != null)
             {
-                originalBulletScale = bullet.transform.localScale;
-                isScaleSaved = true;
-            }
-
-            Vector3 baseNormalScale =
-                originalBulletScale * normalBulletScaleMultiplier;
-
-            float activeExplosionMultiplier =
-                currentForceMultiplier;
-
-            if (consumeBig)
-            {
-                bullet.transform.localScale =
-                    baseNormalScale * bigBulletScaleMultiplier;
-
-                isBigBulletArmed = false;
-                currentForceMultiplier = 1f;
-
-                if (currentChargeVFX != null)
-                {
-                    Destroy(currentChargeVFX);
-                    currentChargeVFX = null;
-                }
-
-                if (CameraZoomController.Instance != null)
-                {
-                    CameraZoomController.Instance.ResetZoomNormal();
-                }
-            }
-            else
-            {
-                bullet.transform.localScale = baseNormalScale;
-            }
-
-            if (consumeInf)
-            {
-                isInfiniteAmmoArmed = false;
-
-                // 🔥 MỚI: Bắn viên đầu tiên thì tắt animation Booster_Click
-                if (cannonAnimator != null)
-                {
-                    cannonAnimator.SetBool("BoosterActive", false);
-                }
-
-                currentInfiniteAmmoVFX = currentChargeVFX;
-                currentChargeVFX = null;
-
-                infiniteAmmoCoroutine =
-                    StartCoroutine(
-                        InfiniteAmmoRoutine(pendingInfiniteDuration)
-                    );
-            }
-
-            if (!isInfiniteAmmoActive && !consumeInf)
-            {
-                currentBullets--;
-                if (currentBullets < 0) currentBullets = 0;
-            }
-
-            if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
-            {
-                bulletScript.SetExplosionMultiplier(activeExplosionMultiplier);
-
-                bulletScript.OnRelease = (go) =>
-                {
-                    go.transform.localScale = originalBulletScale;
-
+                go.transform.localScale = originalBulletScale;
+                if (SimpleBulletPool.Instance != null)
                     SimpleBulletPool.Instance.ReturnBullet(go);
-
-                    if (GameRuleController.Instance != null)
-                        GameRuleController.Instance.RegisterBulletReturned();
-                };
+                else
+                    go.SetActive(false);
             }
-
-            if (bullet.TryGetComponent<Rigidbody>(out Rigidbody rb))
-            {
-                rb.linearVelocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-
-                rb.AddForce(
-                    shootDirection * bulletSpeed * rb.mass,
-                    ForceMode.VelocityChange
-                );
-            }
-
-            if (AudioManager.Instance != null)
-                AudioManager.Instance.PlayCannonShot();
-
-            if (muzzleVFXPrefab != null)
-            {
-                Destroy(
-                    Instantiate(
-                        muzzleVFXPrefab,
-                        firePoint.position,
-                        firePoint.rotation
-                    ),
-                    0.5f
-                );
-            }
-
-            if (cannonAnimator != null)
-                cannonAnimator.SetTrigger("Shoot");
-
-            OnAmmoChanged?.Invoke(currentBullets);
 
             if (GameRuleController.Instance != null)
-                GameRuleController.Instance.RegisterBulletFired();
+                GameRuleController.Instance.RegisterBulletReturned();
+        };
 
-            if (consumeBig)
-                OnBoosterConsumed?.Invoke(1);
+        // Chi ghi nhan da ban khi object va script da duoc kiem tra.
+        if (GameRuleController.Instance != null)
+            GameRuleController.Instance.RegisterBulletFired();
 
-            if (consumeInf)
-                OnBoosterConsumed?.Invoke(2);
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.WakeUp();
+        // Giu nguyen cach tinh luc va cam giac ban cua project ban dau.
+        rb.AddForce(shootDirection * bulletSpeed * rb.mass, ForceMode.VelocityChange);
+
+        if (consumeBig)
+        {
+            isBigBulletArmed = false;
+            currentForceMultiplier = 1f;
+
+            if (currentChargeVFX != null)
+            {
+                Destroy(currentChargeVFX);
+                currentChargeVFX = null;
+            }
+
+            if (CameraZoomController.Instance != null)
+                CameraZoomController.Instance.ResetZoomNormal();
         }
+
+        if (consumeInf)
+        {
+            isInfiniteAmmoArmed = false;
+            if (cannonAnimator != null)
+                cannonAnimator.SetBool("BoosterActive", false);
+
+            currentInfiniteAmmoVFX = currentChargeVFX;
+            currentChargeVFX = null;
+
+            if (infiniteAmmoCoroutine != null)
+                StopCoroutine(infiniteAmmoCoroutine);
+            infiniteAmmoCoroutine = StartCoroutine(InfiniteAmmoRoutine(pendingInfiniteDuration));
+        }
+
+        if (!isInfiniteAmmoActive && !consumeInf)
+            currentBullets = Mathf.Max(0, currentBullets - 1);
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayCannonShot();
+
+        if (muzzleVFXPrefab != null)
+        {
+            // Tai su dung VFX khi ban nhanh, tranh Instantiate/Destroy lien tuc.
+            pool.Spawn(muzzleVFXPrefab, firePoint.position, firePoint.rotation, 0.5f);
+        }
+
+        if (cannonAnimator != null)
+            cannonAnimator.SetTrigger("Shoot");
+
+        OnAmmoChanged?.Invoke(currentBullets);
+
+        if (consumeBig)
+            OnBoosterConsumed?.Invoke(1);
+        if (consumeInf)
+            OnBoosterConsumed?.Invoke(2);
     }
 
-    private bool IsPointerOverUI()
+    // Khong dung UnityEngine.Input cu de tranh xung dot voi New Input System.
+    private bool IsPointerOverUI(Vector2 position)
     {
-       if (EventSystem.current == null)
-          return false;
+        if (EventSystem.current == null) return false;
 
-        if (Input.touchCount > 0)
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
         {
-            for (int i = 0; i < Input.touchCount; i++)
-            {
-                if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(i).fingerId))
-                    return true;
-            }
-        }
+            position = position
+        };
 
-        return EventSystem.current.IsPointerOverGameObject();
+        uiRaycastResults.Clear();
+        EventSystem.current.RaycastAll(pointerData, uiRaycastResults);
+        for (int i = 0; i < uiRaycastResults.Count; i++)
+        {
+            // Chi chan khi cham UI, khong chan khi raycast vao Collider gameplay.
+            if (uiRaycastResults[i].module is GraphicRaycaster)
+                return true;
+        }
+        return false;
     }
 
     public void AddBullets(int amount)
     {
         currentBullets += amount;
         OnAmmoChanged?.Invoke(currentBullets);
+    }
+
+    private void OnDisable()
+    {
+        CancelAim();
     }
 
     private void OnDestroy()

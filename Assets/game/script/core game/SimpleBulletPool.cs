@@ -1,174 +1,9 @@
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-
-//public class SimpleBulletPool : MonoBehaviour
-//{
-//    public static SimpleBulletPool Instance { get; private set; }
-
-//    [System.Serializable]
-//    public class PoolItem
-//    {
-//        public string name;
-//        public GameObject prefab;
-//        public int initialSize = 5;
-//        public float autoReturnDelay = 1.5f; // <--- Hiện ô điền thời gian ở Inspector
-//    }
-
-//    [Header("1. Danh sách Prefab nạp sẵn (Bấm + để thêm VFX/Đạn)")]
-//    [SerializeField] private List<PoolItem> prewarmItems = new List<PoolItem>();
-
-//    [Header("2. Đạn mặc định (Dành cho SimpleCannon.cs)")]
-//    [SerializeField] private GameObject defaultBulletPrefab;
-
-//    private readonly Dictionary<GameObject, Queue<GameObject>> poolDictionary = new Dictionary<GameObject, Queue<GameObject>>();
-//    private readonly Dictionary<GameObject, float> autoReturnTimes = new Dictionary<GameObject, float>();
-
-//    private void Awake()
-//    {
-//        if (Instance == null)
-//        {
-//            Instance = this;
-//        }
-//        else
-//        {
-//            Destroy(gameObject);
-//            return;
-//        }
-
-//        InitializePools();
-//    }
-
-//    private void InitializePools()
-//    {
-//        foreach (var item in prewarmItems)
-//        {
-//            if (item.prefab == null) continue;
-
-//            // Lưu cấu hình thời gian hủy của Prefab này
-//            if (!autoReturnTimes.ContainsKey(item.prefab))
-//            {
-//                autoReturnTimes.Add(item.prefab, item.autoReturnDelay);
-//            }
-
-//            for (int i = 0; i < item.initialSize; i++)
-//            {
-//                CreateNewInstance(item.prefab);
-//            }
-//        }
-
-//        if (defaultBulletPrefab != null && !poolDictionary.ContainsKey(defaultBulletPrefab))
-//        {
-//            for (int i = 0; i < 10; i++)
-//            {
-//                CreateNewInstance(defaultBulletPrefab);
-//            }
-//        }
-//    }
-
-//    private GameObject CreateNewInstance(GameObject prefab)
-//    {
-//        if (!poolDictionary.TryGetValue(prefab, out Queue<GameObject> queue))
-//        {
-//            queue = new Queue<GameObject>();
-//            poolDictionary[prefab] = queue;
-//        }
-
-//        GameObject obj = Instantiate(prefab, transform);
-//        obj.SetActive(false);
-//        queue.Enqueue(obj);
-//        return obj;
-//    }
-
-//    /// <summary>
-//    /// Spawn Object.
-//    /// - Nếu không truyền autoReturnDelay, Pool sẽ tự lấy thời gian cấu hình ở Inspector.
-//    /// </summary>
-//    public GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation, float overrideDelay = -1f)
-//    {
-//        if (prefab == null) return null;
-
-//        if (!poolDictionary.TryGetValue(prefab, out Queue<GameObject> queue))
-//        {
-//            queue = new Queue<GameObject>();
-//            poolDictionary[prefab] = queue;
-//        }
-
-//        GameObject obj = null;
-//        while (queue.Count > 0)
-//        {
-//            obj = queue.Dequeue();
-//            if (obj != null) break;
-//        }
-
-//        if (obj == null)
-//        {
-//            obj = Instantiate(prefab);
-//        }
-
-//        obj.transform.SetPositionAndRotation(position, rotation);
-//        obj.transform.SetParent(null);
-//        obj.SetActive(true);
-
-//        // Xác định thời gian tự hủy: Ưu tiên tham số truyền vào, nếu không có thì lấy cấu hình Inspector
-//        float delay = overrideDelay;
-//        if (delay <= 0f && autoReturnTimes.TryGetValue(prefab, out float defaultDelay))
-//        {
-//            delay = defaultDelay;
-//        }
-
-//        if (delay > 0f)
-//        {
-//            StartCoroutine(AutoReturnRoutine(prefab, obj, delay));
-//        }
-
-//        return obj;
-//    }
-
-//    private IEnumerator AutoReturnRoutine(GameObject prefab, GameObject instance, float delay)
-//    {
-//        yield return new WaitForSeconds(delay);
-
-//        if (instance != null && instance.activeSelf)
-//        {
-//            ReturnToPool(prefab, instance);
-//        }
-//    }
-
-//    public void ReturnToPool(GameObject prefab, GameObject instance)
-//    {
-//        if (prefab == null || instance == null || !instance.activeSelf) return;
-
-//        instance.SetActive(false);
-//        instance.transform.SetParent(transform);
-
-//        if (!poolDictionary.TryGetValue(prefab, out Queue<GameObject> queue))
-//        {
-//            queue = new Queue<GameObject>();
-//            poolDictionary[prefab] = queue;
-//        }
-
-//        if (!queue.Contains(instance))
-//        {
-//            queue.Enqueue(instance);
-//        }
-//    }
-
-//    public GameObject GetBullet()
-//    {
-//        return Spawn(defaultBulletPrefab, transform.position, transform.rotation);
-//    }
-
-//    public void ReturnBullet(GameObject bullet)
-//    {
-//        ReturnToPool(defaultBulletPrefab, bullet);
-//    }
-//}
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Object Pool duoc dung chung cho Bullet va VFX.
+// Bullet.cs TU quan ly thoi gian song. Pool chi auto-return cac object khong co Bullet.
 public class SimpleBulletPool : MonoBehaviour
 {
     public static SimpleBulletPool Instance { get; private set; }
@@ -179,187 +14,238 @@ public class SimpleBulletPool : MonoBehaviour
         public string name;
         public GameObject prefab;
         public int initialSize = 5;
-        public float autoReturnDelay = 1.5f; // <--- Hiện ô điền thời gian ở Inspector
+        public float autoReturnDelay = 1.5f;
     }
 
-    [Header("1. Danh sách Prefab nạp sẵn (Bấm + để thêm VFX/Đạn)")]
+    [Header("1. Danh sach Prefab nap san")]
     [SerializeField] private List<PoolItem> prewarmItems = new List<PoolItem>();
 
-    [Header("2. Đạn mặc định (Dành cho SimpleCannon.cs)")]
+    [Header("2. Dan mac dinh (SimpleCannon)")]
     [SerializeField] private GameObject defaultBulletPrefab;
-    [SerializeField] private int bulletSize = 30;
+    [SerializeField] private int bulletSize = 60;
 
-    private readonly Dictionary<GameObject, Queue<GameObject>> poolDictionary = new Dictionary<GameObject, Queue<GameObject>>();
-    private readonly Dictionary<GameObject, HashSet<GameObject>> poolHashSet = new Dictionary<GameObject, HashSet<GameObject>>();
-    private readonly Dictionary<GameObject, float> autoReturnTimes = new Dictionary<GameObject, float>();
-    private readonly Dictionary<float, WaitForSeconds> waitCache = new Dictionary<float, WaitForSeconds>();
+    [Header("3. Cau hinh Object Pool")]
+    [SerializeField] private bool expandPoolWhenEmpty = true;
+    [SerializeField] private float defaultVfxReturnDelay = 1.5f;
 
-    private WaitForSeconds GetWait(float delay)
-    {
-        if (!waitCache.TryGetValue(delay, out var wait))
-        {
-            wait = new WaitForSeconds(delay);
-            waitCache[delay] = wait;
-        }
-        return wait;
-    }
+    private readonly Dictionary<GameObject, Queue<GameObject>> poolDictionary =
+        new Dictionary<GameObject, Queue<GameObject>>();
+    private readonly Dictionary<GameObject, HashSet<GameObject>> poolHashSet =
+        new Dictionary<GameObject, HashSet<GameObject>>();
+    private readonly Dictionary<GameObject, float> autoReturnTimes =
+        new Dictionary<GameObject, float>();
+    private readonly Dictionary<GameObject, int> spawnVersions =
+        new Dictionary<GameObject, int>();
+    private readonly Dictionary<GameObject, GameObject> instancePrefabs =
+        new Dictionary<GameObject, GameObject>();
+    private readonly Dictionary<float, WaitForSeconds> waitCache =
+        new Dictionary<float, WaitForSeconds>();
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
+        Instance = this;
         InitializePools();
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+    }
+
+    private void EnsurePool(GameObject prefab)
+    {
+        if (!poolDictionary.ContainsKey(prefab))
+            poolDictionary[prefab] = new Queue<GameObject>();
+
+        if (!poolHashSet.ContainsKey(prefab))
+            poolHashSet[prefab] = new HashSet<GameObject>();
+    }
+
+    private WaitForSeconds GetWait(float delay)
+    {
+        if (!waitCache.TryGetValue(delay, out WaitForSeconds wait))
+        {
+            wait = new WaitForSeconds(delay);
+            waitCache.Add(delay, wait);
+        }
+        return wait;
     }
 
     private void InitializePools()
     {
-        foreach (var item in prewarmItems)
+        foreach (PoolItem item in prewarmItems)
         {
             if (item.prefab == null) continue;
-
-            // Lưu cấu hình thời gian hủy của Prefab này
-            if (!autoReturnTimes.ContainsKey(item.prefab))
-            {
-                autoReturnTimes.Add(item.prefab, item.autoReturnDelay);
-            }
-
-            for (int i = 0; i < item.initialSize; i++)
-            {
+            autoReturnTimes[item.prefab] = item.autoReturnDelay;
+            for (int i = 0; i < Mathf.Max(0, item.initialSize); i++)
                 CreateNewInstance(item.prefab);
-            }
         }
 
-        if (defaultBulletPrefab != null && !poolDictionary.ContainsKey(defaultBulletPrefab))
+        if (defaultBulletPrefab == null)
         {
-            for (int i = 0; i < bulletSize; i++)
-            {
-                CreateNewInstance(defaultBulletPrefab);
-            }
+            Debug.LogError("[BulletPool] Chua gan Default Bullet Prefab trong Inspector!", this);
+            return;
         }
+
+        EnsurePool(defaultBulletPrefab);
+        int missing = Mathf.Max(0, bulletSize - poolDictionary[defaultBulletPrefab].Count);
+        for (int i = 0; i < missing; i++)
+            CreateNewInstance(defaultBulletPrefab);
     }
 
     private GameObject CreateNewInstance(GameObject prefab)
     {
-        if (!poolDictionary.TryGetValue(prefab, out Queue<GameObject> queue))
-        {
-            queue = new Queue<GameObject>();
-            poolDictionary[prefab] = queue;
-        }
-
-        if (!poolHashSet.TryGetValue(prefab, out HashSet<GameObject> hashSet))
-        {
-            hashSet = new HashSet<GameObject>();
-            poolHashSet[prefab] = hashSet;
-        }
-
+        EnsurePool(prefab);
         GameObject obj = Instantiate(prefab, transform);
         obj.SetActive(false);
-        queue.Enqueue(obj);
-        hashSet.Add(obj);
+        instancePrefabs[obj] = prefab;
+        poolHashSet[prefab].Add(obj);
+        poolDictionary[prefab].Enqueue(obj);
         return obj;
     }
 
-    // Spawn Object.
-    // - Nếu không truyền autoReturnDelay, Pool sẽ tự lấy thời gian cấu hình ở Inspector.
- 
+    // overrideDelay > 0: thoi gian tra ve tu dong cho VFX.
+    // Bullet.cs co lifecycle rieng nen Pool KHONG dat timer cho Bullet.
     public GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation, float overrideDelay = -1f)
     {
-        if (prefab == null) return null;
-
-        if (!poolDictionary.TryGetValue(prefab, out Queue<GameObject> queue))
+        if (prefab == null)
         {
-            queue = new Queue<GameObject>();
-            poolDictionary[prefab] = queue;
+            Debug.LogError("[BulletPool] Spawn nhan prefab null.", this);
+            return null;
         }
 
-        if (!poolHashSet.TryGetValue(prefab, out HashSet<GameObject> hashSet))
-        {
-            hashSet = new HashSet<GameObject>();
-            poolHashSet[prefab] = hashSet;
-        }
-
+        EnsurePool(prefab);
+        Queue<GameObject> queue = poolDictionary[prefab];
+        HashSet<GameObject> available = poolHashSet[prefab];
         GameObject obj = null;
+
         while (queue.Count > 0)
         {
-            obj = queue.Dequeue();
-            if (obj != null)
+            GameObject candidate = queue.Dequeue();
+            available.Remove(candidate);
+            if (candidate == null) continue;
+
+            if (!candidate.activeSelf)
             {
-                hashSet.Remove(obj);
+                obj = candidate;
                 break;
             }
-        }
-        //KHONG XOA DONG NAY (TOI UU GAME)
-        //if (obj == null)
-        //{
-        //    obj = Instantiate(prefab);
-        //}
 
-        obj.transform.SetPositionAndRotation(position, rotation);
+            Debug.LogWarning("[BulletPool] Phat hien object active trong Queue: " + candidate.name, this);
+        }
+
+        if (obj == null)
+        {
+            if (!expandPoolWhenEmpty)
+            {
+                Debug.LogWarning("[BulletPool] Pool da het: " + prefab.name +
+                                 ". Hay tang Bullet Size hoac bat Expand Pool When Empty.", this);
+                return null;
+            }
+
+            // Chi tao them khi Queue that su het. Ve sau object moi van duoc tai su dung.
+            obj = Instantiate(prefab, transform);
+            obj.SetActive(false);
+            instancePrefabs[obj] = prefab;
+        }
+
         obj.transform.SetParent(null);
+        obj.transform.SetPositionAndRotation(position, rotation);
+
+        // Version chan coroutine cu thu hoi mot object da duoc Spawn lai.
+        spawnVersions.TryGetValue(obj, out int oldVersion);
+        int version = oldVersion + 1;
+        spawnVersions[obj] = version;
+
+        // Bullet.OnEnable se khoi tao Rigidbody va timer cho moi lan spawn.
         obj.SetActive(true);
 
-        // Xác định thời gian tự hủy: Ưu tiên tham số truyền vào, nếu không có thì lấy cấu hình Inspector
-        float delay = overrideDelay;
-        if (delay <= 0f && autoReturnTimes.TryGetValue(prefab, out float defaultDelay))
+        // KHONG su dung timer cua Pool voi Bullet, tranh hai bo dem thoi gian tranh chap.
+        if (obj.GetComponent<Bullet>() == null)
         {
-            delay = defaultDelay;
-        }
+            float delay = overrideDelay;
+            if (delay <= 0f)
+            {
+                if (!autoReturnTimes.TryGetValue(prefab, out delay))
+                    delay = defaultVfxReturnDelay;
+            }
 
-        if (delay > 0f)
-        {
-            StartCoroutine(AutoReturnRoutine(prefab, obj, delay));
+            if (delay > 0f)
+                StartCoroutine(AutoReturnWithVersion(prefab, obj, delay, version));
         }
 
         return obj;
     }
 
-    public  IEnumerator AutoReturnRoutine(GameObject prefab, GameObject instance, float delay)
+    private IEnumerator AutoReturnWithVersion(GameObject prefab, GameObject instance, float delay, int version)
     {
         yield return GetWait(delay);
+        if (instance == null) yield break;
+        if (!spawnVersions.TryGetValue(instance, out int currentVersion) || currentVersion != version)
+            yield break;
+        ReturnToPool(prefab, instance);
+    }
 
-        if (instance != null && instance.activeSelf)
-        {
-            ReturnToPool(prefab, instance);
-        }
+    // API cu duoc giu lai cho nhung script VFX khac neu dang dung.
+    public IEnumerator AutoReturnRoutine(GameObject prefab, GameObject instance, float delay)
+    {
+        if (instance == null) yield break;
+        spawnVersions.TryGetValue(instance, out int version);
+        yield return AutoReturnWithVersion(prefab, instance, delay, version);
     }
 
     public void ReturnToPool(GameObject prefab, GameObject instance)
     {
-        if (prefab == null || instance == null || !instance.activeSelf) return;
+        if (prefab == null || instance == null) return;
 
-        instance.SetActive(false);
-        //instance.transform.SetParent(transform);
-
-        if (!poolDictionary.TryGetValue(prefab, out Queue<GameObject> queue))
+        // Chan nham tham so prefab/instance de bao ve pool.
+        if (instancePrefabs.TryGetValue(instance, out GameObject realPrefab) && realPrefab != prefab)
         {
-            queue = new Queue<GameObject>();
-            poolDictionary[prefab] = queue;
+            Debug.LogError("[BulletPool] ReturnToPool sai prefab cho object " + instance.name, this);
+            return;
         }
 
-            if (!poolHashSet.TryGetValue(prefab, out HashSet<GameObject> hashSet))
-            {
-                hashSet = new HashSet<GameObject>();
-                poolHashSet[prefab] = hashSet;
-            }
-
-        // Dùng HashSet.Add trả về true nếu chưa có trong set → thêm vào Queue cực nhanh O(1)
-        if (hashSet.Add(instance))
+        if (!instancePrefabs.ContainsKey(instance))
         {
-            queue.Enqueue(instance);
+            Debug.LogError("[BulletPool] Object khong do Pool nay tao: " + instance.name, this);
+            return;
         }
+
+        EnsurePool(prefab);
+
+        // Danh dau TRUOC SetActive(false) (Bullet.OnDisable co the goi callback).
+        if (!poolHashSet[prefab].Add(instance)) return;
+
+        Rigidbody rb = instance.GetComponent<Rigidbody>();
+        if (rb != null && !rb.isKinematic)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        if (instance.activeSelf)
+            instance.SetActive(false);
+
+        instance.transform.SetParent(transform);
+        poolDictionary[prefab].Enqueue(instance);
     }
 
+    // API moi: dat dung vi tri truoc khi OnEnable cua Bullet duoc goi.
+    public GameObject GetBullet(Vector3 position, Quaternion rotation)
+    {
+        return Spawn(defaultBulletPrefab, position, rotation);
+    }
+
+    // API cu: van ho tro neu script khac goi GetBullet() khong tham so.
     public GameObject GetBullet()
     {
-        return Spawn(defaultBulletPrefab, transform.position, transform.rotation);
+        return GetBullet(transform.position, transform.rotation);
     }
 
     public void ReturnBullet(GameObject bullet)

@@ -140,7 +140,7 @@ public class Block : MonoBehaviour
 
             // 3. Va chạm khối khác với vận tốc đủ lớn (>= threshold) -> VỠ LẬP TỨC!
 
-            if (isGroundHit  || impactVelocity >= data.breakImpactThreshold)
+            if (isGroundHit || impactVelocity >= data.breakImpactThreshold)
 
             {
 
@@ -245,22 +245,15 @@ public class Block : MonoBehaviour
 
 
         if (data.groundVfxPrefab != null && SimpleBulletPool.Instance != null)
-
         {
-
-            GameObject vfx = SimpleBulletPool.Instance.Spawn(data.groundVfxPrefab, spawnPoint + Vector3.up*0.15f, Quaternion.identity);
-
-            if (vfx != null)
-
-            {
-
-                SimpleBulletPool.Instance.ReturnToPool(vfx, data.groundVfxPrefab);
-
-            }
-
+            // Pool se tu tra VFX ve sau 1.5s, KHONG ReturnToPool ngay va KHONG dao tham so.
+            SimpleBulletPool.Instance.Spawn(
+                data.groundVfxPrefab,
+                spawnPoint + Vector3.up * 0.15f,
+                Quaternion.identity,
+                1.5f
+            );
         }
-
-
 
         OnBlockDestroyed?.Invoke(this);
 
@@ -327,7 +320,7 @@ public class Block : MonoBehaviour
             transform.localScale = Vector3.Lerp(startScale, Vector3.zero, progress);
             yield return null;
         }
-        
+
         transform.localScale = Vector3.zero; // Chốt hạ Scale = 0
 
         gameObject.SetActive(false);
@@ -339,7 +332,7 @@ public class Block : MonoBehaviour
     public void ForceDestroy()
 
     {
-	
+
         if (isDestroyed) return;
 
 
