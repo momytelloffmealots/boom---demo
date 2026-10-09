@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using PTITGameSDK.Modules; // 🔥 MỚI: Thêm thư viện tracking
 
 public class GameRuleController : MonoBehaviour
 {
@@ -103,6 +104,17 @@ public class GameRuleController : MonoBehaviour
             if (view.playPanelController.gameplayRoot != null) view.playPanelController.gameplayRoot.SetActive(true);
             if (view.playPanelController.canvasInGame != null) view.playPanelController.canvasInGame.SetActive(true);
 
+            // 🔥 [GẮN TRACKING LEVEL START]
+            string levelId = "Lv_" + PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString("0000");
+            LevelTrackEvent.Create("start")
+                .SetLevelInfo(
+                    attempId: PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString(),
+                    levelId: levelId,
+                    levelVersion: Application.version
+                )
+                .SetTimeInfo(System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 0L, 0f)
+                .Track();
+
             yield return new WaitForSeconds(0.1f);
 
             if (PreBoosterManager.Instance != null)
@@ -142,6 +154,11 @@ public class GameRuleController : MonoBehaviour
         if (CurrencyManager.Instance != null && CurrencyManager.Instance.TrySpendCoins(continuePrice))
         {
             isWaitingForContinue = false;
+            
+            // 🔥 [GẮN TRACKING TIÊU TIỀN HỒI SINH]
+            string levelId = "Lv_" + PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString("0000");
+            SoftCurrencyEvent.Create("spend", "coin", continuePrice, "buy_continue", PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString(), levelId).Track();
+
             if (view != null && view.endGameView != null) view.endGameView.HideAll();
             if (playerCannon != null) playerCannon.AddBullets(5);
         }
@@ -150,25 +167,20 @@ public class GameRuleController : MonoBehaviour
             if (view != null && view.popupShop != null)
             {
                 view.popupShop.SetActive(true);
-                // 🔥 FIX LỖI: Bắt đầu theo dõi quá trình người chơi xem Shop
                 StartCoroutine(WaitAndRestoreContinuePanel());
             }
         }
     }
 
-    // 🔥 HÀM MỚI: Đợi Shop tắt thì tự động bật lại bảng Continue
     private IEnumerator WaitAndRestoreContinuePanel()
     {
-        // Chờ chừng nào bảng Shop vẫn còn đang hiển thị (activeSelf == true)
         while (view != null && view.popupShop != null && view.popupShop.activeSelf)
         {
             yield return null;
         }
 
-        // Ngay khi bảng Shop đóng lại, nếu game vẫn đang chờ quyết định cứu trợ
         if (isWaitingForContinue && view != null && view.endGameView != null)
         {
-            // Bắt buộc bảng Continue phải hiện ra lại để người chơi bấm X hoặc mua
             view.endGameView.ShowContinue();
         }
     }
@@ -178,7 +190,19 @@ public class GameRuleController : MonoBehaviour
         isWaitingForContinue = false;
         isGameOver = true;
 
-        // 🔥 BỌC BẢO HIỂM: Tránh lỗi làm sập luồng nếu chưa có hàm PlayLoseSound
+        // 🔥 [GẮN TRACKING LEVEL LOSE]
+        string levelId = "Lv_" + PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString("0000");
+        LevelTrackEvent.Create("end")
+            .SetLevelInfo(
+                attempId: PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString(),
+                levelId: levelId,
+                levelVersion: Application.version
+            )
+            .SetActionType("lose")
+            .SetLoseReason("out_of_moves")
+            .SetResultJson("{\"score\": 0, \"coin_in\": 0, \"coin_out\": 0}") 
+            .Track();
+
         try
         {
             if (AudioManager.Instance != null)
@@ -211,6 +235,14 @@ public class GameRuleController : MonoBehaviour
 
     private void HandleReturnToHome()
     {
+        // 🔥 [GẮN TRACKING THOÁT NGANG]
+        string levelId = "Lv_" + PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString("0000");
+        LevelTrackEvent.Create("quit_level")
+            .SetLevelInfo(PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString(), levelId, Application.version)
+            .SetActionType("quit_level")
+            .SetLoseReason("null")
+            .Track();
+
         if (view != null && view.endGameView != null) view.endGameView.HideAll();
         PlayerPrefs.SetInt("AutoStartGame", 0);
         PlayerPrefs.Save();
@@ -300,6 +332,22 @@ public class GameRuleController : MonoBehaviour
         PlayerPrefs.SetInt("PENDING_COIN_REWARD", coinReward);
         PlayerPrefs.Save();
 
+        // 🔥 [GẮN TRACKING LEVEL WIN]
+        string levelId = "Lv_" + PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString("0000");
+        LevelTrackEvent.Create("end")
+            .SetLevelInfo(
+                attempId: PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString(),
+                levelId: levelId,
+                levelVersion: Application.version
+            )
+            .SetActionType("win")
+            .SetLoseReason("null")
+            .SetResultJson($"{{\"score\": 100, \"coin_in\": {coinReward}, \"coin_out\": 0}}") 
+            .Track();
+
+        // 🔥 [GẮN TRACKING NHẬN TIỀN THƯỞNG]
+        SoftCurrencyEvent.Create("earn", "coin", coinReward, "level_win", PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString(), levelId).Track();
+
         if (view != null && view.endGameView != null) view.endGameView.ShowWin();
 
         StartCoroutine(AutoReturnToHomeRoutine(2f));
@@ -320,6 +368,14 @@ public class GameRuleController : MonoBehaviour
     {
         isGameOver = true;
         isWaitingForContinue = false;
+
+        // 🔥 [GẮN TRACKING THOÁT NGANG KHI DANG CHƠI]
+        string levelId = "Lv_" + PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString("0000");
+        LevelTrackEvent.Create("quit_level")
+            .SetLevelInfo(PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString(), levelId, Application.version)
+            .SetActionType("quit_level")
+            .SetLoseReason("null")
+            .Track();
 
         if (LivesManager.Instance != null)
         {

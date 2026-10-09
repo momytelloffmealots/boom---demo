@@ -13,9 +13,9 @@
   <Project Path="Unity.VisualScripting.Core.Editor.csproj" />
   <Project Path="Unity.PerformanceTesting.Editor.csproj" />
   <Project Path="Unity.Burst.csproj" />
-  <Project Path="Unity.Services.Core.Environments.Editor.csproj" />
   <Project Path="MaxSdk.Scripts.csproj" />
   <Project Path="spine-unity.csproj" />
+  <Project Path="Unity.Services.Core.Environments.Editor.csproj" />
   <Project Path="Unity.VisualScripting.Flow.Editor.csproj" />
   <Project Path="spine-unity-examples.csproj" />
   <Project Path="Unity.VisualStudio.Editor.csproj" />
@@ -27,11 +27,11 @@
   <Project Path="Unity.VisualScripting.Core.csproj" />
   <Project Path="Unity.Services.Deployment.csproj" />
   <Project Path="Unity.LevelPlay.Editor.csproj" />
-  <Project Path="Unity.AI.Navigation.Editor.ConversionSystem.csproj" />
   <Project Path="Unity.VisualScripting.State.Editor.csproj" />
   <Project Path="UnityEditor.Purchasing.Editor.Authoring.Core.csproj" />
-  <Project Path="Unity.Services.Core.Editor.csproj" />
+  <Project Path="Unity.AI.Navigation.Editor.ConversionSystem.csproj" />
   <Project Path="Unity.Services.Deployment.Core.csproj" />
+  <Project Path="Unity.Services.Core.Editor.csproj" />
   <Project Path="Unity.Burst.CodeGen.csproj" />
   <Project Path="Unity.LevelPlay.csproj" />
   <Project Path="Unity.Services.Core.csproj" />
@@ -65,8 +65,8 @@
   <Project Path="Assembly-CSharp-firstpass.csproj" />
   <Project Path="Unity.Services.Core.Environments.Internal.csproj" />
   <Project Path="Unity.Services.Core.Scheduler.csproj" />
-  <Project Path="Unity.AI.Navigation.csproj" />
   <Project Path="Unity.Purchasing.SecurityCore.csproj" />
+  <Project Path="Unity.AI.Navigation.csproj" />
   <Project Path="Unity.Collections.CodeGen.csproj" />
   <Project Path="Unity.Services.Core.Telemetry.csproj" />
   <Project Path="Unity.Services.Core.Components.csproj" />
