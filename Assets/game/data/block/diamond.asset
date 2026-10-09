@@ -15,9 +15,13 @@ MonoBehaviour:
   blockName: diamond
   blockType: 0
   mass: 7
+  hitSound: {fileID: 8300000, guid: 8547a002be519d3458dc84292ca57c17, type: 3}
+  breakSound: {fileID: 8300000, guid: 8547a002be519d3458dc84292ca57c17, type: 3}
   normalBehavior: 0
   groundVfxPrefab: {fileID: 1542304094815288595, guid: e324c783d8d79f84eb0d60c945c81784, type: 3}
   deformProgressProperty: _DeformAmount
+  timeDeform: 0.05
+  timeShrink: 0.15
   breakImpactThreshold: 8
   brokenGlassObjectPrefab: {fileID: 0}
   glassParticleVFX: {fileID: 0}

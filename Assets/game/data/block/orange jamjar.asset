@@ -15,6 +15,8 @@ MonoBehaviour:
   blockName: Orange jamjar
   blockType: 1
   mass: 5
+  hitSound: {fileID: 0}
+  breakSound: {fileID: 0}
   normalBehavior: 0
   groundVfxPrefab: {fileID: 0}
   deformProgressProperty: _DeformAmount
@@ -23,4 +25,4 @@ MonoBehaviour:
   breakImpactThreshold: 5
   brokenGlassObjectPrefab: {fileID: 5261421370949774146, guid: 574130518c438ef4fb22b738c20de6ff, type: 3}
   glassParticleVFX: {fileID: 149344, guid: 617378de28fbaa64c96485d5b0d9169b, type: 3}
-  glassBreakSound: {fileID: 0}
+  glassBreakSound: {fileID: 8300000, guid: a890a1e2b37572c4facdf0adf781b723, type: 3}

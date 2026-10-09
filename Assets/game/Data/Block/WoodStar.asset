@@ -15,8 +15,8 @@ MonoBehaviour:
   blockName: WoodStar
   blockType: 0
   mass: 7
-  hitSound: {fileID: 0}
-  breakSound: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: b55ad11df743e124290b7f40c6a16d50, type: 3}
+  breakSound: {fileID: 8300000, guid: 209a873a0f78d014ca93b373180735a2, type: 3}
   normalBehavior: 0
   groundVfxPrefab: {fileID: 2835027304916888293, guid: adbc821d04c68544b87a5f6532e9c6d9, type: 3}
   deformProgressProperty: _DeformAmount

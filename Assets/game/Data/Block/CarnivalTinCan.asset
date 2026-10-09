@@ -15,6 +15,8 @@ MonoBehaviour:
   blockName: CarnivalTinCan
   blockType: 0
   mass: 5
+  hitSound: {fileID: 8300000, guid: 7f133ea742a6fbb4489a501260fbf84d, type: 3}
+  breakSound: {fileID: 8300000, guid: baf3af8925b30ff439c8ba80594701c0, type: 3}
   normalBehavior: 1
   groundVfxPrefab: {fileID: 0}
   deformProgressProperty: _DeformAmount
