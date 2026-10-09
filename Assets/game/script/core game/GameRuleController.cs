@@ -297,7 +297,7 @@ public class GameRuleController : MonoBehaviour
         if (playerCannon.GetCurrentBullets() <= 0 && activeBulletsFlying <= 0)
         {
             float waitTimer = 0f;
-            while (waitTimer < 1.0f)
+            while (waitTimer < 0.1f)
             {
                 if (activeBlocks <= 0)
                 {
