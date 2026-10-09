@@ -111,7 +111,7 @@ namespace PTITGameSDK.Core
         private void InitializeDefaultProviders()
         {
             // By default, just register Firebase
-            RegisterProvider(new FirebaseTrackingProvider());
+            //RegisterProvider(new FirebaseTrackingProvider());
             
             // Tự động khởi tạo server nội bộ với URL mặc định
             InitTracking("block_crush", "https://bigame.ezwork.vn/logs");
