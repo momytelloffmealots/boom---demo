@@ -1,69 +1,46 @@
 using UnityEngine;
 
-
-
 public enum BlockType
-
 {
-
     Normal, // Loại thường (Cần rơi xuống đất mới biến mất)
-
     Glass   // Thủy tinh (Chỉ cần đủ lực va chạm là vỡ lập tức)
-
 }
-
-
 
 public enum NormalBlockBehavior
-
 {
-
     StandardVFX,    // Va chạm đất -> Ẩn ngay & Hiện vfxPrefab từ Pool
-
     DeformShader    // Va chạm đất -> Giữ nguyên, chạy ShaderGraph làm méo vật thể rồi biến mất sau 1s
-
 }
 
-
-
 [CreateAssetMenu(fileName = "NewBlockDataBase", menuName = "Game/Block Data Base")]
-
 public class BlockDataBase : ScriptableObject
-
 {
-
     [Header("Block Classification")]
-
     public string blockName;
-
     public BlockType blockType = BlockType.Normal;
-
     public float mass = 1f;
 
-
+    // 🔥 MỚI: Thêm Cài đặt m thanh chung cho Block
+    [Header("Audio Settings")]
+    public AudioClip hitSound;   // Âm thanh khi bị đạn đập trúng
+    public AudioClip breakSound; // Âm thanh khi vỡ / chạy VFX (Dùng chung cho Normal & Glass)
 
     [Header("Normal Block Options (Chỉ dùng khi BlockType = Normal)")]
-
     public NormalBlockBehavior normalBehavior = NormalBlockBehavior.StandardVFX;
-
     public GameObject groundVfxPrefab;             // VFX xuất hiện khi chạm đất (Cho loại StandardVFX)
-
     public string deformProgressProperty = "_DeformAmount"; // Tên biến float trong ShaderGraph làm méo (Cho loại DeformShader)
-    
+
     [Header("Deform & Shrink Timings")]
     public float timeDeform = 0.05f;        // 1. Thời gian chạy animation bóp méo (Shader)
     public float timeShrink = 0.15f;       // 2. Thời gian thu nhỏ Scale về 0 trước khi biến mất
 
     [Header("Glass Block Options (Chỉ dùng khi BlockType = Glass)")]
-
     [Tooltip("Ngưỡng lực va chạm tối thiểu để Glass vỡ (Tác động bởi đạn hoặc rơi đập bất kỳ vật nào)")]
-
     public float breakImpactThreshold = 8f;
-
     public GameObject brokenGlassObjectPrefab;    // Object mô hình các mảnh vỡ (3D Fractured Model)
-
     public GameObject glassParticleVFX;       // Particle vụn thủy tinh văng ra tại vị trí vỡ (Đổi thành GameObject)
 
-    public AudioClip glassBreakSound;             // Âm thanh vỡ
-
+    // Vẫn giữ biến cũ để không làm mất data bạn đã kéo trước đó
+    [Tooltip("Bạn có thể dùng Break Sound ở trên thay cho biến này")]
+    public AudioClip glassBreakSound;
 }

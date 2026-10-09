@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a5313b4a2e557449a211b27bbbfbbb4, type: 3}
-  m_Name: starbox 1x1
+  m_Name: CarnivalTinCan
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
-  blockName: starbox
+  blockName: CarnivalTinCan
   blockType: 0
-  mass: 7
-  normalBehavior: 0
-  groundVfxPrefab: {fileID: 2835027304916888293, guid: adbc821d04c68544b87a5f6532e9c6d9, type: 3}
+  mass: 5
+  normalBehavior: 1
+  groundVfxPrefab: {fileID: 0}
   deformProgressProperty: _DeformAmount
-  timeDeform: 0.2
-  timeShrink: 0.15
+  timeDeform: 0.1
+  timeShrink: 1
   breakImpactThreshold: 8
   brokenGlassObjectPrefab: {fileID: 0}
   glassParticleVFX: {fileID: 0}

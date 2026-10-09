@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a5313b4a2e557449a211b27bbbfbbb4, type: 3}
-  m_Name: orange jamjar
+  m_Name: Orange jamjar
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
-  blockName: orange jamjar
+  blockName: Orange jamjar
   blockType: 1
   mass: 5
   normalBehavior: 0
   groundVfxPrefab: {fileID: 0}
   deformProgressProperty: _DeformAmount
+  timeDeform: 0.05
+  timeShrink: 0.15
   breakImpactThreshold: 5
   brokenGlassObjectPrefab: {fileID: 5261421370949774146, guid: 574130518c438ef4fb22b738c20de6ff, type: 3}
   glassParticleVFX: {fileID: 149344, guid: 617378de28fbaa64c96485d5b0d9169b, type: 3}
