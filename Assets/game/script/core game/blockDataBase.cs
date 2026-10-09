@@ -28,11 +28,13 @@ public class BlockDataBase : ScriptableObject
     [Header("Normal Block Options (Chỉ dùng khi BlockType = Normal)")]
     public NormalBlockBehavior normalBehavior = NormalBlockBehavior.StandardVFX;
     public GameObject groundVfxPrefab;             // VFX xuất hiện khi chạm đất (Cho loại StandardVFX)
-    public string deformProgressProperty = "_DeformAmount"; // Tên biến float trong ShaderGraph làm méo (Cho loại DeformShader)
 
-    [Header("Deform & Shrink Timings")]
+    public string deformProgressProperty = "_DeformAmount"; // Tên biến float trong ShaderGraph làm méo (Cho loại DeformShader)
+    public string alphaProperty = "_Alpha"; // Khớp với tên biến Float _Alpha vừa tạo trong ShaderGraph
+
+    [Header("Deform & Fade Timings")]
     public float timeDeform = 0.05f;        // 1. Thời gian chạy animation bóp méo (Shader)
-    public float timeShrink = 0.15f;       // 2. Thời gian thu nhỏ Scale về 0 trước khi biến mất
+    public float timeFadeOut = 0.3f;       // 2. Thời gian mờ dần tàng hình (Thay thế cho Shrink)
 
     [Header("Glass Block Options (Chỉ dùng khi BlockType = Glass)")]
     [Tooltip("Ngưỡng lực va chạm tối thiểu để Glass vỡ (Tác động bởi đạn hoặc rơi đập bất kỳ vật nào)")]

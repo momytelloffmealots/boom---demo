@@ -57,6 +57,7 @@ public class Block : MonoBehaviour
             {
                 mr.GetPropertyBlock(propBlock);
                 propBlock.SetFloat(data.deformProgressProperty, 0f);
+                propBlock.SetFloat(data.alphaProperty, 1f); // QUAN TRỌNG: Khôi phục độ mờ về 1 khi hồi sinh từ Pool
                 mr.SetPropertyBlock(propBlock);
             }
         }
@@ -178,9 +179,11 @@ public class Block : MonoBehaviour
         if (rb != null) rb.isKinematic = true;
 
         float tDeform = data != null ? data.timeDeform : 0.2f;
-        float tShrink = data != null ? data.timeShrink : 0.15f;
+        float tFade = data != null ? data.timeFadeOut : 0.3f;
+        float tHold = 0.2f; // Tạm nghỉ nằm bẹp trước khi mờ đi
 
         int propID = Shader.PropertyToID(data != null ? data.deformProgressProperty : "_DeformAmount");
+        int alphaID = Shader.PropertyToID(data != null ? data.alphaProperty : "_Alpha");
         int hitPropID = Shader.PropertyToID("_HitPosition");
 
         // --- GIAI ĐOẠN 1: Bóp méo ---
@@ -213,18 +216,28 @@ public class Block : MonoBehaviour
             }
         }
 
-        // --- GIAI ĐOẠN 2: Thu nhỏ Scale về 0 ---
+        yield return new WaitForSeconds(tHold);
+
+        // --- GIAI ĐOẠN 2: Mờ dần (Fade Out) ---
         elapsed = 0f;
-        Vector3 initialScale = transform.localScale;
-        while (elapsed < tShrink)
+        while (elapsed < tFade)
         {
             elapsed += Time.deltaTime;
-            float progress = tShrink > 0f ? Mathf.Clamp01(elapsed / tShrink) : 1f;
-            transform.localScale = Vector3.Lerp(initialScale, Vector3.zero, progress);
+            float progress = tFade > 0f ? Mathf.Clamp01(elapsed / tFade) : 1f;
+            float currentAlpha = Mathf.Lerp(1f, 0f, progress); // Alpha giảm dần từ 1 về 0
+
+            if (meshRenderers != null)
+            {
+                foreach (var mr in meshRenderers)
+                {
+                    mr.GetPropertyBlock(propBlock);
+                    propBlock.SetFloat(alphaID, currentAlpha);
+                    mr.SetPropertyBlock(propBlock);
+                }
+            }
             yield return null;
         }
 
-        transform.localScale = Vector3.zero;
         gameObject.SetActive(false);
     }
 }
