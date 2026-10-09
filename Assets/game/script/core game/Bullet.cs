@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     [Header("Bullet Settings")]
     [SerializeField] private float lifeTime = 4f;
     [SerializeField] private float timeAfterCollision = 1.5f;
-    [SerializeField] private float gravityDelay = 0.5f; 
+    [SerializeField] private float gravityDelay = 0.5f;
 
     [Header("Explosion Impulse Settings")]
     [SerializeField] private float explosionForce = 500f;
@@ -19,11 +19,11 @@ public class Bullet : MonoBehaviour
     private Rigidbody rb;
     private Coroutine returnCoroutine;
     private Coroutine gravityCoroutine;
-    private bool hasCollided = false;
-    
-    // 🔥 MỚI: Biến lưu trữ hệ số nổ (Mặc định là 1x)
+    private bool hasCollided;
+    private bool isReleasing;
     private float currentExplosionMultiplier = 1f;
 
+    // Gan moi lan ban trong SimpleCannon.Shoot(), chi duoc goi mot lan.
     public Action<GameObject> OnRelease;
 
     private void Awake()
@@ -31,7 +31,6 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    // 🔥 MỚI: Hàm để pháo truyền hệ số sức mạnh sang cho viên đạn này
     public void SetExplosionMultiplier(float mult)
     {
         currentExplosionMultiplier = mult;
@@ -40,8 +39,11 @@ public class Bullet : MonoBehaviour
     private void OnEnable()
     {
         hasCollided = false;
-        currentExplosionMultiplier = 1f; // Reset hệ số về 1x khi đạn được lấy ra từ Pool
+        isReleasing = false;
+        OnRelease = null; // Bo callback cua lan ban truoc khi object duoc tai su dung.
+        currentExplosionMultiplier = 1f;
 
+        if (rb == null) rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.useGravity = false;
@@ -49,70 +51,132 @@ public class Bullet : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
         }
 
-        if (gravityCoroutine != null) StopCoroutine(gravityCoroutine);
+        StopTimers();
         gravityCoroutine = StartCoroutine(EnableGravityRoutine(gravityDelay));
         StartReturnTimer(lifeTime);
     }
 
+    private void StopTimers()
+    {
+        if (returnCoroutine != null)
+        {
+            StopCoroutine(returnCoroutine);
+            returnCoroutine = null;
+        }
+        if (gravityCoroutine != null)
+        {
+            StopCoroutine(gravityCoroutine);
+            gravityCoroutine = null;
+        }
+    }
+
     private void OnDisable()
     {
-        if (returnCoroutine != null) StopCoroutine(returnCoroutine);
-        if (gravityCoroutine != null) StopCoroutine(gravityCoroutine);
+        StopTimers();
+
+        // Neu mot script khac tat vien dan truc tiep, van bao Cannon va GameRule
+        // de khong that thoat activeBulletsFlying. Gac isReleasing ngan de quy.
+        if (!isReleasing && OnRelease != null && Application.isPlaying)
+        {
+            Release();
+        }
+        else
+        {
+            OnRelease = null;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (hasCollided) return;
+        if (hasCollided || isReleasing) return;
         hasCollided = true;
 
         if (collision.gameObject.CompareTag("block"))
         {
-            Vector3 explosionPos = collision.contacts.Length > 0 ? collision.contacts[0].point : transform.position;
-            
-            // 🔥 TÍNH TOÁN LỰC NỔ: Lực gốc * Hệ số sức mạnh
-            float finalExplosionForce = explosionForce * currentExplosionMultiplier;
+            Vector3 explosionPos = collision.contacts.Length > 0
+                ? collision.contacts[0].point
+                : transform.position;
 
+            float finalExplosionForce = explosionForce * currentExplosionMultiplier;
             Collider[] colliders = Physics.OverlapSphere(explosionPos, explosionRadius);
             foreach (Collider hit in colliders)
             {
                 if (hit.CompareTag("block") && hit.attachedRigidbody != null)
                 {
-                    // Truyền finalExplosionForce vào thay vì explosionForce gốc
-                    hit.attachedRigidbody.AddExplosionForce(finalExplosionForce, explosionPos, explosionRadius, upliftModifier, forceMode);
+                    hit.attachedRigidbody.AddExplosionForce(
+                        finalExplosionForce, explosionPos, explosionRadius,
+                        upliftModifier, forceMode);
                 }
             }
         }
 
-        if (gravityCoroutine != null) StopCoroutine(gravityCoroutine);
+        if (gravityCoroutine != null)
+        {
+            StopCoroutine(gravityCoroutine);
+            gravityCoroutine = null;
+        }
         if (rb != null) rb.useGravity = true;
-
         StartReturnTimer(timeAfterCollision);
     }
 
     private IEnumerator EnableGravityRoutine(float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (rb != null && !hasCollided)
-        {
+        gravityCoroutine = null;
+        if (rb != null && !hasCollided && !isReleasing)
             rb.useGravity = true;
-        }
     }
-    
+
     private void StartReturnTimer(float delay)
     {
-        if (returnCoroutine != null) StopCoroutine(returnCoroutine);
-        returnCoroutine = StartCoroutine(ReturnToPoolRoutine(delay));
+        if (returnCoroutine != null)
+        {
+            StopCoroutine(returnCoroutine);
+            returnCoroutine = null;
+        }
+        returnCoroutine = StartCoroutine(ReturnToPoolRoutine(Mathf.Max(0f, delay)));
     }
-    
+
     private IEnumerator ReturnToPoolRoutine(float delay)
     {
         yield return new WaitForSeconds(delay);
+        returnCoroutine = null;
         Release();
     }
-    
+
     private void Release()
     {
-        if (OnRelease != null) OnRelease.Invoke(gameObject);
-        else gameObject.SetActive(false);
+        if (isReleasing) return;
+        isReleasing = true;
+        Action<GameObject> callback = OnRelease;
+        OnRelease = null;
+
+        try
+        {
+            if (callback != null)
+            {
+                callback.Invoke(gameObject);
+            }
+            else if (SimpleBulletPool.Instance != null)
+            {
+                SimpleBulletPool.Instance.ReturnBullet(gameObject);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+        }
+        finally
+        {
+            // Neu callback khong tat object, tranh giu dan active vo han.
+            if (gameObject != null && gameObject.activeSelf)
+            {
+                if (SimpleBulletPool.Instance != null)
+                    SimpleBulletPool.Instance.ReturnBullet(gameObject);
+                else
+                    gameObject.SetActive(false);
+            }
+            isReleasing = false;
+        }
     }
 }
