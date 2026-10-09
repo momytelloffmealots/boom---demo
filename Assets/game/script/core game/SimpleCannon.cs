@@ -411,8 +411,8 @@ public class SimpleCannon : MonoBehaviour
 
     private bool IsPointerOverUI()
     {
-      //  if (EventSystem.current == null)
-      //     return false;
+       if (EventSystem.current == null)
+          return false;
 
         if (Input.touchCount > 0)
         {
