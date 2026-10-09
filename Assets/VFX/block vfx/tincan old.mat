@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_block
+  m_Name: tincan old
   m_Shader: {fileID: -6465566751694194690, guid: 9e948e6d7a21353468f05fe2e996fd46, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
