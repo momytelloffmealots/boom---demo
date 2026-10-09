@@ -349,7 +349,7 @@ public class GameRuleController : MonoBehaviour
         SoftCurrencyEvent.Create("earn", "coin", coinReward, "level_win", PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString(), levelId).Track();
 
         if (view != null && view.endGameView != null) view.endGameView.ShowWin();
-
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayWinSound();
         StartCoroutine(AutoReturnToHomeRoutine(2f));
     }
 
