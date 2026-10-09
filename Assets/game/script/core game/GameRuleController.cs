@@ -27,7 +27,13 @@ public class GameRuleController : MonoBehaviour
         // Luôn ép thời gian trôi bình thường mỗi khi màn chơi bắt đầu để chống lỗi kẹt/đứng hình
         Time.timeScale = 1f;
 
-        if (Instance == null) Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Debug.LogWarning("[GameRule] Duplicate GameRuleController in scene. Destroying duplicate.", this);
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
 
         if (view != null)
         {
@@ -128,6 +134,7 @@ public class GameRuleController : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (Instance == this) Instance = null;
         if (playerCannon != null) playerCannon.OnAmmoChanged -= HandleAmmoChanged;
         if (view != null && view.endGameView != null)
         {
@@ -136,6 +143,25 @@ public class GameRuleController : MonoBehaviour
             view.endGameView.OnPlayOnClicked -= HandlePlayOn;
             view.endGameView.OnContinueCloseClicked -= HandleContinueClose;
         }
+    }
+
+    // Kiem tra viec ban duoc phep o level hien tai.
+    public bool CanPlayerShoot()
+    {
+        if (isGameOver || isWaitingForContinue) return false;
+        if (view == null || view.playPanelController == null) return true;
+
+        var panel = view.playPanelController;
+        if (panel.gameplayRoot != null && !panel.gameplayRoot.activeInHierarchy)
+            return false;
+        // Khong khoa gameplay neu loadingView van active nhung alpha = 0.
+        if (panel.loadingView != null && panel.loadingView.gameObject.activeInHierarchy)
+        {
+            CanvasGroup loadingGroup = panel.loadingView.GetComponent<CanvasGroup>();
+            if (loadingGroup == null || loadingGroup.alpha > 0.05f)
+                return false;
+        }
+        return true;
     }
 
     public void SetLevelDifficulty(LevelDifficulty difficulty)

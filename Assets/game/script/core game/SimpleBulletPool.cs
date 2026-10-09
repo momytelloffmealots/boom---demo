@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Object Pool duoc dung chung cho Bullet va VFX.
 // Bullet.cs TU quan ly thoi gian song. Pool chi auto-return cac object khong co Bullet.
@@ -45,12 +46,17 @@ public class SimpleBulletPool : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
+            Debug.LogError("[BulletPool] DUPLICATE: Da ton tai Pool '" +
+                Instance.gameObject.name + "' (scene " + Instance.gameObject.scene.name +
+                "), Pool moi '" + gameObject.name + "' bi huy. Kiem tra DontDestroyOnLoad.", this);
             Destroy(gameObject);
             return;
         }
 
         Instance = this;
         InitializePools();
+        Debug.Log("[BulletPool] INIT " + GetBulletPoolDebugInfo() +
+                  " in scene " + SceneManager.GetActiveScene().name, this);
     }
 
     private void OnDestroy()
@@ -234,6 +240,22 @@ public class SimpleBulletPool : MonoBehaviour
 
         instance.transform.SetParent(transform);
         poolDictionary[prefab].Enqueue(instance);
+    }
+
+    // Diagnostic: F8 tren Cannon cho biet con bao nhieu vien trong Pool.
+    public string GetBulletPoolDebugInfo()
+    {
+        if (defaultBulletPrefab == null) return "Pool: default prefab=NULL";
+        int available = 0;
+        if (poolHashSet.TryGetValue(defaultBulletPrefab, out HashSet<GameObject> set))
+            available = set.Count;
+        int total = 0;
+        foreach (var pair in instancePrefabs)
+        {
+            if (pair.Key != null && pair.Value == defaultBulletPrefab)
+                total++;
+        }
+        return $"Pool available={available}, total={total}, expand={expandPoolWhenEmpty}";
     }
 
     // API moi: dat dung vi tri truoc khi OnEnable cua Bullet duoc goi.

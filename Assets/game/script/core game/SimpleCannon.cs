@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SimpleCannon : MonoBehaviour
 {
@@ -46,6 +47,10 @@ public class SimpleCannon : MonoBehaviour
     private bool isAiming = false;
     private Pointer aimingPointer;
     private readonly List<RaycastResult> uiRaycastResults = new List<RaycastResult>(16);
+
+    [Header("Debug - Kiem tra loi ket dan")]
+    [SerializeField] private bool debugBlockedShots = true;
+    private string lastBlockingUIName = "";
 
     // SỰ KIỆN GỬI ĐI
     public event Action<int> OnAmmoChanged;
@@ -203,10 +208,31 @@ public class SimpleCannon : MonoBehaviour
 
     private void Update()
     {
-        // Luon bo trang thai ngam khi het dan, pause hoac bi mat Pointer.
-        if (Time.timeScale <= 0f ||
-            (currentBullets <= 0 && !isInfiniteAmmoActive && !isInfiniteAmmoArmed))
+        // F8 in trang thai khi bi ket (chi tren PC / Unity Editor).
+        if (debugBlockedShots && Keyboard.current != null &&
+            Keyboard.current.f8Key.wasPressedThisFrame)
         {
+            Debug.LogWarning("[Cannon-Debug F8] " + GetCannonDebugStatus(), this);
+        }
+
+        if (Time.timeScale <= 0f)
+        {
+            LogBlockedPress("Game dang pause (Time.timeScale <= 0)");
+            CancelAim();
+            return;
+        }
+
+        if (GameRuleController.Instance != null &&
+            !GameRuleController.Instance.CanPlayerShoot())
+        {
+            LogBlockedPress("Gameplay chua bat dau / dang loading / popup Win-Lose-Continue");
+            CancelAim();
+            return;
+        }
+
+        if (currentBullets <= 0 && !isInfiniteAmmoActive && !isInfiniteAmmoArmed)
+        {
+            LogBlockedPress("Het ammo");
             CancelAim();
             return;
         }
@@ -219,15 +245,25 @@ public class SimpleCannon : MonoBehaviour
 
             Vector2 screenPos = pointer.position.ReadValue();
             if (IsPointerOverUI(screenPos))
+            {
+                LogBlockedPress("UI dang nhan input: " + lastBlockingUIName);
                 return;
+            }
 
             aimingPointer = pointer;
             isAiming = true;
             Aim(screenPos);
+
+            // Mot click rat nhanh co the Press va Release trong cung mot frame.
+            if (aimingPointer.press.wasReleasedThisFrame ||
+                !aimingPointer.press.isPressed)
+            {
+                CancelAim();
+                Shoot(screenPos);
+            }
             return;
         }
 
-        // Giữ đúng Pointer bat dau ngắm, không phụ thuộc Pointer.current thay đổi.
         if (aimingPointer == null)
         {
             CancelAim();
@@ -238,7 +274,6 @@ public class SimpleCannon : MonoBehaviour
         bool pointerReleased = aimingPointer.press.wasReleasedThisFrame;
         bool pointerHeld = aimingPointer.press.isPressed;
 
-        // Khi bi mat su kien release do FPS thap, khong de isAiming bi ket.
         if (pointerReleased || !pointerHeld)
         {
             CancelAim();
@@ -247,6 +282,27 @@ public class SimpleCannon : MonoBehaviour
         }
 
         Aim(position);
+    }
+
+    private void LogBlockedPress(string reason)
+    {
+        if (!debugBlockedShots) return;
+        Pointer pointer = Pointer.current;
+        if (pointer == null || !pointer.press.wasPressedThisFrame) return;
+        Debug.LogWarning("[Cannon-BLOCKED] " + reason + " | " + GetCannonDebugStatus(), this);
+    }
+
+    private string GetCannonDebugStatus()
+    {
+        string poolInfo = SimpleBulletPool.Instance != null
+            ? SimpleBulletPool.Instance.GetBulletPoolDebugInfo()
+            : "Pool=NULL";
+        string gameInfo = GameRuleController.Instance != null
+            ? "CanShoot=" + GameRuleController.Instance.CanPlayerShoot()
+            : "GameRule=NULL";
+        return $"scene={SceneManager.GetActiveScene().name}, ammo={currentBullets}/{maxBullets}, " +
+               $"timeScale={Time.timeScale}, cannonActive={gameObject.activeInHierarchy}, " +
+               $"isAiming={isAiming}, {gameInfo}, {poolInfo}";
     }
 
     private void CancelAim()
@@ -431,9 +487,11 @@ public class SimpleCannon : MonoBehaviour
             OnBoosterConsumed?.Invoke(2);
     }
 
-    // Khong dung UnityEngine.Input cu de tranh xung dot voi New Input System.
+    // UI trang tri (Image, Text, coin fly, nen trong suot) KHONG duoc chan gameplay.
+    // Chi chan khi nguoi dung dang tuong tac mot control / handler thuc su.
     private bool IsPointerOverUI(Vector2 position)
     {
+        lastBlockingUIName = "";
         if (EventSystem.current == null) return false;
 
         PointerEventData pointerData = new PointerEventData(EventSystem.current)
@@ -443,12 +501,32 @@ public class SimpleCannon : MonoBehaviour
 
         uiRaycastResults.Clear();
         EventSystem.current.RaycastAll(pointerData, uiRaycastResults);
+
         for (int i = 0; i < uiRaycastResults.Count; i++)
         {
-            // Chi chan khi cham UI, khong chan khi raycast vao Collider gameplay.
-            if (uiRaycastResults[i].module is GraphicRaycaster)
+            RaycastResult result = uiRaycastResults[i];
+            if (!(result.module is GraphicRaycaster)) continue;
+
+            GameObject hit = result.gameObject;
+            if (hit == null) continue;
+
+            // Selectable: Button, Toggle, Slider, InputField...
+            // ExecuteEvents: UI tu viet bang EventTrigger / click / drag / scroll.
+            Selectable selectable = hit.GetComponentInParent<Selectable>();
+            bool actuallyInteractive =
+                (selectable != null && selectable.IsActive() && selectable.IsInteractable()) ||
+                ExecuteEvents.GetEventHandler<IPointerClickHandler>(hit) != null ||
+                ExecuteEvents.GetEventHandler<IPointerDownHandler>(hit) != null ||
+                ExecuteEvents.GetEventHandler<IDragHandler>(hit) != null ||
+                ExecuteEvents.GetEventHandler<IScrollHandler>(hit) != null;
+
+            if (actuallyInteractive)
+            {
+                lastBlockingUIName = hit.name;
                 return true;
+            }
         }
+
         return false;
     }
 
@@ -458,8 +536,16 @@ public class SimpleCannon : MonoBehaviour
         OnAmmoChanged?.Invoke(currentBullets);
     }
 
+    private void OnEnable()
+    {
+        if (debugBlockedShots)
+            Debug.Log("[Cannon] ENABLE in " + SceneManager.GetActiveScene().name, this);
+    }
+
     private void OnDisable()
     {
+        if (debugBlockedShots)
+            Debug.LogWarning("[Cannon] DISABLE in " + SceneManager.GetActiveScene().name, this);
         CancelAim();
     }
 
