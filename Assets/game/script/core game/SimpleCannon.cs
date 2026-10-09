@@ -405,7 +405,11 @@ public class SimpleCannon : MonoBehaviour
 
         bulletScript.SetExplosionMultiplier(currentForceMultiplier);
 
-        // Callback moi duoc gan cho moi vien dan, bao ve khong goi 2 lan.
+        // Snapshot owner tai THOI DIEM BAN. Tuyet doi khong dung Instance moi
+        // trong callback cua vien dan tu level cu.
+        SimpleBulletPool ownerPool = pool;
+        GameRuleController ownerRule = GameRuleController.Instance;
+        int shotSceneHandle = gameObject.scene.handle;
         bool returned = false;
         bulletScript.OnRelease = (go) =>
         {
@@ -415,19 +419,26 @@ public class SimpleCannon : MonoBehaviour
             if (go != null)
             {
                 go.transform.localScale = originalBulletScale;
-                if (SimpleBulletPool.Instance != null)
-                    SimpleBulletPool.Instance.ReturnBullet(go);
-                else
+                if (ownerPool != null &&
+                    ownerPool.gameObject.scene.handle == shotSceneHandle &&
+                    go.scene.handle == shotSceneHandle)
+                {
+                    ownerPool.ReturnBullet(go);
+                }
+                else if (go.activeSelf)
+                {
                     go.SetActive(false);
+                }
             }
 
-            if (GameRuleController.Instance != null)
-                GameRuleController.Instance.RegisterBulletReturned();
+            if (ownerRule != null &&
+                ownerRule.gameObject.scene.handle == shotSceneHandle)
+                ownerRule.RegisterBulletReturned();
         };
 
-        // Chi ghi nhan da ban khi object va script da duoc kiem tra.
-        if (GameRuleController.Instance != null)
-            GameRuleController.Instance.RegisterBulletFired();
+        // Ghi nhan cho dung owner, tranh callback cu thay doi level moi.
+        if (ownerRule != null)
+            ownerRule.RegisterBulletFired();
 
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;

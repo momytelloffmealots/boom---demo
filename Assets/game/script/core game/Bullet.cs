@@ -72,18 +72,12 @@ public class Bullet : MonoBehaviour
 
     private void OnDisable()
     {
+        // KHONG goi Release() o day. Unity goi OnDisable khi scene unload,
+        // GameRoot bi tat, hoac khi Pool dang SetActive(false).
+        // Goi callback tai day gay ReturnToPool/SetParent trong qua trinh
+        // activate/deactivate => "GameObject is already being activated or deactivated".
         StopTimers();
-
-        // Neu mot script khac tat vien dan truc tiep, van bao Cannon va GameRule
-        // de khong that thoat activeBulletsFlying. Gac isReleasing ngan de quy.
-        if (!isReleasing && OnRelease != null && Application.isPlaying)
-        {
-            Release();
-        }
-        else
-        {
-            OnRelease = null;
-        }
+        OnRelease = null;
     }
 
     private void OnCollisionEnter(Collision collision)

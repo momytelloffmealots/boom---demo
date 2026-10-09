@@ -223,9 +223,19 @@ public class SimpleBulletPool : MonoBehaviour
             return;
         }
 
+        // Neu Pool dang bi tat khi chuyen scene: dung, KHONG reparent / enqueue.
+        // Bullet.OnDisable da khong con goi ReturnToPool nua.
+        if (!isActiveAndEnabled || !gameObject.activeInHierarchy ||
+            !gameObject.scene.isLoaded || !instance.scene.isLoaded)
+        {
+            if (instance.activeSelf)
+                instance.SetActive(false);
+            return;
+        }
+
         EnsurePool(prefab);
 
-        // Danh dau TRUOC SetActive(false) (Bullet.OnDisable co the goi callback).
+        // Danh dau TRUOC SetActive(false), chan enqueue trung object.
         if (!poolHashSet[prefab].Add(instance)) return;
 
         Rigidbody rb = instance.GetComponent<Rigidbody>();
@@ -238,7 +248,9 @@ public class SimpleBulletPool : MonoBehaviour
         if (instance.activeSelf)
             instance.SetActive(false);
 
-        instance.transform.SetParent(transform);
+        // CO Y KHONG SetParent khi tra object ve Pool.
+        // Transform.SetParent trong luc OnDisable/scene unload gay loi Unity.
+        // Queue/HashSet quan ly object; object inactive van duoc tai su dung.
         poolDictionary[prefab].Enqueue(instance);
     }
 
