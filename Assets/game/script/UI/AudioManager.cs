@@ -12,7 +12,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource soundSource;   // Sound Effect chung
 
     [Header("Audio Sources Độc Lập (Kéo thả AudioSource vào đây)")]
-    public AudioSource cannonSource;  // 🔥 MỚI: Nguồn phát riêng cho Pháo
+    public AudioSource cannonSource;  // Nguồn phát riêng cho Pháo
 
     [Header("UI & Vũ khí")]
     public AudioClip buttonClickClip;
@@ -33,6 +33,11 @@ public class AudioManager : MonoBehaviour
     private float defaultMusicVolume = 1f;
     private Coroutine fadeMusicCoroutine;
 
+    // Biến lưu thời điểm phát âm thanh cuối cùng để làm Cooldown chặn rè tiếng
+    private float lastCoinAppearTime = 0f;
+    private float lastCoinReachTime = 0f;
+    private float coinSoundCooldown = 0.05f; // Cách nhau 0.05 giây mới được kêu tiếp
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -43,7 +48,7 @@ public class AudioManager : MonoBehaviour
         }
 
         Instance = this;
-        transform.SetParent(null);
+        // Đã xóa dòng transform.SetParent(null) để fix lỗi SetParent khi đang tắt bật object
         DontDestroyOnLoad(gameObject);
 
         // Lưu lại mức âm lượng gốc của nhạc nền đang set trên Inspector
@@ -55,7 +60,7 @@ public class AudioManager : MonoBehaviour
         SyncAudioSettings();
     }
 
-    // 🔥 MỚI: Tự động khôi phục nhạc nền về 100% mỗi khi Load lại Scene (Try Again / Next Level)
+    // Tự động khôi phục nhạc nền về 100% mỗi khi Load lại Scene (Try Again / Next Level)
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -132,13 +137,12 @@ public class AudioManager : MonoBehaviour
 
     public void PlayButtonClick() => PlaySound(buttonClickClip);
 
-    // 🔥 MỚI: Dùng AudioSource riêng để bắn pháo
+    // Dùng AudioSource riêng để bắn pháo
     public void PlayCannonShot()
     {
         bool soundOn = PlayerPrefs.GetInt("SoundOn", 1) == 1;
 
         // Dùng PlayOneShot trên cannonSource để giữ nguyên thông số Volume, Pitch bạn chỉnh ở Inspector
-        // Đồng thời cho phép đạn bắn liên thanh đè lên nhau không bị ngắt quãng.
         if (soundOn && cannonSource != null && cannonSource.clip != null)
         {
             cannonSource.PlayOneShot(cannonSource.clip);
@@ -148,23 +152,45 @@ public class AudioManager : MonoBehaviour
     public void PlayWinSound()
     {
         PlaySound(winSFX);
-        FadeBackgroundMusic(0.2f, 1f); // 🔥 MỚI: Nhạc nền tự hạ xuống 20% trong 1 giây khi Thắng
+        FadeBackgroundMusic(0.2f, 1f); // Nhạc nền tự hạ xuống 20% trong 1 giây khi Thắng
     }
 
     public void PlayLoseSound()
     {
         PlaySound(loseSFX);
-        FadeBackgroundMusic(0.2f, 1f); // 🔥 MỚI: Nhạc nền tự hạ xuống 20% trong 1 giây khi Thua
+        FadeBackgroundMusic(0.2f, 1f); // Nhạc nền tự hạ xuống 20% trong 1 giây khi Thua
     }
 
-    public void PlayCoinAppear() => PlaySound(coinAppearSFX);
-    public void PlayCoinReach() => PlaySound(coinReachSFX);
+    // Fix lỗi tiếng đồng xu rè (Giới hạn số lần phát bằng Cooldown và giảm volume xuống 0.5)
+    public void PlayCoinAppear()
+    {
+        if (Time.unscaledTime - lastCoinAppearTime > coinSoundCooldown)
+        {
+            if (PlayerPrefs.GetInt("SoundOn", 1) == 1 && soundSource != null && coinAppearSFX != null)
+            {
+                soundSource.PlayOneShot(coinAppearSFX, 0.5f);
+                lastCoinAppearTime = Time.unscaledTime;
+            }
+        }
+    }
+
+    public void PlayCoinReach()
+    {
+        if (Time.unscaledTime - lastCoinReachTime > coinSoundCooldown)
+        {
+            if (PlayerPrefs.GetInt("SoundOn", 1) == 1 && soundSource != null && coinReachSFX != null)
+            {
+                soundSource.PlayOneShot(coinReachSFX, 0.5f);
+                lastCoinReachTime = Time.unscaledTime;
+            }
+        }
+    }
 
     public void PlayRocketFly() => PlaySound(rocketFlySFX);
     public void PlayRocketExplode() => PlaySound(rocketExplodeSFX);
 
     // =====================================================
-    // 🔥 MỚI: HỆ THỐNG AUDIO DUCKING (TỰ ĐỘNG CHỈNH ÂM LƯỢNG)
+    // HỆ THỐNG AUDIO DUCKING (TỰ ĐỘNG CHỈNH ÂM LƯỢNG)
     // =====================================================
 
     /// <summary>
