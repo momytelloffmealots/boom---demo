@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "858232200677",
+    "project_id": "smash-it-out-b82da",
+    "storage_bucket": "smash-it-out-b82da.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858232200677:android:a93722906bc54642d2e30c",
+        "android_client_info": {
+          "package_name": "com.cdit.smash.it.out"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXLwGRWDQdHb3uZl8iIlH8aL0nzGRRwOI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
