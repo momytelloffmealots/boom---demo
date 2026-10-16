@@ -3,126 +3,106 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 
-public enum ScaleAxis
-{
-    Z_Axis, // Xoay quanh trục Z (Dùng cho 2D hoặc mặt phẳng 2D/UI)
-    Y_Axis, // Xoay quanh trục Y (Xoay nằm ngang 3D)
-    X_Axis  // Xoay quanh trục X
-}
-
 public class DigitalScale : MonoBehaviour
 {
-    [Header("--- CẤU HÌNH CÂN NẶNG ---")]
-    [Tooltip("Trọng lượng tối thiểu (kg) ứng với góc minAngle")]
-    public float minWeight = 0f;
+    [Header("Data Reference")]
+    [SerializeField] private DigitalScaleData data;
 
-    [Tooltip("Trọng lượng tối đa (kg) ứng với góc maxAngle")]
-    public float maxWeight = 100f;
-
-    [Header("--- CẤU HÌNH KIM QUAY (NEEDLE DIAL) ---")]
+    [Header("Scene / Prefab References")]
     [Tooltip("Transform của Kim cân (Object kim sẽ quay)")]
     public Transform needlePivot;
 
-    [Tooltip("Góc quay ban đầu khi 0kg (độ)")]
-    public float minAngle = 0f;
-
-    [Tooltip("Góc quay tối đa khi kịch cân (độ)")]
-    public float maxAngle = 180f;
-
-    [Tooltip("Trục xoay của kim")]
-    public ScaleAxis rotationAxis = ScaleAxis.Z_Axis;
-
-    [Tooltip("Đảo ngược chiều quay của kim (nếu kim quay ngược hướng)")]
-    public bool invertRotation = false;
-
-    [Tooltip("Tốc độ quay mượt của kim")]
-    public float needleSmoothSpeed = 5f;
-
-    [Header("--- HIỂN THỊ SỐ (TÙY CHỌN) ---")]
     [Tooltip("Gán TextMeshPro nếu muốn hiện con số kg trên màn hình điện tử")]
     public TMP_Text weightText;
 
-    [Tooltip("Định dạng hiển thị số kg")]
-    public string weightFormat = "{0:F1} kg";
-
-    [Header("--- KÍCH HOẠT THẮNG/THUA SAU KHI ĐỨNG YÊN (SETTLEMENT CHECK) ---")]
-    [Tooltip("Bật kiểm tra điều kiện Win/Lose theo trọng lượng còn lại")]
+    [Header("Win/Lose Settings (Tự động nhận từ Level JSON)")]
     public bool enableWinCheck = false;
-
-    [Tooltip("Thời gian chờ đứng yên (giây) không có gạch rơi thêm trước khi tính kết quả")]
-    public float settleDelay = 1.5f;
-
-    [Tooltip("Trọng lượng còn lại tối thiểu để tính là WIN")]
     public float minWinWeight = 10f;
-
-    [Tooltip("Trọng lượng còn lại tối đa để tính là WIN")]
     public float maxWinWeight = 20f;
 
-    [Tooltip("Sự kiện kích hoạt khi THẮNG (Đạt cân nặng mục tiêu sau khi đã đứng yên)")]
+    [Header("Events")]
     public UnityEvent OnWinConditionMet;
-
-    [Tooltip("Sự kiện kích hoạt khi THUA (Ví dụ: bắn sập quá tay làm kg tụt dưới minWinWeight)")]
     public UnityEvent OnLoseConditionMet;
 
     // --- Biến nội bộ ---
-    private HashSet<Rigidbody> objectsOnScale = new HashSet<Rigidbody>();
+    private readonly HashSet<Rigidbody> objectsOnScale = new HashSet<Rigidbody>();
     private float currentWeight = 0f;
     private float currentAngle = 0f;
 
-    // Bộ đếm thời gian đứng yên
     private float lastWeightChangeTime = -1f;
     private bool isPendingSettlement = false;
     private bool isEvaluated = false;
+    private bool hasPlayerInteracted = false;
+
+    public float CurrentWeight => currentWeight;
+    public bool IsSettled => !isPendingSettlement;
+
+    private void Awake()
+    {
+        if (data != null)
+        {
+            minWinWeight = data.defaultMinWinWeight;
+            maxWinWeight = data.defaultMaxWinWeight;
+        }
+    }
 
     private void Start()
     {
-        currentAngle = minAngle;
+        currentAngle = data != null ? data.minAngle : 0f;
         UpdateNeedleRotation(currentAngle);
-        RecalculateWeight();
+        RecalculateWeight(isInitialSetup: true);
+    }
+
+    public void ConfigureFromLevel(bool isDigitalMode, float minWin, float maxWin)
+    {
+        enableWinCheck = isDigitalMode;
+        minWinWeight = minWin;
+        maxWinWeight = maxWin;
+        isEvaluated = false;
+        hasPlayerInteracted = false;
     }
 
     private void Update()
     {
-        // 1. Tự dọn dẹp các khối gạch/object bị Destroy hoặc Disable trên bàn cân
         CleanUpAndRecalculateWeight();
 
-        // 2. Tính góc quay mục tiêu theo cân nặng hiện tại
         float targetAngle = CalculateTargetAngle(currentWeight);
+        float smoothSpeed = data != null ? data.needleSmoothSpeed : 5f;
 
-        // 3. Quét quay mượt từ góc hiện tại tới góc mục tiêu
-        currentAngle = Mathf.LerpAngle(currentAngle, targetAngle, Time.deltaTime * needleSmoothSpeed);
+        currentAngle = Mathf.LerpAngle(currentAngle, targetAngle, Time.deltaTime * smoothSpeed);
         UpdateNeedleRotation(currentAngle);
 
-        // 4. Kiểm tra điều kiện Thắng/Thua khi gạch đã đứng yên đủ thời gian settleDelay
         CheckSettlementStatus();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Rigidbody rb = other.attachedRigidbody;
+        TryAddObject(other);
+    }
 
-        if (rb != null)
-        {
-            if (objectsOnScale.Add(rb))
-            {
-                RecalculateWeight();
-            }
-        }
-        else
-        {
-            Debug.LogWarning($"[CẢNH BÁO] {other.name} chạm bệ nhưng KHÔNG TÌM THẤY Rigidbody!");
-        }
+    private void OnTriggerStay(Collider other)
+    {
+        // 🔥 BẢO HIỂM: Đảm bảo các khối gạch nằm đè lên cân luôn được ghi nhận trọng lượng
+        TryAddObject(other);
     }
 
     private void OnTriggerExit(Collider other)
     {
         Rigidbody rb = other.attachedRigidbody;
-
-        if (rb != null)
+        if (rb != null && objectsOnScale.Remove(rb))
         {
-            if (objectsOnScale.Remove(rb))
+            RecalculateWeight(isInitialSetup: false);
+        }
+    }
+
+    private void TryAddObject(Collider other)
+    {
+        Rigidbody rb = other.attachedRigidbody;
+        if (rb != null && !rb.isKinematic) // Chỉ tính vật có trọng lực / physics rigidbody
+        {
+            if (objectsOnScale.Add(rb))
             {
-                RecalculateWeight();
+                RecalculateWeight(isInitialSetup: Time.timeSinceLevelLoad < 0.5f);
             }
         }
     }
@@ -134,98 +114,98 @@ public class DigitalScale : MonoBehaviour
 
         if (countBefore != objectsOnScale.Count)
         {
-            RecalculateWeight();
+            RecalculateWeight(isInitialSetup: false);
         }
     }
 
-    private void RecalculateWeight()
+    private void RecalculateWeight(bool isInitialSetup)
     {
         float previousWeight = currentWeight;
         currentWeight = 0f;
 
         foreach (Rigidbody rb in objectsOnScale)
         {
-            if (rb != null)
-            {
-                currentWeight += rb.mass;
-            }
+            if (rb != null) currentWeight += rb.mass;
         }
 
-        // Nếu cân nặng thay đổi, reset bộ đếm thời gian đứng yên
         if (!Mathf.Approximately(previousWeight, currentWeight))
         {
             lastWeightChangeTime = Time.time;
-            isPendingSettlement = true;
-            isEvaluated = false;
+            if (!isInitialSetup)
+            {
+                hasPlayerInteracted = true;
+                isPendingSettlement = true;
+                isEvaluated = false;
+            }
         }
-
-        // In ra Console để dễ kiểm tra
-        Debug.Log($"[DigitalScale] Trọng lượng hiện tại: {currentWeight:F2} kg");
 
         // Hiển thị số kg lên Text nếu có gán
         if (weightText != null)
         {
-            weightText.text = string.Format(weightFormat, currentWeight);
+            string format = data != null ? data.weightFormat : "{0:F1} kg";
+            weightText.text = string.Format(format, currentWeight);
         }
     }
 
     private void CheckSettlementStatus()
     {
-        if (!enableWinCheck || !isPendingSettlement || isEvaluated) return;
+        if (!enableWinCheck || !hasPlayerInteracted || !isPendingSettlement || isEvaluated) return;
 
-        // Kiểm tra xem đã trôi qua đủ settleDelay giây kể từ lần thay đổi gạch cuối cùng chưa
-        if (Time.time - lastWeightChangeTime >= settleDelay)
+        float delay = data != null ? data.settleDelay : 1.5f;
+
+        if (Time.time - lastWeightChangeTime >= delay)
         {
             isEvaluated = true;
             isPendingSettlement = false;
 
-            // Đánh giá kết quả khi gạch đã nằm yên hoàn toàn
             if (currentWeight >= minWinWeight && currentWeight <= maxWinWeight)
             {
-                Debug.Log($"[DigitalScale] THẮNG CUỘC! Cân nặng đứng yên ở {currentWeight:F1}kg (Mục tiêu: {minWinWeight} - {maxWinWeight}kg)");
+                Debug.Log($"[DigitalScale] THẮNG CUỘC! Cân nặng: {currentWeight:F1}kg (Mục tiêu: {minWinWeight} - {maxWinWeight}kg)");
                 OnWinConditionMet?.Invoke();
+
+                if (GameRuleController.Instance != null)
+                {
+                    GameRuleController.Instance.NotifyDigitalScaleWin();
+                }
             }
             else if (currentWeight < minWinWeight)
             {
-                Debug.Log($"[DigitalScale] THUA CUỘC! Bắn sập quá tay, cân nặng còn lại ({currentWeight:F1}kg) tụt dưới mức tối thiểu {minWinWeight}kg");
+                Debug.Log($"[DigitalScale] THUA CUỘC! Cân nặng ({currentWeight:F1}kg) tụt dưới mức tối thiểu {minWinWeight}kg");
                 OnLoseConditionMet?.Invoke();
+
+                if (GameRuleController.Instance != null)
+                {
+                    GameRuleController.Instance.NotifyDigitalScaleOverShotLose();
+                }
             }
         }
+    }
+
+    public bool IsWeightInWinRange()
+    {
+        return currentWeight >= minWinWeight && currentWeight <= maxWinWeight;
     }
 
     private float CalculateTargetAngle(float weight)
     {
-        // Tính tỷ lệ cân nặng từ 0 đến 1
-        float t = Mathf.Clamp01((weight - minWeight) / Mathf.Max(0.0001f, maxWeight - minWeight));
-        
-        // Nội suy góc quay tương ứng từ minAngle đến maxAngle
-        float angle = Mathf.Lerp(minAngle, maxAngle, t);
-        
-        return invertRotation ? -angle : angle;
+        if (data == null) return 0f;
+
+        float t = Mathf.Clamp01((weight - data.minWeight) / Mathf.Max(0.0001f, data.maxWeight - data.minWeight));
+        float angle = Mathf.Lerp(data.minAngle, data.maxAngle, t);
+        return data.invertRotation ? -angle : angle;
     }
 
     private void UpdateNeedleRotation(float angle)
     {
-        if (needlePivot == null) return;
+        if (needlePivot == null || data == null) return;
 
         Vector3 euler = needlePivot.localEulerAngles;
-        switch (rotationAxis)
+        switch (data.rotationAxis)
         {
-            case ScaleAxis.Z_Axis:
-                euler.z = angle;
-                break;
-            case ScaleAxis.Y_Axis:
-                euler.y = angle;
-                break;
-            case ScaleAxis.X_Axis:
-                euler.x = angle;
-                break;
+            case ScaleAxis.Z_Axis: euler.z = angle; break;
+            case ScaleAxis.Y_Axis: euler.y = angle; break;
+            case ScaleAxis.X_Axis: euler.x = angle; break;
         }
-
-        needlePivot.localRotation = Quaternion.Euler(euler);
+        needlePivot.localEulerAngles = euler;
     }
-
-    // Public API để truy vấn trạng thái khi cần
-    public float CurrentWeight => currentWeight;
-    public bool IsPendingSettlement => isPendingSettlement;
 }

@@ -2209,10 +2209,12 @@ MonoBehaviour:
     spriteNormal: {fileID: 21300000, guid: 12d851dda7c323c4fa374442e0e82931, type: 3}
     spriteHard: {fileID: 21300000, guid: d608b40c47ce0864f8ba3242fde84a20, type: 3}
     spriteSuperHard: {fileID: 21300000, guid: 290b5ab2f5afc34499591c4d4b8491e9, type: 3}
+    spriteDigital: {fileID: 0}
   - targetImage: {fileID: 452360186}
     spriteNormal: {fileID: 21300000, guid: c0abc2a05f671ac479fc81c249da186a, type: 3}
     spriteHard: {fileID: 21300000, guid: 9b86ecb69cd42224f8ee95d87e214aa7, type: 3}
     spriteSuperHard: {fileID: 21300000, guid: c46fa9602ba3f974daefe2d9111cc365, type: 3}
+    spriteDigital: {fileID: 0}
 --- !u!1 &190256468
 GameObject:
   m_ObjectHideFlags: 0

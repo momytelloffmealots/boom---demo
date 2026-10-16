@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
-using PTITGameSDK.Modules; // 🔥 MỚI: Thêm thư viện tracking
+using PTITGameSDK.Modules;
 
 public class GameRuleController : MonoBehaviour
 {
@@ -21,6 +21,9 @@ public class GameRuleController : MonoBehaviour
     private bool isGameOver = false;
     private bool isWaitingForContinue = false;
     private static bool hasShownSplash = false;
+
+    // 🔥 Tham chiếu tới cân trong màn Digital
+    private DigitalScale activeDigitalScale;
 
     private void Awake()
     {
@@ -145,7 +148,7 @@ public class GameRuleController : MonoBehaviour
         }
     }
 
-    // Kiem tra viec ban duoc phep o level hien tai.
+    // Kiểm tra việc bắn được phép ở level hiện tại.
     public bool CanPlayerShoot()
     {
         if (isGameOver || isWaitingForContinue) return false;
@@ -154,7 +157,8 @@ public class GameRuleController : MonoBehaviour
         var panel = view.playPanelController;
         if (panel.gameplayRoot != null && !panel.gameplayRoot.activeInHierarchy)
             return false;
-        // Khong khoa gameplay neu loadingView van active nhung alpha = 0.
+
+        // Không khóa gameplay nếu loadingView vẫn active nhưng alpha = 0.
         if (panel.loadingView != null && panel.loadingView.gameObject.activeInHierarchy)
         {
             CanvasGroup loadingGroup = panel.loadingView.GetComponent<CanvasGroup>();
@@ -279,11 +283,36 @@ public class GameRuleController : MonoBehaviour
     {
         activeBlocks = 0;
         activeBulletsFlying = 0;
+        activeDigitalScale = null;
         isGameOver = false;
         isWaitingForContinue = false;
         if (view != null && view.endGameView != null) view.endGameView.HideAll();
     }
 
+    // =========================================================
+    // ĐĂNG KÝ & XỬ LÝ CÂN ĐIỆN TỬ (DIGITAL SCALE)
+    // =========================================================
+    public void RegisterDigitalScale(DigitalScale scale)
+    {
+        activeDigitalScale = scale;
+    }
+
+    public void NotifyDigitalScaleWin()
+    {
+        if (currentDifficulty != LevelDifficulty.Digital || isGameOver) return;
+        DeclareWin();
+    }
+
+    public void NotifyDigitalScaleOverShotLose()
+    {
+        if (currentDifficulty != LevelDifficulty.Digital || isGameOver) return;
+        // Bắn rớt quá tay làm số kg tụt dưới mức tối thiểu -> Xử thua luôn vì không thể đắp lại gạch
+        HandleContinueClose();
+    }
+
+    // =========================================================
+    // ĐĂNG KÝ BLOCK & ĐẠN
+    // =========================================================
     public void RegisterBlock(Block block)
     {
         activeBlocks++;
@@ -304,7 +333,6 @@ public class GameRuleController : MonoBehaviour
 
     public void RegisterBulletReturned()
     {
-        // Neu return callback bi goi du, khong de bo dem am lam sai lose condition.
         activeBulletsFlying = Mathf.Max(0, activeBulletsFlying - 1);
         StartCoroutine(CheckWinLoseRoutine());
     }
@@ -315,13 +343,58 @@ public class GameRuleController : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         if (isGameOver || isWaitingForContinue) yield break;
 
+        // =========================================================
+        // 1. LUẬT CHƠI CHẾ ĐỘ DIGITAL SCALE
+        // =========================================================
+        if (currentDifficulty == LevelDifficulty.Digital)
+        {
+            if (playerCannon != null && playerCannon.GetCurrentBullets() <= 0 && activeBulletsFlying <= 0)
+            {
+                float waitTimer = 0f;
+                while (waitTimer < 1.5f)
+                {
+                    if (isGameOver) yield break;
+                    if (activeDigitalScale != null && activeDigitalScale.IsSettled && activeDigitalScale.IsWeightInWinRange())
+                    {
+                        DeclareWin();
+                        yield break;
+                    }
+                    waitTimer += Time.deltaTime;
+                    yield return null;
+                }
+
+                if (!isGameOver)
+                {
+                    if (activeDigitalScale != null && activeDigitalScale.IsWeightInWinRange())
+                    {
+                        DeclareWin();
+                    }
+                    else if (activeDigitalScale != null && activeDigitalScale.CurrentWeight < activeDigitalScale.minWinWeight)
+                    {
+                        // Hết đạn mà cân nặng đã tụt dưới mức tối thiểu -> Thua luôn
+                        HandleContinueClose();
+                    }
+                    else
+                    {
+                        // Hết đạn mà cân vẫn nặng hơn maxWinWeight -> Hiện bảng Continue cho mua thêm đạn bắn tiếp
+                        isWaitingForContinue = true;
+                        if (view != null && view.endGameView != null) view.endGameView.ShowContinue();
+                    }
+                }
+            }
+            yield break;
+        }
+
+        // =========================================================
+        // 2. LUẬT CHƠI CHẾ ĐỘ THƯỜNG (NORMAL / HARD / SUPER HARD)
+        // =========================================================
         if (activeBlocks <= 0)
         {
             DeclareWin();
             yield break;
         }
 
-        if (playerCannon.GetCurrentBullets() <= 0 && activeBulletsFlying <= 0)
+        if (playerCannon != null && playerCannon.GetCurrentBullets() <= 0 && activeBulletsFlying <= 0)
         {
             float waitTimer = 0f;
             while (waitTimer < 0.1f)
@@ -354,6 +427,7 @@ public class GameRuleController : MonoBehaviour
             case LevelDifficulty.Normal: coinReward = 20; break;
             case LevelDifficulty.Hard: coinReward = 25; break;
             case LevelDifficulty.SuperHard: coinReward = 30; break;
+            case LevelDifficulty.Digital: coinReward = 25; break; // Tiền thưởng cho màn Digital
         }
 
         PlayerPrefs.SetInt("PENDING_COIN_REWARD", coinReward);
@@ -396,7 +470,7 @@ public class GameRuleController : MonoBehaviour
         isGameOver = true;
         isWaitingForContinue = false;
 
-        // 🔥 [GẮN TRACKING THOÁT NGANG KHI DANG CHƠI]
+        // 🔥 [GẮN TRACKING THOÁT NGANG KHI ĐANG CHƠI]
         string levelId = "Lv_" + PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString("0000");
         LevelTrackEvent.Create("quit_level")
             .SetLevelInfo(PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString(), levelId, Application.version)

@@ -1,14 +1,16 @@
 {
-    "levelName": "CustomLevel",
+    "levelName": "Level_1",
     "MaxBullets": 15,
-    "Difficulty": 0,
+    "Difficulty": 3,
+    "minWinWeight": 20.0,
+    "maxWinWeight": 30.0,
     "blocks": [
         {
-            "prefabName": "CarnivalTinCan",
+            "prefabName": "CarnivalTinBox(1x1)New",
             "position": {
-                "x": 0.0,
-                "y": 1.0,
-                "z": 0.25
+                "x": 0.75,
+                "y": 0.7599999904632568,
+                "z": 0.0
             },
             "rotation": {
                 "x": 0.0,
@@ -17,89 +19,11 @@
             }
         },
         {
-            "prefabName": "main_cannon",
-            "position": {
-                "x": 0.0,
-                "y": 1.0,
-                "z": -7.599999904632568
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CarnivalTinCan",
-            "position": {
-                "x": 0.0,
-                "y": 1.5,
-                "z": 0.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CarnivalTinCan",
-            "position": {
-                "x": -0.5,
-                "y": 2.0,
-                "z": 0.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CarnivalTinCan",
-            "position": {
-                "x": 0.0,
-                "y": 2.0,
-                "z": -0.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "Pedestal  2x3 Variant",
-            "position": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            },
-            "rotation": {
-                "x": -4.885332156173705e-12,
-                "y": 90.00000762939453,
-                "z": 0.00003046868550882209
-            }
-        },
-        {
-            "prefabName": "CarnivalTinCan",
-            "position": {
-                "x": -0.5,
-                "y": 2.0,
-                "z": -0.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CarnivalTinCan",
+            "prefabName": "CarnivalTinBox(1x1)New",
             "position": {
                 "x": 0.5,
-                "y": 1.5,
-                "z": -0.25
+                "y": 1.2599999904632569,
+                "z": 0.0
             },
             "rotation": {
                 "x": 0.0,
@@ -108,11 +32,37 @@
             }
         },
         {
-            "prefabName": "CarnivalTinCan",
+            "prefabName": "WoodStar(new) (1)",
+            "position": {
+                "x": 0.25,
+                "y": 2.259999990463257,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinBox(1x1)New",
+            "position": {
+                "x": 0.25,
+                "y": 0.7599999904632568,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinBox(1x1)New",
             "position": {
                 "x": -0.5,
-                "y": 1.0,
-                "z": -0.25
+                "y": 1.2599999904632569,
+                "z": 0.0
             },
             "rotation": {
                 "x": 0.0,
@@ -121,11 +71,11 @@
             }
         },
         {
-            "prefabName": "CarnivalTinCan",
+            "prefabName": "CarnivalTinBox(1x1)New",
             "position": {
-                "x": 0.5,
-                "y": 2.0,
-                "z": -0.25
+                "x": -0.25,
+                "y": 0.7599999904632568,
+                "z": 0.0
             },
             "rotation": {
                 "x": 0.0,
@@ -134,11 +84,11 @@
             }
         },
         {
-            "prefabName": "CarnivalTinCan",
+            "prefabName": "WoodStar(new) (1)",
             "position": {
-                "x": -0.5,
-                "y": 1.0,
-                "z": 0.25
+                "x": 0.0,
+                "y": 2.759999990463257,
+                "z": 0.0
             },
             "rotation": {
                 "x": 0.0,
@@ -147,11 +97,11 @@
             }
         },
         {
-            "prefabName": "CarnivalTinCan",
+            "prefabName": "DigitalScale",
             "position": {
-                "x": 0.5,
-                "y": 1.5,
-                "z": 0.25
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
             },
             "rotation": {
                 "x": 0.0,
@@ -160,11 +110,24 @@
             }
         },
         {
-            "prefabName": "CarnivalTinCan",
+            "prefabName": "CrystalRock(fixed) (1)",
             "position": {
+                "x": -0.25,
+                "y": 1.7599999904632569,
+                "z": 0.0
+            },
+            "rotation": {
                 "x": 0.0,
-                "y": 1.0,
-                "z": -0.25
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinBox(1x1)New",
+            "position": {
+                "x": -0.75,
+                "y": 0.7599999904632568,
+                "z": 0.0
             },
             "rotation": {
                 "x": 0.0,
@@ -173,11 +136,11 @@
             }
         },
         {
-            "prefabName": "CarnivalTinCan",
+            "prefabName": "CarnivalTinBox(1x1)New",
             "position": {
-                "x": -0.5,
-                "y": 1.5,
-                "z": -0.25
+                "x": 0.0,
+                "y": 1.2599999904632569,
+                "z": 0.0
             },
             "rotation": {
                 "x": 0.0,
@@ -186,11 +149,11 @@
             }
         },
         {
-            "prefabName": "CarnivalTinCan",
+            "prefabName": "WoodStar(new) (1)",
             "position": {
-                "x": 0.5,
-                "y": 1.0,
-                "z": 0.25
+                "x": -0.25,
+                "y": 2.259999990463257,
+                "z": 0.0
             },
             "rotation": {
                 "x": 0.0,
@@ -199,80 +162,15 @@
             }
         },
         {
-            "prefabName": "CarnivalTinCan",
+            "prefabName": "CrystalRock(fixed) (1)",
             "position": {
-                "x": 0.5,
-                "y": 1.0,
-                "z": -0.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
+                "x": 0.25,
+                "y": 1.7599999904632569,
                 "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CarnivalTinCan",
-            "position": {
-                "x": 0.0,
-                "y": 1.5,
-                "z": -0.25
             },
             "rotation": {
                 "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "bulletpool",
-            "position": {
-                "x": 11.0,
-                "y": 0.0,
-                "z": 5.0
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CarnivalTinCan",
-            "position": {
-                "x": 0.5,
-                "y": 2.0,
-                "z": 0.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CarnivalTinCan",
-            "position": {
-                "x": -0.5,
-                "y": 1.5,
-                "z": 0.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CarnivalTinCan",
-            "position": {
-                "x": 0.0,
-                "y": 2.0,
-                "z": 0.25
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
+                "y": 180.0,
                 "z": 0.0
             }
         }

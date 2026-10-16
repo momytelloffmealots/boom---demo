@@ -10,7 +10,6 @@ public class LevelLoader : MonoBehaviour
 
     private readonly List<GameObject> _spawnedBlocks = new List<GameObject>();
 
-    // Property lưu độ khó của Level hiện tại
     public LevelDifficulty CurrentDifficulty { get; private set; } = LevelDifficulty.Normal;
 
     private void Awake()
@@ -37,46 +36,53 @@ public class LevelLoader : MonoBehaviour
             return;
         }
 
-        // 1. Dọn dẹp Level cũ
+        // 1. Dọn dẹp Level cũ và Reset trạng thái GameRule
         ClearCurrentLevel();
+        if (GameRuleController.Instance != null)
+        {
+            GameRuleController.Instance.ResetRules();
+        }
 
         // 2. Đọc độ khó từ JSON
         CurrentDifficulty = data.Difficulty;
 
-        // 3. Đồng bộ đạn cho SimpleCannon (Ép súng gốc nhận số đạn từ JSON)
+        // 3. Đồng bộ đạn cho SimpleCannon
         if (cannon != null)
         {
             cannon.SetMaxBullets(data.MaxBullets);
         }
 
-        // 4. Báo cáo độ khó cho GameRuleController để tùy chỉnh Gameplay/UI sau này
+        // 4. Báo cáo độ khó cho GameRuleController
         if (GameRuleController.Instance != null)
         {
             GameRuleController.Instance.SetLevelDifficulty(data.Difficulty);
         }
 
-        // 5. Sinh ra các Block Prefab từ Database
+        // 5. Sinh ra các Prefab từ Database
         foreach (BlockData bData in data.blocks)
         {
             GameObject prefab = blockLevelDatabase != null ? blockLevelDatabase.GetPrefabByName(bData.prefabName) : null;
             if (prefab != null)
             {
-                // 🔥 CHỐT CHẶN BẢO VỆ: Quét xem "cục gạch" này có phải là súng không?
                 if (prefab.GetComponent<SimpleCannon>() != null)
                 {
-                    Debug.LogWarning("🚨 Phát hiện JSON chứa Súng! Đã chặn đứng hành vi đẻ thêm súng Clone!");
-                    continue; // Bỏ qua ngay lập tức, không cho Instantiate!
+                    Debug.LogWarning("Phát hiện JSON chứa Súng! Đã chặn đứng hành vi đẻ thêm súng Clone!");
+                    continue;
                 }
 
                 GameObject obj = Instantiate(prefab, bData.position, Quaternion.Euler(bData.rotation), levelParent);
                 _spawnedBlocks.Add(obj);
 
-                // Báo cáo cục gạch vừa đẻ cho Trọng Tài để hệ thống đếm số lượng gạch
-                if (obj.TryGetComponent<Block>(out Block blockScript))
+                // 🔥 MỚI: Nếu vật thể sinh ra là DigitalScale (hoặc chứa DigitalScale ở con)
+                DigitalScale scaleScript = obj.GetComponentInChildren<DigitalScale>();
+                if (scaleScript != null)
                 {
+                    bool isDigitalLevel = (data.Difficulty == LevelDifficulty.Digital);
+                    scaleScript.ConfigureFromLevel(isDigitalLevel, data.minWinWeight, data.maxWinWeight);
+
                     if (GameRuleController.Instance != null)
                     {
-                        GameRuleController.Instance.RegisterBlock(blockScript);
+                        GameRuleController.Instance.RegisterDigitalScale(scaleScript);
                     }
                 }
             }
@@ -86,7 +92,7 @@ public class LevelLoader : MonoBehaviour
             }
         }
 
-        Debug.Log($"[LevelLoader] Load thành công Level {data.levelName} - Độ khó: [{CurrentDifficulty}] ({data.MaxBullets} đạn, {data.blocks.Count} blocks)");
+        Debug.Log($"[LevelLoader] Load thành công Level {data.levelName} - Độ khó: [{CurrentDifficulty}] ({data.MaxBullets} đạn, {data.blocks.Count} objects)");
     }
 
     public void ClearCurrentLevel()

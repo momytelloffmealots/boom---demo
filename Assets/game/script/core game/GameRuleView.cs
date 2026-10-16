@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 🔥 MỚI: Tạo một cấu trúc để lưu trữ 3 bức ảnh khác nhau cho từng UI Element
 [System.Serializable]
 public class DifficultySpriteSwap
 {
@@ -11,6 +10,7 @@ public class DifficultySpriteSwap
     public Sprite spriteNormal;    // Hình ảnh lúc Normal
     public Sprite spriteHard;      // Hình ảnh lúc Hard
     public Sprite spriteSuperHard; // Hình ảnh lúc Super Hard
+    public Sprite spriteDigital;   // Hình ảnh lúc Digital (Nếu bỏ trống sẽ tự lấy ảnh Normal)
 }
 
 public class GameRuleView : MonoBehaviour
@@ -26,7 +26,6 @@ public class GameRuleView : MonoBehaviour
     public GameObject panelSubButtons;
     public Button btnCloseSubButtonsBg;
 
-    // 🔥 MỚI: Danh sách UI cần đổi Art theo độ khó (Thay cho biến Color cũ)
     [Header("Danh sách UI cần đổi Art")]
     public List<DifficultySpriteSwap> difficultyArtElements = new List<DifficultySpriteSwap>();
 
@@ -99,7 +98,6 @@ public class GameRuleView : MonoBehaviour
         }
     }
 
-    // 🔥 CẬP NHẬT: Logic đổi Sprite thay vì đổi Color
     public void UpdateDifficultyTheme(LevelDifficulty difficulty)
     {
         foreach (DifficultySpriteSwap item in difficultyArtElements)
@@ -108,20 +106,19 @@ public class GameRuleView : MonoBehaviour
             {
                 Sprite targetSprite = null;
 
-                // Xác định ảnh cần dùng dựa vào độ khó
                 switch (difficulty)
                 {
                     case LevelDifficulty.Normal: targetSprite = item.spriteNormal; break;
                     case LevelDifficulty.Hard: targetSprite = item.spriteHard; break;
                     case LevelDifficulty.SuperHard: targetSprite = item.spriteSuperHard; break;
+                    case LevelDifficulty.Digital:
+                        targetSprite = item.spriteDigital != null ? item.spriteDigital : item.spriteNormal;
+                        break;
                 }
 
-                // Tiến hành thay ảnh
                 if (targetSprite != null)
                 {
                     item.targetImage.sprite = targetSprite;
-
-                    // MẸO: Trả màu Tint về Trắng tinh (Tránh việc ảnh mới bị ám màu cũ)
                     item.targetImage.color = Color.white;
                 }
             }
