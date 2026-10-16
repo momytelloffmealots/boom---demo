@@ -142,39 +142,45 @@ public class SimpleBulletPool : MonoBehaviour
                 obj = candidate;
                 break;
             }
-
-            Debug.LogWarning("[BulletPool] Phat hien object active trong Queue: " + candidate.name, this);
         }
 
         if (obj == null)
         {
-            if (!expandPoolWhenEmpty)
+            // Neu la VFX chua duoc prewarm thi luon cho phep tao moi ke ca khi expandPoolWhenEmpty = false
+            bool isDefaultBullet = (prefab == defaultBulletPrefab);
+            if (!expandPoolWhenEmpty && isDefaultBullet)
             {
                 Debug.LogWarning("[BulletPool] Pool da het: " + prefab.name +
                                  ". Hay tang Bullet Size hoac bat Expand Pool When Empty.", this);
                 return null;
             }
 
-            // Chi tao them khi Queue that su het. Ve sau object moi van duoc tai su dung.
-            obj = Instantiate(prefab, transform);
-            obj.SetActive(false);
+            obj = Instantiate(prefab, position, rotation);
             instancePrefabs[obj] = prefab;
         }
-
-        obj.transform.SetParent(null);
-        obj.transform.SetPositionAndRotation(position, rotation);
+        else
+        {
+            obj.transform.SetParent(null);
+            obj.transform.SetPositionAndRotation(position, rotation);
+        }
 
         // Version chan coroutine cu thu hoi mot object da duoc Spawn lai.
         spawnVersions.TryGetValue(obj, out int oldVersion);
         int version = oldVersion + 1;
         spawnVersions[obj] = version;
 
-        // Bullet.OnEnable se khoi tao Rigidbody va timer cho moi lan spawn.
         obj.SetActive(true);
 
-        // KHONG su dung timer cua Pool voi Bullet, tranh hai bo dem thoi gian tranh chap.
+        // Neu la VFX (khong phai Bullet): Ep ParticleSystem reset va phat lai ngay lap tuc
         if (obj.GetComponent<Bullet>() == null)
         {
+            ParticleSystem[] particles = obj.GetComponentsInChildren<ParticleSystem>(true);
+            for (int i = 0; i < particles.Length; i++)
+            {
+                particles[i].Clear(true);
+                particles[i].Play(true);
+            }
+
             float delay = overrideDelay;
             if (delay <= 0f)
             {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.EventSystems;
 using System;
 using System.Collections;
@@ -45,7 +46,8 @@ public class SimpleCannon : MonoBehaviour
     private Vector3 originalBulletScale = Vector3.one;
     private bool isScaleSaved = false;
     private bool isAiming = false;
-    private Pointer aimingPointer;
+    private int activeTouchIndex = -1; // -1: None, -2: Mouse/Pointer, >=0: Touch index
+    private Vector2 lastAimScreenPos;
     private readonly List<RaycastResult> uiRaycastResults = new List<RaycastResult>(16);
 
     [Header("Debug - Kiem tra loi ket dan")]
@@ -56,7 +58,6 @@ public class SimpleCannon : MonoBehaviour
     public event Action<int> OnAmmoChanged;
     public event Action<int> OnBoosterConsumed;
 
-    // 🔥 MỚI: Thêm sự kiện Armed (Đã nạp, đang chờ) và Canceled (Hủy nạp)
     public static event Action<float> OnInfiniteAmmoArmed;
     public static event Action OnInfiniteAmmoCanceled;
     public static event Action<float> OnInfiniteAmmoStarted;
@@ -84,8 +85,7 @@ public class SimpleCannon : MonoBehaviour
         currentBullets = maxBullets;
         ClearArmedBooster();
         isInfiniteAmmoActive = false;
-        isAiming = false;
-        aimingPointer = null;
+        CancelAim();
         currentForceMultiplier = 1f;
 
         if (infiniteAmmoCoroutine != null)
@@ -111,10 +111,8 @@ public class SimpleCannon : MonoBehaviour
             CameraZoomController.Instance.ResetZoomNormal();
         }
 
-        // 🔥 MỚI: Báo cho UI tắt thanh Slider nếu người chơi chọn hủy Booster
         if (isInfiniteAmmoArmed) OnInfiniteAmmoCanceled?.Invoke();
 
-        // 🔥 MỚI: Tắt animation Booster_Click khi hủy Booster
         if (cannonAnimator != null)
         {
             cannonAnimator.SetBool("BoosterActive", false);
@@ -132,10 +130,10 @@ public class SimpleCannon : MonoBehaviour
 
     public bool ArmBigBullet(float scaleMult, float forceMult, GameObject vfxPrefab)
     {
-        // 🔥 KHÓA TẠI GỐC: Nếu súng đã cạn đạn, từ chối mọi lệnh nạp Booster
         if (currentBullets <= 0) return false;
 
         ClearArmedBooster();
+        CancelAim();
 
         isBigBulletArmed = true;
         bigBulletScaleMultiplier = scaleMult;
@@ -159,10 +157,10 @@ public class SimpleCannon : MonoBehaviour
 
     public bool ArmInfiniteAmmo(float duration, GameObject vfxPrefab)
     {
-        // 🔥 KHÓA TẠI GỐC: Nếu súng đã cạn đạn, từ chối mọi lệnh nạp Booster
         if (currentBullets <= 0) return false;
 
         ClearArmedBooster();
+        CancelAim();
 
         isInfiniteAmmoArmed = true;
         pendingInfiniteDuration = duration;
@@ -208,16 +206,17 @@ public class SimpleCannon : MonoBehaviour
 
     private void Update()
     {
-        // F8 in trang thai khi bi ket (chi tren PC / Unity Editor).
-        if (debugBlockedShots && Keyboard.current != null &&
-            Keyboard.current.f8Key.wasPressedThisFrame)
+        // Nhấn F8 trên bàn phím để in ngay trạng thái súng ra Console
+        if (Keyboard.current != null && Keyboard.current.f8Key.wasPressedThisFrame)
         {
-            Debug.LogWarning("[Cannon-Debug F8] " + GetCannonDebugStatus(), this);
+            Debug.LogError("[Cannon-Debug F8] " + GetCannonDebugStatus(), this);
         }
+
+        bool hasNewPress = TryGetNewPress(out Vector2 newPressPos, out int newTouchIndex, out bool releasedSameFrame);
 
         if (Time.timeScale <= 0f)
         {
-            LogBlockedPress("Game dang pause (Time.timeScale <= 0)");
+            if (hasNewPress) LogBlockedPress("Game dang pause (Time.timeScale <= 0)");
             CancelAim();
             return;
         }
@@ -225,70 +224,173 @@ public class SimpleCannon : MonoBehaviour
         if (GameRuleController.Instance != null &&
             !GameRuleController.Instance.CanPlayerShoot())
         {
-            LogBlockedPress("Gameplay chua bat dau / dang loading / popup Win-Lose-Continue");
+            if (hasNewPress) LogBlockedPress("GameRuleController.CanPlayerShoot() == FALSE (Kiem tra GameRuleController!)");
             CancelAim();
             return;
         }
 
         if (currentBullets <= 0 && !isInfiniteAmmoActive && !isInfiniteAmmoArmed)
         {
-            LogBlockedPress("Het ammo");
+            if (hasNewPress) LogBlockedPress("Het ammo");
             CancelAim();
+            return;
+        }
+
+        // Nếu đang ngắm mà có một cú click mới (do Auto Click bắn quá nhanh hoặc điểm chạm cũ bị treo)
+        if (isAiming && hasNewPress)
+        {
+            CancelAim();
+            if (!IsPointerOverUI(newPressPos))
+            {
+                if (releasedSameFrame)
+                {
+                    Shoot(newPressPos);
+                }
+                else
+                {
+                    isAiming = true;
+                    activeTouchIndex = newTouchIndex;
+                    lastAimScreenPos = newPressPos;
+                    Aim(newPressPos);
+                }
+            }
             return;
         }
 
         if (!isAiming)
         {
-            Pointer pointer = Pointer.current;
-            if (pointer == null || !pointer.press.wasPressedThisFrame)
-                return;
+            if (!hasNewPress) return;
 
-            Vector2 screenPos = pointer.position.ReadValue();
-            if (IsPointerOverUI(screenPos))
+            if (IsPointerOverUI(newPressPos))
             {
                 LogBlockedPress("UI dang nhan input: " + lastBlockingUIName);
                 return;
             }
 
-            aimingPointer = pointer;
             isAiming = true;
-            Aim(screenPos);
+            activeTouchIndex = newTouchIndex;
+            lastAimScreenPos = newPressPos;
+            Aim(newPressPos);
 
-            // Mot click rat nhanh co the Press va Release trong cung mot frame.
-            if (aimingPointer.press.wasReleasedThisFrame ||
-                !aimingPointer.press.isPressed)
+            // Click cực nhanh (Auto Click) nhấn và nhả trong cùng 1 frame
+            if (releasedSameFrame)
             {
                 CancelAim();
-                Shoot(screenPos);
+                Shoot(newPressPos);
             }
             return;
         }
 
-        if (aimingPointer == null)
+        // Đang trong trạng thái giữ ngắm (isAiming == true)
+        if (TryGetActiveAimState(out Vector2 currentPos, out bool isReleased))
         {
+            lastAimScreenPos = currentPos;
+            if (isReleased)
+            {
+                CancelAim();
+                Shoot(currentPos);
+                return;
+            }
+            Aim(currentPos);
+        }
+        else
+        {
+            // Điểm chạm không còn hợp lệ -> Bắn ngay tại vị trí ngắm cuối cùng và giải phóng khóa
+            Vector2 shootPos = lastAimScreenPos;
             CancelAim();
-            return;
+            Shoot(shootPos);
+        }
+    }
+
+    // Quét toàn bộ các kênh Input (Tất cả ngón tay Touchscreen + Mouse + Pointer) để chống kẹt touch[0] trên Simulator
+    private bool TryGetNewPress(out Vector2 screenPos, out int touchIndex, out bool releasedSameFrame)
+    {
+        screenPos = Vector2.zero;
+        touchIndex = -1;
+        releasedSameFrame = false;
+
+        if (Touchscreen.current != null)
+        {
+            var touches = Touchscreen.current.touches;
+            for (int i = 0; i < touches.Count; i++)
+            {
+                TouchControl touch = touches[i];
+                if (touch.press.wasPressedThisFrame)
+                {
+                    screenPos = touch.position.ReadValue();
+                    touchIndex = i;
+                    UnityEngine.InputSystem.TouchPhase phase = touch.phase.ReadValue();
+                    releasedSameFrame = touch.press.wasReleasedThisFrame ||
+                                        !touch.press.isPressed ||
+                                        phase == UnityEngine.InputSystem.TouchPhase.Ended ||
+                                        phase == UnityEngine.InputSystem.TouchPhase.Canceled;
+                    return true;
+                }
+            }
         }
 
-        Vector2 position = aimingPointer.position.ReadValue();
-        bool pointerReleased = aimingPointer.press.wasReleasedThisFrame;
-        bool pointerHeld = aimingPointer.press.isPressed;
-
-        if (pointerReleased || !pointerHeld)
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
-            CancelAim();
-            Shoot(position);
-            return;
+            screenPos = Mouse.current.position.ReadValue();
+            touchIndex = -2;
+            releasedSameFrame = Mouse.current.leftButton.wasReleasedThisFrame || !Mouse.current.leftButton.isPressed;
+            return true;
         }
 
-        Aim(position);
+        if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
+        {
+            screenPos = Pointer.current.position.ReadValue();
+            touchIndex = -2;
+            releasedSameFrame = Pointer.current.press.wasReleasedThisFrame || !Pointer.current.press.isPressed;
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool TryGetActiveAimState(out Vector2 screenPos, out bool isReleased)
+    {
+        screenPos = lastAimScreenPos;
+        isReleased = true;
+
+        if (activeTouchIndex >= 0 && Touchscreen.current != null)
+        {
+            var touches = Touchscreen.current.touches;
+            if (activeTouchIndex < touches.Count)
+            {
+                TouchControl touch = touches[activeTouchIndex];
+                screenPos = touch.position.ReadValue();
+                UnityEngine.InputSystem.TouchPhase phase = touch.phase.ReadValue();
+                isReleased = touch.press.wasReleasedThisFrame ||
+                             !touch.press.isPressed ||
+                             phase == UnityEngine.InputSystem.TouchPhase.Ended ||
+                             phase == UnityEngine.InputSystem.TouchPhase.Canceled ||
+                             phase == UnityEngine.InputSystem.TouchPhase.None;
+                return true;
+            }
+            return false;
+        }
+
+        if (Mouse.current != null && Mouse.current.leftButton.isPressed)
+        {
+            screenPos = Mouse.current.position.ReadValue();
+            isReleased = Mouse.current.leftButton.wasReleasedThisFrame;
+            return true;
+        }
+
+        if (Pointer.current != null)
+        {
+            screenPos = Pointer.current.position.ReadValue();
+            isReleased = Pointer.current.press.wasReleasedThisFrame || !Pointer.current.press.isPressed;
+            return true;
+        }
+
+        return false;
     }
 
     private void LogBlockedPress(string reason)
     {
         if (!debugBlockedShots) return;
-        Pointer pointer = Pointer.current;
-        if (pointer == null || !pointer.press.wasPressedThisFrame) return;
         Debug.LogWarning("[Cannon-BLOCKED] " + reason + " | " + GetCannonDebugStatus(), this);
     }
 
@@ -302,13 +404,13 @@ public class SimpleCannon : MonoBehaviour
             : "GameRule=NULL";
         return $"scene={SceneManager.GetActiveScene().name}, ammo={currentBullets}/{maxBullets}, " +
                $"timeScale={Time.timeScale}, cannonActive={gameObject.activeInHierarchy}, " +
-               $"isAiming={isAiming}, {gameInfo}, {poolInfo}";
+               $"isAiming={isAiming}, touchIdx={activeTouchIndex}, {gameInfo}, {poolInfo}";
     }
 
     private void CancelAim()
     {
         isAiming = false;
-        aimingPointer = null;
+        activeTouchIndex = -1;
     }
 
     private void Aim(Vector2 screenPos)
@@ -357,19 +459,16 @@ public class SimpleCannon : MonoBehaviour
         if (cannonDirection.sqrMagnitude > 0.0001f)
             transform.rotation = Quaternion.LookRotation(cannonDirection);
 
-        // Phai tinh huong sau khi xoay sung vi firePoint co the di chuyen theo sung.
         Vector3 shootDirection = targetPoint - firePoint.position;
         if (shootDirection.sqrMagnitude < 0.0001f)
             shootDirection = firePoint.forward;
         shootDirection.Normalize();
 
-        // Tao tai dung vi tri truoc khi OnEnable cua Bullet chay.
         GameObject bullet = pool.GetBullet(
             firePoint.position, Quaternion.LookRotation(shootDirection));
 
         if (bullet == null)
         {
-            // Khong tru ammo, khong mat Booster neu Pool khong cap duoc dan.
             Debug.LogWarning("[Cannon] Khong lay duoc dan tu Object Pool.", this);
             return;
         }
@@ -384,9 +483,7 @@ public class SimpleCannon : MonoBehaviour
 
         if (rb.isKinematic)
         {
-            Debug.LogError("[Cannon] Rigidbody cua Bullet dang isKinematic; khong the ban.", bullet);
-            pool.ReturnBullet(bullet);
-            return;
+            rb.isKinematic = false;
         }
 
         bool consumeBig = isBigBulletArmed;
@@ -405,8 +502,6 @@ public class SimpleCannon : MonoBehaviour
 
         bulletScript.SetExplosionMultiplier(currentForceMultiplier);
 
-        // Snapshot owner tai THOI DIEM BAN. Tuyet doi khong dung Instance moi
-        // trong callback cua vien dan tu level cu.
         SimpleBulletPool ownerPool = pool;
         GameRuleController ownerRule = GameRuleController.Instance;
         int shotSceneHandle = gameObject.scene.handle;
@@ -436,14 +531,12 @@ public class SimpleCannon : MonoBehaviour
                 ownerRule.RegisterBulletReturned();
         };
 
-        // Ghi nhan cho dung owner, tranh callback cu thay doi level moi.
         if (ownerRule != null)
             ownerRule.RegisterBulletFired();
 
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.WakeUp();
-        // Giu nguyen cach tinh luc va cam giac ban cua project ban dau.
         rb.AddForce(shootDirection * bulletSpeed * rb.mass, ForceMode.VelocityChange);
 
         if (consumeBig)
@@ -483,7 +576,6 @@ public class SimpleCannon : MonoBehaviour
 
         if (muzzleVFXPrefab != null)
         {
-            // Tai su dung VFX khi ban nhanh, tranh Instantiate/Destroy lien tuc.
             pool.Spawn(muzzleVFXPrefab, firePoint.position, firePoint.rotation, 0.5f);
         }
 
@@ -498,8 +590,6 @@ public class SimpleCannon : MonoBehaviour
             OnBoosterConsumed?.Invoke(2);
     }
 
-    // UI trang tri (Image, Text, coin fly, nen trong suot) KHONG duoc chan gameplay.
-    // Chi chan khi nguoi dung dang tuong tac mot control / handler thuc su.
     private bool IsPointerOverUI(Vector2 position)
     {
         lastBlockingUIName = "";
@@ -521,17 +611,18 @@ public class SimpleCannon : MonoBehaviour
             GameObject hit = result.gameObject;
             if (hit == null) continue;
 
-            // Selectable: Button, Toggle, Slider, InputField...
-            // ExecuteEvents: UI tu viet bang EventTrigger / click / drag / scroll.
             Selectable selectable = hit.GetComponentInParent<Selectable>();
-            bool actuallyInteractive =
-                (selectable != null && selectable.IsActive() && selectable.IsInteractable()) ||
-                ExecuteEvents.GetEventHandler<IPointerClickHandler>(hit) != null ||
-                ExecuteEvents.GetEventHandler<IPointerDownHandler>(hit) != null ||
-                ExecuteEvents.GetEventHandler<IDragHandler>(hit) != null ||
-                ExecuteEvents.GetEventHandler<IScrollHandler>(hit) != null;
+            if (selectable != null && selectable.IsActive() && selectable.IsInteractable())
+            {
+                lastBlockingUIName = selectable.gameObject.name;
+                return true;
+            }
 
-            if (actuallyInteractive)
+            // Chỉ kiểm tra trực tiếp trên đối tượng bị chạm, tránh dò ngược lên các tấm Panel nền toàn màn hình
+            if (hit.GetComponent<IPointerClickHandler>() != null ||
+                hit.GetComponent<IPointerDownHandler>() != null ||
+                hit.GetComponent<IDragHandler>() != null ||
+                hit.GetComponent<IScrollHandler>() != null)
             {
                 lastBlockingUIName = hit.name;
                 return true;
