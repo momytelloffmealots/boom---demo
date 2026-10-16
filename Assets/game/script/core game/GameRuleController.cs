@@ -62,7 +62,7 @@ public class GameRuleController : MonoBehaviour
 
     private IEnumerator DelayedCoinFly(int amount)
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0f);
 
         if (CoinFlyEffect.Instance != null)
         {

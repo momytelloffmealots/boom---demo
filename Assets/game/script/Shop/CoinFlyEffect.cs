@@ -13,9 +13,9 @@ public class CoinFlyEffect : MonoBehaviour
 
     [Header("Cài đặt Hiệu ứng (DOTween)")]
     public float scatterRadius = 250f;    
-    public float scatterDuration = 0.4f;
-    public float flyDuration = 0.6f;
-    public float maxRandomDelay = 0.15f;
+    public float scatterDuration = 0.25f; // Giảm từ 0.4f xuống 0.25f để bung ra nhanh hơn
+    public float flyDuration = 0.55f;
+    public float maxRandomDelay = 0.12f;
 
     private IObjectPool<GameObject> coinPool;
     
@@ -41,6 +41,13 @@ public class CoinFlyEffect : MonoBehaviour
         int coinPerVisual = Mathf.CeilToInt((float)totalReward / visualAmount);
         int remainingCoins = totalReward;
 
+        // Phát âm thanh xuất hiện ngay lập tức khi gọi hàm
+        if (AudioManager.Instance != null && Time.unscaledTime - lastAppearSoundTime > 0.1f)
+        {
+            AudioManager.Instance.PlayCoinAppear();
+            lastAppearSoundTime = Time.unscaledTime;
+        }
+
         for (int i = 0; i < visualAmount; i++)
         {
             GameObject coinObj = coinPool.Get();
@@ -56,40 +63,28 @@ public class CoinFlyEffect : MonoBehaviour
         coinRect.DOKill();
         
         coinRect.anchoredPosition = Vector2.zero; 
-        coinRect.localScale = Vector3.zero;
+        // Cho xu hiển thị sẵn ở kích thước 0.5 thay vì bằng 0 (tàng hình)
+        coinRect.localScale = Vector3.one * 0.5f;
         coinRect.rotation = Quaternion.identity;
 
         Sequence seq = DOTween.Sequence();
         
-        // Gắn ID để dễ dàng quản lý
         seq.SetId("CoinFly"); 
         seq.SetUpdate(true); 
         
         Vector2 randomOffset = Random.insideUnitCircle * scatterRadius;
         Vector3 randomRotation = new Vector3(0, 0, Random.Range(-180f, 180f));
-        float delay = Random.Range(0f, maxRandomDelay);
+        float flyStaggerDelay = Random.Range(0f, maxRandomDelay);
 
-        seq.SetDelay(delay);
-
-        seq.AppendCallback(() =>
-        {
-            if (AudioManager.Instance != null) 
-            {
-                if (Time.unscaledTime - lastAppearSoundTime > 0.1f)
-                {
-                    // 🔥 GỌI TRỰC TIẾP TỪ AUDIOMANAGER
-                    AudioManager.Instance.PlayCoinAppear(); 
-                    lastAppearSoundTime = Time.unscaledTime;
-                }
-            }
-        });
-
+        // 1. Bung xu ra NGAY LẬP TỨC (0 giây delay)
         seq.Append(coinRect.DOScale(Vector3.one, scatterDuration).SetEase(Ease.OutBack));
         seq.Join(coinRect.DOAnchorPos(randomOffset, scatterDuration).SetEase(Ease.OutCubic));
         seq.Join(coinRect.DORotate(randomRotation, scatterDuration).SetEase(Ease.OutCubic));
         
-        seq.AppendInterval(0.05f);
+        // 2. Chờ lệch nhịp một chút trước khi từng đồng xu bay lên ví
+        seq.AppendInterval(flyStaggerDelay);
 
+        // 3. Bay về phía UI tiền
         seq.Append(coinRect.DOMove(targetUI.position, flyDuration).SetEase(Ease.InBack));
         seq.Join(coinRect.DOScale(Vector3.one * 0.8f, flyDuration));
         seq.Join(coinRect.DORotate(Vector3.zero, flyDuration));
@@ -100,7 +95,6 @@ public class CoinFlyEffect : MonoBehaviour
             {
                 if (Time.unscaledTime - lastReachSoundTime > 0.1f)
                 {
-                    // 🔥 GỌI TRỰC TIẾP TỪ AUDIOMANAGER
                     AudioManager.Instance.PlayCoinReach();
                     lastReachSoundTime = Time.unscaledTime;
                 }
@@ -114,7 +108,6 @@ public class CoinFlyEffect : MonoBehaviour
         });
     }
 
-    // Hàm ép toàn bộ tiền bay thẳng vào ví ngay lập tức (Tua nhanh)
     public void ForceComplete()
     {
         DOTween.Complete("CoinFly");

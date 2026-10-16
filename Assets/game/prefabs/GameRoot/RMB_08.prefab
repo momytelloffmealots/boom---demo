@@ -189,6 +189,4 @@ MonoBehaviour:
   explosionVFX: {fileID: 153256, guid: fe394d041df1a0547990f49cf653249f, type: 3}
   explosionForce: 8
   explosionRadius: 2
-  upliftModifier: 0.5
-  flyingSFX: {fileID: 8300000, guid: c7656294729101443a83165ff6d4ddb7, type: 3}
-  explosionSFX: {fileID: 8300000, guid: 32a0e3f5ff3cec54a9017da2c6724ec7, type: 3}
+  upliftModifier: 0.8
