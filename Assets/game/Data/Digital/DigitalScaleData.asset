@@ -15,9 +15,9 @@ MonoBehaviour:
   minWeight: 0
   maxWeight: 100
   minAngle: 0
-  maxAngle: 180
-  rotationAxis: 0
-  invertRotation: 1
+  maxAngle: 360
+  rotationAxis: 1
+  invertRotation: 0
   needleSmoothSpeed: 5
   weightFormat: '{0:F1} kg'
   settleDelay: 1.5
