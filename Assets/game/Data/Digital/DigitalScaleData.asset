@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DigitalScaleData
   minWeight: 0
   maxWeight: 100
-  minAngle: 0
-  maxAngle: 360
+  minAngle: -180
+  maxAngle: 0
   rotationAxis: 1
   invertRotation: 0
   needleSmoothSpeed: 5
