@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
   blockName: 
   blockType: 0
-  mass: 1
+  mass: 3
   hitSound: {fileID: 0}
   breakSound: {fileID: 0}
   normalBehavior: 0

@@ -134,10 +134,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a10df99b4f6c2499fd08a1905f37e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Block
-  data: {fileID: 11400000, guid: d31e3e0a28cc0ad47b4c6d54d72a5b6e, type: 2}
+  data: {fileID: 11400000, guid: 0b0ff0b48bce8f248abb072df54ba290, type: 2}
   groundLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   spawnImmunityTime: 0.3
 --- !u!65 &-4806627678469164811
 BoxCollider:

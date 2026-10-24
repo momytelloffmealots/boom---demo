@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a10df99b4f6c2499fd08a1905f37e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Block
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 4f1aa1190d00f66479d73ff1d45cd4e5, type: 2}
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
