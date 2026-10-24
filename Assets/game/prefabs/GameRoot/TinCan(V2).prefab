@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3827409120530261044, guid: 97542d17ff6d87a45b65f2004c68218b, type: 3}
       propertyPath: m_Name
-      value: TinCan(V2) (1) Variant
+      value: TinCan(V2)
       objectReference: {fileID: 0}
     - target: {fileID: 4491884320607944334, guid: 97542d17ff6d87a45b65f2004c68218b, type: 3}
       propertyPath: m_LocalScale.x
@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6628518828436632031, guid: 97542d17ff6d87a45b65f2004c68218b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 152450c08e3f49842a58baeb8c03ad52, type: 2}
     - target: {fileID: 8215280451899238296, guid: 97542d17ff6d87a45b65f2004c68218b, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -166,7 +170,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 485efbd73eafc2b47bf020764636d944, type: 2}
+  - {fileID: 2100000, guid: 152450c08e3f49842a58baeb8c03ad52, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
