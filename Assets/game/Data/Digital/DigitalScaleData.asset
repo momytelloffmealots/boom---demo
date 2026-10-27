@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: DigitalScaleData
   m_EditorClassIdentifier: Assembly-CSharp::DigitalScaleData
   minWeight: 0
-  maxWeight: 100
-  minAngle: -180
-  maxAngle: 0
-  rotationAxis: 1
+  maxWeight: 180
+  minAngle: -90
+  maxAngle: 90
+  rotationAxis: 0
   invertRotation: 0
   needleSmoothSpeed: 5
   weightFormat: '{0:F1} kg'
