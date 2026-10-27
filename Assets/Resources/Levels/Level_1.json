@@ -2,8 +2,8 @@
     "levelName": "Level_1",
     "MaxBullets": 30,
     "Difficulty": 3,
-    "minWinWeight": 15.0,
-    "maxWinWeight": 25.0,
+    "minWinWeight": 40.0,
+    "maxWinWeight": 60.0,
     "blocks": [
         {
             "prefabName": "TinCan(V2)",
