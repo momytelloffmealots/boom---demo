@@ -3,7 +3,17 @@ guid: a23e6940672fc8a43a37285ad18090fb
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: dbafb0d5ccad9bc459cd9d347bf51de7, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: RoyalSmash
+    second: {fileID: 2800000, guid: bd27af4763f54f84c999f1c773dbb140, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
