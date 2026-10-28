@@ -24,6 +24,10 @@ public class Block : MonoBehaviour
 
     public event Action<Block> OnBlockDestroyed;
 
+    // Gameplay weight comes from Block Data; Rigidbody mass mirrors it for physics.
+    public float Mass => Mathf.Max(0f, data != null ? data.mass
+        : (rb != null ? rb.mass : GetComponent<Rigidbody>().mass));
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -40,19 +44,27 @@ public class Block : MonoBehaviour
         }
     }
 
+    // LevelLoader can instantiate under an inactive gameplay root. Apply the
+    // data mass explicitly because Awake/OnEnable may not have run yet.
+    public float ApplyConfiguredMass()
+    {
+        if (rb == null) rb = GetComponent<Rigidbody>();
+        if (data != null) rb.mass = data.mass;
+        return Mass;
+    }
+
     private void OnEnable()
     {
         isDestroyed = false;
         enableTime = Time.time;
         transform.localScale = originalScale;
 
-        if (data != null && rb != null)
-        {
-            rb.mass = data.mass;
-        }
+        ApplyConfiguredMass();
 
         if (meshRenderers != null && data != null && data.normalBehavior == NormalBlockBehavior.DeformShader)
         {
+            // MaterialPropertyBlock is not preserved by an Editor domain reload.
+            if (propBlock == null) propBlock = new MaterialPropertyBlock();
             int deformPropertyId = GetShaderPropertyId(data.deformProgressProperty, "_DeformAmount");
             int alphaPropertyId = GetShaderPropertyId(data.alphaProperty, "_Alpha");
 

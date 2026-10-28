@@ -152,6 +152,9 @@ public static class LevelEditorScene
                 if (go != null)
                 {
                     go.transform.position = pos;
+                    if (prefab.GetComponentInChildren<DigitalScale>(true) != null)
+                        go.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+
                     Undo.RegisterCreatedObjectUndo(go, "Place Block");
                     e.Use();
                 }

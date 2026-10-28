@@ -92,6 +92,14 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
+    public void UpdateEditorPlaytestLevelJson(string json)
+    {
+        if (isEditorPlaytest && !string.IsNullOrEmpty(json))
+            editorPlaytestJson = json;
+    }
+#endif
+
     public void NextLevel()
     {
 #if UNITY_EDITOR

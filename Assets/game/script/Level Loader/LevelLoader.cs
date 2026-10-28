@@ -62,7 +62,12 @@ public class LevelLoader : MonoBehaviour
             GameRuleController.Instance.SetLevelDifficulty(data.Difficulty);
         }
 
-        // 5. Sinh ra các Prefab từ Database
+        // 5. Sinh ra các Prefab từ Database và tính tổng khối lượng block ban đầu.
+        // Chỉ các object có Block mới được tính; kệ/cân không làm tăng giới hạn mặt cân.
+        float initialTotalBlockWeight = 0f;
+        int initialBlockCount = 0;
+        List<DigitalScale> digitalScales = new List<DigitalScale>();
+
         foreach (BlockData bData in data.blocks)
         {
             GameObject prefab = blockLevelDatabase != null ? blockLevelDatabase.GetPrefabByName(bData.prefabName) : null;
@@ -74,21 +79,23 @@ public class LevelLoader : MonoBehaviour
                     continue;
                 }
 
-                GameObject obj = Instantiate(prefab, bData.position, Quaternion.Euler(bData.rotation), levelParent);
+                Vector3 blockRotation = LevelData.ResolveBlockRotation(data, bData, prefab);
+                GameObject obj = Instantiate(prefab, bData.position, Quaternion.Euler(blockRotation), levelParent);
                 _spawnedBlocks.Add(obj);
 
-                // 🔥 MỚI: Nếu vật thể sinh ra là DigitalScale (hoặc chứa DigitalScale ở con)
-                DigitalScale scaleScript = obj.GetComponentInChildren<DigitalScale>();
-                if (scaleScript != null)
+                Block block = obj.GetComponent<Block>();
+                Rigidbody blockRigidbody = obj.GetComponent<Rigidbody>();
+                if (block != null && blockRigidbody != null)
                 {
-                    bool isDigitalLevel = (data.Difficulty == LevelDifficulty.Digital);
-                    scaleScript.ConfigureFromLevel(isDigitalLevel, data.minWinWeight, data.maxWinWeight);
-
-                    if (GameRuleController.Instance != null)
-                    {
-                        GameRuleController.Instance.RegisterDigitalScale(scaleScript);
-                    }
+                    // Gameplay may still be inactive, so Block.OnEnable has not
+                    // necessarily replaced the prefab's default Rigidbody mass.
+                    initialTotalBlockWeight += Mathf.Max(0f, block.ApplyConfiguredMass());
+                    initialBlockCount++;
                 }
+
+                DigitalScale scaleScript = obj.GetComponentInChildren<DigitalScale>(true);
+                if (scaleScript != null)
+                    digitalScales.Add(scaleScript);
             }
             else
             {
@@ -96,6 +103,17 @@ public class LevelLoader : MonoBehaviour
             }
         }
 
+        bool isDigitalLevel = data.Difficulty == LevelDifficulty.Digital;
+        foreach (DigitalScale scaleScript in digitalScales)
+        {
+            scaleScript.ConfigureFromLevel(isDigitalLevel, data.minWinWeight, data.maxWinWeight);
+            scaleScript.SetLevelTotalBlockWeight(initialTotalBlockWeight);
+
+            if (GameRuleController.Instance != null)
+                GameRuleController.Instance.RegisterDigitalScale(scaleScript);
+        }
+
+        Debug.Log($"[LevelLoader] Tổng khối lượng ban đầu: {initialBlockCount} block, {initialTotalBlockWeight:F1} kg.");
         Debug.Log($"[LevelLoader] Load thành công Level {data.levelName} - Độ khó: [{CurrentDifficulty}] ({data.MaxBullets} đạn, {data.blocks.Count} objects)");
     }
 

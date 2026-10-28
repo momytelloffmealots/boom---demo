@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 using TMPro;
 
 public class DigitalScale : MonoBehaviour
@@ -14,6 +15,12 @@ public class DigitalScale : MonoBehaviour
 
     [Tooltip("Gán TextMeshPro nếu muốn hiện con số kg trên màn hình điện tử")]
     public TMP_Text weightText;
+
+    [Header("Target Range Visual")]
+    [SerializeField] private Color targetZoneColor = new Color(0.12f, 0.95f, 0.08f, 0.58f);
+    [SerializeField, Min(0f)] private float targetZoneInnerRadius = 0.22f;
+    [SerializeField, Min(0f)] private float targetZoneOuterRadius = 0.58f;
+    [SerializeField, Min(0f)] private float targetZoneSurfaceOffset = 0.006f;
 
     [Header("Win/Lose Settings (Tự động nhận từ Level JSON)")]
     public bool enableWinCheck = false;
@@ -33,13 +40,28 @@ public class DigitalScale : MonoBehaviour
     private bool isPendingSettlement = false;
     private bool isEvaluated = false;
     private bool hasPlayerInteracted = false;
+    private bool hasConfiguredTargetRange;
+    private float levelScaleMaxWeight = -1f;
+    private GameObject targetZoneObject;
+    private MeshFilter targetZoneMeshFilter;
+    private MeshRenderer targetZoneMeshRenderer;
+    private Mesh targetZoneMesh;
+    private Material targetZoneMaterial;
 
     public float CurrentWeight => currentWeight;
+    public int BlockCountOnScale => objectsOnScale.Count;
     public bool IsSettled => !isPendingSettlement;
+    public DigitalScaleData Data => data;
+    public float ScaleMinWeight => data != null ? data.minWeight : 0f;
+    public float ScaleMaxWeight => levelScaleMaxWeight > ScaleMinWeight
+        ? levelScaleMaxWeight
+        : data != null ? data.maxWeight : 1f;
 
     private void Awake()
     {
-        if (data != null)
+        // LevelLoader may configure this component under an inactive gameplay
+        // root before Awake runs. JSON targets must take priority over defaults.
+        if (!hasConfiguredTargetRange && data != null)
         {
             minWinWeight = data.defaultMinWinWeight;
             maxWinWeight = data.defaultMaxWinWeight;
@@ -48,18 +70,197 @@ public class DigitalScale : MonoBehaviour
 
     private void Start()
     {
-        currentAngle = data != null ? data.minAngle : 0f;
-        UpdateNeedleRotation(currentAngle);
         RecalculateWeight(isInitialSetup: true);
+        currentAngle = CalculateTargetAngle(currentWeight);
+        UpdateNeedleRotation(currentAngle);
+
+        UpdateTargetZoneVisual();
     }
 
     public void ConfigureFromLevel(bool isDigitalMode, float minWin, float maxWin)
     {
         enableWinCheck = isDigitalMode;
-        minWinWeight = minWin;
-        maxWinWeight = maxWin;
+        SetTargetRange(minWin, maxWin);
+    }
+
+    public void SetTargetRange(float minWin, float maxWin)
+    {
+        hasConfiguredTargetRange = true;
+        minWinWeight = Mathf.Max(0f, minWin);
+        maxWinWeight = Mathf.Max(minWinWeight, maxWin);
         isEvaluated = false;
         hasPlayerInteracted = false;
+
+        UpdateTargetZoneVisual();
+    }
+
+    public void SetLevelTotalBlockWeight(float totalBlockWeight)
+    {
+        levelScaleMaxWeight = totalBlockWeight > ScaleMinWeight ? totalBlockWeight : -1f;
+        UpdateTargetZoneVisual();
+    }
+
+    private void UpdateTargetZoneVisual()
+    {
+        if (!enableWinCheck || data == null || needlePivot == null)
+        {
+            if (targetZoneObject != null)
+                targetZoneObject.SetActive(false);
+            return;
+        }
+
+        if (!EnsureTargetZoneVisual())
+            return;
+
+        RebuildTargetZoneMesh();
+        targetZoneObject.SetActive(true);
+    }
+
+    private bool EnsureTargetZoneVisual()
+    {
+        if (targetZoneObject != null && targetZoneMeshFilter != null && targetZoneMeshRenderer != null)
+            return true;
+
+        Transform visualParent = needlePivot.parent != null ? needlePivot.parent : transform;
+        targetZoneObject = new GameObject("Target Range Indicator (Auto)");
+        targetZoneObject.layer = gameObject.layer;
+        targetZoneObject.transform.SetParent(visualParent, false);
+
+        targetZoneMeshFilter = targetZoneObject.AddComponent<MeshFilter>();
+        targetZoneMeshRenderer = targetZoneObject.AddComponent<MeshRenderer>();
+        targetZoneMesh = new Mesh { name = "Digital Scale Target Range" };
+        targetZoneMesh.MarkDynamic();
+        targetZoneMeshFilter.sharedMesh = targetZoneMesh;
+
+        Shader shader = Shader.Find("Universal Render Pipeline/Unlit");
+        if (shader == null)
+            shader = Shader.Find("Sprites/Default");
+
+        if (shader == null)
+        {
+            Debug.LogWarning("[DigitalScale] Không tìm thấy shader để vẽ vùng mục tiêu trên cân.", this);
+            Destroy(targetZoneObject);
+            targetZoneObject = null;
+            targetZoneMeshFilter = null;
+            targetZoneMeshRenderer = null;
+            Destroy(targetZoneMesh);
+            targetZoneMesh = null;
+            return false;
+        }
+
+        targetZoneMaterial = new Material(shader)
+        {
+            name = "Digital Scale Target Range (Runtime)",
+            hideFlags = HideFlags.DontSave
+        };
+        ConfigureTargetZoneMaterial();
+        targetZoneMeshRenderer.sharedMaterial = targetZoneMaterial;
+        targetZoneMeshRenderer.shadowCastingMode = ShadowCastingMode.Off;
+        targetZoneMeshRenderer.receiveShadows = false;
+        targetZoneMeshRenderer.allowOcclusionWhenDynamic = false;
+        return true;
+    }
+
+    private void ConfigureTargetZoneMaterial()
+    {
+        if (targetZoneMaterial == null)
+            return;
+
+        if (targetZoneMaterial.HasProperty("_Surface")) targetZoneMaterial.SetFloat("_Surface", 1f);
+        if (targetZoneMaterial.HasProperty("_Blend")) targetZoneMaterial.SetFloat("_Blend", 0f);
+        if (targetZoneMaterial.HasProperty("_SrcBlend")) targetZoneMaterial.SetFloat("_SrcBlend", (float)BlendMode.SrcAlpha);
+        if (targetZoneMaterial.HasProperty("_DstBlend")) targetZoneMaterial.SetFloat("_DstBlend", (float)BlendMode.OneMinusSrcAlpha);
+        if (targetZoneMaterial.HasProperty("_SrcBlendAlpha")) targetZoneMaterial.SetFloat("_SrcBlendAlpha", (float)BlendMode.One);
+        if (targetZoneMaterial.HasProperty("_DstBlendAlpha")) targetZoneMaterial.SetFloat("_DstBlendAlpha", (float)BlendMode.OneMinusSrcAlpha);
+        if (targetZoneMaterial.HasProperty("_ZWrite")) targetZoneMaterial.SetFloat("_ZWrite", 0f);
+        if (targetZoneMaterial.HasProperty("_Cull")) targetZoneMaterial.SetFloat("_Cull", (float)CullMode.Off);
+        if (targetZoneMaterial.HasProperty("_BaseColor")) targetZoneMaterial.SetColor("_BaseColor", targetZoneColor);
+        if (targetZoneMaterial.HasProperty("_Color")) targetZoneMaterial.SetColor("_Color", targetZoneColor);
+
+        targetZoneMaterial.SetOverrideTag("RenderType", "Transparent");
+        targetZoneMaterial.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+        targetZoneMaterial.renderQueue = (int)RenderQueue.Transparent;
+    }
+
+    private void RebuildTargetZoneMesh()
+    {
+        if (targetZoneMesh == null || targetZoneMeshFilter == null || needlePivot == null)
+            return;
+
+        float firstAngle = CalculateTargetAngle(minWinWeight);
+        float secondAngle = CalculateTargetAngle(maxWinWeight);
+        float startAngle = Mathf.Min(firstAngle, secondAngle);
+        float endAngle = Mathf.Max(firstAngle, secondAngle);
+        float angleSpan = endAngle - startAngle;
+
+        if (angleSpan <= 0.01f || targetZoneOuterRadius <= targetZoneInnerRadius)
+        {
+            targetZoneMesh.Clear();
+            return;
+        }
+
+        int segments = Mathf.Clamp(Mathf.CeilToInt(angleSpan / 2f), 1, 96);
+        Vector3[] vertices = new Vector3[(segments + 1) * 2];
+        int[] triangles = new int[segments * 6];
+        Vector2[] uvs = new Vector2[vertices.Length];
+
+        Vector3 center = needlePivot.localPosition + GetDialNormal() * targetZoneSurfaceOffset;
+
+        for (int i = 0; i <= segments; i++)
+        {
+            float t = i / (float)segments;
+            float angle = Mathf.Lerp(startAngle, endAngle, t);
+            Vector3 direction = GetDialDirection(angle);
+            int vertexIndex = i * 2;
+
+            vertices[vertexIndex] = center + direction * targetZoneInnerRadius;
+            vertices[vertexIndex + 1] = center + direction * targetZoneOuterRadius;
+            uvs[vertexIndex] = new Vector2(t, 0f);
+            uvs[vertexIndex + 1] = new Vector2(t, 1f);
+
+            if (i < segments)
+            {
+                int triangleIndex = i * 6;
+                triangles[triangleIndex] = vertexIndex;
+                triangles[triangleIndex + 1] = vertexIndex + 1;
+                triangles[triangleIndex + 2] = vertexIndex + 3;
+                triangles[triangleIndex + 3] = vertexIndex;
+                triangles[triangleIndex + 4] = vertexIndex + 3;
+                triangles[triangleIndex + 5] = vertexIndex + 2;
+            }
+        }
+
+        targetZoneMesh.Clear();
+        targetZoneMesh.vertices = vertices;
+        targetZoneMesh.triangles = triangles;
+        targetZoneMesh.uv = uvs;
+        targetZoneMesh.RecalculateNormals();
+        targetZoneMesh.RecalculateBounds();
+    }
+
+    private Vector3 GetDialDirection(float angle)
+    {
+        float radians = angle * Mathf.Deg2Rad;
+        switch (data.rotationAxis)
+        {
+            case ScaleAxis.Y_Axis:
+                return new Vector3(Mathf.Sin(radians), 0f, Mathf.Cos(radians));
+            case ScaleAxis.X_Axis:
+                return new Vector3(0f, Mathf.Cos(radians), Mathf.Sin(radians));
+            default:
+                // The needle mesh points up when its local rotation is zero.
+                return new Vector3(-Mathf.Sin(radians), Mathf.Cos(radians), 0f);
+        }
+    }
+
+    private Vector3 GetDialNormal()
+    {
+        switch (data.rotationAxis)
+        {
+            case ScaleAxis.Y_Axis: return Vector3.up;
+            case ScaleAxis.X_Axis: return Vector3.right;
+            default: return Vector3.forward;
+        }
     }
 
     private void Update()
@@ -82,7 +283,6 @@ public class DigitalScale : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        // 🔥 BẢO HIỂM: Đảm bảo các khối gạch nằm đè lên cân luôn được ghi nhận trọng lượng
         TryAddObject(other);
     }
 
@@ -91,6 +291,7 @@ public class DigitalScale : MonoBehaviour
         Rigidbody rb = other.attachedRigidbody;
         if (rb != null && objectsOnScale.Remove(rb))
         {
+            // Reweigh only after the rigidbody actually leaves the detector.
             RecalculateWeight(isInitialSetup: false);
         }
     }
@@ -98,7 +299,7 @@ public class DigitalScale : MonoBehaviour
     private void TryAddObject(Collider other)
     {
         Rigidbody rb = other.attachedRigidbody;
-        if (rb != null && !rb.isKinematic) // Chỉ tính vật có trọng lực / physics rigidbody
+        if (rb != null && !rb.isKinematic && rb.GetComponent<Block>() != null)
         {
             if (objectsOnScale.Add(rb))
             {
@@ -109,13 +310,10 @@ public class DigitalScale : MonoBehaviour
 
     private void CleanUpAndRecalculateWeight()
     {
-        int countBefore = objectsOnScale.Count;
         objectsOnScale.RemoveWhere(rb => rb == null || !rb.gameObject.activeInHierarchy);
-
-        if (countBefore != objectsOnScale.Count)
-        {
-            RecalculateWeight(isInitialSetup: false);
-        }
+        // Also refresh when a tracked Rigidbody's mass changes, even if the
+        // number of blocks inside the detector stays the same.
+        RecalculateWeight(isInitialSetup: Time.timeSinceLevelLoad < 0.5f);
     }
 
     private void RecalculateWeight(bool isInitialSetup)
@@ -125,7 +323,9 @@ public class DigitalScale : MonoBehaviour
 
         foreach (Rigidbody rb in objectsOnScale)
         {
-            if (rb != null) currentWeight += rb.mass;
+            if (rb == null) continue;
+            Block block = rb.GetComponent<Block>();
+            if (block != null) currentWeight += block.Mass;
         }
 
         if (!Mathf.Approximately(previousWeight, currentWeight))
@@ -139,7 +339,6 @@ public class DigitalScale : MonoBehaviour
             }
         }
 
-        // Hiển thị số kg lên Text nếu có gán
         if (weightText != null)
         {
             string format = data != null ? data.weightFormat : "{0:F1} kg";
@@ -158,25 +357,15 @@ public class DigitalScale : MonoBehaviour
             isEvaluated = true;
             isPendingSettlement = false;
 
-            if (currentWeight >= minWinWeight && currentWeight <= maxWinWeight)
+            if (IsWeightInWinRange())
             {
-                Debug.Log($"[DigitalScale] THẮNG CUỘC! Cân nặng: {currentWeight:F1}kg (Mục tiêu: {minWinWeight} - {maxWinWeight}kg)");
                 OnWinConditionMet?.Invoke();
-
-                if (GameRuleController.Instance != null)
-                {
-                    GameRuleController.Instance.NotifyDigitalScaleWin();
-                }
+                if (GameRuleController.Instance != null) GameRuleController.Instance.NotifyDigitalScaleWin();
             }
             else if (currentWeight < minWinWeight)
             {
-                Debug.Log($"[DigitalScale] THUA CUỘC! Cân nặng ({currentWeight:F1}kg) tụt dưới mức tối thiểu {minWinWeight}kg");
                 OnLoseConditionMet?.Invoke();
-
-                if (GameRuleController.Instance != null)
-                {
-                    GameRuleController.Instance.NotifyDigitalScaleOverShotLose();
-                }
+                if (GameRuleController.Instance != null) GameRuleController.Instance.NotifyDigitalScaleOverShotLose();
             }
         }
     }
@@ -190,7 +379,7 @@ public class DigitalScale : MonoBehaviour
     {
         if (data == null) return 0f;
 
-        float t = Mathf.Clamp01((weight - data.minWeight) / Mathf.Max(0.0001f, data.maxWeight - data.minWeight));
+        float t = Mathf.Clamp01((weight - data.minWeight) / Mathf.Max(0.0001f, ScaleMaxWeight - data.minWeight));
         float angle = Mathf.Lerp(data.minAngle, data.maxAngle, t);
         return data.invertRotation ? -angle : angle;
     }
@@ -207,5 +396,11 @@ public class DigitalScale : MonoBehaviour
             case ScaleAxis.X_Axis: euler.x = angle; break;
         }
         needlePivot.localEulerAngles = euler;
+    }
+
+    private void OnDestroy()
+    {
+        if (targetZoneMesh != null) Destroy(targetZoneMesh);
+        if (targetZoneMaterial != null) Destroy(targetZoneMaterial);
     }
 }

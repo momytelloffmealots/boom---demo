@@ -1,65 +1,56 @@
 {
-    "levelName": "CustomLevel",
-    "MaxBullets": 10,
+    "formatVersion": 1,
+    "levelName": "Level_2",
+    "MaxBullets": 30,
+    "Difficulty": 3,
+    "minWinWeight": 150.0,
+    "maxWinWeight": 170.0,
     "blocks": [
         {
-            "prefabName": "bulletpool",
+            "prefabName": "CrystalRock(fixed) (1)",
             "position": {
-                "x": 11.0,
-                "y": 0.0,
-                "z": 5.0
+                "x": 1.25,
+                "y": 3.5,
+                "z": 1.75
             },
             "rotation": {
                 "x": 0.0,
-                "y": 0.0,
+                "y": 180.0,
                 "z": 0.0
             }
         },
         {
-            "prefabName": "CarnivalTinCan",
+            "prefabName": "CrystalRock(fixed) (1)",
             "position": {
-                "x": 0.0,
-                "y": 1.0,
-                "z": 0.0
+                "x": 1.25,
+                "y": 2.5,
+                "z": 1.25
             },
             "rotation": {
                 "x": 0.0,
-                "y": 0.0,
+                "y": 180.0,
                 "z": 0.0
             }
         },
         {
-            "prefabName": "Pedestal",
+            "prefabName": "CrystalRock(fixed) (1)",
             "position": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
+                "x": -0.25,
+                "y": 3.0,
+                "z": 1.25
             },
             "rotation": {
                 "x": 0.0,
-                "y": 90.00000762939453,
+                "y": 180.0,
                 "z": 0.0
             }
         },
         {
-            "prefabName": "CarnivalTinCan",
-            "position": {
-                "x": -0.5,
-                "y": 1.5,
-                "z": 0.0
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CarnivalTinCan",
+            "prefabName": "CarnivalTinBox(3x1)(V1)",
             "position": {
                 "x": -0.5,
-                "y": 1.0,
-                "z": 0.0
+                "y": 2.0,
+                "z": 2.25
             },
             "rotation": {
                 "x": 0.0,
@@ -68,76 +59,11 @@
             }
         },
         {
-            "prefabName": "CarnivalTinCan",
-            "position": {
-                "x": 0.5,
-                "y": 1.5,
-                "z": 0.0
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CarnivalTinCan",
-            "position": {
-                "x": 0.5,
-                "y": 1.0,
-                "z": 0.0
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "cannon",
-            "position": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": -5.0
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CarnivalTinCan",
-            "position": {
-                "x": -1.0,
-                "y": 1.0,
-                "z": 0.0
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CarnivalTinCan",
-            "position": {
-                "x": 1.0,
-                "y": 1.0,
-                "z": 0.0
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CarnivalTinCan",
+            "prefabName": "CarnivalTinBox(3x1)(V1)",
             "position": {
                 "x": 0.0,
                 "y": 2.0,
-                "z": 0.0
+                "z": 2.25
             },
             "rotation": {
                 "x": 0.0,
@@ -146,11 +72,518 @@
             }
         },
         {
-            "prefabName": "CarnivalTinCan",
+            "prefabName": "WoodStar(new) (1)",
             "position": {
                 "x": 0.0,
-                "y": 1.5,
+                "y": 3.5,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
                 "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -0.75,
+                "y": 2.5,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.25,
+                "y": 2.0,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -0.75,
+                "y": 3.0,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.75,
+                "y": 2.0,
+                "z": 1.75
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 1.25,
+                "y": 2.0,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.75,
+                "y": 2.0,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.75,
+                "y": 3.0,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "WoodStar(new) (1)",
+            "position": {
+                "x": -1.5,
+                "y": 2.5,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 1.25,
+                "y": 3.0,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -1.5,
+                "y": 3.5,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.75,
+                "y": 3.5,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 1.25,
+                "y": 3.5,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 1.25,
+                "y": 2.5,
+                "z": 1.75
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -1.5,
+                "y": 3.0,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 1.25,
+                "y": 3.0,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -0.75,
+                "y": 2.0,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.75,
+                "y": 3.0,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 1.25,
+                "y": 2.5,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinBox(3x1)(V1)",
+            "position": {
+                "x": -0.5,
+                "y": 2.0,
+                "z": 1.75
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.75,
+                "y": 2.5,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.75,
+                "y": 2.0,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.25,
+                "y": 2.5,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.75,
+                "y": 2.5,
+                "z": 1.75
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "WoodStar(new) (1)",
+            "position": {
+                "x": -1.5,
+                "y": 2.0,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 1.25,
+                "y": 2.0,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -1.5,
+                "y": 3.5,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "WoodStar(new) (1)",
+            "position": {
+                "x": -1.5,
+                "y": 2.0,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 1.25,
+                "y": 3.0,
+                "z": 1.75
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "WoodStar(new) (1)",
+            "position": {
+                "x": -1.5,
+                "y": 2.5,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.75,
+                "y": 2.5,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -0.25,
+                "y": 2.5,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "DigitalScale(V2)",
+            "position": {
+                "x": -0.25,
+                "y": 0.5799999833106995,
+                "z": 1.75
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -0.25,
+                "y": 2.0,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.75,
+                "y": 3.0,
+                "z": 1.75
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": -1.5,
+                "y": 3.0,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 1.25,
+                "y": 2.0,
+                "z": 1.75
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.75,
+                "y": 3.5,
+                "z": 1.75
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CrystalRock(fixed) (1)",
+            "position": {
+                "x": 0.25,
+                "y": 3.0,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinBox(3x1)(V1)",
+            "position": {
+                "x": 0.0,
+                "y": 2.0,
+                "z": 1.75
             },
             "rotation": {
                 "x": 0.0,

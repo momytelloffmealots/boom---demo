@@ -159,9 +159,30 @@ public class LevelEditorWindow : EditorWindow
         {
             EditorGUILayout.Space(4);
             EditorGUILayout.BeginVertical("box");
+            EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("DIGITAL SCALE TARGET (KG)", EditorStyles.miniBoldLabel);
+            if (GUILayout.Button("Lấy mặc định từ Data", GUILayout.Width(145f)))
+                LoadDigitalScaleTargetDefaults();
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUI.BeginChangeCheck();
             minWinWeight = EditorGUILayout.FloatField("Min Win Weight", Mathf.Max(0f, minWinWeight));
             maxWinWeight = EditorGUILayout.FloatField("Max Win Weight", Mathf.Max(minWinWeight, maxWinWeight));
+            if (EditorGUI.EndChangeCheck() && LevelEditorPlaytestSession.IsActive)
+                LevelEditorPlaytestSession.UpdateDigitalTargetRange(minWinWeight, maxWinWeight);
+            EditorGUILayout.HelpBox("Min/Max là khoảng thắng riêng của level và được lưu vào JSON. Mặc định có thể lấy từ DigitalScaleData. Max của mặt cân tự tính bằng tổng mass Block lúc tải level.", MessageType.None);
+
+            if (LevelEditorPlaytestSession.IsActive)
+            {
+                DigitalScale runtimeScale = UnityEngine.Object.FindAnyObjectByType<DigitalScale>();
+                if (runtimeScale != null)
+                {
+                    EditorGUILayout.LabelField("Max mặt cân (tổng Block ban đầu)", $"{runtimeScale.ScaleMaxWeight:F1} kg");
+                    EditorGUILayout.LabelField("Block trong vùng cân", $"{runtimeScale.BlockCountOnScale} block — {runtimeScale.CurrentWeight:F1} kg");
+                    EditorGUILayout.LabelField("Khoảng thắng đang áp dụng", $"{runtimeScale.minWinWeight:F1} – {runtimeScale.maxWinWeight:F1} kg");
+                }
+            }
+
             EditorGUILayout.EndVertical();
         }
 
@@ -171,7 +192,7 @@ public class LevelEditorWindow : EditorWindow
 
         if (LevelEditorPlaytestSession.IsActive)
         {
-            EditorGUILayout.HelpBox("Đang Playtest level trong editor.unity với gameplay Core. Dừng Play Mode để quay lại chỉnh.", MessageType.Info);
+            EditorGUILayout.HelpBox("Đang Playtest level trong editor.unity với gameplay Core. Min/Max cân nặng cập nhật trực tiếp; dừng Playtest để chỉnh layout.", MessageType.Info);
             GUI.backgroundColor = new Color(0.8f, 0.35f, 0.25f);
             if (GUILayout.Button("Dừng Playtest", GUILayout.Height(30)))
                 LevelEditorPlaytestSession.StopPlaytest();
@@ -378,10 +399,36 @@ public class LevelEditorWindow : EditorWindow
         }
     }
 
+    private void LoadDigitalScaleTargetDefaults()
+    {
+        if (palette != null && palette.prefabs != null)
+        {
+            foreach (GameObject prefab in palette.prefabs)
+            {
+                if (prefab == null) continue;
+
+                DigitalScale scale = prefab.GetComponentInChildren<DigitalScale>(true);
+                if (scale == null || scale.Data == null) continue;
+
+                minWinWeight = Mathf.Max(0f, scale.Data.defaultMinWinWeight);
+                maxWinWeight = Mathf.Max(minWinWeight, scale.Data.defaultMaxWinWeight);
+
+                if (LevelEditorPlaytestSession.IsActive)
+                    LevelEditorPlaytestSession.UpdateDigitalTargetRange(minWinWeight, maxWinWeight);
+
+                Repaint();
+                return;
+            }
+        }
+
+        ShowNotification(new GUIContent("Palette chưa có prefab Digital Scale gắn DigitalScaleData."));
+    }
+
     private LevelData BuildCurrentLevelData()
     {
         LevelData levelData = new LevelData
         {
+            formatVersion = LevelData.CurrentFormatVersion,
             levelName = "CustomLevel",
             MaxBullets = Mathf.Max(1, maxAmmo),
             Difficulty = difficulty,
@@ -458,7 +505,7 @@ public class LevelEditorWindow : EditorWindow
                 if (go != null)
                 {
                     go.transform.position = bData.position;
-                    go.transform.eulerAngles = bData.rotation;
+                    go.transform.eulerAngles = LevelData.ResolveBlockRotation(data, bData, prefab);
                     Undo.RegisterCreatedObjectUndo(go, "Import Level Block");
                 }
             }

@@ -36,6 +36,40 @@ public static class LevelEditorPlaytestSession
 
     public static bool IsActive => SessionState.GetBool(SessionKey + ".active", false);
 
+    public static void UpdateDigitalTargetRange(float minWeight, float maxWeight)
+    {
+        if (!IsActive || !EditorApplication.isPlaying)
+            return;
+
+        minWeight = Mathf.Max(0f, minWeight);
+        maxWeight = Mathf.Max(minWeight, maxWeight);
+
+        string levelJson = EditorPrefs.GetString(PreviewJsonKey, string.Empty);
+        if (!string.IsNullOrEmpty(levelJson))
+        {
+            LevelData levelData = JsonUtility.FromJson<LevelData>(levelJson);
+            if (levelData != null)
+            {
+                levelData.minWinWeight = minWeight;
+                levelData.maxWinWeight = maxWeight;
+                levelJson = JsonUtility.ToJson(levelData, true);
+                EditorPrefs.SetString(PreviewJsonKey, levelJson);
+
+                LevelManager levelManager = UnityEngine.Object.FindAnyObjectByType<LevelManager>();
+                if (levelManager != null)
+                    levelManager.UpdateEditorPlaytestLevelJson(levelJson);
+            }
+        }
+
+        DigitalScale[] scales = UnityEngine.Object.FindObjectsByType<DigitalScale>(
+            FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        foreach (DigitalScale scale in scales)
+        {
+            if (scale != null && scale.gameObject.scene.IsValid() && scale.gameObject.scene.isLoaded)
+                scale.SetTargetRange(minWeight, maxWeight);
+        }
+    }
+
     public static bool TryStartPlaytest(LevelData levelData)
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode)

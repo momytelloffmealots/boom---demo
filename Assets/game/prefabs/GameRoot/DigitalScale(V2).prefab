@@ -69,6 +69,10 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 3c6c022758d02ab4c80684202d1ebf2e, type: 2}
   needlePivot: {fileID: 5350878170322630605}
   weightText: {fileID: 0}
+  targetZoneColor: {r: 0.034557104, g: 1, b: 0, a: 1}
+  targetZoneInnerRadius: 0.22
+  targetZoneOuterRadius: 0.65
+  targetZoneSurfaceOffset: 0.006
   enableWinCheck: 1
   minWinWeight: 10
   maxWinWeight: 20
