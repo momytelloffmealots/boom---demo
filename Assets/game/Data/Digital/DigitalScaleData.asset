@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: DigitalScaleData
   m_EditorClassIdentifier: Assembly-CSharp::DigitalScaleData
   minWeight: 0
-  maxWeight: 180
-  minAngle: -90
-  maxAngle: 90
+  maxWeight: 200
+  minAngle: 90
+  maxAngle: -90
   rotationAxis: 0
   invertRotation: 0
   needleSmoothSpeed: 5
