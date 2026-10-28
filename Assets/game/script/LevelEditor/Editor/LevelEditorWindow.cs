@@ -2,9 +2,12 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelEditorWindow : EditorWindow
 {
+    private const string EditorScenePath = "Assets/Scenes/editor.unity";
+
     public enum EditMode
     {
         Place,
@@ -99,7 +102,7 @@ public class LevelEditorWindow : EditorWindow
 
                 foreach (GameObject prefab in palette.prefabs)
                 {
-                    if (prefab == null) continue;
+                    if (!IsLevelPrefab(prefab)) continue;
 
                     bool selected = selectedPrefab == prefab;
                     GUI.backgroundColor = selected ? Color.green : Color.white;
@@ -166,22 +169,33 @@ public class LevelEditorWindow : EditorWindow
         GUILayout.Space(15);
         EditorGUILayout.LabelField("SAVE / LOAD SYSTEM", EditorStyles.boldLabel);
 
-        GUILayout.BeginHorizontal();
-
-        GUI.backgroundColor = new Color(0.3f, 0.8f, 0.4f);
-        if (GUILayout.Button("Export Level (JSON)", GUILayout.Height(30)))
+        if (LevelEditorPlaytestSession.IsActive)
         {
-            ExportLevelToJSON();
+            EditorGUILayout.HelpBox("Đang Playtest level trong editor.unity với gameplay Core. Dừng Play Mode để quay lại chỉnh.", MessageType.Info);
+            GUI.backgroundColor = new Color(0.8f, 0.35f, 0.25f);
+            if (GUILayout.Button("Dừng Playtest", GUILayout.Height(30)))
+                LevelEditorPlaytestSession.StopPlaytest();
+            GUI.backgroundColor = Color.white;
         }
-
-        GUI.backgroundColor = new Color(0.3f, 0.6f, 0.9f);
-        if (GUILayout.Button("Import Level (JSON)", GUILayout.Height(30)))
+        else
         {
-            ImportLevelFromJSON();
-        }
+            GUILayout.BeginHorizontal();
 
-        GUI.backgroundColor = Color.white;
-        GUILayout.EndHorizontal();
+            GUI.backgroundColor = new Color(0.25f, 0.65f, 0.9f);
+            if (GUILayout.Button("▶ Playtest", GUILayout.Height(30)))
+                PlaytestCurrentLevel();
+
+            GUI.backgroundColor = new Color(0.3f, 0.8f, 0.4f);
+            if (GUILayout.Button("Export Level (JSON)", GUILayout.Height(30)))
+                ExportLevelToJSON();
+
+            GUI.backgroundColor = new Color(0.3f, 0.6f, 0.9f);
+            if (GUILayout.Button("Import Level (JSON)", GUILayout.Height(30)))
+                ImportLevelFromJSON();
+
+            GUI.backgroundColor = Color.white;
+            GUILayout.EndHorizontal();
+        }
         GUILayout.Space(10);
     }
 
@@ -315,40 +329,11 @@ public class LevelEditorWindow : EditorWindow
             return;
         }
 
-        LevelData levelData = new LevelData
-        {
-            MaxBullets = maxAmmo,
-            Difficulty = difficulty,
-            minWinWeight = minWinWeight,
-            maxWinWeight = maxWinWeight
-        };
-
-        HashSet<string> validPrefabNames = new HashSet<string>();
-        foreach (var p in palette.prefabs)
-        {
-            if (p != null) validPrefabNames.Add(p.name);
-        }
-
-        GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
-        foreach (GameObject obj in allObjects)
-        {
-            GameObject rootInstance = PrefabUtility.GetOutermostPrefabInstanceRoot(obj);
-            if (rootInstance != obj) continue;
-
-            GameObject prefabParent = PrefabUtility.GetCorrespondingObjectFromSource(obj);
-            if (prefabParent != null && validPrefabNames.Contains(prefabParent.name))
-            {
-                levelData.blocks.Add(new BlockData(
-                    prefabParent.name,
-                    obj.transform.position,
-                    obj.transform.eulerAngles
-                ));
-            }
-        }
+        LevelData levelData = BuildCurrentLevelData();
 
         if (levelData.blocks.Count == 0)
         {
-            EditorUtility.DisplayDialog("Thông báo", "Không tìm thấy Block hợp lệ nào trong Scene để xuất!", "OK");
+            EditorUtility.DisplayDialog("Thông báo", "Không tìm thấy block hoặc kệ hợp lệ trong Scene Editor để xuất!", "OK");
             return;
         }
 
@@ -361,6 +346,82 @@ public class LevelEditorWindow : EditorWindow
             AssetDatabase.Refresh();
             Debug.Log($"[LevelEditor] Đã xuất Level thành công: {path}");
         }
+    }
+
+    private void PlaytestCurrentLevel()
+    {
+        if (palette == null || palette.prefabs == null || palette.prefabs.Count == 0)
+        {
+            EditorUtility.DisplayDialog("Lỗi", "Vui lòng gán Block Palette trước khi chạy thử.", "OK");
+            return;
+        }
+
+        Scene editingScene = SceneManager.GetActiveScene();
+        if (!editingScene.IsValid() || !editingScene.isLoaded || editingScene.path != EditorScenePath)
+        {
+            EditorUtility.DisplayDialog("Playtest", "Hãy mở Assets/Scenes/editor.unity và đặt Scene này làm active để chạy thử layout.", "OK");
+            return;
+        }
+
+        LevelData levelData = BuildCurrentLevelData();
+        if (levelData.blocks.Count == 0)
+        {
+            EditorUtility.DisplayDialog("Thông báo", "Hãy đặt ít nhất một block hoặc kệ trong editor.unity trước khi chạy thử.", "OK");
+            return;
+        }
+
+        levelData.levelName = "EditorPlaytest";
+        if (LevelEditorPlaytestSession.TryStartPlaytest(levelData))
+        {
+            ShowNotification(new GUIContent("Playtest đang mở bằng gameplay Core."));
+            Repaint();
+        }
+    }
+
+    private LevelData BuildCurrentLevelData()
+    {
+        LevelData levelData = new LevelData
+        {
+            levelName = "CustomLevel",
+            MaxBullets = Mathf.Max(1, maxAmmo),
+            Difficulty = difficulty,
+            minWinWeight = minWinWeight,
+            maxWinWeight = maxWinWeight
+        };
+
+        if (palette == null || palette.prefabs == null)
+            return levelData;
+
+        HashSet<string> validPrefabNames = new HashSet<string>();
+        foreach (GameObject prefab in palette.prefabs)
+        {
+            if (IsLevelPrefab(prefab))
+                validPrefabNames.Add(prefab.name);
+        }
+
+        Scene editingScene = SceneManager.GetActiveScene();
+        HashSet<GameObject> collectedRoots = new HashSet<GameObject>();
+        GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
+        foreach (GameObject obj in allObjects)
+        {
+            if (obj.scene != editingScene)
+                continue;
+
+            GameObject prefabRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(obj);
+            if (prefabRoot == null || prefabRoot != obj || !collectedRoots.Add(prefabRoot))
+                continue;
+
+            GameObject prefabSource = PrefabUtility.GetCorrespondingObjectFromSource(prefabRoot);
+            if (prefabSource == null || !validPrefabNames.Contains(prefabSource.name))
+                continue;
+
+            levelData.blocks.Add(new BlockData(
+                prefabSource.name,
+                prefabRoot.transform.position,
+                prefabRoot.transform.eulerAngles));
+        }
+
+        return levelData;
     }
 
     private void ImportLevelFromJSON()
@@ -386,7 +447,7 @@ public class LevelEditorWindow : EditorWindow
         Dictionary<string, GameObject> lookup = new Dictionary<string, GameObject>();
         foreach (var p in palette.prefabs)
         {
-            if (p != null && !lookup.ContainsKey(p.name)) lookup.Add(p.name, p);
+            if (IsLevelPrefab(p) && !lookup.ContainsKey(p.name)) lookup.Add(p.name, p);
         }
 
         foreach (BlockData bData in data.blocks)
@@ -404,5 +465,12 @@ public class LevelEditorWindow : EditorWindow
         }
 
         Repaint();
+    }
+
+    private static bool IsLevelPrefab(GameObject prefab)
+    {
+        return prefab != null &&
+               prefab.GetComponentInChildren<SimpleCannon>(true) == null &&
+               prefab.GetComponentInChildren<SimpleBulletPool>(true) == null;
     }
 }

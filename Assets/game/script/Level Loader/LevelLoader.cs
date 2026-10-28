@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
@@ -17,7 +18,10 @@ public class LevelLoader : MonoBehaviour
         if (blockLevelDatabase != null) blockLevelDatabase.Init();
         if (levelParent == null)
         {
-            levelParent = new GameObject("[LEVEL_CONTAINER]").transform;
+            GameObject container = new GameObject("[LEVEL_CONTAINER]");
+            if (gameObject.scene.IsValid() && container.scene != gameObject.scene)
+                SceneManager.MoveGameObjectToScene(container, gameObject.scene);
+            levelParent = container.transform;
         }
     }
 

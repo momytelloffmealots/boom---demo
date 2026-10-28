@@ -4,6 +4,10 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using PTITGameSDK.Modules;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class GameRuleController : MonoBehaviour
 {
     public static GameRuleController Instance;
@@ -20,13 +24,22 @@ public class GameRuleController : MonoBehaviour
     private int activeBulletsFlying = 0;
     private bool isGameOver = false;
     private bool isWaitingForContinue = false;
+    private bool isEditorPlaytest;
     private static bool hasShownSplash = false;
+
+#if UNITY_EDITOR
+    private const string EditorPlaytestActiveKey = "LevelEditor.Playtest.Active";
+#endif
 
     // 🔥 Tham chiếu tới cân trong màn Digital
     private DigitalScale activeDigitalScale;
 
     private void Awake()
     {
+#if UNITY_EDITOR
+        isEditorPlaytest = EditorPrefs.GetBool(EditorPlaytestActiveKey, false);
+#endif
+
         // Luôn ép thời gian trôi bình thường mỗi khi màn chơi bắt đầu để chống lỗi kẹt/đứng hình
         Time.timeScale = 1f;
 
@@ -43,10 +56,10 @@ public class GameRuleController : MonoBehaviour
             view.HandleSplashScreen(hasShownSplash);
             if (!hasShownSplash) hasShownSplash = true;
 
-            bool isAutoStart = PlayerPrefs.GetInt("AutoStartGame", 0) == 1;
+            bool isAutoStart = !isEditorPlaytest && PlayerPrefs.GetInt("AutoStartGame", 0) == 1;
             view.SetupInitialUI(isAutoStart);
 
-            if (!isAutoStart && PlayerPrefs.GetInt("AutoOpenPlayPanel", 0) == 1)
+            if (!isEditorPlaytest && !isAutoStart && PlayerPrefs.GetInt("AutoOpenPlayPanel", 0) == 1)
             {
                 PlayerPrefs.SetInt("AutoOpenPlayPanel", 0);
                 PlayerPrefs.Save();
@@ -79,7 +92,7 @@ public class GameRuleController : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerPrefs.GetInt("AutoStartGame", 0) == 1)
+        if (!isEditorPlaytest && PlayerPrefs.GetInt("AutoStartGame", 0) == 1)
         {
             PlayerPrefs.SetInt("AutoStartGame", 0);
             PlayerPrefs.Save();
@@ -181,6 +194,14 @@ public class GameRuleController : MonoBehaviour
 
     private void HandlePlayOn()
     {
+        if (isEditorPlaytest)
+        {
+            isWaitingForContinue = false;
+            if (view != null && view.endGameView != null) view.endGameView.HideAll();
+            if (playerCannon != null) playerCannon.AddBullets(5);
+            return;
+        }
+
         if (CurrencyManager.Instance != null && CurrencyManager.Instance.TrySpendCoins(continuePrice))
         {
             isWaitingForContinue = false;
@@ -220,6 +241,13 @@ public class GameRuleController : MonoBehaviour
         isWaitingForContinue = false;
         isGameOver = true;
 
+        if (isEditorPlaytest)
+        {
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayLoseSound();
+            if (view != null && view.endGameView != null) view.endGameView.ShowLose();
+            return;
+        }
+
         // 🔥 [GẮN TRACKING LEVEL LOSE]
         string levelId = "Lv_" + PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString("0000");
         LevelTrackEvent.Create("end")
@@ -251,6 +279,14 @@ public class GameRuleController : MonoBehaviour
 
     private void HandleTryAgain()
     {
+        if (isEditorPlaytest)
+        {
+            if (view != null && view.endGameView != null) view.endGameView.HideAll();
+            if (LevelManager.Instance != null)
+                LevelManager.Instance.RestartLevel();
+            return;
+        }
+
         if (LivesManager.Instance != null && LivesManager.Instance.GetCurrentLives() <= 0)
         {
             if (view != null && view.panelMoreLives != null) view.panelMoreLives.SetActive(true);
@@ -265,6 +301,14 @@ public class GameRuleController : MonoBehaviour
 
     private void HandleReturnToHome()
     {
+        if (isEditorPlaytest)
+        {
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#endif
+            return;
+        }
+
         // 🔥 [GẮN TRACKING THOÁT NGANG]
         string levelId = "Lv_" + PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString("0000");
         LevelTrackEvent.Create("quit_level")
@@ -421,6 +465,13 @@ public class GameRuleController : MonoBehaviour
         if (isGameOver) return;
         isGameOver = true;
 
+        if (isEditorPlaytest)
+        {
+            if (view != null && view.endGameView != null) view.endGameView.ShowWin();
+            if (AudioManager.Instance != null) AudioManager.Instance.PlayWinSound();
+            return;
+        }
+
         int coinReward = 20;
         switch (currentDifficulty)
         {
@@ -469,6 +520,14 @@ public class GameRuleController : MonoBehaviour
     {
         isGameOver = true;
         isWaitingForContinue = false;
+
+        if (isEditorPlaytest)
+        {
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#endif
+            return;
+        }
 
         // 🔥 [GẮN TRACKING THOÁT NGANG KHI ĐANG CHƠI]
         string levelId = "Lv_" + PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1).ToString("0000");
