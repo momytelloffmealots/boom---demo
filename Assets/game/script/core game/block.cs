@@ -53,11 +53,16 @@ public class Block : MonoBehaviour
 
         if (meshRenderers != null && data != null && data.normalBehavior == NormalBlockBehavior.DeformShader)
         {
+            int deformPropertyId = GetShaderPropertyId(data.deformProgressProperty, "_DeformAmount");
+            int alphaPropertyId = GetShaderPropertyId(data.alphaProperty, "_Alpha");
+
             foreach (var mr in meshRenderers)
             {
                 mr.GetPropertyBlock(propBlock);
-                propBlock.SetFloat(data.deformProgressProperty, 0f);
-                propBlock.SetFloat(data.alphaProperty, 1f); // QUAN TRỌNG: Khôi phục độ mờ về 1 khi hồi sinh từ Pool
+                // The opaque shader uses alpha clipping with a dither pattern,
+                // so alpha 1 restores every pixel when a pooled block is enabled.
+                propBlock.SetFloat(deformPropertyId, 0f);
+                propBlock.SetFloat(alphaPropertyId, 1f);
                 mr.SetPropertyBlock(propBlock);
             }
         }
@@ -182,8 +187,8 @@ public class Block : MonoBehaviour
         float tFade = data != null ? data.timeFadeOut : 0.3f;
         float tHold = 0.2f; // Tạm nghỉ nằm bẹp trước khi mờ đi
 
-        int propID = Shader.PropertyToID(data != null ? data.deformProgressProperty : "_DeformAmount");
-        int alphaID = Shader.PropertyToID(data != null ? data.alphaProperty : "_Alpha");
+        int propID = GetShaderPropertyId(data.deformProgressProperty, "_DeformAmount");
+        int alphaID = GetShaderPropertyId(data.alphaProperty, "_Alpha");
         int hitPropID = Shader.PropertyToID("_HitPosition");
 
         // --- GIAI ĐOẠN 1: Bóp méo ---
@@ -224,7 +229,8 @@ public class Block : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float progress = tFade > 0f ? Mathf.Clamp01(elapsed / tFade) : 1f;
-            float currentAlpha = Mathf.Lerp(1f, 0f, progress); // Alpha giảm dần từ 1 về 0
+            // The Shader Graph dithers this value into an opaque dissolve.
+            float currentAlpha = Mathf.Lerp(1f, 0f, progress);
 
             if (meshRenderers != null)
             {
@@ -239,5 +245,10 @@ public class Block : MonoBehaviour
         }
 
         gameObject.SetActive(false);
+    }
+
+    private static int GetShaderPropertyId(string propertyName, string fallbackName)
+    {
+        return Shader.PropertyToID(string.IsNullOrWhiteSpace(propertyName) ? fallbackName : propertyName);
     }
 }

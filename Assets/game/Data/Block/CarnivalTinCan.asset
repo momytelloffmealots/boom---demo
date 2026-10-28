@@ -20,8 +20,9 @@ MonoBehaviour:
   normalBehavior: 1
   groundVfxPrefab: {fileID: 0}
   deformProgressProperty: _DeformAmount
+  alphaProperty: _Alpha
   timeDeform: 0.1
-  timeShrink: 1
+  timeFadeOut: 0.3
   breakImpactThreshold: 8
   brokenGlassObjectPrefab: {fileID: 0}
   glassParticleVFX: {fileID: 0}

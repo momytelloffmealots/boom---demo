@@ -55,7 +55,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DeformAmount: 1
+    - _Alpha: 1
+    - _DeformAmount: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _XRMotionVectorsPass: 1
