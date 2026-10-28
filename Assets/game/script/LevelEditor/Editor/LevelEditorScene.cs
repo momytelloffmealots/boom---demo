@@ -23,35 +23,47 @@ public static class LevelEditorScene
         LevelEditorWindow.EditMode mode = window.CurrentMode;
         GameObject prefab = window.GetSelectedPrefab();
 
+        // In Select mode Unity owns Scene View picking and transform handles.
+        if (mode == LevelEditorWindow.EditMode.Select)
+            return;
+
         if (mode == LevelEditorWindow.EditMode.Place && prefab == null)
             return;
 
         Event e = Event.current;
         int controlID = GUIUtility.GetControlID(FocusType.Passive);
 
-        // Prevent default Unity selection when mouse clicked in scene
-        if (e.type == EventType.Layout)
-        {
-            HandleUtility.AddDefaultControl(controlID);
-        }
-
         Ray ray = HandleUtility.GUIPointToWorldRay(e.mousePosition);
         Vector3 pos = Vector3.zero;
+        Vector3 surfacePoint = Vector3.zero;
+        Vector3 surfaceNormal = Vector3.up;
         bool hasHit = false;
         GameObject hitObject = null;
+        GameObject targetBlock = null;
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             hitObject = hit.collider.gameObject;
+            surfacePoint = hit.point;
+            surfaceNormal = hit.normal;
             if (mode == LevelEditorWindow.EditMode.Place)
             {
                 // Offset by half a unit along the normal so block snaps to the outside of the hit face
-                pos = hit.point + hit.normal * 0.25f;
+                pos = surfacePoint + surfaceNormal * 0.25f;
             }
             else
             {
-                // Target the hit object directly for erase/rotate
-                pos = hitObject.transform.position;
+                // Resolve the palette item root. Shelves may not have a Block component,
+                // while block colliders may live on child objects.
+                targetBlock = window.ResolveEditableTarget(hitObject);
+                if (targetBlock != null)
+                {
+                    pos = targetBlock.transform.position;
+                }
+                else
+                {
+                    pos = hitObject.transform.position;
+                }
             }
             hasHit = true;
         }
@@ -62,54 +74,66 @@ public static class LevelEditorScene
             if (plane.Raycast(ray, out float enter))
             {
                 pos = ray.GetPoint(enter);
+                surfacePoint = pos;
+                surfaceNormal = Vector3.up;
                 hasHit = true;
             }
         }
 
-        if (!hasHit) return;
+        // Let normal Scene View selection work when the pointer is over scenery,
+        // and capture the click only when this tool can act on its target.
+        if (e.type == EventType.Layout && (mode == LevelEditorWindow.EditMode.Place || targetBlock != null))
+        {
+            HandleUtility.AddDefaultControl(controlID);
+        }
 
-        float snapSize = 0.5f; // setup size for block placement and snapping
+        if ((mode == LevelEditorWindow.EditMode.Rotate || mode == LevelEditorWindow.EditMode.RotateVertical) && window.RotationTarget != null)
+        {
+            Handles.color = GetRotationColor(window.CurrentRotationAxis);
+            DrawBlockBounds(window.RotationTarget, window.RotationTarget.transform.position, Vector3.one * 0.5f);
+        }
+
+        if (!hasHit) return;
 
         if (mode == LevelEditorWindow.EditMode.Place)
         {
-            float stepXZ = snapSize / 2f; // Nấc snap cho X, Z = 0.25f
+            float stepXZ = Mathf.Max(0.01f, window.HorizontalSnap);
+            float stepY = Mathf.Max(0.01f, window.VerticalSnap);
 
-            // 1. Tính vị trí tâm của block mới từ ĐIỂM VA CHẠM BỀ MẶT (hit.point)
-            // Nẩy nhẹ ra ngoài bề mặt theo hướng hit.normal một khoảng bằng nửa bước snap
-            Vector3 rawPos = hit.point + new Vector3(
-                hit.normal.x * (stepXZ / 2f),
-                hit.normal.y * (snapSize / 2f),
-                hit.normal.z * (stepXZ / 2f)
+            // Nẩy tâm block khỏi bề mặt nửa bước lưới rồi căn vị trí theo lưới.
+            Vector3 rawPos = surfacePoint + new Vector3(
+                surfaceNormal.x * (stepXZ / 2f),
+                surfaceNormal.y * (stepY / 2f),
+                surfaceNormal.z * (stepXZ / 2f)
             );
 
-            // 2. Snap X và Z theo nấc 0.25f (0, 0.25, 0.5, 0.75, 1.0...)
+            // X/Z and Y can use different grid steps for shelves and stacked blocks.
             pos.x = Mathf.Round(rawPos.x / stepXZ) * stepXZ;
             pos.z = Mathf.Round(rawPos.z / stepXZ) * stepXZ;
-
-            // 3. Snap Y theo nấc 0.5f (0, 0.5, 1.0, 1.5...)
-            pos.y = Mathf.Round(rawPos.y / snapSize) * snapSize;
+            pos.y = Mathf.Round(rawPos.y / stepY) * stepY;
         }
 
-        // Draw preview wire cube based on active mode
+        Vector3 previewSize = new Vector3(window.HorizontalSnap, window.VerticalSnap, window.HorizontalSnap);
         if (mode == LevelEditorWindow.EditMode.Place)
         {
             Handles.color = Color.green;
-            Handles.DrawWireCube(pos, Vector3.one * snapSize);
+            Handles.DrawWireCube(pos, previewSize);
         }
         else if (mode == LevelEditorWindow.EditMode.Erase)
         {
-            Handles.color = Color.red;
-            Handles.DrawWireCube(pos, Vector3.one * snapSize);
+            if (targetBlock != null)
+            {
+                Handles.color = Color.red;
+                DrawBlockBounds(targetBlock, pos, previewSize);
+            }
         }
-        else if (mode == LevelEditorWindow.EditMode.Rotate)
+        else if (mode == LevelEditorWindow.EditMode.Rotate || mode == LevelEditorWindow.EditMode.RotateVertical)
         {
-            Handles.color = Color.cyan;
-            Handles.DrawWireCube(pos, Vector3.one * snapSize);
-        }
-        else if (mode == LevelEditorWindow.EditMode.RotateVertical)
-        {
-            Handles.color = Color.yellow;
-            Handles.DrawWireCube(pos, Vector3.one * snapSize);
+            if (window.RotationTarget == null && targetBlock != null)
+            {
+                Handles.color = GetRotationColor(window.CurrentRotationAxis);
+                DrawBlockBounds(targetBlock, pos, previewSize);
+            }
         }
 
         // Repaint scene view when mouse moves to update preview position without infinite loop
@@ -129,23 +153,60 @@ public static class LevelEditorScene
                 {
                     go.transform.position = pos;
                     Undo.RegisterCreatedObjectUndo(go, "Place Block");
+                    e.Use();
                 }
             }
-            else if (mode == LevelEditorWindow.EditMode.Erase && hitObject != null)
+            else if (mode == LevelEditorWindow.EditMode.Erase && targetBlock != null)
             {
-                Undo.DestroyObjectImmediate(hitObject);
+                Undo.DestroyObjectImmediate(targetBlock);
+                e.Use();
             }
-            else if (mode == LevelEditorWindow.EditMode.Rotate && hitObject != null)
+            else if ((mode == LevelEditorWindow.EditMode.Rotate || mode == LevelEditorWindow.EditMode.RotateVertical) && targetBlock != null)
             {
-                Undo.RecordObject(hitObject.transform, "Rotate Block");
-                hitObject.transform.root.Rotate(0, 45, 0);
+                window.SelectRotationTarget(hitObject);
+                e.Use();
             }
-            else if (mode == LevelEditorWindow.EditMode.RotateVertical && hitObject != null)
-            {
-                Undo.RecordObject(hitObject.transform, "Rotate Block Vertically");
-                hitObject.transform.root.Rotate(45, 0, 0);
-            }
-            e.Use();
         }
+    }
+
+    private static Color GetRotationColor(LevelEditorWindow.RotationAxis axis)
+    {
+        switch (axis)
+        {
+            case LevelEditorWindow.RotationAxis.X: return new Color(1f, 0.35f, 0.35f);
+            case LevelEditorWindow.RotationAxis.Z: return new Color(0.35f, 0.65f, 1f);
+            default: return Color.cyan;
+        }
+    }
+
+    private static void DrawBlockBounds(GameObject block, Vector3 fallbackCenter, Vector3 fallbackSize)
+    {
+        Renderer[] renderers = block.GetComponentsInChildren<Renderer>();
+        if (renderers.Length > 0)
+        {
+            Bounds bounds = renderers[0].bounds;
+            for (int i = 1; i < renderers.Length; i++)
+            {
+                bounds.Encapsulate(renderers[i].bounds);
+            }
+
+            Handles.DrawWireCube(bounds.center, bounds.size);
+            return;
+        }
+
+        Collider[] colliders = block.GetComponentsInChildren<Collider>();
+        if (colliders.Length > 0)
+        {
+            Bounds bounds = colliders[0].bounds;
+            for (int i = 1; i < colliders.Length; i++)
+            {
+                bounds.Encapsulate(colliders[i].bounds);
+            }
+
+            Handles.DrawWireCube(bounds.center, bounds.size);
+            return;
+        }
+
+        Handles.DrawWireCube(fallbackCenter, fallbackSize);
     }
 }

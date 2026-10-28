@@ -10,13 +10,27 @@ public class LevelEditorWindow : EditorWindow
         Place,
         Erase,
         Rotate,
-        RotateVertical
+        // Kept for serialized editor-window state created by older versions.
+        RotateVertical,
+        Select
+    }
+
+    public enum RotationAxis
+    {
+        X,
+        Y,
+        Z
     }
 
     [SerializeField] private BlockPalette palette;
     private Vector2 scroll;
     private GameObject selectedPrefab;
     [SerializeField] private EditMode currentMode = EditMode.Place;
+    [SerializeField] private RotationAxis rotationAxis = RotationAxis.Y;
+    [SerializeField] private float rotationStepDegrees = 90f;
+    [SerializeField] private float horizontalSnap = 0.25f;
+    [SerializeField] private float verticalSnap = 0.5f;
+    private GameObject rotationTarget;
 
     // --- LEVEL SETTINGS ---
     [SerializeField] private int maxAmmo = 10;
@@ -25,6 +39,21 @@ public class LevelEditorWindow : EditorWindow
     [SerializeField] private float maxWinWeight = 20f;
 
     public EditMode CurrentMode => currentMode;
+    public RotationAxis CurrentRotationAxis => rotationAxis;
+    public float RotationStepDegrees => rotationStepDegrees;
+    public float HorizontalSnap => horizontalSnap;
+    public float VerticalSnap => verticalSnap;
+    public GameObject RotationTarget => rotationTarget;
+
+    private void OnEnable()
+    {
+        // Older versions stored X rotation as a separate mode with value 3.
+        if (currentMode == EditMode.RotateVertical)
+        {
+            currentMode = EditMode.Rotate;
+            rotationAxis = RotationAxis.X;
+        }
+    }
 
     [MenuItem("Tools/Level Editor")]
     public static void Open()
@@ -38,62 +67,82 @@ public class LevelEditorWindow : EditorWindow
         GUILayout.Label("LEVEL EDITOR", EditorStyles.boldLabel);
         GUILayout.Space(10);
 
-        currentMode = (EditMode)GUILayout.Toolbar((int)currentMode, new string[] {
-            "Place (Thêm)",
-            "Erase (Xóa)",
-            "Rotate (Xoay)",
-            "Rotate Vertical (Xoay Ngang)"
+        int modeIndex = GetModeToolbarIndex(currentMode);
+        modeIndex = GUILayout.Toolbar(modeIndex, new string[] {
+            "Chọn",
+            "Đặt block",
+            "Xóa block",
+            "Xoay block"
         });
+        currentMode = GetModeFromToolbarIndex(modeIndex);
 
         GUILayout.Space(10);
 
         // --- PALETTE & MODES ---
-        if (currentMode == EditMode.Place)
+        if (currentMode == EditMode.Select)
+        {
+            EditorGUILayout.HelpBox("Chọn object trong Scene rồi dùng Move (W), Rotate (E) hoặc Scale (R) để chỉnh tự do.", MessageType.Info);
+        }
+        else if (currentMode == EditMode.Place)
         {
             palette = (BlockPalette)EditorGUILayout.ObjectField("Palette", palette, typeof(BlockPalette), false);
             GUILayout.Space(10);
 
             if (palette == null)
             {
-                EditorGUILayout.HelpBox("Please assign a Block Palette asset.", MessageType.Info);
-                return;
+                EditorGUILayout.HelpBox("Hãy gán Block Palette để chọn block.", MessageType.Info);
             }
-
-            GUILayout.Label("Blocks");
-            scroll = EditorGUILayout.BeginScrollView(scroll, GUILayout.ExpandHeight(true));
-
-            foreach (GameObject prefab in palette.prefabs)
+            else
             {
-                if (prefab == null) continue;
+                GUILayout.Label("Danh sách block");
+                scroll = EditorGUILayout.BeginScrollView(scroll, GUILayout.ExpandHeight(true));
 
-                bool selected = selectedPrefab == prefab;
-                GUI.backgroundColor = selected ? Color.green : Color.white;
-
-                if (GUILayout.Button(prefab.name, GUILayout.Height(35)))
+                foreach (GameObject prefab in palette.prefabs)
                 {
-                    selectedPrefab = prefab;
+                    if (prefab == null) continue;
+
+                    bool selected = selectedPrefab == prefab;
+                    GUI.backgroundColor = selected ? Color.green : Color.white;
+
+                    if (GUILayout.Button(prefab.name, GUILayout.Height(35)))
+                    {
+                        selectedPrefab = prefab;
+                    }
                 }
+
+                GUI.backgroundColor = Color.white;
+                EditorGUILayout.EndScrollView();
+
+                GUILayout.Space(5);
+                EditorGUILayout.HelpBox(
+                    selectedPrefab == null ? "Đã chọn: Chưa có" : $"Đã chọn: {selectedPrefab.name}",
+                    MessageType.None);
             }
 
-            GUI.backgroundColor = Color.white;
-            EditorGUILayout.EndScrollView();
-
-            GUILayout.Space(5);
-            EditorGUILayout.HelpBox(
-                selectedPrefab == null ? "Selected : None" : $"Selected : {selectedPrefab.name}",
-                MessageType.None);
+            EditorGUILayout.Space(6);
+            EditorGUILayout.LabelField("Lưới căn block", EditorStyles.miniBoldLabel);
+            EditorGUILayout.BeginHorizontal();
+            horizontalSnap = Mathf.Max(0.01f, EditorGUILayout.FloatField("X/Z", horizontalSnap));
+            verticalSnap = Mathf.Max(0.01f, EditorGUILayout.FloatField("Y", verticalSnap));
+            EditorGUILayout.EndHorizontal();
         }
         else if (currentMode == EditMode.Erase)
         {
-            EditorGUILayout.HelpBox("Erase Mode: Click any block in the Scene View to delete it.", MessageType.Info);
+            EditorGUILayout.HelpBox("Nhấp vào block trong Scene View để xóa toàn bộ block. Có thể Undo bằng Ctrl+Z.", MessageType.Info);
         }
-        else if (currentMode == EditMode.Rotate)
+        else if (currentMode == EditMode.Rotate || currentMode == EditMode.RotateVertical)
         {
-            EditorGUILayout.HelpBox("Rotate Mode: Click any block in the Scene View to rotate it around Y axis.", MessageType.Info);
-        }
-        else if (currentMode == EditMode.RotateVertical)
-        {
-            EditorGUILayout.HelpBox("Rotate Vertical Mode: Click any block in the Scene View to rotate it around X axis.", MessageType.Info);
+            EditorGUILayout.LabelField("Xoay block đang chọn", EditorStyles.miniBoldLabel);
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("X", GUILayout.Height(30))) RotateTarget(RotationAxis.X);
+            if (GUILayout.Button("Y", GUILayout.Height(30))) RotateTarget(RotationAxis.Y);
+            if (GUILayout.Button("Z", GUILayout.Height(30))) RotateTarget(RotationAxis.Z);
+            EditorGUILayout.EndHorizontal();
+            rotationStepDegrees = Mathf.Clamp(EditorGUILayout.FloatField("Góc xoay (°)", rotationStepDegrees), 1f, 360f);
+            EditorGUILayout.HelpBox("Chọn block trong Scene View, sau đó mỗi lần bấm X/Y/Z sẽ xoay block theo số độ bên dưới.", MessageType.Info);
+            EditorGUILayout.HelpBox(
+                rotationTarget == null ? "Block đang chọn: Chưa có" : $"Block đang chọn: {rotationTarget.name}",
+                rotationTarget == null ? MessageType.Warning : MessageType.None);
         }
 
         // --- LEVEL SETTINGS ---
@@ -137,6 +186,126 @@ public class LevelEditorWindow : EditorWindow
     }
 
     public GameObject GetSelectedPrefab() => selectedPrefab;
+
+    private static int GetModeToolbarIndex(EditMode mode)
+    {
+        switch (mode)
+        {
+            case EditMode.Place: return 1;
+            case EditMode.Erase: return 2;
+            case EditMode.Rotate:
+            case EditMode.RotateVertical: return 3;
+            default: return 0;
+        }
+    }
+
+    private static EditMode GetModeFromToolbarIndex(int index)
+    {
+        switch (index)
+        {
+            case 1: return EditMode.Place;
+            case 2: return EditMode.Erase;
+            case 3: return EditMode.Rotate;
+            default: return EditMode.Select;
+        }
+    }
+
+    public GameObject ResolveEditableTarget(GameObject hitObject)
+    {
+        if (hitObject == null || PrefabUtility.IsPartOfPrefabAsset(hitObject))
+            return null;
+
+        Block block = hitObject.GetComponentInParent<Block>();
+        if (block != null)
+        {
+            GameObject blockPrefabRoot = FindPalettePrefabRoot(block.gameObject);
+            return blockPrefabRoot != null ? blockPrefabRoot : block.gameObject;
+        }
+
+        return FindPalettePrefabRoot(hitObject);
+    }
+
+    public bool SelectRotationTarget(GameObject hitObject)
+    {
+        rotationTarget = ResolveEditableTarget(hitObject);
+        if (rotationTarget == null)
+            return false;
+
+        Selection.activeGameObject = rotationTarget;
+        Repaint();
+        SceneView.RepaintAll();
+        return true;
+    }
+
+    private GameObject FindPalettePrefabRoot(GameObject objectInInstance)
+    {
+        if (palette == null || palette.prefabs == null)
+            return null;
+
+        GameObject nearestRoot = PrefabUtility.GetNearestPrefabInstanceRoot(objectInInstance);
+        if (IsPalettePrefabInstance(nearestRoot))
+            return nearestRoot;
+
+        GameObject outermostRoot = PrefabUtility.GetOutermostPrefabInstanceRoot(objectInInstance);
+        if (outermostRoot != nearestRoot && IsPalettePrefabInstance(outermostRoot))
+            return outermostRoot;
+
+        return null;
+    }
+
+    private bool IsPalettePrefabInstance(GameObject instanceRoot)
+    {
+        if (instanceRoot == null)
+            return false;
+
+        string instancePath = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(instanceRoot);
+        if (string.IsNullOrEmpty(instancePath))
+            return false;
+
+        foreach (GameObject palettePrefab in palette.prefabs)
+        {
+            if (palettePrefab != null && AssetDatabase.GetAssetPath(palettePrefab) == instancePath)
+                return true;
+        }
+
+        return false;
+    }
+
+    private void RotateTarget(RotationAxis axis)
+    {
+        rotationAxis = axis;
+
+        if (Selection.activeGameObject != null)
+        {
+            GameObject selectedTarget = ResolveEditableTarget(Selection.activeGameObject);
+            if (selectedTarget != null)
+                rotationTarget = selectedTarget;
+        }
+
+        if (rotationTarget == null)
+        {
+            ShowNotification(new GUIContent("Hãy chọn block trong Scene trước."));
+            return;
+        }
+
+        Transform target = rotationTarget.transform;
+        Undo.RecordObject(target, $"Rotate Block {axis}");
+        target.Rotate(GetRotationVector(axis), rotationStepDegrees, Space.Self);
+        PrefabUtility.RecordPrefabInstancePropertyModifications(target);
+        Selection.activeGameObject = rotationTarget;
+        SceneView.RepaintAll();
+        Repaint();
+    }
+
+    private static Vector3 GetRotationVector(RotationAxis axis)
+    {
+        switch (axis)
+        {
+            case RotationAxis.X: return Vector3.right;
+            case RotationAxis.Z: return Vector3.forward;
+            default: return Vector3.up;
+        }
+    }
 
     private void ExportLevelToJSON()
     {
