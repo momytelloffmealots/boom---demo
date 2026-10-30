@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 0be1f404ce53ec248bada4bd0469f42c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.25
+      value: 0.24999999
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0be1f404ce53ec248bada4bd0469f42c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.25
+      value: 0.24999999
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0be1f404ce53ec248bada4bd0469f42c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.25
+      value: 0.24999999
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0be1f404ce53ec248bada4bd0469f42c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -112,7 +112,7 @@ Rigidbody:
   m_GameObject: {fileID: 4827219893388856170}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 0.05
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -129,7 +129,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &-2973094838520732761
 BoxCollider:
   m_ObjectHideFlags: 0
