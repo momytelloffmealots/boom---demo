@@ -52,12 +52,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SimpleCannon
   firePoint: {fileID: 9140652989374975256}
   cannonBasePoint: {fileID: 6259156854322657025}
-  bulletSpeed: 7
-  raycastDistance: 10
+  bulletSpeed: 8
+  raycastDistance: 13
   maxBullets: 30
   normalBulletScaleMultiplier: 1
   muzzleVFXPrefab: {fileID: 6470535214997800484, guid: 7a86685f609667544ad359ba11944f04, type: 3}
   cannonAnimator: {fileID: 5829549153496095574}
+  debugBlockedShots: 1
 --- !u!95 &5829549153496095574
 Animator:
   serializedVersion: 7

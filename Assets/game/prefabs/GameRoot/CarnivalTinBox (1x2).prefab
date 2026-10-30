@@ -60,9 +60,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: edba277671d6b7e458ae8457adf4ad81, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2d5e80b6324d4354285275f38ee1369f, type: 2}
+    - target: {fileID: -7511558181221131132, guid: edba277671d6b7e458ae8457adf4ad81, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2d5e80b6324d4354285275f38ee1369f, type: 2}
     - target: {fileID: 919132149155446097, guid: edba277671d6b7e458ae8457adf4ad81, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox (1x2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: edba277671d6b7e458ae8457adf4ad81, type: 3}
+      propertyPath: m_TagString
+      value: block
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -143,8 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a10df99b4f6c2499fd08a1905f37e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Block
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: b23e3311c1d5e0b4f82a4109821151eb, type: 2}
   groundLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   spawnImmunityTime: 0.3

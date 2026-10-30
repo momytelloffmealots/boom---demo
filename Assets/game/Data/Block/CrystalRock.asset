@@ -15,9 +15,14 @@ MonoBehaviour:
   blockName: rock
   blockType: 0
   mass: 10
+  hitSound: {fileID: 0}
+  breakSound: {fileID: 0}
   normalBehavior: 0
   groundVfxPrefab: {fileID: 266552125470661832, guid: 5c7944c6677862f4595ba657671e3ade, type: 3}
   deformProgressProperty: _DeformAmount
+  alphaProperty: _Alpha
+  timeDeform: 0.05
+  timeFadeOut: 0.3
   breakImpactThreshold: 8
   brokenGlassObjectPrefab: {fileID: 0}
   glassParticleVFX: {fileID: 0}
