@@ -42,6 +42,17 @@ public class SimpleBulletPool : MonoBehaviour
     private readonly Dictionary<float, WaitForSeconds> waitCache =
         new Dictionary<float, WaitForSeconds>();
 
+    private struct InitialTransform
+    {
+        public Transform transform;
+        public Vector3 localPosition;
+        public Quaternion localRotation;
+        public Vector3 localScale;
+    }
+
+    private readonly Dictionary<GameObject, List<InitialTransform>> initialChildTransforms =
+        new Dictionary<GameObject, List<InitialTransform>>();
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -62,6 +73,7 @@ public class SimpleBulletPool : MonoBehaviour
     private void OnDestroy()
     {
         if (Instance == this) Instance = null;
+        initialChildTransforms.Clear();
     }
 
     private void EnsurePool(GameObject prefab)
@@ -105,12 +117,64 @@ public class SimpleBulletPool : MonoBehaviour
             CreateNewInstance(defaultBulletPrefab);
     }
 
+    private void CacheChildTransforms(GameObject instance)
+    {
+        if (instance == null || initialChildTransforms.ContainsKey(instance)) return;
+
+        var list = new List<InitialTransform>();
+        Transform[] allTransforms = instance.GetComponentsInChildren<Transform>(true);
+        for (int i = 0; i < allTransforms.Length; i++)
+        {
+            Transform t = allTransforms[i];
+            if (t == instance.transform) continue;
+            list.Add(new InitialTransform
+            {
+                transform = t,
+                localPosition = t.localPosition,
+                localRotation = t.localRotation,
+                localScale = t.localScale
+            });
+        }
+        initialChildTransforms[instance] = list;
+    }
+
+    private void ResetChildTransformsAndPhysics(GameObject instance)
+    {
+        if (instance == null) return;
+
+        if (initialChildTransforms.TryGetValue(instance, out List<InitialTransform> list))
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                var item = list[i];
+                if (item.transform != null)
+                {
+                    item.transform.localPosition = item.localPosition;
+                    item.transform.localRotation = item.localRotation;
+                    item.transform.localScale = item.localScale;
+                }
+            }
+        }
+
+        Rigidbody[] rbs = instance.GetComponentsInChildren<Rigidbody>(true);
+        for (int i = 0; i < rbs.Length; i++)
+        {
+            Rigidbody r = rbs[i];
+            if (r != null && !r.isKinematic)
+            {
+                r.linearVelocity = Vector3.zero;
+                r.angularVelocity = Vector3.zero;
+            }
+        }
+    }
+
     private GameObject CreateNewInstance(GameObject prefab)
     {
         EnsurePool(prefab);
         GameObject obj = Instantiate(prefab, transform);
         obj.SetActive(false);
         instancePrefabs[obj] = prefab;
+        CacheChildTransforms(obj);
         poolHashSet[prefab].Add(obj);
         poolDictionary[prefab].Enqueue(obj);
         return obj;
@@ -157,11 +221,13 @@ public class SimpleBulletPool : MonoBehaviour
 
             obj = Instantiate(prefab, position, rotation);
             instancePrefabs[obj] = prefab;
+            CacheChildTransforms(obj);
         }
         else
         {
             obj.transform.SetParent(null);
             obj.transform.SetPositionAndRotation(position, rotation);
+            ResetChildTransformsAndPhysics(obj);
         }
 
         // Version chan coroutine cu thu hoi mot object da duoc Spawn lai.
@@ -244,11 +310,15 @@ public class SimpleBulletPool : MonoBehaviour
         // Danh dau TRUOC SetActive(false), chan enqueue trung object.
         if (!poolHashSet[prefab].Add(instance)) return;
 
-        Rigidbody rb = instance.GetComponent<Rigidbody>();
-        if (rb != null && !rb.isKinematic)
+        Rigidbody[] rbs = instance.GetComponentsInChildren<Rigidbody>(true);
+        for (int i = 0; i < rbs.Length; i++)
         {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            Rigidbody r = rbs[i];
+            if (r != null && !r.isKinematic)
+            {
+                r.linearVelocity = Vector3.zero;
+                r.angularVelocity = Vector3.zero;
+            }
         }
 
         if (instance.activeSelf)
