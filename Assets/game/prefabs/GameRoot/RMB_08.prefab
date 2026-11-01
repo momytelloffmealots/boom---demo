@@ -183,11 +183,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17a0ffe9c0d34e438916348ec0428b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StickyBomb
+  flightMode: 0
   speed: 8
+  arcRadius: 2.5
+  loopRadius: 1.2
   defaultScale: 0.07
   explosionScale: 1.6
   explosionVFX: {fileID: 153256, guid: fe394d041df1a0547990f49cf653249f, type: 3}
   minTargetDistance: 1.5
+  ignoreBottomRatio: 0.15
   explosionForce: 9
   explosionRadius: 2
   upliftModifier: 1
