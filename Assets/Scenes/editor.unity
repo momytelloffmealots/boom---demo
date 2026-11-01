@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(3x1)(V1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4467665120419594867, guid: 145090b34a50d49479893016edaee051, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -228,6 +232,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(3x1)(V1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4467665120419594867, guid: 145090b34a50d49479893016edaee051, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -244,6 +252,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -301,6 +313,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -399,6 +415,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pedestal 2x6 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 6456354171134630543, guid: 57f0e5df33a077b41bfdfdd0fc4f8186, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -456,6 +476,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(3x1)(V1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4467665120419594867, guid: 145090b34a50d49479893016edaee051, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -472,6 +496,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -569,6 +597,10 @@ PrefabInstance:
     - target: {fileID: 4467665120419594867, guid: 145090b34a50d49479893016edaee051, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(3x1)(V1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4467665120419594867, guid: 145090b34a50d49479893016edaee051, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -699,6 +731,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.75
@@ -755,6 +791,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -853,6 +893,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(3x1)(V1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4467665120419594867, guid: 145090b34a50d49479893016edaee051, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -869,6 +913,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -927,6 +975,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodStar(new) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.25
@@ -983,6 +1035,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1041,6 +1097,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.75
@@ -1097,6 +1157,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1155,6 +1219,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.25
@@ -1211,6 +1279,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1382,6 +1454,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodStar(new) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.75
@@ -1479,6 +1555,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(3x1)(V1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4467665120419594867, guid: 145090b34a50d49479893016edaee051, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1495,6 +1575,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1553,6 +1637,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.75
@@ -1610,6 +1698,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.75
@@ -1666,6 +1758,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1764,6 +1860,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(3x1)(V1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4467665120419594867, guid: 145090b34a50d49479893016edaee051, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1780,6 +1880,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1838,6 +1942,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.75
@@ -1895,6 +2003,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.25
@@ -1951,6 +2063,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2121,6 +2237,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.75
@@ -2177,6 +2297,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2235,6 +2359,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.25
@@ -2291,6 +2419,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2349,6 +2481,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodStar(new) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.25
@@ -2405,6 +2541,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2600,6 +2740,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.25
@@ -2697,6 +2841,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(3x1)(V1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4467665120419594867, guid: 145090b34a50d49479893016edaee051, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2713,6 +2861,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2771,6 +2923,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.25
@@ -2827,6 +2983,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2885,6 +3045,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodStar(new) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.25
@@ -2941,6 +3105,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2999,6 +3167,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodStar(new) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.75
@@ -3055,6 +3227,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3113,6 +3289,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodStar(new) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.25
@@ -3169,6 +3349,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3227,6 +3411,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.25
@@ -3283,6 +3471,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3341,6 +3533,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodStar(new) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.25
@@ -3397,6 +3593,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3495,6 +3695,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(3x1)(V1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4467665120419594867, guid: 145090b34a50d49479893016edaee051, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3511,6 +3715,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3569,6 +3777,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.25
@@ -3626,6 +3838,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.25
@@ -3682,6 +3898,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3780,6 +4000,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(3x1)(V1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4467665120419594867, guid: 145090b34a50d49479893016edaee051, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3796,6 +4020,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3854,6 +4082,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodStar(new) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.75
@@ -3910,6 +4142,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3968,6 +4204,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodStar(new) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.25
@@ -4024,6 +4264,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4082,6 +4326,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.75
@@ -4138,6 +4386,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4196,6 +4448,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodStar(new) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.25
@@ -4252,6 +4508,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4350,6 +4610,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(3x1)(V1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4467665120419594867, guid: 145090b34a50d49479893016edaee051, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4366,6 +4630,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4424,6 +4692,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.75
@@ -4480,6 +4752,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4665,6 +4941,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.75
@@ -4721,6 +5001,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4779,6 +5063,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodStar(new) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.75
@@ -4835,6 +5123,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4893,6 +5185,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.25
@@ -4949,6 +5245,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5007,6 +5307,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.25
@@ -5063,6 +5367,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5121,6 +5429,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
       objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.25
@@ -5177,6 +5489,10 @@ PrefabInstance:
     - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_Name
       value: CarnivalTinBox(1x1)New
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771205202435357408, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260215659177435226, guid: fabadbff49bc54e4088d078cc4689b60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5275,6 +5591,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivalTinBox(3x1)(V1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4467665120419594867, guid: 145090b34a50d49479893016edaee051, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5291,6 +5611,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5349,6 +5673,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodStar(new) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.25
@@ -5405,6 +5733,10 @@ PrefabInstance:
     - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_Name
       value: WoodStar(new) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5463,6 +5795,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodStar(new) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.25
@@ -5520,6 +5856,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodStar(new) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2758101564545157255, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3246372325458285117, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.25
@@ -5565,6 +5905,177 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dd3007014d7b1d438ae96421139c953, type: 3}
+--- !u!1001 &263838386695852962
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_Name
+      value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+--- !u!1001 &6723777782068539810
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 339006536421856115, guid: e404515629037974eac962277ad2a453, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 339006536421856115, guid: e404515629037974eac962277ad2a453, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 339006536421856115, guid: e404515629037974eac962277ad2a453, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339006536421856115, guid: e404515629037974eac962277ad2a453, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 339006536421856115, guid: e404515629037974eac962277ad2a453, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339006536421856115, guid: e404515629037974eac962277ad2a453, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339006536421856115, guid: e404515629037974eac962277ad2a453, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339006536421856115, guid: e404515629037974eac962277ad2a453, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339006536421856115, guid: e404515629037974eac962277ad2a453, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 339006536421856115, guid: e404515629037974eac962277ad2a453, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336137606086387193, guid: e404515629037974eac962277ad2a453, type: 3}
+      propertyPath: m_Name
+      value: CrytalRock(1x2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e404515629037974eac962277ad2a453, type: 3}
+--- !u!1001 &8342666027267080605
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3944835124656852505, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944835124656852505, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944835124656852505, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944835124656852505, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944835124656852505, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944835124656852505, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944835124656852505, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944835124656852505, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944835124656852505, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944835124656852505, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464490040446653603, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_Name
+      value: IceCube(2x1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -5659,3 +6170,6 @@ SceneRoots:
   - {fileID: 1817145654}
   - {fileID: 1857280591}
   - {fileID: 1593827148}
+  - {fileID: 6723777782068539810}
+  - {fileID: 8342666027267080605}
+  - {fileID: 263838386695852962}
