@@ -1,30 +1,17 @@
 {
     "formatVersion": 1,
-    "levelName": "Level_1",
-    "MaxBullets": 30,
+    "levelName": "Level_5",
+    "MaxBullets": 10,
     "Difficulty": 3,
-    "minWinWeight": 40.0,
-    "maxWinWeight": 60.0,
+    "minWinWeight": 30.0,
+    "maxWinWeight": 45.0,
     "blocks": [
         {
-            "prefabName": "WoodStar(new) (1)",
-            "position": {
-                "x": -0.75,
-                "y": 3.5,
-                "z": 0.5
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "WoodStar(2x1)",
+            "prefabName": "TinCan(V2)",
             "position": {
                 "x": -0.25,
-                "y": 1.5,
-                "z": 0.5
+                "y": 3.0,
+                "z": 2.0
             },
             "rotation": {
                 "x": 0.0,
@@ -33,11 +20,11 @@
             }
         },
         {
-            "prefabName": "WoodStar(2x1)",
+            "prefabName": "TinCan(V2)",
             "position": {
-                "x": 0.25,
-                "y": 1.5,
-                "z": 0.5
+                "x": 0.0,
+                "y": 2.5,
+                "z": 1.5
             },
             "rotation": {
                 "x": 0.0,
@@ -46,11 +33,102 @@
             }
         },
         {
-            "prefabName": "WoodStar(new) (1)",
+            "prefabName": "TinCan(V2)",
             "position": {
-                "x": 0.75,
+                "x": -1.75,
+                "y": 1.5,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -0.5,
+                "y": 2.0,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -0.75,
+                "y": 1.5,
+                "z": 1.75
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -0.5,
+                "y": 2.0,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 0.5,
+                "y": 1.5,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 1.5,
+                "y": 2.0,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 0.5,
+                "y": 2.5,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 0.0,
                 "y": 3.5,
-                "z": 0.5
+                "z": 2.0
             },
             "rotation": {
                 "x": 0.0,
@@ -59,24 +137,11 @@
             }
         },
         {
-            "prefabName": "WoodStar(new) (1)",
+            "prefabName": "TinCan(V2)",
             "position": {
-                "x": -0.25,
-                "y": 2.5,
-                "z": 0.5
-            },
-            "rotation": {
                 "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "WoodStar(2x1)",
-            "position": {
-                "x": -0.75,
                 "y": 1.5,
-                "z": 0.5
+                "z": 1.25
             },
             "rotation": {
                 "x": 0.0,
@@ -85,11 +150,24 @@
             }
         },
         {
-            "prefabName": "WoodStar(2x1)",
+            "prefabName": "CarnivalTinBox (1x2)",
             "position": {
-                "x": -0.75,
-                "y": 2.5,
-                "z": 0.5
+                "x": 0.23399999737739564,
+                "y": 4.0,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 90.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -1.0,
+                "y": 2.0,
+                "z": 1.5
             },
             "rotation": {
                 "x": 0.0,
@@ -98,11 +176,11 @@
             }
         },
         {
-            "prefabName": "WoodStar(new) (1)",
+            "prefabName": "TinCan(V2)",
             "position": {
                 "x": 0.25,
                 "y": 3.0,
-                "z": 0.5
+                "z": 1.5
             },
             "rotation": {
                 "x": 0.0,
@@ -111,11 +189,11 @@
             }
         },
         {
-            "prefabName": "WoodStar(2x1)",
+            "prefabName": "TinCan(V2)",
             "position": {
-                "x": 0.75,
-                "y": 2.5,
-                "z": 0.5
+                "x": -1.0,
+                "y": 1.5,
+                "z": 1.25
             },
             "rotation": {
                 "x": 0.0,
@@ -124,7 +202,124 @@
             }
         },
         {
-            "prefabName": "WoodStar(3x1)(V1)",
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 0.25,
+                "y": 3.0,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 1.0,
+                "y": 2.0,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinBox (1x2)",
+            "position": {
+                "x": -0.7549999952316284,
+                "y": 3.0,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 90.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 0.25,
+                "y": 1.5,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinBox (1x2)",
+            "position": {
+                "x": 1.2549999952316285,
+                "y": 3.0,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 90.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 0.0,
+                "y": 2.0,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinBox (1x2)",
+            "position": {
+                "x": -0.7549999952316284,
+                "y": 3.0,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 90.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinBox (1x2)",
+            "position": {
+                "x": 1.5,
+                "y": 2.5,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 90.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -0.25,
+                "y": 1.5,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
             "position": {
                 "x": -0.25,
                 "y": 1.5,
@@ -137,37 +332,50 @@
             }
         },
         {
-            "prefabName": "WoodStar(new) (1)",
+            "prefabName": "CarnivalTinBox (1x2)",
             "position": {
-                "x": -0.25,
-                "y": 3.0,
-                "z": 0.5
+                "x": -0.5009999871253967,
+                "y": 3.5,
+                "z": 2.0
             },
             "rotation": {
                 "x": 0.0,
                 "y": 0.0,
-                "z": 0.0
+                "z": 90.0
             }
         },
         {
-            "prefabName": "WoodStar(new) (1)",
+            "prefabName": "CarnivalTinBox (1x2)",
             "position": {
-                "x": 0.25,
+                "x": -1.0,
                 "y": 2.5,
-                "z": 0.5
+                "z": 1.5
             },
             "rotation": {
                 "x": 0.0,
                 "y": 0.0,
-                "z": 0.0
+                "z": 90.0
             }
         },
         {
-            "prefabName": "WoodStar(2x1)",
+            "prefabName": "CarnivalTinBox (1x2)",
+            "position": {
+                "x": -0.5009999871253967,
+                "y": 3.5,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 90.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
             "position": {
                 "x": 0.75,
                 "y": 1.5,
-                "z": 0.5
+                "z": 1.75
             },
             "rotation": {
                 "x": 0.0,
@@ -176,11 +384,440 @@
             }
         },
         {
-            "prefabName": "WoodStar(3x1)(V1)",
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 0.0,
+                "y": 2.5,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 0.25,
+                "y": 1.5,
+                "z": 1.75
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinBox (1x2)",
+            "position": {
+                "x": 1.5,
+                "y": 2.5,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 90.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -0.25,
+                "y": 3.0,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinBox (1x2)",
+            "position": {
+                "x": -1.0,
+                "y": 2.5,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 90.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 0.0,
+                "y": 2.0,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -1.25,
+                "y": 1.5,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 1.0,
+                "y": 1.5,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -1.5,
+                "y": 2.0,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -1.0,
+                "y": 2.0,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 0.5,
+                "y": 2.0,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 0.75,
+                "y": 1.5,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -0.5,
+                "y": 2.5,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
             "position": {
                 "x": -0.75,
                 "y": 1.5,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 1.75,
+                "y": 1.5,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -1.25,
+                "y": 1.5,
                 "z": 1.75
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinBox (1x2)",
+            "position": {
+                "x": 0.23400002717971803,
+                "y": 4.0,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 90.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinBox (1x2)",
+            "position": {
+                "x": 1.2549999952316285,
+                "y": 3.0,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 90.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinBox (1x2)",
+            "position": {
+                "x": 1.0099999904632569,
+                "y": 3.5,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 90.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 1.75,
+                "y": 1.5,
+                "z": 1.75
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -1.5,
+                "y": 1.5,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 0.5,
+                "y": 2.0,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -0.5,
+                "y": 2.5,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 1.0,
+                "y": 2.0,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -1.75,
+                "y": 1.5,
+                "z": 1.75
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 1.5,
+                "y": 2.0,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -0.5,
+                "y": 1.5,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 1.5,
+                "y": 1.5,
+                "z": 1.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 1.25,
+                "y": 1.5,
+                "z": 1.75
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 0.5,
+                "y": 2.5,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 1.25,
+                "y": 1.5,
+                "z": 2.25
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": -1.5,
+                "y": 2.0,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "prefabName": "CarnivalTinBox (1x2)",
+            "position": {
+                "x": 1.0100001096725464,
+                "y": 3.5,
+                "z": 2.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 90.0
+            }
+        },
+        {
+            "prefabName": "TinCan(V2)",
+            "position": {
+                "x": 0.0,
+                "y": 3.5,
+                "z": 1.5
             },
             "rotation": {
                 "x": 0.0,
@@ -193,37 +830,11 @@
             "position": {
                 "x": 0.0,
                 "y": 0.0,
-                "z": 1.0
+                "z": 2.0
             },
             "rotation": {
                 "x": 0.0,
                 "y": 180.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "CarnivalCone",
-            "position": {
-                "x": 0.7575106620788574,
-                "y": -0.16845810413360597,
-                "z": 0.9645251631736755
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
-        },
-        {
-            "prefabName": "WoodStar(3x1)(V1)",
-            "position": {
-                "x": -1.25,
-                "y": 1.5,
-                "z": 1.75
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
                 "z": 0.0
             }
         }
