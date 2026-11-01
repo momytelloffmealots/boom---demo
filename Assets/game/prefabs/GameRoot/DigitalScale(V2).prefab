@@ -70,9 +70,10 @@ MonoBehaviour:
   needlePivot: {fileID: 5350878170322630605}
   weightText: {fileID: 0}
   targetZoneColor: {r: 0.034557104, g: 1, b: 0, a: 1}
-  targetZoneInnerRadius: 0.22
-  targetZoneOuterRadius: 0.65
+  targetZoneInnerRadius: 0.243
+  targetZoneOuterRadius: 0.81
   targetZoneSurfaceOffset: 0.006
+  targetZoneZOffset: -0.01
   enableWinCheck: 1
   minWinWeight: 10
   maxWinWeight: 20
@@ -278,11 +279,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a23e6940672fc8a43a37285ad18090fb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a23e6940672fc8a43a37285ad18090fb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.9
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a23e6940672fc8a43a37285ad18090fb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -290,11 +291,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a23e6940672fc8a43a37285ad18090fb, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.06162845
+      value: 0.06162845
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a23e6940672fc8a43a37285ad18090fb, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.06162845
+      value: -0.06162845
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a23e6940672fc8a43a37285ad18090fb, type: 3}
       propertyPath: m_LocalRotation.z
@@ -302,7 +303,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a23e6940672fc8a43a37285ad18090fb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -10
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a23e6940672fc8a43a37285ad18090fb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

@@ -22,6 +22,9 @@ public class DigitalScale : MonoBehaviour
     [SerializeField, Min(0f)] private float targetZoneOuterRadius = 0.58f;
     [SerializeField, Min(0f)] private float targetZoneSurfaceOffset = 0.006f;
 
+    [Tooltip("Điều chỉnh trục Z để đẩy vùng xanh ra sau (số âm) hoặc lên trước kim (số dương)")]
+    [SerializeField] private float targetZoneZOffset = -0.01f;
+
     [Header("Win/Lose Settings (Tự động nhận từ Level JSON)")]
     public bool enableWinCheck = false;
     public float minWinWeight = 10f;
@@ -121,10 +124,25 @@ public class DigitalScale : MonoBehaviour
         if (targetZoneObject != null && targetZoneMeshFilter != null && targetZoneMeshRenderer != null)
             return true;
 
-        Transform visualParent = needlePivot.parent != null ? needlePivot.parent : transform;
         targetZoneObject = new GameObject("Target Range Indicator (Auto)");
         targetZoneObject.layer = gameObject.layer;
-        targetZoneObject.transform.SetParent(visualParent, false);
+
+        // 1. Gán làm con của kim để hưởng chung tâm tọa độ
+        if (needlePivot != null)
+        {
+            targetZoneObject.transform.SetParent(needlePivot, false);
+        }
+        else
+        {
+            targetZoneObject.transform.SetParent(transform, false);
+        }
+
+        // 2. Reset scale và rotation để không bị méo theo kim
+        targetZoneObject.transform.localScale = Vector3.one;
+        targetZoneObject.transform.localRotation = Quaternion.identity;
+
+        // 3. Sử dụng offset bạn chỉnh trên inspector (trục Z local của kim)
+        targetZoneObject.transform.localPosition = new Vector3(0, 0, targetZoneZOffset);
 
         targetZoneMeshFilter = targetZoneObject.AddComponent<MeshFilter>();
         targetZoneMeshRenderer = targetZoneObject.AddComponent<MeshRenderer>();
@@ -204,7 +222,7 @@ public class DigitalScale : MonoBehaviour
         int[] triangles = new int[segments * 6];
         Vector2[] uvs = new Vector2[vertices.Length];
 
-        Vector3 center = needlePivot.localPosition + GetDialNormal() * targetZoneSurfaceOffset;
+        Vector3 center = GetDialNormal() * targetZoneSurfaceOffset; // Sửa dòng này: Vùng xanh đang là con của kim, tâm của kim là Vector3.zero 
 
         for (int i = 0; i <= segments; i++)
         {
@@ -396,6 +414,19 @@ public class DigitalScale : MonoBehaviour
             case ScaleAxis.X_Axis: euler.x = angle; break;
         }
         needlePivot.localEulerAngles = euler;
+
+        // Giữ vùng xanh đứng yên bằng cách xoay ngược lại
+        if (targetZoneObject != null)
+        {
+            Vector3 targetEuler = Vector3.zero;
+            switch (data.rotationAxis)
+            {
+                case ScaleAxis.Z_Axis: targetEuler.z = -angle; break;
+                case ScaleAxis.Y_Axis: targetEuler.y = -angle; break;
+                case ScaleAxis.X_Axis: targetEuler.x = -angle; break;
+            }
+            targetZoneObject.transform.localEulerAngles = targetEuler;
+        }
     }
 
     private void OnDestroy()
