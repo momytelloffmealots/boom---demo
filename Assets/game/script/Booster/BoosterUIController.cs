@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class BoosterUIController : MonoBehaviour
 {
@@ -20,6 +21,23 @@ public class BoosterUIController : MonoBehaviour
     [SerializeField] private GameObject addIconInfiniteAmmo;
     [SerializeField] private GameObject vfxPrefabInfiniteAmmo;
 
+    [Header("UI - Infinite Ball Top Panel (DOTween)")]
+    [Tooltip("Kéo tấm nền đen phía trên vào đây")]
+    [SerializeField] private RectTransform infBgRect;
+    [Tooltip("Kéo chữ 'Infinite Ball' vào đây")]
+    [SerializeField] private RectTransform infTitleRect;
+    [Tooltip("Kéo chữ 'Unlimited ball-handling time' vào đây")]
+    [SerializeField] private RectTransform infSubTitleRect;
+
+    [Header("Cài đặt tốc độ DOTween (Nhanh & Dứt khoát)")]
+    [SerializeField] private float bgDropDistance = 300f;
+    [SerializeField] private float bgDropDuration = 0.18f;
+    [Tooltip("Thời điểm chữ bắt đầu nảy lên (tính từ lúc nền đen bắt đầu trượt)")]
+    [SerializeField] private float textStartTime = 0.06f;
+    [SerializeField] private float textPopDuration = 0.20f;
+    [SerializeField] private float textBounceOffsetY = 25f;
+    [SerializeField] private float subTitleStagger = 0.03f;
+
     [Header("Shop Settings")]
     [SerializeField] private GameObject popupShop;
 
@@ -28,6 +46,19 @@ public class BoosterUIController : MonoBehaviour
 
     private int lastBigCount = -1;
     private int lastInfCount = -1;
+
+    private bool isPanelInitSaved = false;
+    private Vector2 bgOriginPos;
+    private Vector2 titleOriginPos;
+    private Vector3 titleOriginScale;
+    private Vector2 subTitleOriginPos;
+    private Vector3 subTitleOriginScale;
+    private Sequence infPanelSeq;
+
+    private void Awake()
+    {
+        SaveInitialPanelState();
+    }
 
     private void Start()
     {
@@ -39,12 +70,90 @@ public class BoosterUIController : MonoBehaviour
 
         if (SimpleCannon.Instance != null) SimpleCannon.Instance.OnBoosterConsumed += HandleBoosterConsumed;
 
+        SimpleCannon.OnInfiniteAmmoArmed += HandleInfiniteAmmoArmed;
+
         UpdateUI();
     }
 
     private void OnDestroy()
     {
         if (SimpleCannon.Instance != null) SimpleCannon.Instance.OnBoosterConsumed -= HandleBoosterConsumed;
+        SimpleCannon.OnInfiniteAmmoArmed -= HandleInfiniteAmmoArmed;
+        infPanelSeq?.Kill();
+    }
+
+    private void SaveInitialPanelState()
+    {
+        if (isPanelInitSaved) return;
+
+        if (infBgRect != null)
+            bgOriginPos = infBgRect.anchoredPosition;
+
+        if (infTitleRect != null)
+        {
+            titleOriginPos = infTitleRect.anchoredPosition;
+            titleOriginScale = infTitleRect.localScale;
+        }
+
+        if (infSubTitleRect != null)
+        {
+            subTitleOriginPos = infSubTitleRect.anchoredPosition;
+            subTitleOriginScale = infSubTitleRect.localScale;
+        }
+
+        isPanelInitSaved = true;
+    }
+
+    private void HandleInfiniteAmmoArmed(float duration)
+    {
+        PlayInfinitePanelIntro();
+    }
+
+    public void PlayInfinitePanelIntro()
+    {
+        SaveInitialPanelState();
+        infPanelSeq?.Kill();
+
+        if (infBgRect != null)
+        {
+            infBgRect.anchoredPosition = bgOriginPos + new Vector2(0f, bgDropDistance);
+        }
+
+        if (infTitleRect != null)
+        {
+            infTitleRect.localScale = Vector3.zero;
+            infTitleRect.anchoredPosition = titleOriginPos - new Vector2(0f, textBounceOffsetY);
+        }
+
+        if (infSubTitleRect != null)
+        {
+            infSubTitleRect.localScale = Vector3.zero;
+            infSubTitleRect.anchoredPosition = subTitleOriginPos - new Vector2(0f, textBounceOffsetY);
+        }
+
+        infPanelSeq = DOTween.Sequence();
+        infPanelSeq.SetUpdate(true);
+
+        // 1. Nền đen trượt nhanh từ trên xuống (0.18s)
+        if (infBgRect != null)
+        {
+            infPanelSeq.Insert(0f, infBgRect.DOAnchorPos(bgOriginPos, bgDropDuration).SetEase(Ease.OutQuad));
+        }
+
+        // 2. Chữ Title nảy lên ngay tại 0.06s (khi nền đen vừa lướt qua vị trí chữ)
+        if (infTitleRect != null)
+        {
+            infPanelSeq.Insert(textStartTime, infTitleRect.DOScale(titleOriginScale, textPopDuration).SetEase(Ease.OutBack));
+            infPanelSeq.Insert(textStartTime, infTitleRect.DOAnchorPos(titleOriginPos, textPopDuration).SetEase(Ease.OutBack));
+        }
+
+        // 3. Chữ SubTitle nảy lên nối tiếp gần như tức thì (sau 0.03s)
+        if (infSubTitleRect != null)
+        {
+            float subStartTime = textStartTime + subTitleStagger;
+            infPanelSeq.Insert(subStartTime, infSubTitleRect.DOScale(subTitleOriginScale, textPopDuration).SetEase(Ease.OutBack));
+            infPanelSeq.Insert(subStartTime, infSubTitleRect.DOAnchorPos(subTitleOriginPos, textPopDuration).SetEase(Ease.OutBack));
+        }
     }
 
     private void Update()
@@ -98,7 +207,6 @@ public class BoosterUIController : MonoBehaviour
                 if (vfxPrefabBigBullet != null)
                 {
                     spawnedVfxBig = Instantiate(vfxPrefabBigBullet, btnBigBullet.transform);
-                    // 🔥 MỚI: Ép VFX nằm dưới cùng, không đè lên hình icon của nút
                     spawnedVfxBig.transform.SetAsFirstSibling();
                 }
                 if (spawnedVfxInf != null) Destroy(spawnedVfxInf);
@@ -126,7 +234,6 @@ public class BoosterUIController : MonoBehaviour
                 if (vfxPrefabInfiniteAmmo != null)
                 {
                     spawnedVfxInf = Instantiate(vfxPrefabInfiniteAmmo, btnInfiniteAmmo.transform);
-                    // 🔥 MỚI: Ép VFX nằm dưới cùng, không đè lên hình icon của nút
                     spawnedVfxInf.transform.SetAsFirstSibling();
                 }
                 if (spawnedVfxBig != null) Destroy(spawnedVfxBig);

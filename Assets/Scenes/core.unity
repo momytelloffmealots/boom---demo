@@ -2386,7 +2386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3, y: -17}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &201227939
@@ -7369,7 +7369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &569737137
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10474,7 +10474,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &740859595
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21710,6 +21710,15 @@ MonoBehaviour:
   txtInfiniteAmmoCount: {fileID: 616274451}
   addIconInfiniteAmmo: {fileID: 1527310912}
   vfxPrefabInfiniteAmmo: {fileID: 8530703076479648669, guid: 45a658a879175294e811bd0b5ad8d402, type: 3}
+  infBgRect: {fileID: 1878883226}
+  infTitleRect: {fileID: 2124002443}
+  infSubTitleRect: {fileID: 1048831333}
+  bgDropDistance: 300
+  bgDropDuration: 0.3
+  textStartTime: 0.1
+  textPopDuration: 0.2
+  textBounceOffsetY: 30
+  subTitleStagger: 0.03
   popupShop: {fileID: 92656847}
 --- !u!1 &1564593935
 GameObject:
@@ -23572,7 +23581,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 160, y: -10}
+  m_AnchoredPosition: {x: 160, y: 0}
   m_SizeDelta: {x: 260, y: 285}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1802279603
@@ -24211,7 +24220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.75686276}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
