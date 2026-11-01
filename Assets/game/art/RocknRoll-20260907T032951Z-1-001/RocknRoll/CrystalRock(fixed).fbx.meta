@@ -3,7 +3,27 @@ guid: 0be1f404ce53ec248bada4bd0469f42c
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 88344f071f80f894a91a601a63169593, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: 8ae11193eebb8f14baf5f1d0b93c1625, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Gemini_Generated_Image_91q6w191q6w191q6
+    second: {fileID: 2800000, guid: 87b4bfb5b0de0d141aadbf0ac74e855e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Rock
+    second: {fileID: 2800000, guid: f4bcf13e22a50c14287e633205dc5099, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
