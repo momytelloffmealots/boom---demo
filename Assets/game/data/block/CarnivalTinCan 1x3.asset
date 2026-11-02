@@ -17,7 +17,7 @@ MonoBehaviour:
   mass: 4
   hitSound: {fileID: 0}
   breakSound: {fileID: 0}
-  normalBehavior: 0
+  normalBehavior: 1
   groundVfxPrefab: {fileID: 0}
   deformProgressProperty: _DeformAmount
   alphaProperty: _Alpha
