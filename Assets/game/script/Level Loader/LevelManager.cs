@@ -12,7 +12,12 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LevelLoader levelLoader;
     [SerializeField] private int currentLevelIndex = 1;
 
+    [Header("Random Level Settings")]
+    [Tooltip("Random trong bao nhiêu level cuối cùng của pool. VD: 20 = random trong 20 level cuối. Để 0 = random toàn bộ pool.")]
+    [SerializeField] private int randomLastLevelCount = 0;
+
     private const string LEVEL_KEY = "CURRENT_LEVEL_INDEX";
+    private const string LAST_RANDOM_LEVEL_KEY = "LAST_RANDOM_LEVEL_INDEX";
     private bool isEditorPlaytest;
     private string editorPlaytestJson;
 
@@ -78,18 +83,86 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            // BẢO VỆ: Nếu không tìm thấy Level (ví dụ chơi hết màn 4 mà chưa làm màn 5)
-            // Tự động quay về Level 1 cho người chơi cày lại từ đầu
-            Debug.LogWarning($"[LevelManager] Hết level rồi! Quay lại Level 1.");
-
-            currentLevelIndex = 1;
-            PlayerPrefs.SetInt(LEVEL_KEY, 1);
-            PlayerPrefs.Save();
-
-            // Load lại file Level_1
-            TextAsset firstLevelAsset = Resources.Load<TextAsset>("Levels/Level_1");
-            if (firstLevelAsset != null) levelLoader.LoadLevelFromJSON(firstLevelAsset.text);
+            // 🔥 HẾT LEVEL MỚI — RANDOM LEVEL TỪ POOL CÓ SẴN
+            LoadRandomLevel();
         }
+    }
+
+    /// <summary>
+    /// Khi người chơi đã vượt qua tất cả level thiết kế sẵn,
+    /// random chọn 1 level cũ để chơi lại (tránh trùng level vừa chơi).
+    /// Level index (hiển thị trên UI) vẫn tăng dần bình thường.
+    /// </summary>
+    private void LoadRandomLevel()
+    {
+        // 1. Đếm tổng số level có sẵn trong Resources
+        int totalLevels = CountAvailableLevels();
+
+        if (totalLevels <= 0)
+        {
+            Debug.LogError("[LevelManager] Không tìm thấy level nào trong Resources/Levels!");
+            return;
+        }
+
+        // 2. Xác định khoảng random: lấy XX level cuối của pool
+        //    randomLastLevelCount = 0 → random toàn bộ pool
+        //    randomLastLevelCount = 20 → chỉ random trong 20 level cuối
+        int rangeTo = totalLevels;
+        int rangeFrom = (randomLastLevelCount <= 0)
+            ? 1
+            : Mathf.Max(1, totalLevels - randomLastLevelCount + 1);
+
+        // 3. Random tránh trùng level vừa chơi
+        int lastRandomLevel = PlayerPrefs.GetInt(LAST_RANDOM_LEVEL_KEY, 0);
+        int randomLevel;
+
+        if (rangeFrom == rangeTo)
+        {
+            randomLevel = rangeFrom;
+        }
+        else
+        {
+            do
+            {
+                randomLevel = Random.Range(rangeFrom, rangeTo + 1);
+            }
+            while (randomLevel == lastRandomLevel);
+        }
+
+        // 4. Lưu lại level vừa random để lần sau tránh trùng
+        PlayerPrefs.SetInt(LAST_RANDOM_LEVEL_KEY, randomLevel);
+        PlayerPrefs.Save();
+
+        // 5. Load level
+        TextAsset randomAsset = Resources.Load<TextAsset>($"Levels/Level_{randomLevel}");
+        if (randomAsset != null)
+        {
+            Debug.Log($"[LevelManager] 🎲 Random Level! Hiển thị Level {currentLevelIndex}, nội dung từ Level_{randomLevel} (range {rangeFrom}-{rangeTo})");
+            levelLoader.LoadLevelFromJSON(randomAsset.text);
+        }
+        else
+        {
+            // Fallback: nếu random ra level không tồn tại, load Level_1
+            Debug.LogWarning($"[LevelManager] Random ra Level_{randomLevel} nhưng không tìm thấy! Fallback về Level_1.");
+            TextAsset fallback = Resources.Load<TextAsset>("Levels/Level_1");
+            if (fallback != null) levelLoader.LoadLevelFromJSON(fallback.text);
+        }
+    }
+
+    /// <summary>
+    /// Đếm tổng số file Level_X.json có trong Resources/Levels/
+    /// Quét từ Level_1 trở đi cho đến khi không tìm thấy file.
+    /// </summary>
+    private int CountAvailableLevels()
+    {
+        int count = 0;
+        while (true)
+        {
+            TextAsset asset = Resources.Load<TextAsset>($"Levels/Level_{count + 1}");
+            if (asset == null) break;
+            count++;
+        }
+        return count;
     }
 
 #if UNITY_EDITOR
@@ -143,4 +216,3 @@ public class LevelManager : MonoBehaviour
     }
 #endif
 }
-
