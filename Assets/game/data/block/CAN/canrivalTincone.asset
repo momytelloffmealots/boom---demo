@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a5313b4a2e557449a211b27bbbfbbb4, type: 3}
-  m_Name: CarnivalTinCan 1x3
+  m_Name: canrivalTincone
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
   blockName: 
   blockType: 0
-  mass: 4
+  mass: 0.75
   hitSound: {fileID: 8300000, guid: 86ec4e73cb16ee84ebe337f66e9f0b7a, type: 3}
   breakSound: {fileID: 8300000, guid: baf3af8925b30ff439c8ba80594701c0, type: 3}
   normalBehavior: 1

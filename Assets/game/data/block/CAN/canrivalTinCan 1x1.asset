@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a5313b4a2e557449a211b27bbbfbbb4, type: 3}
-  m_Name: CarnivalTinCan
+  m_Name: canrivalTinCan 1x1
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
-  blockName: CarnivalTinCan
+  blockName: 
   blockType: 0
   mass: 1
   hitSound: {fileID: 8300000, guid: 86ec4e73cb16ee84ebe337f66e9f0b7a, type: 3}
@@ -21,7 +21,7 @@ MonoBehaviour:
   groundVfxPrefab: {fileID: 0}
   deformProgressProperty: _DeformAmount
   alphaProperty: _Alpha
-  timeDeform: 0.1
+  timeDeform: 0.05
   timeFadeOut: 0.3
   breakImpactThreshold: 8
   brokenGlassObjectPrefab: {fileID: 0}

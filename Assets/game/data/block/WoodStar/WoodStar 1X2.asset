@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
   blockName: WoodStar
   blockType: 0
-  mass: 2
+  mass: 4
   hitSound: {fileID: 8300000, guid: 8775f9c9d1d4bed458ee9de2c30ae029, type: 3}
   breakSound: {fileID: 8300000, guid: b90621f5c3db12c419f99d965eaf8d00, type: 3}
   normalBehavior: 0

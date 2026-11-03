@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a5313b4a2e557449a211b27bbbfbbb4, type: 3}
-  m_Name: canrivalTincan 1x2
+  m_Name: WoodStar 1X4
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
-  blockName: 
+  blockName: WoodStar
   blockType: 0
-  mass: 1.75
-  hitSound: {fileID: 8300000, guid: 86ec4e73cb16ee84ebe337f66e9f0b7a, type: 3}
-  breakSound: {fileID: 8300000, guid: baf3af8925b30ff439c8ba80594701c0, type: 3}
-  normalBehavior: 1
-  groundVfxPrefab: {fileID: 0}
+  mass: 8
+  hitSound: {fileID: 8300000, guid: 8775f9c9d1d4bed458ee9de2c30ae029, type: 3}
+  breakSound: {fileID: 8300000, guid: b90621f5c3db12c419f99d965eaf8d00, type: 3}
+  normalBehavior: 0
+  groundVfxPrefab: {fileID: 2835027304916888293, guid: adbc821d04c68544b87a5f6532e9c6d9, type: 3}
   deformProgressProperty: _DeformAmount
   alphaProperty: _Alpha
-  timeDeform: 0.05
+  timeDeform: 0.2
   timeFadeOut: 0.3
   breakImpactThreshold: 8
   brokenGlassObjectPrefab: {fileID: 0}
