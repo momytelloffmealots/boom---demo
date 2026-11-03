@@ -27,6 +27,8 @@ public class Rocket : MonoBehaviour
     public float explosionForce = 2000f;
     public float explosionRadius = 3f;
     public float upliftModifier = 0.5f;
+    [Tooltip("Bán kính phá vỡ thủy tinh trực tiếp (0.6 = phạm vi 1 ô quanh điểm chạm)")]
+    public float glassBreakRadius = 0.6f;
 
     private Block targetBlock;
 
@@ -89,7 +91,6 @@ public class Rocket : MonoBehaviour
 
         spawnCounter++;
 
-        // Phân hướng lượn ban đầu dựa theo vị trí xuất phát để 3 tên lửa tỏa ra hài hòa
         if (startPos.x < -0.15f)
         {
             sideSign = -1f;
@@ -103,7 +104,6 @@ public class Rocket : MonoBehaviour
             sideSign = (spawnCounter % 2 == 0) ? 1f : -1f;
         }
 
-        // Tạo độ lệch pha và tần số ngẫu nhiên nhẹ để mỗi quả uốn lượn một kiểu tự nhiên
         randomFreqMultiplier = Random.Range(0.85f, 1.15f);
         randomPhase = (spawnCounter % 3) * 0.6f;
     }
@@ -126,12 +126,10 @@ public class Rocket : MonoBehaviour
         flightProgress += Time.deltaTime / flightDuration;
         float t = Mathf.Clamp01(flightProgress);
 
-        // Tăng tốc nhẹ theo thời gian để tên lửa lao vào mục tiêu dứt khoát hơn
         float easedT = Mathf.Lerp(t, t * t, 0.25f);
 
         Vector3 nextPos = CalculateWeavePosition(easedT, startPos, lastKnownTargetPos);
 
-        // Xoay mũi tên lửa bám sát theo hướng uốn lượn
         Vector3 moveDirection = nextPos - transform.position;
         if (moveDirection.sqrMagnitude > 0.00001f)
         {
@@ -150,15 +148,11 @@ public class Rocket : MonoBehaviour
     {
         Vector3 toTarget = p2 - p0;
         Vector3 forward = toTarget.sqrMagnitude > 0.001f ? toTarget.normalized : Vector3.up;
-        // Vector vuông góc trên mặt phẳng XY để đẩy tên lửa lượn sang hai bên
         Vector3 side = new Vector3(-forward.y, forward.x, 0f);
 
         Vector3 basePos = Vector3.Lerp(p0, p2, t);
-
-        // Đường bao hình chuông: bằng 0 ở điểm xuất phát (t=0), đạt cực đại ở giữa đường và thu về 0 tại mục tiêu (t=1)
         float envelope = Mathf.Sin(t * Mathf.PI);
 
-        // Độ mở vòng cung nhẹ kết hợp sóng hình Sin uốn lượn
         float arcOffset = spreadArc * sideSign * envelope;
         float waveAngle = (t * waveFrequency * randomFreqMultiplier * Mathf.PI * 2f) + randomPhase;
         float waveOffset = Mathf.Sin(waveAngle) * waveAmplitude * sideSign * envelope;
@@ -352,16 +346,32 @@ public class Rocket : MonoBehaviour
             vfx.transform.localScale = Vector3.one * explosionScale;
         }
 
+        // Lấy tâm chuẩn tại viên gạch mục tiêu để đo phạm vi 1 ô chính xác
+        Vector3 impactCenter = targetBlock != null ? targetBlock.transform.position : transform.position;
+
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
         bool hitAnyBlock = false;
 
         foreach (Collider hit in colliders)
         {
             Block block = hit.GetComponentInParent<Block>();
-            
-            if (block != null && hit.attachedRigidbody != null)
+            if (block == null) continue;
+
+            hitAnyBlock = true;
+            Vector3 hitPoint = hit.ClosestPoint(transform.position);
+
+            // Chỉ làm vỡ thủy tinh nếu là đúng viên gạch mục tiêu hoặc nằm trong bán kính 1 ô (glassBreakRadius)
+            bool isWithinOneTile = (block == targetBlock) ||
+                                   (Vector3.Distance(impactCenter, block.transform.position) <= glassBreakRadius);
+
+            if (isWithinOneTile && block.TryBreakFromExplosion(hitPoint))
             {
-                hitAnyBlock = true;
+                continue;
+            }
+
+            // Các block nằm ngoài phạm vi 1 ô chỉ chịu lực đẩy vật lý bình thường
+            if (hit.attachedRigidbody != null)
+            {
                 hit.attachedRigidbody.isKinematic = false;
                 hit.attachedRigidbody.WakeUp();
                 hit.attachedRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius, upliftModifier, ForceMode.Impulse);
@@ -370,12 +380,15 @@ public class Rocket : MonoBehaviour
 
         if (!hitAnyBlock && targetBlock != null)
         {
-            Rigidbody rb = targetBlock.GetComponent<Rigidbody>();
-            if (rb != null)
+            if (!targetBlock.TryBreakFromExplosion(targetBlock.transform.position))
             {
-                rb.isKinematic = false;
-                rb.WakeUp();
-                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, upliftModifier, ForceMode.Impulse);
+                Rigidbody rb = targetBlock.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.isKinematic = false;
+                    rb.WakeUp();
+                    rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, upliftModifier, ForceMode.Impulse);
+                }
             }
         }
 

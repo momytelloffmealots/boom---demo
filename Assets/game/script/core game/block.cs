@@ -90,10 +90,10 @@ public class Block : MonoBehaviour
         Vector3 hitPoint = collision.contacts.Length > 0 ? collision.contacts[0].point : transform.position;
         bool isGroundHit = collision.gameObject.CompareTag("ground");
 
-        // 🔥 MỚI: Kiểm tra xem có phải va chạm với Đạn không
+        // Kiểm tra xem có phải va chạm với Đạn không
         bool isHitByBullet = collision.gameObject.GetComponent<Bullet>() != null;
 
-        // 🔥 PHÁT HIT SOUND KHI BỊ ĐẠN BẮN TRÚNG
+        // PHÁT HIT SOUND KHI BỊ ĐẠN BẮN TRÚNG
         if (isHitByBullet && data.hitSound != null && AudioManager.Instance != null)
         {
             AudioManager.Instance.PlaySound(data.hitSound);
@@ -125,6 +125,20 @@ public class Block : MonoBehaviour
         }
     }
 
+    // Cho phép Tên lửa hoặc các vụ nổ kích hoạt vỡ thủy tinh ngay lập tức
+    public bool TryBreakFromExplosion(Vector3 hitPoint)
+    {
+        if (isDestroyed || data == null) return false;
+
+        if (data.blockType == BlockType.Glass)
+        {
+            BreakGlass(hitPoint);
+            return true;
+        }
+
+        return false;
+    }
+
     private void BreakGlass(Vector3 spawnPoint)
     {
         if (isDestroyed) return;
@@ -141,7 +155,7 @@ public class Block : MonoBehaviour
             GameObject particleObj = Instantiate(data.glassParticleVFX, spawnPoint, Quaternion.identity);
         }
 
-        // 🔥 MỚI: PHÁT BREAK SOUND CHO THỦY TINH
+        // PHÁT BREAK SOUND CHO THỦY TINH
         if (data.breakSound != null && AudioManager.Instance != null)
         {
             AudioManager.Instance.PlaySound(data.breakSound);
@@ -160,7 +174,7 @@ public class Block : MonoBehaviour
         if (isDestroyed) return;
         isDestroyed = true;
 
-        // 🔥 MỚI: PHÁT BREAK SOUND KHI XUẤT HIỆN VFX DẠNG CHUẨN
+        // PHÁT BREAK SOUND KHI XUẤT HIỆN VFX DẠNG CHUẨN
         if (data.breakSound != null && AudioManager.Instance != null)
         {
             AudioManager.Instance.PlaySound(data.breakSound);
@@ -185,7 +199,7 @@ public class Block : MonoBehaviour
         if (isDestroyed) yield break;
         isDestroyed = true;
 
-        // 🔥 MỚI: PHÁT BREAK SOUND KHI BẮT ĐẦU CHẠY HIỆU ỨNG MÉO (SHADER)
+        // PHÁT BREAK SOUND KHI BẮT ĐẦU CHẠY HIỆU ỨNG MÉO (SHADER)
         if (data.breakSound != null && AudioManager.Instance != null)
         {
             AudioManager.Instance.PlaySound(data.breakSound);
@@ -241,7 +255,6 @@ public class Block : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float progress = tFade > 0f ? Mathf.Clamp01(elapsed / tFade) : 1f;
-            // The Shader Graph dithers this value into an opaque dissolve.
             float currentAlpha = Mathf.Lerp(1f, 0f, progress);
 
             if (meshRenderers != null)
