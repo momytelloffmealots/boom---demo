@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5313b4a2e557449a211b27bbbfbbb4, type: 3}
+  m_Name: CrystalRock 1X2
+  m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
+  blockName: rock
+  blockType: 0
+  mass: 10
+  hitSound: {fileID: 8300000, guid: 214b4722df11baa4e8e5fecad83d2de1, type: 3}
+  breakSound: {fileID: 8300000, guid: 360b131c973e76a4582fed405e76e3ae, type: 3}
+  normalBehavior: 0
+  groundVfxPrefab: {fileID: 8914267732734725279, guid: d747dd59aae5be04c850adff9a6bc9ea, type: 3}
+  deformProgressProperty: _DeformAmount
+  alphaProperty: _Alpha
+  timeDeform: 0.05
+  timeFadeOut: 0.3
+  breakImpactThreshold: 8
+  brokenGlassObjectPrefab: {fileID: 0}
+  glassParticleVFX: {fileID: 0}
+  glassBreakSound: {fileID: 0}

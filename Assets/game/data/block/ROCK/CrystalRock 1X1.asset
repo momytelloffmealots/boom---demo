@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a5313b4a2e557449a211b27bbbfbbb4, type: 3}
-  m_Name: Ice
+  m_Name: CrystalRock 1X1
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
-  blockName: 
+  blockName: rock
   blockType: 0
-  mass: 8
-  hitSound: {fileID: 8300000, guid: 99f37c735b6c8114895b92092ea03982, type: 3}
-  breakSound: {fileID: 8300000, guid: 847d0872fd748e54fb62430ea322f308, type: 3}
+  mass: 5
+  hitSound: {fileID: 8300000, guid: 214b4722df11baa4e8e5fecad83d2de1, type: 3}
+  breakSound: {fileID: 8300000, guid: 360b131c973e76a4582fed405e76e3ae, type: 3}
   normalBehavior: 0
-  groundVfxPrefab: {fileID: 1542304094815288595, guid: e324c783d8d79f84eb0d60c945c81784, type: 3}
+  groundVfxPrefab: {fileID: 8914267732734725279, guid: d747dd59aae5be04c850adff9a6bc9ea, type: 3}
   deformProgressProperty: _DeformAmount
   alphaProperty: _Alpha
   timeDeform: 0.05

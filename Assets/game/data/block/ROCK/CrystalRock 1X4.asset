@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a5313b4a2e557449a211b27bbbfbbb4, type: 3}
-  m_Name: WoodStar
+  m_Name: CrystalRock 1X4
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
-  blockName: WoodStar
+  blockName: rock
   blockType: 0
-  mass: 2
-  hitSound: {fileID: 8300000, guid: 8775f9c9d1d4bed458ee9de2c30ae029, type: 3}
-  breakSound: {fileID: 8300000, guid: b90621f5c3db12c419f99d965eaf8d00, type: 3}
+  mass: 20
+  hitSound: {fileID: 8300000, guid: 214b4722df11baa4e8e5fecad83d2de1, type: 3}
+  breakSound: {fileID: 8300000, guid: 360b131c973e76a4582fed405e76e3ae, type: 3}
   normalBehavior: 0
-  groundVfxPrefab: {fileID: 2835027304916888293, guid: adbc821d04c68544b87a5f6532e9c6d9, type: 3}
+  groundVfxPrefab: {fileID: 8914267732734725279, guid: d747dd59aae5be04c850adff9a6bc9ea, type: 3}
   deformProgressProperty: _DeformAmount
   alphaProperty: _Alpha
-  timeDeform: 0.2
+  timeDeform: 0.05
   timeFadeOut: 0.3
   breakImpactThreshold: 8
   brokenGlassObjectPrefab: {fileID: 0}
