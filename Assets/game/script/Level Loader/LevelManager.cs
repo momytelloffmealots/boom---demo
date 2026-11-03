@@ -18,6 +18,8 @@ public class LevelManager : MonoBehaviour
 
     private const string LEVEL_KEY = "CURRENT_LEVEL_INDEX";
     private const string LAST_RANDOM_LEVEL_KEY = "LAST_RANDOM_LEVEL_INDEX";
+    private const string RANDOM_ASSIGNED_FOR_LEVEL_KEY = "RANDOM_ASSIGNED_FOR_LEVEL_INDEX";
+
     private bool isEditorPlaytest;
     private string editorPlaytestJson;
 
@@ -90,8 +92,8 @@ public class LevelManager : MonoBehaviour
 
     /// <summary>
     /// Khi người chơi đã vượt qua tất cả level thiết kế sẵn,
-    /// random chọn 1 level cũ để chơi lại (tránh trùng level vừa chơi).
-    /// Level index (hiển thị trên UI) vẫn tăng dần bình thường.
+    /// random chọn 1 level cũ và GHIM CỐ ĐỊNH cho currentLevelIndex hiện tại.
+    /// Chỉ khi người chơi Thắng (NextLevel) mới random sang level khác.
     /// </summary>
     private void LoadRandomLevel()
     {
@@ -105,33 +107,41 @@ public class LevelManager : MonoBehaviour
         }
 
         // 2. Xác định khoảng random: lấy XX level cuối của pool
-        //    randomLastLevelCount = 0 → random toàn bộ pool
-        //    randomLastLevelCount = 20 → chỉ random trong 20 level cuối
         int rangeTo = totalLevels;
         int rangeFrom = (randomLastLevelCount <= 0)
             ? 1
             : Mathf.Max(1, totalLevels - randomLastLevelCount + 1);
 
-        // 3. Random tránh trùng level vừa chơi
         int lastRandomLevel = PlayerPrefs.GetInt(LAST_RANDOM_LEVEL_KEY, 0);
+        int assignedForLevel = PlayerPrefs.GetInt(RANDOM_ASSIGNED_FOR_LEVEL_KEY, -1);
         int randomLevel;
 
-        if (rangeFrom == rangeTo)
+        // 3. Nếu người chơi vẫn đang ở cùng currentLevelIndex (thua và chơi lại / thoát ra vào lại)
+        //    -> Giữ nguyên màn random đã bốc trước đó, không random màn mới
+        if (assignedForLevel == currentLevelIndex && lastRandomLevel >= 1 && lastRandomLevel <= totalLevels)
         {
-            randomLevel = rangeFrom;
+            randomLevel = lastRandomLevel;
         }
         else
         {
-            do
+            if (rangeFrom == rangeTo)
             {
-                randomLevel = Random.Range(rangeFrom, rangeTo + 1);
+                randomLevel = rangeFrom;
             }
-            while (randomLevel == lastRandomLevel);
-        }
+            else
+            {
+                do
+                {
+                    randomLevel = Random.Range(rangeFrom, rangeTo + 1);
+                }
+                while (randomLevel == lastRandomLevel);
+            }
 
-        // 4. Lưu lại level vừa random để lần sau tránh trùng
-        PlayerPrefs.SetInt(LAST_RANDOM_LEVEL_KEY, randomLevel);
-        PlayerPrefs.Save();
+            // 4. Lưu lại level vừa random và khóa chặt với currentLevelIndex hiện tại
+            PlayerPrefs.SetInt(LAST_RANDOM_LEVEL_KEY, randomLevel);
+            PlayerPrefs.SetInt(RANDOM_ASSIGNED_FOR_LEVEL_KEY, currentLevelIndex);
+            PlayerPrefs.Save();
+        }
 
         // 5. Load level
         TextAsset randomAsset = Resources.Load<TextAsset>($"Levels/Level_{randomLevel}");
@@ -188,7 +198,14 @@ public class LevelManager : MonoBehaviour
 
     public void RestartLevel()
     {
-        LoadCurrentLevel();
+        if (levelLoader != null && levelLoader.HasLoadedLevelJson)
+        {
+            levelLoader.ReloadCurrentLevel();
+        }
+        else
+        {
+            LoadCurrentLevel();
+        }
     }
 
 #if UNITY_EDITOR
