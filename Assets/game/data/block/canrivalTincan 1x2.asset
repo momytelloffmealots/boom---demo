@@ -15,8 +15,8 @@ MonoBehaviour:
   blockName: 
   blockType: 0
   mass: 1.75
-  hitSound: {fileID: 0}
-  breakSound: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: 86ec4e73cb16ee84ebe337f66e9f0b7a, type: 3}
+  breakSound: {fileID: 8300000, guid: baf3af8925b30ff439c8ba80594701c0, type: 3}
   normalBehavior: 1
   groundVfxPrefab: {fileID: 0}
   deformProgressProperty: _DeformAmount
