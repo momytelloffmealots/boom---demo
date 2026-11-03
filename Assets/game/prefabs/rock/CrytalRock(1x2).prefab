@@ -164,6 +164,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -1554321426087021143, guid: af580cb983804744495e3d971fbb05ba, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e3d6afa749b77904ea8e34fc10ace0fe, type: 2}
     - target: {fileID: 919132149155446097, guid: af580cb983804744495e3d971fbb05ba, type: 3}
       propertyPath: m_Name
       value: CrystalRock(2x1)(New2)
