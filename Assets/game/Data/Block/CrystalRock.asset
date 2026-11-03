@@ -18,7 +18,7 @@ MonoBehaviour:
   hitSound: {fileID: 0}
   breakSound: {fileID: 0}
   normalBehavior: 0
-  groundVfxPrefab: {fileID: 266552125470661832, guid: 5c7944c6677862f4595ba657671e3ade, type: 3}
+  groundVfxPrefab: {fileID: 8914267732734725279, guid: d747dd59aae5be04c850adff9a6bc9ea, type: 3}
   deformProgressProperty: _DeformAmount
   alphaProperty: _Alpha
   timeDeform: 0.05

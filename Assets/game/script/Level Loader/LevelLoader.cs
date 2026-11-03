@@ -11,6 +11,9 @@ public class LevelLoader : MonoBehaviour
 
     private readonly List<GameObject> _spawnedBlocks = new List<GameObject>();
 
+    // 🔥 LƯU TRỮ JSON CỦA MÀN CHƠI HIỆN TẠI
+    private string _currentLevelJson;
+
     public LevelDifficulty CurrentDifficulty { get; private set; } = LevelDifficulty.Normal;
 
     private void Awake()
@@ -32,6 +35,9 @@ public class LevelLoader : MonoBehaviour
             Debug.LogError("[LevelLoader] Chuỗi JSON rỗng!");
             return;
         }
+
+        // 🔥 GHI NHỚ JSON CỦA MÀN NÀY ĐỂ DÙNG CHO NÚT PLAY AGAIN
+        _currentLevelJson = jsonText;
 
         LevelData data = JsonUtility.FromJson<LevelData>(jsonText);
         if (data == null || data.blocks == null)
@@ -63,7 +69,6 @@ public class LevelLoader : MonoBehaviour
         }
 
         // 5. Sinh ra các Prefab từ Database và tính tổng khối lượng block ban đầu.
-        // Chỉ các object có Block mới được tính; kệ/cân không làm tăng giới hạn mặt cân.
         float initialTotalBlockWeight = 0f;
         int initialBlockCount = 0;
         List<DigitalScale> digitalScales = new List<DigitalScale>();
@@ -87,8 +92,6 @@ public class LevelLoader : MonoBehaviour
                 Rigidbody blockRigidbody = obj.GetComponent<Rigidbody>();
                 if (block != null && blockRigidbody != null)
                 {
-                    // Gameplay may still be inactive, so Block.OnEnable has not
-                    // necessarily replaced the prefab's default Rigidbody mass.
                     initialTotalBlockWeight += Mathf.Max(0f, block.ApplyConfiguredMass());
                     initialBlockCount++;
                 }
@@ -115,6 +118,19 @@ public class LevelLoader : MonoBehaviour
 
         Debug.Log($"[LevelLoader] Tổng khối lượng ban đầu: {initialBlockCount} block, {initialTotalBlockWeight:F1} kg.");
         Debug.Log($"[LevelLoader] Load thành công Level {data.levelName} - Độ khó: [{CurrentDifficulty}] ({data.MaxBullets} đạn, {data.blocks.Count} objects)");
+    }
+
+    // 🔥 HÀM MỚI: DÙNG CHO NÚT PLAY AGAIN (LOAD LẠI ĐÚNG MÀN HIỆN TẠI)
+    public void ReloadCurrentLevel()
+    {
+        if (!string.IsNullOrEmpty(_currentLevelJson))
+        {
+            LoadLevelFromJSON(_currentLevelJson);
+        }
+        else
+        {
+            Debug.LogWarning("[LevelLoader] Chưa có Level nào được nạp trước đó để Replay!");
+        }
     }
 
     public void ClearCurrentLevel()
