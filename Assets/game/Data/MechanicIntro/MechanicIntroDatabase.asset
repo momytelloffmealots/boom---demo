@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3085146882326ac41838c6cbf17ed9e5, type: 3}
+  m_Name: MechanicIntroDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::MechanicIntroDatabase
+  mechanics:
+  - mechanicId: Weight
+    unlockLevel: 2
+    titleSprite: {fileID: 21300000, guid: 38c4635ab1c02d749a7148b71ff4b3d5, type: 3}
+    iconSprite: {fileID: 21300000, guid: d744f5116ddb22e489d6b7e4882566a9, type: 3}
+    descriptionSprite: {fileID: 21300000, guid: f91ceb9358fd64041b9c22093b1b7327, type: 3}
+  - mechanicId: StarBox
+    unlockLevel: 6
+    titleSprite: {fileID: 21300000, guid: 14a6d3194258f9049918ae64e6bb7b06, type: 3}
+    iconSprite: {fileID: 21300000, guid: 995054eda387c404fb2b39a8cadfff44, type: 3}
+    descriptionSprite: {fileID: 21300000, guid: 78071807459f85e48acb3012247e74e5, type: 3}
+  - mechanicId: Jar
+    unlockLevel: 11
+    titleSprite: {fileID: 21300000, guid: 9a93dc89c13dd0245afdc32f5ced345e, type: 3}
+    iconSprite: {fileID: 21300000, guid: 6888b4898624b7b4e9d79c3ad0b15d3d, type: 3}
+    descriptionSprite: {fileID: 21300000, guid: b330d20e40e24bd44a879ed1ff7a5a6a, type: 3}
+  - mechanicId: Stone
+    unlockLevel: 21
+    titleSprite: {fileID: 21300000, guid: 1deb653dbcf78044ea04b37443b43765, type: 3}
+    iconSprite: {fileID: 21300000, guid: 6782c1302b402bc4aa825fd6481f4c3a, type: 3}
+    descriptionSprite: {fileID: 21300000, guid: 46ea1817a9f89d843ab97e192ee772bb, type: 3}
+  - mechanicId: Ice
+    unlockLevel: 41
+    titleSprite: {fileID: 21300000, guid: 83b9bca7e28d6904d93b3d330b203ec0, type: 3}
+    iconSprite: {fileID: 21300000, guid: 1bb88f7f276002749a4d77e0466c21b8, type: 3}
+    descriptionSprite: {fileID: 21300000, guid: badfa71ef93ec55408faf598b6ccfc5b, type: 3}
