@@ -150,7 +150,7 @@ MonoBehaviour:
   lifeTime: 2.5
   timeAfterCollision: 1.5
   gravityDelay: 1
-  explosionForce: 8
+  explosionForce: 5
   explosionRadius: 2
   upliftModifier: 0.5
   forceMode: 1

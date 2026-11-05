@@ -73,7 +73,7 @@ MonoBehaviour:
   targetZoneInnerRadius: 0.243
   targetZoneOuterRadius: 0.81
   targetZoneSurfaceOffset: 0.006
-  targetZoneZOffset: -0.01
+  targetZoneZOffset: -0.001
   enableWinCheck: 1
   minWinWeight: 10
   maxWinWeight: 20
@@ -287,23 +287,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a23e6940672fc8a43a37285ad18090fb, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6989053
+      value: 0.7032332
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a23e6940672fc8a43a37285ad18090fb, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.10738449
+      value: -0.07391272
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a23e6940672fc8a43a37285ad18090fb, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.10738449
+      value: 0.07391272
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a23e6940672fc8a43a37285ad18090fb, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.6989053
+      value: 0.7032332
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a23e6940672fc8a43a37285ad18090fb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -17.47
+      value: -12
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a23e6940672fc8a43a37285ad18090fb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

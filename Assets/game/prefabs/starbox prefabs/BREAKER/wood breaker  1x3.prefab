@@ -9,16 +9,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 09c71f18824aa1947a6773f39ccec6c2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 09c71f18824aa1947a6773f39ccec6c2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 09c71f18824aa1947a6773f39ccec6c2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 09c71f18824aa1947a6773f39ccec6c2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.204422
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 09c71f18824aa1947a6773f39ccec6c2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.60000014
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 09c71f18824aa1947a6773f39ccec6c2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.025077
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 09c71f18824aa1947a6773f39ccec6c2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -50,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 09c71f18824aa1947a6773f39ccec6c2, type: 3}
       propertyPath: m_Name
-      value: WoodStar5Pieces(3x1)
+      value: wood breaker  1x3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
