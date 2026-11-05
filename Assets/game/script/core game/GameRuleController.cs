@@ -145,6 +145,15 @@ public class GameRuleController : MonoBehaviour
             }
 
             yield return StartCoroutine(view.FadeOutLoadingRoutine());
+
+            // =========================================================
+            // 🔥 MỚI: GỌI HIỂN THỊ BẢNG GIỚI THIỆU MECHANIC NGAY TẠI ĐÂY
+            // =========================================================
+            if (MechanicIntroController.Instance != null)
+            {
+                int currentLevel = PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1);
+                MechanicIntroController.Instance.TryShowForLevel(currentLevel);
+            }
         }
     }
 
@@ -165,6 +174,11 @@ public class GameRuleController : MonoBehaviour
     public bool CanPlayerShoot()
     {
         if (isGameOver || isWaitingForContinue) return false;
+
+        // 🔥 MỚI: Khóa bắn súng khi đang hiện bảng giới thiệu Mechanic mới
+        if (MechanicIntroController.Instance != null && MechanicIntroController.Instance.IsBlockingGameplay)
+            return false;
+
         if (view == null || view.playPanelController == null) return true;
 
         var panel = view.playPanelController;
