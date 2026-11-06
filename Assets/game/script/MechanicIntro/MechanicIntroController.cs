@@ -14,10 +14,18 @@ public class MechanicIntroController : MonoBehaviour
     [Tooltip("Nếu bật: Mỗi mechanic chỉ hiện đúng 1 lần duy nhất. Nếu tắt: Cứ vào đúng level đó là hiện.")]
     [SerializeField] private bool showOnlyOncePerMechanic = false;
 
+    [Tooltip("Thời gian tối thiểu (giây) phải chờ trước khi người chơi được phép bấm đóng popup.")]
+    [SerializeField] private float minDisplayTime = 1.5f; // 🔥 MỚI: Cài đặt thời gian chờ
+
     [Header("UI Cố Định & Thay Đổi (Kéo thả từ Panel)")]
     [SerializeField] private GameObject panelRoot;
     [SerializeField] private CanvasGroup canvasGroup;
+
+    [Tooltip("Nút bấm 'Tap to Continue' trên UI")]
     [SerializeField] private Button btnTapToContinue;
+
+    [Tooltip("Nút bấm tàng hình phủ kín màn hình (chính là Component Button gắn trên Panel_MechanicIntro)")]
+    [SerializeField] private Button btnBackgroundClose; // 🔥 MỚI: Nút bấm thứ 2 (Nền đen)
 
     [Header("Các thành phần thay đổi (Toàn bộ là Image)")]
     [SerializeField] private Image imgTitle;
@@ -26,12 +34,14 @@ public class MechanicIntroController : MonoBehaviour
 
     [Header("Hiệu ứng (Tùy chọn)")]
     [SerializeField] private Transform glowRaysTransform;
-    [SerializeField] private Transform descriptionBoxTransform;
+    [SerializeField] private Image glowRaysImage;
 
     private bool isShowing = false;
     private float blockShootUntilTime = 0f;
-    private bool wasGameplayActive = false;
+    private bool hasCheckedForCurrentSession = false;
     private Coroutine checkIntroRoutine;
+
+    private float timeIntroShown = 0f; // 🔥 MỚI: Biến lưu thời điểm popup hiện ra
 
     public bool IsBlockingGameplay => isShowing || Time.unscaledTime < blockShootUntilTime;
 
@@ -45,53 +55,66 @@ public class MechanicIntroController : MonoBehaviour
         Instance = this;
 
         if (panelRoot != null) panelRoot.SetActive(false);
+
+        // Gắn sự kiện đóng cho Nút 'Tap to Continue'
         if (btnTapToContinue != null)
         {
             btnTapToContinue.onClick.RemoveAllListeners();
-            btnTapToContinue.onClick.AddListener(CloseIntro);
+            btnTapToContinue.onClick.AddListener(TryCloseIntro);
         }
 
-        Debug.Log("[MechanicIntro] MechanicIntroController đã khởi tạo thành công!");
+        // Gắn sự kiện đóng cho Nền đen
+        if (btnBackgroundClose != null)
+        {
+            btnBackgroundClose.onClick.RemoveAllListeners();
+            btnBackgroundClose.onClick.AddListener(TryCloseIntro);
+        }
     }
 
     private void OnDestroy()
     {
         if (Instance == this) Instance = null;
         transform.DOKill();
+        if (glowRaysImage != null) glowRaysImage.DOKill();
     }
 
     private void Update()
     {
-        // 1. Xoay tia sáng khi bảng đang mở
+        // Xoay tia sáng
         if (isShowing && glowRaysTransform != null)
         {
             glowRaysTransform.Rotate(0f, 0f, -25f * Time.unscaledDeltaTime);
         }
 
-        // 2. Tự động bắt khoảnh khắc người chơi bấm Play bước vào màn chơi
+        // Bắt sự kiện vào Level
         if (GameRuleController.Instance != null &&
             GameRuleController.Instance.view != null &&
             GameRuleController.Instance.view.playPanelController != null)
         {
             var playCtrl = GameRuleController.Instance.view.playPanelController;
-            bool isGameplayActiveNow = playCtrl.gameplayRoot != null && playCtrl.gameplayRoot.activeInHierarchy;
+            bool isGameplayActive = playCtrl.gameplayRoot != null && playCtrl.gameplayRoot.activeInHierarchy;
+            bool isHomeActive = playCtrl.canvasUI != null && playCtrl.canvasUI.activeInHierarchy;
 
-            if (isGameplayActiveNow && !wasGameplayActive)
+            if (isGameplayActive && !isHomeActive)
             {
-                if (checkIntroRoutine != null) StopCoroutine(checkIntroRoutine);
-                checkIntroRoutine = StartCoroutine(WaitLoadingAndShowRoutine(playCtrl));
+                if (!hasCheckedForCurrentSession)
+                {
+                    hasCheckedForCurrentSession = true;
+                    if (checkIntroRoutine != null) StopCoroutine(checkIntroRoutine);
+                    checkIntroRoutine = StartCoroutine(WaitLoadingAndShowRoutine(playCtrl));
+                }
             }
-
-            wasGameplayActive = isGameplayActiveNow;
+            else
+            {
+                hasCheckedForCurrentSession = false;
+            }
         }
     }
 
     private IEnumerator WaitLoadingAndShowRoutine(PlayPanelController playCtrl)
     {
-        // Đợi 1 frame để LoadingView (nếu có) kịp bật lên
         yield return null;
 
-        // Chờ cho tới khi màn hình Loading mờ hết hoàn toàn
         if (playCtrl.loadingView != null)
         {
             CanvasGroup loadingGroup = playCtrl.loadingView.GetComponent<CanvasGroup>();
@@ -103,7 +126,6 @@ public class MechanicIntroController : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.1f);
-
         int currentLevel = PlayerPrefs.GetInt("CURRENT_LEVEL_INDEX", 1);
         TryShowForLevel(currentLevel);
     }
@@ -111,24 +133,13 @@ public class MechanicIntroController : MonoBehaviour
     public void TryShowForLevel(int levelIndex)
     {
         if (isShowing) return;
-
-        if (database == null)
-        {
-            Debug.LogWarning("[MechanicIntro] Chưa kéo MechanicIntroDatabase vào Inspector!");
-            return;
-        }
+        if (database == null) return;
 
         MechanicIntroEntry entry = database.GetEntryForLevel(levelIndex);
-        if (entry == null)
-        {
-            Debug.Log($"[MechanicIntro] Level {levelIndex} không có Mechanic nào mới.");
-            return;
-        }
+        if (entry == null) return;
 
         string prefKey = "MECHANIC_UNLOCKED_" + entry.mechanicId;
         int seenStatus = PlayerPrefs.GetInt(prefKey, 0);
-
-        Debug.Log($"[MechanicIntro] Tìm thấy Mechanic '{entry.mechanicId}' ở Level {levelIndex}. Đã xem: {seenStatus}");
 
         if (showOnlyOncePerMechanic && seenStatus == 1) return;
 
@@ -145,33 +156,16 @@ public class MechanicIntroController : MonoBehaviour
     {
         isShowing = true;
 
-        // Đẩy MechanicIntroManager xuống dưới cùng của Canvas_Overplay để đè lên mọi UI khác
+        // Lưu lại thời điểm popup bắt đầu hiển thị
+        timeIntroShown = Time.unscaledTime;
+
         transform.SetAsLastSibling();
 
-        if (panelRoot != null)
-        {
-            panelRoot.SetActive(true);
-            // Đảm bảo các group con bên trong (như Content_Group) cũng được bật
-            foreach (Transform child in panelRoot.transform)
-            {
-                child.gameObject.SetActive(true);
-            }
-        }
+        if (imgTitle != null && entry.titleSprite != null) imgTitle.sprite = entry.titleSprite;
+        if (imgDescription != null && entry.descriptionSprite != null) imgDescription.sprite = entry.descriptionSprite;
+        if (imgIcon != null && entry.iconSprite != null) imgIcon.sprite = entry.iconSprite;
 
-        if (imgTitle != null && entry.titleSprite != null)
-        {
-            imgTitle.sprite = entry.titleSprite;
-        }
-
-        if (imgDescription != null && entry.descriptionSprite != null)
-        {
-            imgDescription.sprite = entry.descriptionSprite;
-        }
-
-        if (imgIcon != null && entry.iconSprite != null)
-        {
-            imgIcon.sprite = entry.iconSprite;
-        }
+        if (panelRoot != null) panelRoot.SetActive(true);
 
         if (canvasGroup != null)
         {
@@ -180,27 +174,35 @@ public class MechanicIntroController : MonoBehaviour
             canvasGroup.DOFade(1f, 0.25f).SetUpdate(true);
         }
 
-        if (imgIcon != null)
+        if (glowRaysImage != null)
         {
-            imgIcon.transform.DOKill();
-            imgIcon.transform.localScale = Vector3.zero;
-            imgIcon.transform.DOScale(1f, 0.4f).SetEase(Ease.OutBack).SetUpdate(true);
-        }
-
-        if (descriptionBoxTransform != null)
-        {
-            descriptionBoxTransform.DOKill();
-            descriptionBoxTransform.localScale = Vector3.zero;
-            descriptionBoxTransform.DOScale(1f, 0.35f).SetDelay(0.1f).SetEase(Ease.OutBack).SetUpdate(true);
+            glowRaysImage.DOKill();
+            glowRaysImage.color = new Color(glowRaysImage.color.r, glowRaysImage.color.g, glowRaysImage.color.b, 1f);
+            glowRaysImage.DOFade(0.4f, 0.8f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine).SetUpdate(true);
         }
     }
 
-    public void CloseIntro()
+    // 🔥 MỚI: Hàm kiểm tra xem đã đủ thời gian chờ chưa mới gọi hàm CloseIntro thật
+    private void TryCloseIntro()
     {
         if (!isShowing) return;
 
+        // Tính toán xem từ lúc mở popup tới giờ đã qua bao nhiêu giây
+        if (Time.unscaledTime - timeIntroShown < minDisplayTime)
+        {
+            Debug.Log($"[MechanicIntro] Chưa được đóng! Phải đợi thêm {minDisplayTime - (Time.unscaledTime - timeIntroShown):F1} giây nữa.");
+            return;
+        }
+
+        CloseIntro();
+    }
+
+    private void CloseIntro()
+    {
         isShowing = false;
         blockShootUntilTime = Time.unscaledTime + 0.15f;
+
+        if (glowRaysImage != null) glowRaysImage.DOKill();
 
         if (canvasGroup != null)
         {
@@ -214,5 +216,17 @@ public class MechanicIntroController : MonoBehaviour
         {
             if (panelRoot != null) panelRoot.SetActive(false);
         }
+    }
+
+    [ContextMenu("Xóa Lịch Sử Đã Xem Mechanic (Giữ Nguyên Level)")]
+    public void ClearMechanicIntroPrefsOnly()
+    {
+        if (database == null) return;
+        foreach (var item in database.mechanics)
+        {
+            if (item != null) PlayerPrefs.DeleteKey("MECHANIC_UNLOCKED_" + item.mechanicId);
+        }
+        PlayerPrefs.Save();
+        Debug.Log("[MechanicIntro] Đã xóa trạng thái Đã Xem của tất cả Mechanic!");
     }
 }

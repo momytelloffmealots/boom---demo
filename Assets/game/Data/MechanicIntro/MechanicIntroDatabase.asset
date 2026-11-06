@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MechanicIntroDatabase
   mechanics:
   - mechanicId: Weight
-    unlockLevel: 2
+    unlockLevel: 1
     titleSprite: {fileID: 21300000, guid: 38c4635ab1c02d749a7148b71ff4b3d5, type: 3}
     iconSprite: {fileID: 21300000, guid: d744f5116ddb22e489d6b7e4882566a9, type: 3}
     descriptionSprite: {fileID: 21300000, guid: f91ceb9358fd64041b9c22093b1b7327, type: 3}
   - mechanicId: StarBox
-    unlockLevel: 6
+    unlockLevel: 2
     titleSprite: {fileID: 21300000, guid: 14a6d3194258f9049918ae64e6bb7b06, type: 3}
     iconSprite: {fileID: 21300000, guid: 995054eda387c404fb2b39a8cadfff44, type: 3}
     descriptionSprite: {fileID: 21300000, guid: 78071807459f85e48acb3012247e74e5, type: 3}
   - mechanicId: Jar
-    unlockLevel: 11
+    unlockLevel: 3
     titleSprite: {fileID: 21300000, guid: 9a93dc89c13dd0245afdc32f5ced345e, type: 3}
     iconSprite: {fileID: 21300000, guid: 6888b4898624b7b4e9d79c3ad0b15d3d, type: 3}
     descriptionSprite: {fileID: 21300000, guid: b330d20e40e24bd44a879ed1ff7a5a6a, type: 3}
