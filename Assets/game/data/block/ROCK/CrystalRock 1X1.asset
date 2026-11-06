@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BlockDataBase
   blockName: rock
   blockType: 0
-  mass: 5
+  mass: 4
   hitSound: {fileID: 8300000, guid: 214b4722df11baa4e8e5fecad83d2de1, type: 3}
   breakSound: {fileID: 8300000, guid: 360b131c973e76a4582fed405e76e3ae, type: 3}
   normalBehavior: 0
