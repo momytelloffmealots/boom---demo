@@ -46,9 +46,12 @@ public class SimpleCannon : MonoBehaviour
     private Vector3 originalBulletScale = Vector3.one;
     private bool isScaleSaved = false;
     private bool isAiming = false;
-    private int activeTouchIndex = -1; // -1: None, -2: Mouse/Pointer, >=0: Touch index
+    private int activeTouchIndex = -1; // -1: None, -2: Mouse, -3: Pointer, >=0: Touch index
     private Vector2 lastAimScreenPos;
+
     private readonly List<RaycastResult> uiRaycastResults = new List<RaycastResult>(16);
+    private PointerEventData cachedPointerData;
+    private readonly RaycastHit[] physicsHits = new RaycastHit[16];
 
     [Header("Debug - Kiem tra loi ket dan")]
     [SerializeField] private bool debugBlockedShots = true;
@@ -206,7 +209,6 @@ public class SimpleCannon : MonoBehaviour
 
     private void Update()
     {
-        // Nhấn F8 trên bàn phím để in ngay trạng thái súng ra Console
         if (Keyboard.current != null && Keyboard.current.f8Key.wasPressedThisFrame)
         {
             Debug.LogError("[Cannon-Debug F8] " + GetCannonDebugStatus(), this);
@@ -224,7 +226,7 @@ public class SimpleCannon : MonoBehaviour
         if (GameRuleController.Instance != null &&
             !GameRuleController.Instance.CanPlayerShoot())
         {
-            if (hasNewPress) LogBlockedPress("GameRuleController.CanPlayerShoot() == FALSE (Kiem tra GameRuleController!)");
+            if (hasNewPress) LogBlockedPress("GameRuleController.CanPlayerShoot() == FALSE");
             CancelAim();
             return;
         }
@@ -236,34 +238,61 @@ public class SimpleCannon : MonoBehaviour
             return;
         }
 
-        // Nếu đang ngắm mà có một cú click mới (do Auto Click bắn quá nhanh hoặc điểm chạm cũ bị treo)
-        if (isAiming && hasNewPress)
+        // 1. XỬ LÝ NHẢ ĐẠN CỦA LƯỢT NGẮM HIỆN TẠI TRƯỚC (Chống nuốt đạn khi spam click)
+        if (isAiming)
         {
-            CancelAim();
-            if (!IsPointerOverUI(newPressPos))
+            if (TryGetActiveAimState(out Vector2 currentPos, out bool isReleased))
             {
-                if (releasedSameFrame)
+                lastAimScreenPos = currentPos;
+                if (isReleased)
                 {
-                    Shoot(newPressPos);
+                    CancelAim();
+                    // Chỉ bắn nếu vị trí nhả chuột không nằm đè lên UI/Panel vừa bật
+                    if (!IsPointerOverUI(currentPos))
+                    {
+                        Shoot(currentPos);
+                    }
+                    else
+                    {
+                        LogBlockedPress("Nha chuot tren UI: " + lastBlockingUIName);
+                    }
                 }
-                else
+                else if (!hasNewPress)
                 {
-                    isAiming = true;
-                    activeTouchIndex = newTouchIndex;
-                    lastAimScreenPos = newPressPos;
-                    Aim(newPressPos);
+                    Aim(currentPos);
+                    return;
                 }
             }
-            return;
+            else
+            {
+                Vector2 shootPos = lastAimScreenPos;
+                CancelAim();
+                if (!IsPointerOverUI(shootPos))
+                {
+                    Shoot(shootPos);
+                }
+            }
         }
 
-        if (!isAiming)
+        // 2. XỬ LÝ CÚ CLICK MỚI (Nếu có)
+        if (hasNewPress)
         {
-            if (!hasNewPress) return;
+            // Nếu đang ngắm dở mà có cú click mới đè lên -> Giải phóng lượt ngắm cũ trước
+            if (isAiming)
+            {
+                CancelAim();
+            }
 
             if (IsPointerOverUI(newPressPos))
             {
-                LogBlockedPress("UI dang nhan input: " + lastBlockingUIName);
+                LogBlockedPress("UI dang chan input: " + lastBlockingUIName);
+                return;
+            }
+
+            // Nếu click cực nhanh (nhấn và nhả trong cùng 1 frame) -> Bắn ngay lập tức, không giữ khóa isAiming
+            if (releasedSameFrame)
+            {
+                Shoot(newPressPos);
                 return;
             }
 
@@ -271,44 +300,16 @@ public class SimpleCannon : MonoBehaviour
             activeTouchIndex = newTouchIndex;
             lastAimScreenPos = newPressPos;
             Aim(newPressPos);
-
-            // Click cực nhanh (Auto Click) nhấn và nhả trong cùng 1 frame
-            if (releasedSameFrame)
-            {
-                CancelAim();
-                Shoot(newPressPos);
-            }
-            return;
-        }
-
-        // Đang trong trạng thái giữ ngắm (isAiming == true)
-        if (TryGetActiveAimState(out Vector2 currentPos, out bool isReleased))
-        {
-            lastAimScreenPos = currentPos;
-            if (isReleased)
-            {
-                CancelAim();
-                Shoot(currentPos);
-                return;
-            }
-            Aim(currentPos);
-        }
-        else
-        {
-            // Điểm chạm không còn hợp lệ -> Bắn ngay tại vị trí ngắm cuối cùng và giải phóng khóa
-            Vector2 shootPos = lastAimScreenPos;
-            CancelAim();
-            Shoot(shootPos);
         }
     }
 
-    // Quét toàn bộ các kênh Input (Tất cả ngón tay Touchscreen + Mouse + Pointer) để chống kẹt touch[0] trên Simulator
     private bool TryGetNewPress(out Vector2 screenPos, out int touchIndex, out bool releasedSameFrame)
     {
         screenPos = Vector2.zero;
         touchIndex = -1;
         releasedSameFrame = false;
 
+        // Ưu tiên Touchscreen nếu có điểm chạm thật/Simulator
         if (Touchscreen.current != null)
         {
             var touches = Touchscreen.current.touches;
@@ -337,10 +338,11 @@ public class SimpleCannon : MonoBehaviour
             return true;
         }
 
-        if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
+        if (Touchscreen.current == null && Mouse.current == null &&
+            Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
         {
             screenPos = Pointer.current.position.ReadValue();
-            touchIndex = -2;
+            touchIndex = -3;
             releasedSameFrame = Pointer.current.press.wasReleasedThisFrame || !Pointer.current.press.isPressed;
             return true;
         }
@@ -353,6 +355,7 @@ public class SimpleCannon : MonoBehaviour
         screenPos = lastAimScreenPos;
         isReleased = true;
 
+        // 1. Đang theo dõi ngón tay trên Touchscreen
         if (activeTouchIndex >= 0 && Touchscreen.current != null)
         {
             var touches = Touchscreen.current.touches;
@@ -371,14 +374,16 @@ public class SimpleCannon : MonoBehaviour
             return false;
         }
 
-        if (Mouse.current != null && Mouse.current.leftButton.isPressed)
+        // 2. Đang theo dõi Chuột (Mouse) - Đọc trực tiếp trạng thái Mouse kể cả ở frame vừa nhả nút
+        if (activeTouchIndex == -2 && Mouse.current != null)
         {
             screenPos = Mouse.current.position.ReadValue();
-            isReleased = Mouse.current.leftButton.wasReleasedThisFrame;
+            isReleased = Mouse.current.leftButton.wasReleasedThisFrame || !Mouse.current.leftButton.isPressed;
             return true;
         }
 
-        if (Pointer.current != null)
+        // 3. Đang theo dõi Pointer chung
+        if (activeTouchIndex == -3 && Pointer.current != null)
         {
             screenPos = Pointer.current.position.ReadValue();
             isReleased = Pointer.current.press.wasReleasedThisFrame || !Pointer.current.press.isPressed;
@@ -413,27 +418,44 @@ public class SimpleCannon : MonoBehaviour
         activeTouchIndex = -1;
     }
 
+    // Bắn tia ngắm bỏ qua Trigger, súng và các viên đạn đang bay giữa không trung (chống lệch/kẹt khi spam click)
+    private Vector3 GetAimTargetPoint(Ray ray)
+    {
+        int hitCount = Physics.RaycastNonAlloc(ray, physicsHits, raycastDistance, ~0, QueryTriggerInteraction.Ignore);
+        float closestDist = float.MaxValue;
+        Vector3 bestPoint = ray.GetPoint(raycastDistance);
+
+        for (int i = 0; i < hitCount; i++)
+        {
+            RaycastHit hit = physicsHits[i];
+            if (hit.collider == null) continue;
+
+            // Bỏ qua chính cây súng và các viên đạn đang bay
+            if (hit.collider.transform.IsChildOf(transform)) continue;
+            if (hit.collider.TryGetComponent<Bullet>(out _)) continue;
+
+            if (hit.distance < closestDist)
+            {
+                closestDist = hit.distance;
+                bestPoint = hit.point;
+            }
+        }
+
+        return bestPoint;
+    }
+
     private void Aim(Vector2 screenPos)
     {
         Camera mainCam = Camera.main;
-
-        if (mainCam == null || firePoint == null)
-            return;
+        if (mainCam == null || firePoint == null) return;
 
         Ray ray = mainCam.ScreenPointToRay(screenPos);
+        Vector3 targetPoint = GetAimTargetPoint(ray);
 
-        Vector3 targetPoint =
-            Physics.Raycast(ray, out RaycastHit hitInfo, raycastDistance)
-            ? hitInfo.point
-            : ray.GetPoint(raycastDistance);
-
-        Vector3 cannonLookDirection =
-            (targetPoint - transform.position).normalized;
-
+        Vector3 cannonLookDirection = (targetPoint - transform.position).normalized;
         if (cannonLookDirection != Vector3.zero)
         {
-            transform.rotation =
-                Quaternion.LookRotation(cannonLookDirection);
+            transform.rotation = Quaternion.LookRotation(cannonLookDirection);
         }
     }
 
@@ -441,6 +463,9 @@ public class SimpleCannon : MonoBehaviour
     {
         if (Time.timeScale <= 0f ||
             (currentBullets <= 0 && !isInfiniteAmmoActive && !isInfiniteAmmoArmed))
+            return;
+
+        if (GameRuleController.Instance != null && !GameRuleController.Instance.CanPlayerShoot())
             return;
 
         Camera mainCam = Camera.main;
@@ -452,8 +477,7 @@ public class SimpleCannon : MonoBehaviour
         }
 
         Ray ray = mainCam.ScreenPointToRay(clickPos);
-        Vector3 targetPoint = Physics.Raycast(ray, out RaycastHit hitInfo, raycastDistance)
-            ? hitInfo.point : ray.GetPoint(raycastDistance);
+        Vector3 targetPoint = GetAimTargetPoint(ray);
 
         Vector3 cannonDirection = (targetPoint - transform.position).normalized;
         if (cannonDirection.sqrMagnitude > 0.0001f)
@@ -590,18 +614,20 @@ public class SimpleCannon : MonoBehaviour
             OnBoosterConsumed?.Invoke(2);
     }
 
+    // =========================================================================
+    // KIỂM TRA CHẶN UI (CHẶN BUTTON, PANEL, POPUP, IMAGE NHƯNG BỎ QUA CONTAINER RỖNG)
+    // =========================================================================
     private bool IsPointerOverUI(Vector2 position)
     {
         lastBlockingUIName = "";
         if (EventSystem.current == null) return false;
 
-        PointerEventData pointerData = new PointerEventData(EventSystem.current)
-        {
-            position = position
-        };
+        if (cachedPointerData == null)
+            cachedPointerData = new PointerEventData(EventSystem.current);
+        cachedPointerData.position = position;
 
         uiRaycastResults.Clear();
-        EventSystem.current.RaycastAll(pointerData, uiRaycastResults);
+        EventSystem.current.RaycastAll(cachedPointerData, uiRaycastResults);
 
         for (int i = 0; i < uiRaycastResults.Count; i++)
         {
@@ -609,16 +635,23 @@ public class SimpleCannon : MonoBehaviour
             if (!(result.module is GraphicRaycaster)) continue;
 
             GameObject hit = result.gameObject;
-            if (hit == null) continue;
+            if (hit == null || !hit.activeInHierarchy) continue;
 
+            // 1. Bỏ qua nếu nằm trong CanvasGroup đang ẩn (alpha <= 0.05) hoặc tắt blocksRaycasts
+            if (IsHiddenByCanvasGroup(hit.transform)) continue;
+
+            // 2. Chặn tất cả các thành phần tương tác (Button, Toggle, Slider...)
             Selectable selectable = hit.GetComponentInParent<Selectable>();
             if (selectable != null && selectable.IsActive() && selectable.IsInteractable())
             {
-                lastBlockingUIName = selectable.gameObject.name;
-                return true;
+                if (!IsHiddenByCanvasGroup(selectable.transform))
+                {
+                    lastBlockingUIName = selectable.gameObject.name;
+                    return true;
+                }
             }
 
-            // Chỉ kiểm tra trực tiếp trên đối tượng bị chạm, tránh dò ngược lên các tấm Panel nền toàn màn hình
+            // 3. Chặn các đối tượng gắn trực tiếp Event Trigger / Pointer Handler
             if (hit.GetComponent<IPointerClickHandler>() != null ||
                 hit.GetComponent<IPointerDownHandler>() != null ||
                 hit.GetComponent<IDragHandler>() != null ||
@@ -627,9 +660,50 @@ public class SimpleCannon : MonoBehaviour
                 lastBlockingUIName = hit.name;
                 return true;
             }
+
+            // 4. Chặn các Panel, Popup, Image hiển thị trên màn hình
+            if (hit.TryGetComponent<Graphic>(out Graphic graphic) && graphic.raycastTarget)
+            {
+                float effectiveAlpha = graphic.color.a * graphic.canvasRenderer.GetAlpha();
+
+                // Bỏ qua các tấm Image trong suốt (Alpha ~ 0) dùng làm khung chứa layout
+                if (effectiveAlpha <= 0.02f) continue;
+
+                // Bỏ qua các container gốc bọc HUD trong màn chơi nếu lỡ bật Image nền
+                if (IsHudRootContainer(hit)) continue;
+
+                lastBlockingUIName = hit.name;
+                return true;
+            }
         }
 
         return false;
+    }
+
+    private bool IsHiddenByCanvasGroup(Transform t)
+    {
+        Transform current = t;
+        while (current != null)
+        {
+            if (current.TryGetComponent<CanvasGroup>(out CanvasGroup cg))
+            {
+                if (!cg.blocksRaycasts || cg.alpha <= 0.05f)
+                    return true;
+                if (cg.ignoreParentGroups)
+                    break;
+            }
+            current = current.parent;
+        }
+        return false;
+    }
+
+    private bool IsHudRootContainer(GameObject obj)
+    {
+        string n = obj.name;
+        return n == "Canvas_InGame" ||
+               n == "Panel_Hub" ||
+               n == "Panel_BulletCount" ||
+               n == "Panel_Bullet";
     }
 
     public void AddBullets(int amount)
