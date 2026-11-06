@@ -9,15 +9,8 @@ public class SettingController : MonoBehaviour
 
     [Header("Music")]
     public Button btnMusic;
-
-    // Background xanh lá khi ON
     public GameObject musicOn;
-
-    // Background xanh dương khi OFF
     public GameObject musicOff;
-
-    // Icon Music
-    public Image musicIcon;
 
 
     // =====================================================
@@ -26,15 +19,8 @@ public class SettingController : MonoBehaviour
 
     [Header("Sound")]
     public Button btnSound;
-
-    // Background xanh lá khi ON
     public GameObject soundOn;
-
-    // Background xanh dương khi OFF
     public GameObject soundOff;
-
-    // Icon Sound
-    public Image soundIcon;
 
 
     // =====================================================
@@ -43,28 +29,8 @@ public class SettingController : MonoBehaviour
 
     [Header("Vibration")]
     public Button btnVibration;
-
-    // Background xanh lá khi ON
     public GameObject vibrationOn;
-
-    // Background xanh dương khi OFF
     public GameObject vibrationOff;
-
-    // Icon Vibration
-    public Image vibrationIcon;
-
-
-    // =====================================================
-    // ICON COLOR
-    // =====================================================
-
-    [Header("Icon Colors")]
-
-    // ON = icon màu trắng
-    public Color iconOnColor = Color.white;
-
-    // OFF = icon màu xanh dương đậm
-    public Color iconOffColor;
 
 
     // =====================================================
@@ -76,36 +42,13 @@ public class SettingController : MonoBehaviour
     private bool isVibrationOn;
 
 
-    // Lưu trạng thái lần trước
-    // Dùng để phát hiện setting trong game đã thay đổi
-    //private int lastMusicValue;
-    //private int lastSoundValue;
-    //private int lastVibrationValue;
-
-
     private void Start()
     {
-        // =================================================
-        // GẮN SỰ KIỆN BUTTON BẰNG CODE
-        // Không cần dùng OnClick trong Inspector
-        // =================================================
-
         btnMusic.onClick.AddListener(ToggleMusic);
         btnSound.onClick.AddListener(ToggleSound);
         btnVibration.onClick.AddListener(ToggleVibration);
 
-
-        // =================================================
-        // LOAD SETTING ĐÃ LƯU
-        // =================================================
-
         LoadSettings();
-
-
-        // =================================================
-        // TỰ GẮN SOUND CLICK CHO CÁC BUTTON
-        // Btn_Sound được bỏ qua vì xử lý riêng
-        // =================================================
 
         if (AudioManager.Instance != null)
         {
@@ -114,34 +57,14 @@ public class SettingController : MonoBehaviour
     }
 
 
-    //private void Update()
-    //{
-    //    // =================================================
-    //    // KIỂM TRA SETTING CÓ BỊ THAY ĐỔI TỪ NƠI KHÁC KHÔNG
-    //    //
-    //    // Ví dụ:
-    //    // Setting trong game thay đổi MusicOn
-    //    // thì Setting ngoài sảnh tự cập nhật theo.
-    //    // =================================================
-
-    //    int musicValue =
-    //        PlayerPrefs.GetInt("MusicOn", 1);
-
-    //    int soundValue =
-    //        PlayerPrefs.GetInt("SoundOn", 1);
-
-    //    int vibrationValue =
-    //        PlayerPrefs.GetInt("VibrationOn", 1);
-
-
-    //    // Nếu có bất kỳ setting nào thay đổi
-    //    if (musicValue != lastMusicValue ||
-    //        soundValue != lastSoundValue ||
-    //        vibrationValue != lastVibrationValue)
-    //    {
-    //        LoadSettings();
-    //    }
-    //}
+    private void OnEnable()
+    {
+        // Khi mở lại Setting, cập nhật UI theo trạng thái mới nhất
+        if (Application.isPlaying)
+        {
+            LoadSettings();
+        }
+    }
 
 
     // =====================================================
@@ -150,7 +73,6 @@ public class SettingController : MonoBehaviour
 
     public void LoadSettings()
     {
-        // Nếu chưa có dữ liệu thì mặc định ON
         isMusicOn =
             PlayerPrefs.GetInt("MusicOn", 1) == 1;
 
@@ -160,14 +82,10 @@ public class SettingController : MonoBehaviour
         isVibrationOn =
             PlayerPrefs.GetInt("VibrationOn", 1) == 1;
 
-
-        // Cập nhật UI
         UpdateMusicUI();
         UpdateSoundUI();
         UpdateVibrationUI();
 
-
-        // Áp dụng trạng thái thật
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.SetMusic(isMusicOn);
@@ -176,158 +94,107 @@ public class SettingController : MonoBehaviour
     }
 
 
-
     // =====================================================
     // MUSIC
     // =====================================================
 
     private void ToggleMusic()
-{
-    // Đảo trạng thái
-    isMusicOn = !isMusicOn;
-
-    // Lưu trạng thái
-    PlayerPrefs.SetInt(
-        "MusicOn",
-        isMusicOn ? 1 : 0
-    );
-
-    PlayerPrefs.Save();
-
-    // Cập nhật UI
-    UpdateMusicUI();
-
-    // Bật / tắt nhạc
-    if (AudioManager.Instance != null)
     {
-        AudioManager.Instance.SetMusic(isMusicOn);
+        isMusicOn = !isMusicOn;
+
+        PlayerPrefs.SetInt(
+            "MusicOn",
+            isMusicOn ? 1 : 0
+        );
+
+        PlayerPrefs.Save();
+
+        UpdateMusicUI();
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetMusic(isMusicOn);
+        }
     }
-}
 
 
-private void UpdateMusicUI()
+    private void UpdateMusicUI()
     {
-        // Music ON
-        // -> nền xanh lá
+        // ON: hiện ảnh nốt nhạc bình thường
         musicOn.SetActive(isMusicOn);
 
-        // Music OFF
-        // -> nền xanh dương
+        // OFF: hiện ảnh nốt nhạc có gạch chéo
         musicOff.SetActive(!isMusicOn);
-
-
-        // ON  -> icon trắng
-        // OFF -> icon xanh đậm
-        musicIcon.color =
-            isMusicOn
-                ? iconOnColor
-                : iconOffColor;
     }
 
 
-// =====================================================
-// SOUND
-// =====================================================
+    // =====================================================
+    // SOUND
+    // =====================================================
 
-private void ToggleSound()
-{
-    // Đảo trạng thái
-    isSoundOn = !isSoundOn;
-
-    // Lưu
-    PlayerPrefs.SetInt(
-        "SoundOn",
-        isSoundOn ? 1 : 0
-    );
-
-    PlayerPrefs.Save();
-
-    // Cập nhật UI
-    UpdateSoundUI();
-
-
-    if (AudioManager.Instance != null)
+    private void ToggleSound()
     {
-        // Nếu vừa bật Sound
-        if (isSoundOn)
-        {
-            // Bật Sound trước
-            AudioManager.Instance.SetSound(true);
+        isSoundOn = !isSoundOn;
 
-            // Bấm bật Sound thì có tiếng click
-            AudioManager.Instance.PlayButtonClick();
-        }
-        else
+        PlayerPrefs.SetInt(
+            "SoundOn",
+            isSoundOn ? 1 : 0
+        );
+
+        PlayerPrefs.Save();
+
+        UpdateSoundUI();
+
+        if (AudioManager.Instance != null)
         {
-            // Tắt Sound
-            // Bấm tắt sẽ không kêu
-            AudioManager.Instance.SetSound(false);
+            if (isSoundOn)
+            {
+                AudioManager.Instance.SetSound(true);
+                AudioManager.Instance.PlayButtonClick();
+            }
+            else
+            {
+                AudioManager.Instance.SetSound(false);
+            }
         }
     }
-}
 
 
-private void UpdateSoundUI()
+    private void UpdateSoundUI()
     {
-        // ON -> xanh lá
         soundOn.SetActive(isSoundOn);
-
-        // OFF -> xanh dương
         soundOff.SetActive(!isSoundOn);
-
-
-        // Đổi màu icon
-        soundIcon.color =
-            isSoundOn
-                ? iconOnColor
-                : iconOffColor;
     }
 
 
-// =====================================================
-// VIBRATION
-// =====================================================
+    // =====================================================
+    // VIBRATION
+    // =====================================================
 
-private void ToggleVibration()
-{
-    // Đảo trạng thái
-    isVibrationOn = !isVibrationOn;
-
-    // Lưu
-    PlayerPrefs.SetInt(
-        "VibrationOn",
-        isVibrationOn ? 1 : 0
-    );
-
-    PlayerPrefs.Save();
-
-    // Cập nhật UI
-    UpdateVibrationUI();
-
-
-    // Nếu vừa bật thì rung thử
-    if (isVibrationOn)
+    private void ToggleVibration()
     {
-        Vibrate();
+        isVibrationOn = !isVibrationOn;
+
+        PlayerPrefs.SetInt(
+            "VibrationOn",
+            isVibrationOn ? 1 : 0
+        );
+
+        PlayerPrefs.Save();
+
+        UpdateVibrationUI();
+
+        if (isVibrationOn)
+        {
+            Vibrate();
+        }
     }
-}
 
 
-
-private void UpdateVibrationUI()
+    private void UpdateVibrationUI()
     {
-        // ON -> xanh lá
         vibrationOn.SetActive(isVibrationOn);
-
-        // OFF -> xanh dương
         vibrationOff.SetActive(!isVibrationOn);
-
-
-        // Đổi màu icon
-        vibrationIcon.color =
-            isVibrationOn
-                ? iconOnColor
-                : iconOffColor;
     }
 
 
@@ -337,20 +204,14 @@ private void UpdateVibrationUI()
 
     public void Vibrate()
     {
-        // Đọc trực tiếp PlayerPrefs
-        // để cả Setting trong game và ngoài sảnh dùng chung
         bool vibrationEnabled =
             PlayerPrefs.GetInt("VibrationOn", 1) == 1;
 
-
-        // OFF -> không rung
         if (!vibrationEnabled)
         {
             return;
         }
 
-
-        // Chỉ chạy khi build Android / iOS
 #if UNITY_ANDROID || UNITY_IOS
         Handheld.Vibrate();
 #endif
@@ -380,7 +241,7 @@ private void UpdateVibrationUI()
 
 
     // =====================================================
-    // XÓA LISTENER KHI OBJECT BỊ HỦY
+    // XÓA LISTENER
     // =====================================================
 
     private void OnDestroy()
@@ -397,7 +258,7 @@ private void UpdateVibrationUI()
 
         if (btnVibration != null)
         {
-        btnVibration.onClick.RemoveListener(ToggleVibration);
+            btnVibration.onClick.RemoveListener(ToggleVibration);
         }
     }
 }
