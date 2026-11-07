@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceCube
       objectReference: {fileID: 0}
+    - target: {fileID: 3010583569348601377, guid: cb789bb9abeb2a7419df58ba8aee9fdc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -227,6 +231,10 @@ PrefabInstance:
     - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
       propertyPath: m_Name
       value: Orange JamJar(1x2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -285,6 +293,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceCube
       objectReference: {fileID: 0}
+    - target: {fileID: 3010583569348601377, guid: cb789bb9abeb2a7419df58ba8aee9fdc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -341,6 +353,10 @@ PrefabInstance:
     - target: {fileID: 4464490040446653603, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
       propertyPath: m_Name
       value: IceCube(2x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464490040446653603, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -511,6 +527,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange JamJar(1x2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -527,6 +547,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -625,6 +649,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceCube(2x1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4464490040446653603, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -682,6 +710,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceCube
       objectReference: {fileID: 0}
+    - target: {fileID: 3010583569348601377, guid: cb789bb9abeb2a7419df58ba8aee9fdc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -698,6 +730,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -756,6 +792,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceCube(3x1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.75
@@ -812,6 +852,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1023,6 +1067,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange JamJar(1x2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1039,6 +1087,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1137,6 +1189,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange JamJar(1x2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1194,6 +1250,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceCube
       objectReference: {fileID: 0}
+    - target: {fileID: 3010583569348601377, guid: cb789bb9abeb2a7419df58ba8aee9fdc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1210,6 +1270,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1307,6 +1371,10 @@ PrefabInstance:
     - target: {fileID: 4464490040446653603, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
       propertyPath: m_Name
       value: IceCube(2x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464490040446653603, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1422,6 +1490,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange JamJar(1x2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1478,6 +1550,10 @@ PrefabInstance:
     - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
       propertyPath: m_Name
       value: Orange JamJar(1x2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1536,6 +1612,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange JamJar(1x2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1552,6 +1632,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1649,6 +1733,10 @@ PrefabInstance:
     - target: {fileID: 3010583569348601377, guid: cb789bb9abeb2a7419df58ba8aee9fdc, type: 3}
       propertyPath: m_Name
       value: IceCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 3010583569348601377, guid: cb789bb9abeb2a7419df58ba8aee9fdc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1819,6 +1907,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange JamJar(1x2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1835,6 +1927,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1932,6 +2028,10 @@ PrefabInstance:
     - target: {fileID: 8119514243004943388, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
       propertyPath: m_Name
       value: orange jamjar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8119514243004943388, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2127,6 +2227,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange JamJar(1x2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2183,6 +2287,10 @@ PrefabInstance:
     - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
       propertyPath: m_Name
       value: Orange JamJar(1x2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2241,6 +2349,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange JamJar(1x2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2298,6 +2410,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceCube(2x1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4464490040446653603, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2314,6 +2430,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2412,6 +2532,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange JamJar(1x2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2468,6 +2592,10 @@ PrefabInstance:
     - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
       propertyPath: m_Name
       value: Orange JamJar(1x2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2526,11 +2654,69 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceCube
       objectReference: {fileID: 0}
+    - target: {fileID: 3010583569348601377, guid: cb789bb9abeb2a7419df58ba8aee9fdc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb789bb9abeb2a7419df58ba8aee9fdc, type: 3}
+--- !u!1 &1376690943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4790218042847264348, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+  m_PrefabInstance: {fileID: 1968838961}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1376690945
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376690943}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4193127787591963418, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+--- !u!54 &1376690946
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376690943}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1394566420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2582,6 +2768,10 @@ PrefabInstance:
     - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
       propertyPath: m_Name
       value: Orange JamJar(1x2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2640,6 +2830,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange JamJar(1x2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2656,6 +2850,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2713,6 +2911,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2811,6 +3013,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange JamJar(1x2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2827,6 +3033,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2925,11 +3135,69 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange JamJar(1x2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+--- !u!1 &1660488835 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4314035332298680818, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+  m_PrefabInstance: {fileID: 1968838961}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1660488837
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660488835}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 107012300361400846, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+--- !u!54 &1660488838
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660488835}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1664980352
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2982,6 +3250,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: orange jamjar
       objectReference: {fileID: 0}
+    - target: {fileID: 8119514243004943388, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2998,6 +3270,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3095,6 +3371,10 @@ PrefabInstance:
     - target: {fileID: 8119514243004943388, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
       propertyPath: m_Name
       value: orange jamjar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8119514243004943388, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3280,6 +3560,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceCube(2x1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4464490040446653603, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3337,6 +3621,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: orange jamjar
       objectReference: {fileID: 0}
+    - target: {fileID: 8119514243004943388, guid: 4a4fc763a82ffe448a9316e83f37b8be, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3353,6 +3641,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3399,6 +3691,60 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+--- !u!1 &1826476299 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -40719978043723172, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+  m_PrefabInstance: {fileID: 1968838961}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1826476301
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826476299}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5188132407906856951, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+--- !u!54 &1826476302
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826476299}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1953256392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3410,6 +3756,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3456,6 +3806,103 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+--- !u!1001 &1968838961
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.2071929
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.14606842
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      propertyPath: m_Name
+      value: IceCylinder4Pieces
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4314035332298680818, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1660488838}
+    - targetCorrespondingSourceObject: {fileID: 4314035332298680818, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1660488837}
+    - targetCorrespondingSourceObject: {fileID: 4790218042847264348, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1376690946}
+    - targetCorrespondingSourceObject: {fileID: 4790218042847264348, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1376690945}
+    - targetCorrespondingSourceObject: {fileID: -8283874888113903539, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2008592043}
+    - targetCorrespondingSourceObject: {fileID: -8283874888113903539, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2008592042}
+    - targetCorrespondingSourceObject: {fileID: -40719978043723172, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1826476302}
+    - targetCorrespondingSourceObject: {fileID: -40719978043723172, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1826476301}
+  m_SourcePrefab: {fileID: 100100000, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
 --- !u!1001 &1999474053
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3508,11 +3955,69 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange JamJar(1x2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+--- !u!1 &2008592040 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8283874888113903539, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+  m_PrefabInstance: {fileID: 1968838961}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &2008592042
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008592040}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8795374344897308141, guid: ebe7951bd88ea2f4fa433628787eb9d0, type: 3}
+--- !u!54 &2008592043
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008592040}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &2049599250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3564,6 +4069,10 @@ PrefabInstance:
     - target: {fileID: 3010583569348601377, guid: cb789bb9abeb2a7419df58ba8aee9fdc, type: 3}
       propertyPath: m_Name
       value: IceCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 3010583569348601377, guid: cb789bb9abeb2a7419df58ba8aee9fdc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3622,6 +4131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange JamJar(1x2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3679,6 +4192,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceCube
       objectReference: {fileID: 0}
+    - target: {fileID: 3010583569348601377, guid: cb789bb9abeb2a7419df58ba8aee9fdc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3695,6 +4212,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3793,6 +4314,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange JamJar(1x2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8635342522146167664, guid: c4e9045c461e4b0448bcdde28a239641, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3809,6 +4334,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3907,6 +4436,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceCube(2x1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4464490040446653603, guid: a14c85444765d17448ff9f30a370bc00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3923,6 +4456,10 @@ PrefabInstance:
     - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_Name
       value: IceCube(3x1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194337418954778946, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538105963634095096, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3969,6 +4506,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24605a2cf0ca5ff45aaf023a2639e88b, type: 3}
+--- !u!1001 &93516689354085789
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8358720367298702667, guid: af9f7c6df17621644b356728c9379833, type: 3}
+      propertyPath: m_Name
+      value: IceCylinder
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172692589501560817, guid: af9f7c6df17621644b356728c9379833, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172692589501560817, guid: af9f7c6df17621644b356728c9379833, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172692589501560817, guid: af9f7c6df17621644b356728c9379833, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172692589501560817, guid: af9f7c6df17621644b356728c9379833, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172692589501560817, guid: af9f7c6df17621644b356728c9379833, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172692589501560817, guid: af9f7c6df17621644b356728c9379833, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172692589501560817, guid: af9f7c6df17621644b356728c9379833, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172692589501560817, guid: af9f7c6df17621644b356728c9379833, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172692589501560817, guid: af9f7c6df17621644b356728c9379833, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172692589501560817, guid: af9f7c6df17621644b356728c9379833, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9f7c6df17621644b356728c9379833, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4035,3 +4629,5 @@ SceneRoots:
   - {fileID: 1000074092}
   - {fileID: 1696375448}
   - {fileID: 1816026823}
+  - {fileID: 93516689354085789}
+  - {fileID: 1968838961}

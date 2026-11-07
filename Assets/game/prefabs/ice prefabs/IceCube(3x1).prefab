@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceCube(3x1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 03d90c77ba04b4043a825d118c5fb1b9, type: 3}
+      propertyPath: m_TagString
+      value: block
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
